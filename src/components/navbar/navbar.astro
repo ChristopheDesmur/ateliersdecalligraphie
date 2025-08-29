@@ -1,0 +1,150 @@
+---
+import Container from "@/components/container.astro";
+import {
+  Astronav,
+  MenuItems,
+  MenuIcon,
+  Dropdown,
+  DropdownItems,
+  DropdownSubmenu
+} from "astro-navbar";
+
+let mobileMenuOpen = false;
+
+const menuitems = [
+  {
+    title: "Ateliers de groupe",
+    path: "#",
+    children: [
+      { title: "Écoles primaires", path: "/blog/ecoles-primaires" },
+      { title: "Lycées", path: "/blog/formats-atelier-pour-les-ecoles-primaires" },
+    ],
+  },
+  { title: "Cours individuels à domicile", path: "/blog/cours-individuel-a-domicile" },
+  { title: "Cours de chinois", path: "/blog/cours-de-chinois" },
+  { title: "Galerie", path: "/galerie" },
+  {
+    title: "Traductions",
+    path: "#",
+    children: [
+      {
+        title: "Lu Yin",
+        path: "#",
+        children: [
+          { title: "Biographie", path: "/blog/etude-de-vie-de-lu-yin-de-oeuvre" },
+          { title: "Les influences littéraires étrangères…", path: "/blog/influences-litteraires-etrangeres-loeuvre-de-lu-yin" },
+          { title: "Lu Yin dans le monde littéraire chinois…", path: "/blog/lu-yin-monde-litteraire-chinois-annees-1920-1930" },
+          {
+            title: "Textes",
+            path: "#",
+            children: [
+              { title: "Père (nouvelle)", path: "/blog/pere-nouvelle" },
+              { title: "Le 19 septembre", path: "/blog/le-19-septembre" },
+              { title: "Le 20 septembre", path: "/blog/le-20-septembre" },
+              { title: "Le 22 septembre", path: "/blog/le-22-septembre" },
+              { title: "Le 28 septembre", path: "/blog/le-28-septembre" },
+              { title: "Le 5 octobre", path: "/blog/le-5-octobre" },
+              { title: "Le 6 octobre", path: "/blog/le-6-octobre" },
+            ],
+          },
+        ],
+      },
+      {
+        title: "Zeng Jixin",
+        path: "#",
+        children: [
+          { title: "Biographie", path: "/blog/zeng-jixin" },
+          { title: "La guerre entre les rats et les hommes", path: "/blog/zeng-jixin-la-guerre-entre-les-rats-et-les-hommes-nouvelle" },
+          { title: "L’instinct animal", path: "/blog/instinct-animal" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Le calligraphe",
+    path: "#",
+    children: [
+      { title: "Shodo, la voie du pinceau", path: "/blog/shodo-voie-pinceau" },
+      { title: "Calligraphie zen", path: "/blog/calligraphie-zen" },
+    ],
+  },
+];
+---
+
+<Container>
+  <header class="flex flex-col lg:flex-row justify-between items-center my-5">
+    <Astronav>
+      <div class="flex w-full lg:w-auto items-center justify-between">
+        <a href="/" class="text-lg">
+          <span class="font-bold text-slate-800">Ateliers </span>
+          <span class="text-slate-500">de calligraphie</span>
+        </a>
+        <button
+          class="block lg:hidden"
+          onClick={() => mobileMenuOpen = !mobileMenuOpen}
+        >
+          <MenuIcon class="w-6 h-6 text-gray-800" />
+        </button>
+      </div>
+
+      <MenuItems class={`w-full lg:w-auto mt-2 lg:flex lg:mt-0 ${mobileMenuOpen ? 'block' : 'hidden'}`}>
+        <ul class="flex flex-col lg:flex-row lg:gap-3">
+          {menuitems.map((item) => (
+            item.children ? (
+              <Dropdown class="group">
+                <button class="px-3 py-2 text-gray-600 hover:text-gray-900">
+                  {item.title}
+                </button>
+                <DropdownItems>
+                  <ul>
+                    {item.children.map((child) =>
+                      child.children ? (
+                        <DropdownSubmenu>
+                          <button class="px-3 py-2 text-gray-600 hover:text-gray-900">
+                            {child.title}
+                          </button>
+                          <DropdownItems>
+                            <ul>
+                              {child.children.map((sub) => (
+                                <li>
+                                  <a
+                                    href={sub.path}
+                                    class="block px-3 py-2 text-gray-600 hover:text-gray-900"
+                                  >
+                                    {sub.title}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </DropdownItems>
+                        </DropdownSubmenu>
+                      ) : (
+                        <li>
+                          <a
+                            href={child.path}
+                            class="block px-3 py-2 text-gray-600 hover:text-gray-900"
+                          >
+                            {child.title}
+                          </a>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </DropdownItems>
+              </Dropdown>
+            ) : (
+              <li>
+                <a
+                  href={item.path}
+                  class="block lg:px-3 py-2 text-gray-600 hover:text-gray-900"
+                >
+                  {item.title}
+                </a>
+              </li>
+            )
+          ))}
+        </ul>
+      </MenuItems>
+    </Astronav>
+  </header>
+</Container>

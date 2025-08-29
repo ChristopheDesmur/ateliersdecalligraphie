@@ -1,0 +1,72 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Container from "./container.astro";
+import Sectionhead from "./sectionhead.astro";
+
+// Filter team entries with 'draft: false' & date before current date
+const publishedTeamMembers = await getCollection("team", ({ data }) => {
+  return !data.draft && data.publishDate < new Date();
+});
+---
+
+    <div class="flex flex-col lg:flex-row gap-8 mx-auto max-w-6xl mt-16">
+
+      <!-- Main Text -->
+      <div class="flex flex-col gap-3 max-w-4xl">
+        <p class="text-lg leading-relaxed text-gray-600">
+          L'importance de l'attitude corporelle, la concentration sur la respiration et la recherche d'harmonie et d'équilibre font partie intégrante de l'art millénaire de la calligraphie chinoise. Vous trouverez à <strong>Calligraphie Lyon</strong> un moyen privilégié d'expression de votre sensibilité et de votre créativité.
+        </p>
+
+        <p class="text-lg leading-relaxed text-gray-600">
+          Le travail sur l'horizontalité et la verticalité ainsi que sur les proportions et le rapport à l'espace vous permettront de mieux vous replacer dans l'espace, la feuille de papier sur laquelle vous vous exercez devenant une représentation en miniature de l'univers. 
+        </p>
+
+        <p class="text-lg leading-relaxed text-gray-600">
+          <strong>Calligraphie Lyon</strong> vous accompagne dans l'apprentissage du maniement du pinceau, la maîtrise du geste dans le tracé des caractères, le travail sur les proportions et l'équilibre ainsi que la recherche d'harmonie entre force et délicatesse.
+        </p>
+
+        <p class="text-lg leading-relaxed text-gray-600">
+          Correctement pratiquée, la calligraphie chinoise apporte calme et sérénité, équilibre intérieur et force. Elle développe la créativité artistique et l'expression de la sensibilité par le tracé de caractères chinois et se rapproche ainsi d'une pratique picturale.
+        </p>
+
+        <p class="text-lg leading-relaxed text-gray-600">
+          Pratiquée en Chine par les grands comme par les petits, elle peut s'inscrire dans une pratique artistique et de sensibilisation à une autre culture aussi bien pour les enfants que pour les adultes. La pratique de la calligraphie est associée dans l'esprit chinois au calme, à la concentration ainsi qu'à l'expression de ce qu'il y a de plus beau et de plus raffiné dans une personnalité humaine.
+        </p>
+
+        <p class="text-lg leading-relaxed text-gray-600">
+          Pour être pratiquée au mieux, vous vous approprierez un certain nombre de caractères que vous pourrez ensuite écrire spontanément au cours des ateliers de calligraphie. Cet apprentissage est un moment propice à la découverte d'une langue millénaire qui a évolué en passant par une représentation picturale des choses à ses débuts (les pictogrammes) à une représentation d'idée ou de concept (les idéogrammes) puis à l'élaboration de caractères comportant une partie phonétique (les phonogrammes).
+        </p>
+
+        <p class="text-lg leading-relaxed text-gray-600">
+          L'ensemble de ces caractères, les <em>sinogrammes</em>, composent l'écriture chinoise et auxquels vous vous initierez progressivement.
+        </p>
+      </div>
+
+      <!-- Info Box with Google Maps -->
+      <div class="bg-gray-100 rounded-2xl p-9 shadow-md lg:w-1/2">
+        <div class="mt-4">
+          <h1 class="text-1xl font-semibold mb-2">Cours collectif de calligraphie chinoise au Dojo Zen de Lyon</h1>
+          <p><strong>Reprise des cours :</strong> lundi 8 septembre 2025</p>
+          <p><strong>Horaires :</strong> les lundis soirs de 18 h 30 à 20 h 30</p>
+          <div class="mt-2">
+            <p class="font-semibold">11 Rue Dumenge, 69004 Lyon</p>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2782.717423001606!2d4.831558576633833!3d45.7768530710809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eae2496297a7%3A0xcf33e8e7e6f48d44!2sZen%20Dojo!5e0!3m2!1sen!2sus!4v1756472471300!5m2!1sen!2sus" width="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>    </div>
+          <p class="mt-2"><strong>Renseignements :</strong> 04 72 07 88 61 ou 07 69 94 16 43</p>
+
+          <hr class="my-6">
+
+      <h1 class="text-1xl font-semibold mb-2">Atelier de calligraphie chinoise à la Boutique Miroirs du Ciel</h1>
+      <p><strong>Horaires :</strong> les mercredis matin de 10 h à 12 h</p>
+      <p><strong>Premier cours :</strong> mercredi 3 septembre 2025</p>
+      <p><strong>Lieu :</strong> Boutique Miroirs du Ciel<br>
+      9 rue de Belfort, 69004 Lyon</p>
+
+<hr class="my-6">
+
+<h1 class="text-1xl font-semibold mb-2">Contact</h1>
+      <p>christophe.desmur@orange.fr</p>
+    </div>
+  </div>
+
+    </div>
