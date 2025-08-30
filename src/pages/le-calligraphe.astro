@@ -1,0 +1,43 @@
+---
+import Base from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import fs from 'fs';
+import yaml from 'js-yaml';
+
+const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
+
+---
+
+<Base title="Calligraphies">
+  <main class="mt-16 px-4 max-w-6xl mx-auto">
+    <h2 class="text-4xl lg:text-5xl font-bold text-gray-800">Galerie</h2>
+    <p class="text-lg mt-4 text-gray-600">Pour acquérir l'une des calligraphies ci-dessous ou me demander une calligraphie personnalisée, merci de m'écrire à christophe.desmur@orange.fr.
+</p>
+
+<h1>Le calligraphe</h1>
+
+<p>
+  Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques.
+</p>
+
+<p>
+  Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde...
+</p>
+
+<h2>Ateliers & interventions</h2>
+
+{Object.entries(ateliers).map(([annee, events]) => (
+  <section key={annee}>
+    <h3>{annee}</h3>
+    <ul>
+      {events.map((event) => (
+        <li key={event.date + event.titre}>
+          <strong>{event.date}</strong> — {event.titre} <br />
+          <em>{event.lieu}</em><br />
+          {event.details}
+        </li>
+      ))}
+    </ul>
+  </section>
+))}
+</Base>
