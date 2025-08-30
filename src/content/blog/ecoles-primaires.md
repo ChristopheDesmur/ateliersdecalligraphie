@@ -7,7 +7,7 @@ image: {
   alt: "Mes formats d'atelier pour les écoles primaires sur le temps scolaire"
 }
 publishDate: "2022-11-07 15:39"
-category: "Ateliers de groupe"
+category: ""
 author: "Christophe Desmur"
 tags: [ateliers, groupes]
 ---

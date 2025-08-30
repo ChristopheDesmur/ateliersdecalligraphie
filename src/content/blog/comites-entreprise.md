@@ -7,7 +7,7 @@ image: {
     alt: "Calligraphie Lyon"
 }
 publishDate: "2022-11-07 15:39"
-category: "Ateliers"
+category: ""
 author: "Christophe Desmur"
 tags: []
 ---
