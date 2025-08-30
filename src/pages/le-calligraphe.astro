@@ -14,32 +14,33 @@ const sortedYears = Object.keys(ateliers).sort((a, b) => Number(b) - Number(a));
 <Base title="Le calligraphe">
   <main class="mx-auto max-w-[735px] mt-14">
 
-    <h1></h1>
     <h2 class="text-4xl lg:text-5xl font-bold text-gray-600">Le calligraphe</h2>
     <p class="text-lg mt-4 text-gray-600">
       Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques.
     </p>
 
     <p>
-Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde, je suis titulaire d’un diplôme d’étude universitaire générale en langue et civilisation coréennes, d’une maîtrise de langue et civilisation chinoises ainsi que d’un master de traduction littéraire du chinois vers le français.
-</p>
+      Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde, je suis titulaire d’un diplôme d’étude universitaire générale en langue et civilisation coréennes, d’une maîtrise de langue et civilisation chinoises ainsi que d’un master de traduction littéraire du chinois vers le français.
+    </p>
 
-<img
-  src="/assets/pinceaux-encre-chine-christophe-desmur-calligraphie-chinoise.webp"
-  alt="Christophe Desmur, calligraphie chinoise à Lyon, pinceaux et encre de Chine."
-  style="width:100%; max-width:800px; height:auto;"
->
+    <img
+      src="/assets/pinceaux-encre-chine-christophe-desmur-calligraphie-chinoise.webp"
+      alt="Christophe Desmur, calligraphie chinoise à Lyon, pinceaux et encre de Chine."
+      style="width:100%; max-width:800px; height:auto;"
+    >
 
-<p>
-Je donne des cours de calligraphie et des cours de chinois individuels ou en groupe aussi bien aux enfants qu’aux adultes et anime également des stages ( 10 élèves maximum ).</p>
+    <p>
+      Je donne des cours de calligraphie et des cours de chinois individuels ou en groupe aussi bien aux enfants qu’aux adultes et anime également des stages (10 élèves maximum).
+    </p>
 
-    <h2 class="text-4xl lg:text-3xl font-bold text-gray-600">Ateliers & interventions</h2>
+    <h2 class="text-4xl lg:text-3xl font-bold text-gray-600 mt-10">Ateliers & interventions</h2>
 
     <!-- Year navigation -->
     <nav class="flex flex-wrap gap-4 mb-6">
-      {sortedYears.map((annee) => (
+      {sortedYears.map((annee, idx) => (
         <button
-          class="year-btn px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 font-semibold"
+          class={`year-btn px-4 py-2 rounded font-semibold transition-colors duration-300
+            ${idx === 0 ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}
           data-year={annee}
         >
           {annee}
@@ -51,10 +52,9 @@ Je donne des cours de calligraphie et des cours de chinois individuels ou en gro
     {sortedYears.map((annee, idx) => (
       <section
         key={annee}
-        class={`year-section ${idx === 0 ? '' : 'hidden'}`}
+        class={`year-section ${idx === 0 ? '' : 'hidden'} mt-6`}
         data-year={annee}
       >
-        <h3 class="text-2xl font-bold text-gray-600">{annee}</h3>
         <ul class="mt-4 space-y-2">
           {ateliers[annee].map((event) => (
             <li key={event.date + event.titre} class="border-b pb-2">
@@ -68,15 +68,38 @@ Je donne des cours de calligraphie et des cours de chinois individuels ou en gro
     ))}
   </main>
 
-  <!-- Small script to handle year browsing -->
   <script>
-    document.querySelectorAll(".year-btn").forEach(btn => {
+    const yearButtons = document.querySelectorAll(".year-btn");
+
+    yearButtons.forEach(btn => {
       btn.addEventListener("click", () => {
         const year = btn.dataset.year;
+
+        // Show selected year section
         document.querySelectorAll(".year-section").forEach(sec => {
           sec.classList.toggle("hidden", sec.dataset.year !== year);
         });
+
+        // Highlight selected button
+        yearButtons.forEach(b => {
+          b.classList.remove("bg-indigo-600", "text-white");
+          b.classList.add("bg-gray-200", "text-gray-800");
+        });
+        btn.classList.add("bg-indigo-600", "text-white");
+        btn.classList.remove("bg-gray-200", "text-gray-800");
+
+        // Smooth scroll to section
+        const section = document.querySelector(`.year-section[data-year='${year}']`);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     });
+
+    // Highlight first year button on load
+    if (yearButtons.length) {
+      yearButtons[0].classList.add("bg-indigo-600", "text-white");
+      yearButtons[0].classList.remove("bg-gray-200", "text-gray-800");
+    }
   </script>
 </Base>
