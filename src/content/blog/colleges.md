@@ -3,7 +3,7 @@ title: "Collèges"
 draft: false
 snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
 image: {
-  src: "/assets/cours-calligraphie-ecoles-primaires.jpg",
+  src: "/assets/cours-calligraphie-ecoles-primaires.webp",
   alt: "Mes formats d'atelier pour les écoles primaires sur le temps scolaire"
 }
 publishDate: "2022-11-07 15:39"

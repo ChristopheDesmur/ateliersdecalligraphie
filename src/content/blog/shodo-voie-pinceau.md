@@ -3,7 +3,7 @@ title: "Shodo, la voie du pinceau"
 draft: false
 snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
 image: {
-    src: "/assets/cours-calligraphie-ecoles-primaires.jpg",
+    src: "/assets/cours-calligraphie-ecoles-primaires.webp",
     alt: "Calligraphie Lyon"
 }
 publishDate: "2022-11-07 15:39"
@@ -19,7 +19,7 @@ tags: []
 
 La civilisation de l'écrit chinois s'est donc répandue dans ces différents pays. Mais chacun l'a incorporée suivant son ressenti, sa propre langue, etc. Et chacun a développé une manière de calligraphier propre. Ils ont aussi fait entrer dans leur langue des syllabaires, des petits signes plus proches d'un alphabet, qu'ils ont mélangés aux caractères chinois. Tous emploient le pinceau, tracent des caractères chinois, mais utilisent aussi des systèmes syllabiques.
 
-![Shodo, la voie du pinceau](/assets/shodo-voie-pinceau.jpg)
+![Shodo, la voie du pinceau](/assets/shodo-voie-pinceau.webp)
 
 Les Vietnamiens, qui ont subi plus tôt l'influence de la Chine, ont été encore plus loin, ils ont été encore plus créatifs et ils ont inventé eux-mêmes, en plus des caractères chinois, leur propre système idéographique et pictographique pour transcrire leur langue sur le modèle du chinois. Ils ont inventé des caractères propres à leur langue, sur le modèle du chinois, le [chu nom](http://fr.wikipedia.org/wiki/Ch%E1%BB%AF_n%C3%B4m).
 

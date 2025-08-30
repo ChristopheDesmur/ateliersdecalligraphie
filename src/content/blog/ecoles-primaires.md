@@ -3,7 +3,7 @@ title: "Écoles primaires"
 draft: false
 snippet: "Mes formats d'atelier pour les écoles primaires sur le temps scolaire"
 image: {
-  src: "/assets/cours-calligraphie-ecoles-primaires.jpg",
+  src: "/assets/cours-calligraphie-ecoles-primaires.webp",
   alt: "Mes formats d'atelier pour les écoles primaires sur le temps scolaire"
 }
 publishDate: "2022-11-07 15:39"
@@ -14,7 +14,7 @@ tags: [ateliers, groupes]
 
 ## Mes formats d'atelier pour les écoles primaires sur le temps scolaire
 
-![Cours de calligraphie écoles primaires](/assets/cours-calligraphie-ecoles-primaires.jpg)
+![Cours de calligraphie écoles primaires](/assets/cours-calligraphie-ecoles-primaires.webp)
 
 | Jours possibles        | Du lundi au vendredi                                                 |
 |------------------------|----------------------------------------------------------------------|

@@ -3,7 +3,7 @@ title: "Lu Yin dans le monde littéraire chinois des années 1920 et 1930"
 draft: false
 snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
 image: {
-    src: "/assets/cours-calligraphie-ecoles-primaires.jpg",
+    src: "/assets/cours-calligraphie-ecoles-primaires.webp",
     alt: "Calligraphie Lyon"
 }
 publishDate: "2022-11-07 15:39"
