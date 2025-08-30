@@ -15,6 +15,7 @@ tags: []
 
 ## Mes formats d'atelier pour les universités et grandes écoles
 
-\[table id=1 /\]
-
-[cours calligraphie universités grandes écoles](cours-calligraphie-universites-grandes-ecoles.avif)](http://ateliersdecalligraphie.com/wp-content/uploads/2023/12/cours-calligraphie-universites-grandes-ecoles.avif)
+| Durée                  | Atelier de 2 à 3 heures |
+|------------------------|-------------------------|
+| Nombre de participants | De 6 à 12               |
+| Tarifs                 | 60 euros HT par heure   |
