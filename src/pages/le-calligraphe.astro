@@ -11,19 +11,20 @@ const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'
 const sortedYears = Object.keys(ateliers).sort((a, b) => Number(b) - Number(a));
 ---
 
-<Base title="Calligraphies">
+<Base title="Le calligraphe">
   <main class="mt-16 px-4 max-w-6xl mx-auto">
-    <h2 class="text-4xl lg:text-5xl font-bold text-gray-800">Galerie</h2>
+    <h1></h1>
+    <h2 class="text-4xl lg:text-5xl font-bold text-gray-600">Le calligraphe</h2>
     <p class="text-lg mt-4 text-gray-600">
       Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques.
     </p>
 
-    <h1>Le calligraphe</h1>
     <p>
-      Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde...
-    </p>
+Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde, je suis titulaire d’un diplôme d’étude universitaire générale en langue et civilisation coréennes, d’une maîtrise de langue et civilisation chinoises ainsi que d’un master de traduction littéraire du chinois vers le français.
+</p><p>
+Je donne des cours de calligraphie et des cours de chinois individuels ou en groupe aussi bien aux enfants qu’aux adultes et anime également des stages ( 10 élèves maximum ).</p>
 
-    <h2>Ateliers & interventions</h2>
+    <h2 class="text-4xl lg:text-3xl font-bold text-gray-600">Ateliers & interventions</h2>
 
     {sortedYears.map((annee) => (
       <section key={annee}>
