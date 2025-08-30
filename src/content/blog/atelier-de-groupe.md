@@ -3,15 +3,14 @@ title: "Atelier de groupe"
 draft: false
 snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
 image: {
-    src: "/assets/cours-calligraphie-ecoles-primaires.jpg",
-    alt: "Calligraphie Lyon"
+  src: "/assets/cours-calligraphie-ecoles-primaires.jpg",
+  alt: "Mes formats d'atelier pour les écoles primaires sur le temps scolaire"
 }
 publishDate: "2022-11-07 15:39"
 category: ""
 author: "Christophe Desmur"
 tags: []
 ---
-
 
 ## Pratiquez la calligraphie chinoise en **atelier de groupe** de une à trois heures réunissant de deux à huit personnes.
 
