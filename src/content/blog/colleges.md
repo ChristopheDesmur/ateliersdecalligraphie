@@ -9,7 +9,7 @@ image: {
 publishDate: "2022-11-07 15:39"
 category: "Ateliers de groupe"
 author: "Christophe Desmur"
-tags: [ateliers, groupes]
+tags: []
 ---
 
 ## Mes formats d'atelier pour les collèges
