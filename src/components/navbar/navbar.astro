@@ -1,15 +1,8 @@
 ---
-import Container from "@/components/container.astro";
-import {
-  Astronav,
-  MenuItems,
-  MenuIcon,
-  Dropdown,
-  DropdownItems,
-  DropdownSubmenu
-} from "astro-navbar";
-
-let mobileMenuOpen = false;
+import Container from "../container.astro";
+import Link from "../ui/link.astro";
+import Dropdown from "./dropdown.astro";
+import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 
 const menuitems = [
   {
@@ -81,73 +74,43 @@ const menuitems = [
     <Astronav>
       <div class="flex w-full lg:w-auto items-center justify-between">
         <a href="/" class="text-lg">
-          <span class="font-bold text-slate-800">Ateliers </span>
-          <span class="text-slate-500">de calligraphie</span>
+          <span class="font-bold text-gray-800">Ateliers </span>
+          <span class="text-gray-500">de calligraphie</span>
         </a>
-        <button
-          class="block lg:hidden"
-          onClick={() => mobileMenuOpen = !mobileMenuOpen}
-        >
-          <MenuIcon class="w-6 h-6 text-gray-800" />
-        </button>
+        <div class="block lg:hidden">
+          <MenuIcon class="w-4 h-4 text-gray-800" />
+        </div>
       </div>
-
-      <MenuItems class={`w-full lg:w-auto mt-2 lg:flex lg:mt-0 ${mobileMenuOpen ? 'block' : 'hidden'}`}>
+      <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
         <ul class="flex flex-col lg:flex-row lg:gap-3">
-          {menuitems.map((item) => (
-            item.children ? (
-              <Dropdown class="group">
-                <button class="px-3 py-2 text-gray-600 hover:text-gray-900">
-                  {item.title}
-                </button>
-                <DropdownItems>
-                  <ul>
-                    {item.children.map((child) =>
-                      child.children ? (
-                        <DropdownSubmenu>
-                          <button class="px-3 py-2 text-gray-600 hover:text-gray-900">
-                            {child.title}
-                          </button>
-                          <DropdownItems>
-                            <ul>
-                              {child.children.map((sub) => (
-                                <li>
-                                  <a
-                                    href={sub.path}
-                                    class="block px-3 py-2 text-gray-600 hover:text-gray-900"
-                                  >
-                                    {sub.title}
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                          </DropdownItems>
-                        </DropdownSubmenu>
-                      ) : (
-                        <li>
-                          <a
-                            href={child.path}
-                            class="block px-3 py-2 text-gray-600 hover:text-gray-900"
-                          >
-                            {child.title}
-                          </a>
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </DropdownItems>
-              </Dropdown>
-            ) : (
-              <li>
-                <a
-                  href={item.path}
-                  class="block lg:px-3 py-2 text-gray-600 hover:text-gray-900"
-                >
-                  {item.title}
-                </a>
-              </li>
-            )
-          ))}
+          {
+            menuitems.map((item, index) => (
+              <>
+                {item.children && (
+                  <Dropdown
+                    title={item.title}
+                    children={item.children}
+                    lastItem={index === menuitems.length - 1}
+                  />
+                )}
+
+                {!item.children && (
+                  <li>
+                    <a
+                      href={item.path}
+                      class="flex lg:px-3 py-2 items-center text-gray-700 hover:text-gray-900">
+                      <span>{item.title}</span>
+                      {item.badge && (
+                        <span class="ml-1 px-2 py-0.5 text-[10px] animate-pulse font-semibold uppercase text-white bg-gray-600 rounded-full">
+                          New
+                        </span>
+                      )}
+                    </a>
+                  </li>
+                )}
+              </>
+            ))
+          }
         </ul>
       </MenuItems>
     </Astronav>
