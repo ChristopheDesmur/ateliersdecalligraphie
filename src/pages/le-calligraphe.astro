@@ -28,7 +28,8 @@ Je donne des cours de calligraphie et des cours de chinois individuels ou en gro
 
     {sortedYears.map((annee) => (
       <section key={annee}>
-        <h3>{annee}</h3>
+      <hr>
+        <h3 class="text-4xl lg:text-2xl font-bold text-gray-600">{annee}</h3>
         <ul>
           {ateliers[annee].map((event) => (
             <li key={event.date + event.titre}>
