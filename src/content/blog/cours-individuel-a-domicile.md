@@ -13,7 +13,7 @@ tags: []
 ---
 
 
-## Progressez à votre rythme en **cours individuel à domicile** de calligraphie chinoise.
+## Progressez à votre rythme en calligraphie chinoise grâce à des cours individuel à domicile
 
 **Cours individuel à domicile** de calligraphie chinoise donné en tant qu'entrepreneur au sein de la société coopérative de services à domicile [Coop A Dom](http://www.coopadom.coop/) (agrément  n° 2006-1-42.10 ). Conformément à la législation en vigueur, vous  bénéficiez d’une réduction ou d’un crédit d’impôt de 50 % sur le prix de la prestation que vous payez dans le cadre des cours à domicile en calligraphie chinoise (hors soutien scolaire).
 
