@@ -17,6 +17,8 @@ tags: []
 
 Je me déplace dans vos locaux avec tout le matériel nécessaire pour faire pratiquer à vos collaborateurs l'art énergétique de la calligraphie chinoise.
 
-\[table id=5 /\]
-
-[Calligraphie comité d'entreprise](cours-calligraphie-comites-entreprise.avif)](http://ateliersdecalligraphie.com/wp-content/uploads/2023/12/cours-calligraphie-comites-entreprise.avif)
+| Horaires               | Entre 12 et 14 h     |
+|------------------------|----------------------|
+| Durée                  | Ateliers d'une heure |
+| Nombre de participants | De 6 à 12            |
+| Tarifs                 | 90 euros de l'heure  |
