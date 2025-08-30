@@ -1,7 +1,7 @@
 ---
 title: "Un repaire pour les rats et les serpents"
 draft: false
-snippet: "Ornare cum cursus laoreet sagittis nunc fusce posuere per euismod dis vehicula a, semper fames lacus maecenas dictumst pulvinar neque enim non potenti. Torquent hac sociosqu eleifend potenti."
+snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.jpg",
     alt: "Calligraphie Lyon"
