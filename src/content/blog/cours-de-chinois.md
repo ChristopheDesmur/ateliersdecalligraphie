@@ -24,7 +24,7 @@ Les cours de calligraphie peuvent aussi être l'occasion de découvrir des texte
 - Déchiffrage des textes originaux
 - Travail au pinceau d'extraits des textes en écritures régulière (kaishu), courante (xingshu) et cursive (caoshu).
 
-![Cours de chinois à Lyon](/assets/cours-de-chinois.jpeg)
+![Cours de chinois à Lyon](/assets/cours-de-chinois.webp)
 
 #### Textes proposés
 
