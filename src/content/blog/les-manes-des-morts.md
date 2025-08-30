@@ -8,7 +8,7 @@ image: {
 }
 publishDate: "2022-11-07 15:39"
 category: ""
-author: "Christophe Desmur"
+author: "Zeng Jixin - traduction Christophe Desmur"
 tags: []
 ---
 
