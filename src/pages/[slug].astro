@@ -1,0 +1,23 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+
+// Generate paths for each blog post
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.slug.replace(/^blog\//, "") },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+// Render markdown content AFTER post exists
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title}>
+  <article class="prose mx-auto">
+    <Content />
+  </article>
+</Layout>
