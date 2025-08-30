@@ -12,6 +12,11 @@ tags: []
 layout: "../../layouts/Layout.astro"
 ---
 
+import yaml from 'js-yaml';
+import fs from 'fs';
+
+const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
+
 ## Je suis **calligraphe** depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques.
 
 Christophe Desmur, lyonnais de naissance, **calligraphe**, passionné par les langues et cultures du monde, je suis titulaire d'un diplôme d'étude universitaire générale en langue et civilisation coréennes, d'une maîtrise de langue et civilisation chinoises ainsi que d'un master de traduction littéraire du chinois vers le français.
@@ -20,9 +25,17 @@ Je donne des cours de calligraphie et des cours de chinois individuels ou en gro
 
 ### Les écoles, collèges, grandes écoles, mairies, associations, bibliothèques, librairies, centres sociaux et entreprises dans lesquels je suis intervenu :
 
-```astro
----
-import yaml from 'js-yaml';
-import fs from 'fs';
-const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
----
+{Object.entries(ateliers).map(([annee, events]) => (
+  <section key={annee}>
+    <h3>{annee}</h3>
+    <ul>
+      {events.map((event) => (
+        <li key={event.date + event.titre}>
+          <strong>{event.date}</strong> — {event.titre} <br />
+          <em>{event.lieu}</em><br />
+          {event.details}
+        </li>
+      ))}
+    </ul>
+  </section>
+))}
