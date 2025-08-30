@@ -15,6 +15,8 @@ tags: []
 
 ## Mes formats d'atelier pour les maisons de retraite
 
-\[table id=6 /\]
-
-[Calligraphie maisons de retraite](atelier-de-groupe-calligraphie-lyon.avif)](http://ateliersdecalligraphie.com/wp-content/uploads/2023/12/atelier-de-groupe-calligraphie-lyon.avif)
+| Horaires               | Libres                 |
+|------------------------|------------------------|
+| Durée                  | 2 heures minimum       |
+| Nombre de participants | De 6 à 12              |
+| Tarifs                 | 60 euros HT de l'heure |
