@@ -9,7 +9,7 @@ image: {
 publishDate: "2022-11-07 15:39"
 category: "Ateliers"
 author: "Christophe Desmur"
-tags: [astro, tailwindcss, frontend]
+tags: []
 ---
 
 Une longue période de plus de trente ans s'est écoulée sans même que je m'en soit rendu compte et cette question que je me posais enfant de savoir pourquoi les chats devaient manger les rats restait au fond de moi jusqu'à aujourd'hui sans que je puisse trouver une réponse réellement satisfaisante. Je ne peux résumer cela que par une sorte d'instinct animal, une loi naturelle et éternelle du cycle de la chaîne du vivant. il s'agit de sélection naturelle, du résultat de la loi du plus fort. En dehors du chat, le rat a d'autres ennemis naturels comme le hibou, la belette, le serpent... Mais bien sûr, c'est l'humain qui est son ennemi le plus redoutable et le plus terrible. Les rats, sont depuis tout temps ,pour notre humanité, un sujet incontournable. Ils parasitent ensemble eux et l'humanité la terre. Comme de nombreux faits l'attestent, son histoire est encore bien plus ancienne que celle de l'Homme. L'humanité depuis sa naissance est en perpétuels évolution et développement et pour ce qui est des rats, comment n'en serait-il pas de même ? Avec la survivance du plus apte et la loi du plus fort, dans le long fleuve de l'histoire vielle de milliers et de dizaines de millier d'années, il dut y avoir bien des "flottilles et armées anéanties dans les flammes" !Même les dinosaures qui furent les rois des animaux et dominèrent la terre ne purent y échapper. Alors que le rat, cet être insignifiant a traversé toutes les catastrophes et génération après génération sans discontinuer est arrivé jusqu'à aujourd'hui, on ne peut pas faire autrement que de dire qu'il s'agit d'un incroyable miracle.

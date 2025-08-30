@@ -9,7 +9,7 @@ image: {
 publishDate: "2022-11-07 15:39"
 category: "Ateliers"
 author: "Christophe Desmur"
-tags: [astro, tailwindcss, frontend]
+tags: []
 ---
 
 On a encore voulu prendre un chat à la maison sans jamais pouvoir y arriver. Les rats mangeaient les provisions, rongeaient les affaires et les vêtements et jonchaient le sol de leurs petites crottes et de leur pisse jaune. Le soir, ils faisaient encore un vrai vacarme et ce toute la nuit jusqu'au l'aube où seulement ils faisaient une petite pause. Le bruit était tel que grand-mère, mon père et ma mère en perdaient souvent le sommeil. Et même en plein jour, ils sortaient de leur trou et cherchaient de la nourriture sans se cacher le moins du monde.

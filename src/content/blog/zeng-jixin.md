@@ -9,7 +9,7 @@ image: {
 publishDate: "2022-11-07 15:39"
 category: "Ateliers"
 author: "Christophe Desmur"
-tags: [astro, tailwindcss, frontend]
+tags: []
 ---
 
 Né en 1963 dans le district de Gong'an au Hubei, il a mené successivement la vie de paysan, d'enseignant puis de cadre.

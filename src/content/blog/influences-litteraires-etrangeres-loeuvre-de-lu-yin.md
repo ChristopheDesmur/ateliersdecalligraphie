@@ -9,7 +9,7 @@ image: {
 publishDate: "2022-11-07 15:39"
 category: "Ateliers"
 author: "Christophe Desmur"
-tags: [astro, tailwindcss, frontend]
+tags: []
 ---
 
 
