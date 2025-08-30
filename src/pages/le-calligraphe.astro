@@ -4,40 +4,40 @@ import { Icon } from "astro-icon/components";
 import fs from 'fs';
 import yaml from 'js-yaml';
 
+// Load YAML
 const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
 
+// Sort years descending
+const sortedYears = Object.keys(ateliers).sort((a, b) => Number(b) - Number(a));
 ---
 
 <Base title="Calligraphies">
   <main class="mt-16 px-4 max-w-6xl mx-auto">
     <h2 class="text-4xl lg:text-5xl font-bold text-gray-800">Galerie</h2>
     <p class="text-lg mt-4 text-gray-600">
-  Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques.
-</p>
+      Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques.
+    </p>
 
-<h1>Le calligraphe</h1>
+    <h1>Le calligraphe</h1>
+    <p>
+      Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde...
+    </p>
 
-<p>
-</p>
+    <h2>Ateliers & interventions</h2>
 
-<p>
-  Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde...
-</p>
-
-<h2>Ateliers & interventions</h2>
-
-{Object.entries(ateliers).map(([annee, events]) => (
-  <section key={annee}>
-    <h3>{annee}</h3>
-    <ul>
-      {events.map((event) => (
-        <li key={event.date + event.titre}>
-          <strong>{event.date}</strong> — {event.titre} <br />
-          <em>{event.lieu}</em><br />
-          {event.details}
-        </li>
-      ))}
-    </ul>
-  </section>
-))}
+    {sortedYears.map((annee) => (
+      <section key={annee}>
+        <h3>{annee}</h3>
+        <ul>
+          {ateliers[annee].map((event) => (
+            <li key={event.date + event.titre}>
+              <strong>{event.date}</strong> — {event.titre} <br />
+              <em>{event.lieu}</em><br />
+              {event.details}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </main>
 </Base>
