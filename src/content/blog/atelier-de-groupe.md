@@ -2,10 +2,9 @@
 title: "Atelier de groupe"
 draft: false
 snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
-image: {
-  src: "/assets/cours-calligraphie-ecoles-primaires.jpg",
+image:
+  src: "/assets/cours-calligraphie-ecoles-primaires.jpg"
   alt: "Mes formats d'atelier pour les écoles primaires sur le temps scolaire"
-}
 publishDate: "2022-11-07 15:39"
 category: ""
 author: "Christophe Desmur"
@@ -18,6 +17,6 @@ L'amplitude horaire idéale pour un **atelier de groupe** de calligraphie est de
 
 ![Atelier de groupe](/assets/atelier-de-groupe-calligraphie-lyon.jpg)
 
-Cours de 1 h 30 par semaine : 80 € par trimestre après réduction d'impôts.
+Cours de 1 h 30 par semaine : 80 € par trimestre après réduction d'impôts.
 
 Le coût horaire de la prestation est de 50 € HT pour les collectivités, associations et entreprises.
