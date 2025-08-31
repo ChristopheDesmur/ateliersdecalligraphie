@@ -11,4 +11,9 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
+  // Single redirect
+  redirects: {
+    "/traductions/zeng-jixin/": "/zeng-jixin/",
+  },
 });
