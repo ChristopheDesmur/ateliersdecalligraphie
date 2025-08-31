@@ -45,21 +45,42 @@ const gridItems = [
     </p>
 <!-- 4x4 Grid of Tiles -->
 <div class="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-  {gridItems.map((item) => (
-    <a href={item.link} class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-      <img
-        src={item.image}
-        alt={item.title}
-        class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
-      />
-      <div class="p-3 bg-white text-center">
-        <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">
-          {item.title}
-        </h3>
-      </div>
-    </a>
-  ))}
+  {gridItems.map((item) => {
+    let altText = "";
+    switch (item.title) {
+      case "Ateliers de groupe":
+        altText = "Atelier de calligraphie chinoise en groupe à Lyon, participants autour d’une table.";
+        break;
+      case "Cours individuels à domicile":
+        altText = "Cours particulier de calligraphie chinoise à domicile, apprentissage personnalisé à Lyon.";
+        break;
+      case "Cours de chinois":
+        altText = "Enseignant donnant un cours de langue chinoise, apprentissage des sinogrammes.";
+        break;
+      case "Galerie":
+        altText = "Œuvre calligraphique chinoise exposée dans la galerie Calligraphie Lyon.";
+        break;
+      default:
+        altText = item.title;
+    }
+
+    return (
+      <a href={item.link} class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
+        <img
+          src={item.image}
+          alt={altText}
+          class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+        <div class="p-3 bg-white text-center">
+          <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">
+            {item.title}
+          </h3>
+        </div>
+      </a>
+    );
+  })}
 </div>
+
 
     <p class="text-lg leading-relaxed text-gray-600">
       <strong>Calligraphie Lyon</strong> vous accompagne dans le maniement du pinceau, la maîtrise du geste, le travail sur les proportions et l'équilibre, ainsi que dans la recherche d'harmonie entre force et délicatesse.
