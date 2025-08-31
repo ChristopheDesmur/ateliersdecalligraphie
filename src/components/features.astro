@@ -9,46 +9,73 @@ import Sectionhead from "@components/sectionhead.astro";
 const publishedTeamMembers = await getCollection("team", ({ data }) => {
   return !data.draft && data.publishDate < new Date();
 });
+
+// Example grid items (replace with your actual subpages/images if needed)
+const gridItems = [
+  { title: "Ateliers de groupe", image: "/assets/atelier-de-groupe-calligraphie-lyon.webp", link: "/atelier-de-groupe" },
+  { title: "Cours individuel à domicile", image: "/assets/cours-individuel-a-domicile-calligraphie-lyon.webp", link: "/cours-individuel-a-domicile" },
+  { title: "Cours de chinois", image: "/assets/cours-de-chinois.webp", link: "/cours-de-chinois" },
+  { title: "Galerie", image: "/assets/FUKU-Bonheur.webp", link: "/galerie" },
+];
 ---
 
-    <div class="flex flex-col lg:flex-row gap-8 mx-auto max-w-6xl mt-16">
+<div class="flex flex-col lg:flex-row gap-8 mx-auto max-w-6xl mt-16">
 
-      <!-- Main Text -->
-      <div class="flex flex-col gap-3 max-w-4xl">
-<h2 class="text-2xl font-semibold mt-8 mb-4">L'attitude, la concentration et l'expression</h2>
-<p class="text-lg leading-relaxed text-gray-600">
-  L'importance de l'attitude corporelle, la concentration sur la respiration et la recherche d'harmonie et d'équilibre font partie intégrante de l'art millénaire de la calligraphie chinoise.
-</p>
+  <!-- Main Text -->
+  <div class="flex flex-col gap-3 max-w-4xl">
 
-<img
-  src="/assets/personne-realisant-de-la-calligraphie-avec-un-pinceau-sur-du-papier.webp"
-  alt="Christophe Desmur, calligraphie chinoise à Lyon, en train de calligraphier."
-  style="width:100%; max-width:800px; height:auto;"
->
+    <h2 class="text-2xl font-semibold mt-8 mb-4">L'attitude, la concentration et l'expression</h2>
+    <p class="text-lg leading-relaxed text-gray-600">
+      L'importance de l'attitude corporelle, la concentration sur la respiration et la recherche d'harmonie et d'équilibre font partie intégrante de l'art millénaire de la calligraphie chinoise.
+    </p>
 
-<p class="text-lg leading-relaxed text-gray-600">
-  Vous trouverez à <strong>Calligraphie Lyon</strong> un moyen privilégié d'expression de votre sensibilité et de votre créativité.
-</p>
+    <img
+      src="/assets/personne-realisant-de-la-calligraphie-avec-un-pinceau-sur-du-papier.webp"
+      alt="Christophe Desmur, calligraphie chinoise à Lyon, en train de calligraphier."
+      style="width:100%; max-width:800px; height:auto;"
+    >
 
-<h2 class="text-2xl font-semibold mt-8 mb-4">L'espace, les proportions et le geste</h2>
-<p class="text-lg leading-relaxed text-gray-600">
-  Le travail sur l'horizontalité et la verticalité ainsi que sur les proportions et le rapport à l'espace vous permettront de mieux vous replacer dans l'univers que représente la feuille de papier.
-</p>
+    <p class="text-lg leading-relaxed text-gray-600">
+      Vous trouverez à <strong>Calligraphie Lyon</strong> un moyen privilégié d'expression de votre sensibilité et de votre créativité.
+    </p>
 
-<p class="text-lg leading-relaxed text-gray-600">
-  <strong>Calligraphie Lyon</strong> vous accompagne dans le maniement du pinceau, la maîtrise du geste, le travail sur les proportions et l'équilibre, ainsi que dans la recherche d'harmonie entre force et délicatesse.
-</p>
+    <h2 class="text-2xl font-semibold mt-8 mb-4">L'espace, les proportions et le geste</h2>
+    <p class="text-lg leading-relaxed text-gray-600">
+      Le travail sur l'horizontalité et la verticalité ainsi que sur les proportions et le rapport à l'espace vous permettront de mieux vous replacer dans l'univers que représente la feuille de papier.
+    </p>
 
-<h2 class="text-2xl font-semibold mt-8 mb-4">Bienfaits et apprentissage de l'écriture chinoise</h2>
-<p class="text-lg leading-relaxed text-gray-600">
-  Correctement pratiquée, la calligraphie chinoise apporte calme, sérénité et équilibre intérieur. Elle développe la créativité artistique et l'expression de la sensibilité par le tracé de caractères, se rapprochant ainsi d'une pratique picturale.
-</p>
-<p class="text-lg leading-relaxed text-gray-600">
-  Pratiquée en Chine par les grands comme par les petits, elle s'adresse aux enfants comme aux adultes et est associée au calme, à la concentration et à l'expression de ce qu'il y a de plus raffiné dans une personnalité humaine.
-</p>
-<p class="text-lg leading-relaxed text-gray-600">
-  Vous apprendrez progressivement un ensemble de caractères, les <em>sinogrammes</em>, en passant des pictogrammes aux idéogrammes, puis aux phonogrammes. Cet apprentissage vous permettra d'écrire spontanément et de découvrir la richesse de cette langue millénaire.
-</p>
+    <p class="text-lg leading-relaxed text-gray-600">
+      <strong>Calligraphie Lyon</strong> vous accompagne dans le maniement du pinceau, la maîtrise du geste, le travail sur les proportions et l'équilibre, ainsi que dans la recherche d'harmonie entre force et délicatesse.
+    </p>
 
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Bienfaits et apprentissage de l'écriture chinoise</h2>
+    <p class="text-lg leading-relaxed text-gray-600">
+      Correctement pratiquée, la calligraphie chinoise apporte calme, sérénité et équilibre intérieur. Elle développe la créativité artistique et l'expression de la sensibilité par le tracé de caractères, se rapprochant ainsi d'une pratique picturale.
+    </p>
+    <p class="text-lg leading-relaxed text-gray-600">
+      Pratiquée en Chine par les grands comme par les petits, elle s'adresse aux enfants comme aux adultes et est associée au calme, à la concentration et à l'expression de ce qu'il y a de plus raffiné dans une personnalité humaine.
+    </p>
+    <p class="text-lg leading-relaxed text-gray-600">
+      Vous apprendrez progressivement un ensemble de caractères, les <em>sinogrammes</em>, en passant des pictogrammes aux idéogrammes, puis aux phonogrammes. Cet apprentissage vous permettra d'écrire spontanément et de découvrir la richesse de cette langue millénaire.
+    </p>
 
-    </div>
+  </div>
+</div>
+
+<!-- 4x4 Grid of Tiles -->
+<div class="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+  {gridItems.map((item) => (
+    <a href={item.link} class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
+      <img
+        src={item.image}
+        alt={item.title}
+        class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+      />
+      <div class="p-3 bg-white text-center">
+        <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">
+          {item.title}
+        </h3>
+      </div>
+    </a>
+  ))}
+</div>
