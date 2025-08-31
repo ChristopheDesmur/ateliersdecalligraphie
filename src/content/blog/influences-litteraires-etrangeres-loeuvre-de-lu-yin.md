@@ -11,6 +11,7 @@ category: "Littérature chinoise"
 author: "Christophe Desmur"
 tags: ['influence littéraire', 'Lu Yin', 'littérature chinoise', 'Société d’Études littéraires', 'littérature occidentale', 'Goethe', 'Henrik Ibsen', 'Rabindranath Tagore', 'traduction', 'réalisme']
 ---
+# L'impact des auteurs occidentaux sur l'évolution littéraire de Lu Yin
 
 ## Lu Yin et la Société d’Études littéraires
 

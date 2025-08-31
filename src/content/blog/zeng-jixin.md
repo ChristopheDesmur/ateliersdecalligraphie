@@ -11,6 +11,7 @@ category: "Littérature chinoise"
 author: "Christophe Desmur"
 tags: ['écrivain chinois', 'littérature chinoise', 'Zeng Jixin', 'Fujian', 'histoire', 'roman', 'culture chinoise', 'Amoy', 'écriture', 'mœurs']
 ---
+# Parcours littéraire et culturel de Zeng Jixin
 
 # Zeng Jixin : de paysan à écrivain reconnu
 

@@ -12,6 +12,8 @@ author: "Christophe Desmur"
 tags: ['ateliers', 'écoles primaires', 'calligraphie', 'pictogrammes chinois', 'éducation', 'enfants', 'découverte', 'scolaire', 'dessin', 'culture']
 ---
 
+# Ateliers de calligraphie et culture chinoise pour enfants
+
 ## Mes formats d'atelier pour les écoles primaires sur le temps scolaire
 
 ![Cours de calligraphie écoles primaires](/assets/cours-calligraphie-ecoles-primaires.webp)

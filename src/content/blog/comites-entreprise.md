@@ -12,6 +12,8 @@ author: "Christophe Desmur"
 tags: ['calligraphie chinoise', 'atelier entreprise', 'cours privés', 'art énergétique', 'formation professionnelle', 'bien-être au travail', 'culture chinoise', 'développement personnel', 'activité de groupe', 'team building']
 ---
 
+# Ateliers de calligraphie chinoise pour le bien-être en entreprise
+
 ## Mes formats d'atelier pour les comités d'entreprise
 
 Je me déplace dans vos locaux avec tout le matériel nécessaire pour faire pratiquer à vos collaborateurs l'art énergétique de la calligraphie chinoise.

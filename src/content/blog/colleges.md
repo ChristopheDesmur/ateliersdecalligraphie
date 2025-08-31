@@ -12,6 +12,8 @@ author: "Christophe Desmur"
 tags: ['calligraphie chinoise', 'cours individuels', 'cours privés', 'écoles primaires', 'temps scolaire', 'atelier', 'collèges', 'participants', 'tarifs', 'durée']
 ---
 
+# Ateliers de calligraphie pour collèges : horaires, tarifs et organisation
+
 ## Mes formats d'atelier pour les collèges
 
 | Horaires               | Temps scolaire        |

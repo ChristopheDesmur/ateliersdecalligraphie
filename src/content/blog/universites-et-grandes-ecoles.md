@@ -12,7 +12,11 @@ author: "Christophe Desmur"
 tags: ['calligraphie chinoise', 'cours privés', 'chinois', 'ateliers universitaires', 'écoles supérieures', 'formation artistique', 'culture asiatique', 'apprentissage', 'atelier créatif', 'enseignement']
 ---
 
+# Ateliers de calligraphie chinoise pour l'enseignement supérieur
+
 ## Mes formats d'atelier pour les universités et grandes écoles
+
+
 
 | Durée                  | Atelier de 2 à 3 heures |
 |------------------------|-------------------------|

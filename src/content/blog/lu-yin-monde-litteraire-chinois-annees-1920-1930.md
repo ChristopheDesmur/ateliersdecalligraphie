@@ -11,6 +11,7 @@ category: "Littérature chinoise"
 author: "Christophe Desmur"
 tags: ['Lu Yin', 'littérature chinoise', 'sociétés littéraires', 'art pour l’art', 'art pour la vie', 'révolution culturelle', 'écrivaines chinoises', 'engagement social', 'patriotisme', 'impérialisme japonais']
 ---
+# Exploration de l'art et de l'engagement social chez Lu Yin
 
 ## Lu Yin et les sociétés littéraires de son époque
 

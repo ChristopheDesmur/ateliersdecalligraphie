@@ -17,22 +17,8 @@ MAX_TOKENS = 4096
 SYSTEM_PROMPT = "Tu es un assistant expert en SEO éditorial pour des enseignements oraux zen publiés au format Astro Markdown."
 
 USER_PROMPT = """
-**Task:** You are an advanced content SEO assistant. Your job is to analyze the given content and populate the Astro Markdown frontmatter fields while generating meaningful **keywords** in French. The keywords should be inferred from the overall meaning and themes of the content, not just extracted keywords. Also add intermediary headings to the content, roughly each 300 words, 3 headings at most. Do not place a heading just after the level 1 title. Use sentence case in headings. Keep the original content unchanged. Do not suppress any line from the original content. Keep the titles and headings.
+**Task:** You are an advanced content SEO assistant. Your job is to analyze the given content and create a 1st level title for the content, just below the YAML frontmatter in French. The keywords it contains should be inferred from the overall meaning and themes of the content, not just extracted keywords. Use sentence case in headings. Keep the original content unchanged. Do not suppress any line from the original content. Keep the titles and headings.
 
-
-**Content Categorization and Keyword Generation**
-
-
-- **General Rules**:
-- Use curly single quote in title and description when needed
-  - All keywords, categories, and keywords must be in French and reflect the vocabulary used in the text.
-
-
-**Frontmatter Fields to Populate:**
-1. **snippet:** Write a Google-friendly excerpt in French of less than 160 characters containing the SEO keyword.
-7. **tags:** Populate the field with the list of 10 unique French keywords you created. Use the `tags: ['python', 'openCV']`format. The first keyword must be the SEO keyword used in the fields above.
-
-Do not add any other entry in the frontmatter. Do no add blank lines.
 
 **Input Format:**
 - The title and content will be provided as plain text. Analyze the title and content holistically to infer metadata, categories, and keywords.

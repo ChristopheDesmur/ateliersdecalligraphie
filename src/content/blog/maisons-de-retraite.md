@@ -12,6 +12,8 @@ author: "Christophe Desmur"
 tags: ['calligraphie maisons de retraite', 'bien-être', 'créativité', 'ateliers seniors', 'art thérapie', 'activité manuelle', 'expression artistique', 'cours de calligraphie', 'santé mentale', 'loisirs créatifs']
 ---
 
+# Ateliers de calligraphie pour le bien-être des seniors
+
 ## Mes formats d'atelier pour les maisons de retraite
 
 | Horaires               | Libres                 |

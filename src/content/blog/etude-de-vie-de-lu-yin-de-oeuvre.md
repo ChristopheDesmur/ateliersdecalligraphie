@@ -1,27 +1,17 @@
 ---
 title: "Lu Yin"
-
 draft: false
-
 snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
-
 image: {
-
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-
     alt: "Calligraphie Lyon"
-
 }
-
 publishDate: "2022-11-07 15:39"
-
 category: "Littérature chinoise"
-
 author: "Christophe Desmur"
-
 tags: ['calligraphie chinoise', 'littérature chinoise', 'Lu Yin', 'pessimisme', 'Schopenhauer', 'romantisme', 'nihilisme', 'émancipation des femmes', 'correspondance amoureuse', 'société chinoise']
-
 ---
+# Exploration de la littérature chinoise à travers l'œuvre de Lu Yin
 
 ## Les caractéristiques de l'œuvre de Lu Yin
 

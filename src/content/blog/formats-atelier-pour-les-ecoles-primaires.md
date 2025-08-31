@@ -12,7 +12,10 @@ author: "Christophe Desmur"
 tags: ['calligraphie chinoise', 'cours privés', 'lycées', 'ateliers éducatifs', 'culture asiatique', 'apprentissage du chinois', 'éducation artistique', 'horaires flexibles', 'tarifs compétitifs', 'groupes restreints']
 ---
 
+# Ateliers de calligraphie chinoise pour lycées
+
 ## Mes formats d'atelier pour les lycées
+
 
 | Horaires               | Entre 12 et 14 h                 |
 |------------------------|----------------------------------|
