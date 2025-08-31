@@ -1,5 +1,5 @@
 ---
-title: "Zeng Jixin"
+title: "Zeng Jixin : de paysan à écrivain reconnu"
 draft: false
 snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
 image: {
@@ -12,7 +12,9 @@ author: "Christophe Desmur"
 tags: []
 ---
 
-Né en 1963 dans le district de Gong'an au Hubei, il a mené successivement la vie de paysan, d'enseignant puis de cadre.
+# Zeng Jixin : de paysan à écrivain reconnu
+
+Né en 1963 dans le district de Gong'an au Hubei, Zeng Jixin a mené successivement la vie de paysan, d'enseignant puis de cadre.
 
 Il est diplômé en 1990 de l'Institut normal du Hubei où il avait intégré la section d'histoire. Après ses études, il se spécialise dans l'écriture de livres et d'articles. Il s'installe dans la ville de Xiamen (Amoy) où il mène sa carrière d'écrivain. Il est également rédacteur en chef de la revue Art et littérature de Amoy. Ses œuvres font très souvent ressortir les mœurs et coutumes de la province du Fujian.
 
