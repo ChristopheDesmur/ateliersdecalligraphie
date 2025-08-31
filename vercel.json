@@ -1,22 +1,23 @@
 {
   "redirects": [
+    { "source": "/catalogue/", "destination": "/galerie/", "permanent": true },
     { "source": "/cours-de-chinois/traductions/zeng-jixin/", "destination": "/zeng-jixin/", "permanent": true },
     { "source": "/cours-de-chinois/traductions/etude-de-vie-de-lu-yin-de-oeuvre/presentation-de-lauteur/lu-yin-conception-de-creation-litteraire/", "destination": "/lu-yin-conception-de-creation-litteraire/", "permanent": true },
-    { "source": "/cours-de-chinois/traductions/etude-de-vie-de-lu-yin-de-oeuvre/presentation-de-lauteur/", "destination": "/presentation-de-lauteur/", "permanent": true },
+    { "source": "/cours-de-chinois/traductions/etude-de-vie-de-lu-yin-de-oeuvre/presentation-de-lauteur/", "destination": "/etude-de-vie-de-lu-yin-de-oeuvre/", "permanent": true },
     { "source": "/cours-de-chinois/traductions/etude-de-vie-de-lu-yin-de-oeuvre/", "destination": "/etude-de-vie-de-lu-yin-de-oeuvre/", "permanent": true },
 
     { "source": "/atelier-de-groupe/colleges/", "destination": "/colleges/", "permanent": true },
     { "source": "/atelier-de-groupe/colleges/cours-calligraphie-colleges/", "destination": "/cours-calligraphie-colleges/", "permanent": true },
     { "source": "/atelier-de-groupe/colleges/shin-1-c2g/", "destination": "/shin-1-c2g/", "permanent": true },
     { "source": "/atelier-de-groupe/comites-entreprise/", "destination": "/comites-entreprise/", "permanent": true },
-    { "source": "/atelier-de-groupe/comites-entreprise/cours-calligraphie-comites-entreprise-2/", "destination": "/cours-calligraphie-comites-entreprise-2/", "permanent": true },
+    { "source": "/atelier-de-groupe/comites-entreprise/cours-calligraphie-comites-entreprise-2/", "destination": "/cours-calligraphie-comites-entreprise/", "permanent": true },
     { "source": "/atelier-de-groupe/comites-entreprise/cours-calligraphie-comites-entreprise/", "destination": "/cours-calligraphie-comites-entreprise/", "permanent": true },
     { "source": "/atelier-de-groupe/comites-entreprise/equilibre-calligraphie-lyon/", "destination": "/equilibre-calligraphie-lyon/", "permanent": true },
     { "source": "/atelier-de-groupe/cours-calligraphie-ecoles-primaires/", "destination": "/cours-calligraphie-ecoles-primaires/", "permanent": true },
-    { "source": "/atelier-de-groupe/cours-de-chinois-2/", "destination": "/cours-de-chinois-2/", "permanent": true },
+    { "source": "/atelier-de-groupe/cours-de-chinois-2/", "destination": "/cours-de-chinois/", "permanent": true },
     { "source": "/atelier-de-groupe/ecoles-primaires/", "destination": "/ecoles-primaires/", "permanent": true },
     { "source": "/atelier-de-groupe/formats-atelier-pour-les-ecoles-primaires/", "destination": "/formats-atelier-pour-les-ecoles-primaires/", "permanent": true },
-    { "source": "/atelier-de-groupe/formats-atelier-pour-les-ecoles-primaires/cours-calligraphie-lycees-2/", "destination": "/cours-calligraphie-lycees-2/", "permanent": true },
+    { "source": "/atelier-de-groupe/formats-atelier-pour-les-ecoles-primaires/cours-calligraphie-lycees-2/", "destination": "/cours-calligraphie-lycees/", "permanent": true },
     { "source": "/atelier-de-groupe/formats-atelier-pour-les-ecoles-primaires/cours-calligraphie-lycees/", "destination": "/cours-calligraphie-lycees/", "permanent": true },
     { "source": "/atelier-de-groupe/formats-atelier-pour-les-ecoles-primaires/mushotoku-c2g/", "destination": "/mushotoku-c2g/", "permanent": true },
     { "source": "/atelier-de-groupe/maisons-de-retraite/", "destination": "/maisons-de-retraite/", "permanent": true },
@@ -47,19 +48,19 @@
     { "source": "/cours-de-chinois/traductions/zeng-jixin/zeng-jixin-la-guerre-entre-les-rats-et-les-hommes-nouvelle/un-repaire-pour-les-rats-et-les-serpents/", "destination": "/un-repaire-pour-les-rats-et-les-serpents/", "permanent": true },
 
     { "source": "/cours-individuel-a-domicile/", "destination": "/cours-individuel-a-domicile/", "permanent": true },
-    { "source": "/cours-individuel-a-domicile/cours-individuel-calligraphie-lyon/", "destination": "/cours-individuel-calligraphie-lyon/", "permanent": true },
+    { "source": "/cours-individuel-a-domicile/cours-individuel-calligraphie-lyon/", "destination": "/cours-individuel-a-domicile/", "permanent": true },
 
-    { "source": "/decouvrez-art-energetique-millenaire/art-energetique-chinois-2/", "destination": "/art-energetique-chinois-2/", "permanent": true },
-    { "source": "/decouvrez-art-energetique-millenaire/art-energetique-chinois-3/", "destination": "/art-energetique-chinois-3/", "permanent": true },
-    { "source": "/decouvrez-art-energetique-millenaire/art-energetique-chinois/", "destination": "/art-energetique-chinois/", "permanent": true },
-    { "source": "/decouvrez-art-energetique-millenaire/art-energetique/", "destination": "/art-energetique/", "permanent": true },
-    { "source": "/decouvrez-art-energetique-millenaire/calligraphie-chinoise-2/", "destination": "/calligraphie-chinoise-2/", "permanent": true },
+    { "source": "/decouvrez-art-energetique-millenaire/art-energetique-chinois-2/", "destination": "/", "permanent": true },
+    { "source": "/decouvrez-art-energetique-millenaire/art-energetique-chinois-3/", "destination": "/", "permanent": true },
+    { "source": "/decouvrez-art-energetique-millenaire/art-energetique-chinois/", "destination": "/", "permanent": true },
+    { "source": "/decouvrez-art-energetique-millenaire/art-energetique/", "destination": "", "permanent": true },
+    { "source": "/decouvrez-art-energetique-millenaire/calligraphie-chinoise-2/", "destination": "/calligraphie-chinoise/", "permanent": true },
     { "source": "/decouvrez-art-energetique-millenaire/calligraphie-zen/", "destination": "/calligraphie-zen/", "permanent": true },
-    { "source": "/decouvrez-art-energetique-millenaire/calligraphie-zen/calligraphie-zen-2/", "destination": "/calligraphie-zen-2/", "permanent": true },
+    { "source": "/decouvrez-art-energetique-millenaire/calligraphie-zen/calligraphie-zen-2/", "destination": "/calligraphie-zen/", "permanent": true },
     { "source": "/decouvrez-art-energetique-millenaire/calligraphie-zen/calligraphie-zen-3/", "destination": "/calligraphie-zen-3/", "permanent": true },
     { "source": "/decouvrez-art-energetique-millenaire/calligraphie-zen/calligraphie-zen-4/", "destination": "/calligraphie-zen-4/", "permanent": true },
     { "source": "/decouvrez-art-energetique-millenaire/fuku-bonheur/", "destination": "/fuku-bonheur/", "permanent": true },
     { "source": "/decouvrez-art-energetique-millenaire/shodo-voie-pinceau/", "destination": "/shodo-voie-pinceau/", "permanent": true },
-    { "source": "/decouvrez-art-energetique-millenaire/shodo-voie-pinceau/shodo-voie-pinceau-2/", "destination": "/shodo-voie-pinceau-2/", "permanent": true }
+    { "source": "/decouvrez-art-energetique-millenaire/shodo-voie-pinceau/shodo-voie-pinceau-2/", "destination": "/shodo-voie-pinceau/", "permanent": true }
   ]
 }
