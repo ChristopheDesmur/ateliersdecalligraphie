@@ -1,7 +1,7 @@
 {
   "redirects": [
     {
-      "source": "/traductions/zeng-jixin/",
+      "source": "/cours-de-chinois/traductions/zeng-jixin/",
       "destination": "/zeng-jixin/",
       "permanent": true
     }
