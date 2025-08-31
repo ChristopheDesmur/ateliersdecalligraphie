@@ -4,12 +4,12 @@
       "source": "/cours-de-chinois/traductions/zeng-jixin/",
       "destination": "/zeng-jixin/",
       "permanent": true
-    }
+    },
     {
-      "source": "cours-de-chinois/traductions/etude-de-vie-de-lu-yin-de-oeuvre/presentation-de-lauteur/",
+      "source": "/cours-de-chinois/traductions/etude-de-vie-de-lu-yin-de-oeuvre/presentation-de-lauteur/",
       "destination": "/etude-de-vie-de-lu-yin-de-oeuvre/",
       "permanent": true
-    }
+    },
     {
       "source": "/cours-de-chinois/traductions/etude-de-vie-de-lu-yin-de-oeuvre/",
       "destination": "/etude-de-vie-de-lu-yin-de-oeuvre/",
