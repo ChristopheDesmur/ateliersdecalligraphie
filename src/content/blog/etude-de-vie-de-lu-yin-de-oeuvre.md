@@ -14,7 +14,7 @@ tags: []
 
 ## Les caractéristiques de l'œuvre de Lu Yin
 
-Pour définir l'œuvre et la personnalité de Lu Yin, les critiques littéraires s'accordent sur certains points. Kirk A. Denton résume ainsi : « …les travaux de Lu Yin furent pour la plupart publiés dans le *Xiaoshuo yuebao* (Le mensuel du roman), et se caractérisent par leurs côtés lyriques, subjectifs et romantiques. » 
+Pour définir l'œuvre et la personnalité de [Lu Yin](https://fr.wikipedia.org/wiki/Lu_yin), les critiques littéraires s'accordent sur certains points. Kirk A. Denton résume ainsi : « …les travaux de Lu Yin furent pour la plupart publiés dans le *Xiaoshuo yuebao* (Le mensuel du roman), et se caractérisent par leurs côtés lyriques, subjectifs et romantiques. » 
 
 Zhang Yinde ajoute : « …[Lu Yin] utilise plutôt un parler franc pour briser les illusions du bonheur et enlever les masques de la joie, en exposant à ses lecteurs une vision profondément pessimiste. » Pour lui, Lu Yin est imprégnée d’un profond sentiment de souffrance, vision qu’elle aurait héritée de ses lectures de philosophes nihilistes allemands, en particulier d’Arthur Schopenhauer (1788-1860).
 
