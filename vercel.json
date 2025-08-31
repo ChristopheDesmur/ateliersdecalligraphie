@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/traductions/zeng-jixin/",
+      "destination": "/zeng-jixin/",
+      "permanent": true
+    }
+  ]
+}
