@@ -1,5 +1,5 @@
 ---
-title: "Maisons de retraite"
+title: "Maisons de retraite et Éhpad"
 draft: false
 snippet: "Ateliers de calligraphie pour maisons de retraite, favorisant bien-être et créativité."
 image: {
@@ -14,7 +14,7 @@ tags: ['calligraphie maisons de retraite', 'bien-être', 'créativité', 'atelie
 
 # Ateliers de calligraphie pour le bien-être des seniors
 
-## Mes formats d'atelier pour les maisons de retraite
+## Mes formats d'atelier pour les maisons de retraite et Éhpad
 
 | Horaires               | Libres                 |
 |------------------------|------------------------|
