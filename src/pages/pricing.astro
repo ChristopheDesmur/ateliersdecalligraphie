@@ -1,4 +1,5 @@
 ---
+import PostHogLayout from "@/layouts/PostHogLayout.astro";
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
@@ -64,18 +65,20 @@ const pricing = [
 ];
 ---
 
-<Layout title="Pricing">
-  <Container>
-    <Sectionhead>
-      <Fragment slot="title">Pricing</Fragment>
-      <Fragment slot="desc">
-        Simple & Predictable pricing. No Surprises.
-      </Fragment>
-    </Sectionhead>
+<PostHogLayout>
+  <Layout title="Pricing">
+    <Container>
+      <Sectionhead>
+        <Fragment slot="title">Pricing</Fragment>
+        <Fragment slot="desc">
+          Simple & Predictable pricing. No Surprises.
+        </Fragment>
+      </Sectionhead>
 
-    <div
-      class="grid md:grid-cols-3 gap-10 mx-auto max-w-(--breakpoint-lg) mt-12">
-      {pricing.map((item) => <PricingCard plan={item} />)}
-    </div>
-  </Container>
-</Layout>
+      <div
+        class="grid md:grid-cols-3 gap-10 mx-auto max-w-(--breakpoint-lg) mt-12">
+        {pricing.map((item) => <PricingCard plan={item} />)}
+      </div>
+    </Container>
+  </Layout>
+</PostHogLayout>
