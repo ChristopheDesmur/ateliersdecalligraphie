@@ -37,11 +37,11 @@ Le coût horaire de la prestation est de 50 € HT pour les collectivités, asso
     </div>
   </a>
 
-  <!-- 2. Formats atelier écoles primaires -->
+  <!-- 2. Formats atelier lycées -->
   <a href="/formats-atelier-pour-les-lycees" class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
     <img src="/assets/atelier-de-groupe-calligraphie-lyon.webp" alt="Atelier de groupe de calligraphie chinoise à Lyon." class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
     <div class="p-3 bg-white text-center">
-      <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">Formats d’atelier pour les écoles primaires</h3>
+      <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">Formats d’atelier pour les lycées</h3>
       <p class="text-sm text-gray-600 mt-1">Différentes formules adaptées aux classes et enseignants.</p>
     </div>
   </a>
