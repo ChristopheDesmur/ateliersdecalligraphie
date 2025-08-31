@@ -1,17 +1,16 @@
 ---
 title: "Shodo, la voie du pinceau"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Découvrez le shodo, art spirituel de la calligraphie influencé par la culture chinoise."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
     alt: "Calligraphie Lyon"
 }
 publishDate: "2022-11-07 15:39"
-category: ""
+category: "Culture asiatique"
 author: "Christophe Desmur"
-tags: []
+tags: ['shodo', 'calligraphie', 'culture chinoise', 'zen', 'art spirituel', 'dynastie Tang', 'Japon', 'Corée', 'Viêtnam', 'chu nom']
 ---
-
 
 ## La Chine a profondément influencé la culture des pays voisins. Ensemble, ils ont créé le **shodo**, la voie du pinceau.
 

@@ -1,7 +1,7 @@
 ---
 title: "Les mânes des morts"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Découvrez l'ingéniosité des rats face aux poisons et l'histoire de la peste."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
     alt: "Calligraphie Lyon"
@@ -9,18 +9,24 @@ image: {
 publishDate: "2022-11-07 15:39"
 category: ""
 author: "Zeng Jixin - traduction Christophe Desmur"
-tags: []
+tags: ['rats', 'poisons', 'peste', 'intelligence', 'extermination', 'humanité', 'épidémie', 'Albert Camus', 'lutte', 'survie']
 ---
 
 J'ai lu une étude scientifique qui parlait de la réactivité et de la malice des rats face aux poisons. En présence de denrées douteuses, le meneur très souvent va ordonner à un rat malade, affaibli ou très vieux de les goûter en premier. Si parmi les rats l'un deux s'écroule après avoir mangé, les autres s'abstiendront alors de manger de cette nourriture. En outre pour peu qu'ils sentent l'odeur du rat qui est mort, ils sont alors capables de distinguer et de se souvenir ces poisons. Toutefois, l'Homme doit toujours avoir une longueur d'avance sur les rats. C'est ainsi qu'il est toujours capable d'innovations en matière de confection de toutes sortes de produits toxiques qui provoqueront pertes et dégâts chez les rats. Pour ce qui est des anciens poisons anti-rat, ils fallait que ceux-ci les ingèrent pour qu'ils en meurent. Il y a quelques années, j'ai entendu parler d'un produit contre les rats assez redoutable appelé « écroulé au bout de trois pas ». Même si les rats ne l'avale pas, il suffit qu'il marche dessus pour qu'ils meurent avant d'avoir pu faire trois pas.
 
+### Innovations dans l'extermination des rats
+
 Par la suite, toujours d'après ce que j'ai pu entendre, un autre produit de pointe est sorti sur le marché. Pour celui-là il n'y avait même pas besoin que les rats passent dessus, il suffisait qu'ils le respirent pour mourir empoisonner. Les concepteurs de ces produits innovants contre les rats recevaient souvent de la part des gens des appellations élogieuses comme « spécialiste de l'extermination des rats » ou encore « le grand roi de l'extermination des rats ». Je ressent un profond respect pour cette sorte de personne. A mes yeux, ils apportent non seulement une grande contribution à la société mais aussi, et c'est là le point essentiel, ils prolongent le prestige de notre Humanité ! Pour être sincère, à chaque fois que je constate de quelles manières se déchaînent les rats et que je ne peux rien y faire, je me considère comme un membre à part entière de l'Humanité et je ressens une assez grande tristesse. Bien sûr en insistant beaucoup sur le côté extraordinaire de ces présentations et rapports, j'adopte une attitude de la suspicion et du mépris.
+
+### La peste et son impact historique
 
 Une fois, je suis tombé sur un rapport concernant l'extermination des rats et qui racontait comment un certain paysan, spécialiste dans l'extermination des rats, avait mis au point le plus récent, le plus miraculeux, le plus extraordinaire et le plus merveilleux des poisons anti-rat. Il suffisait d'en mettre dans un trou pour que les rats soient comme ensorcelés, perdant tout leurs moyens et l'esprit hagard, ils sortiraient alors sagement de leur trou sans opposer aucune résistance. Une fois la lecture de cette enquête terminé, je restai sans voix. Si il y avait réellement un poison à ce point redoutable et avec la production de masse rendue possible par la technologie moderne, les derniers jours des rats ne seraient-ils pas tout proches ? Mais en réalité, jusqu'à aujourd'hui, les rats sont toujours plus répandus, de plus en plus intelligents et de plus en plus nuisibles.
 
 Si l'on parle des dangers pour l'Homme liés aux rats, il n'y a pas de plus grave que celui de la peste.
 
 La peste que l'on appelle aussi la maladie de la mort noire est une maladie infectieuse accompagnée de fièvre causée par la bactérie Yersinia Pestis. Le vecteur infectieux est la puce du rat. Suivant les différents symptômes, la peste prend trois formes que sont la peste bubonique, la peste pulmonaire et la peste septicémique. Lorsque se déclare la peste bubonique, cela commence par des frissons puis viennent les vomissements, les maux de tête, les vertiges, les photophobies (intolérance à la lumière), les lombalgies, les douleurs dans les membres, les insomnies, les délires. La température du corps augmente subitement jusqu'à atteindre plus de 40 degrés celsius. Les effets cliniques de la peste bubonique s'expriment sous la forme d'une pneumopathie puis très vite apparaît un oedème et dans la plupart des cas c'est la mort dans les trois quatre jours. La peste septicémique est la forme la plus dangereuse des trois sortes de peste. Elle s'exprime par une prostration et des dommages cérébraux et la mort survient dans les 24 heures. Si avant de mourir le malade développe une pneumonie, le caractère infectieux sera alors extrêmement fort et ceux qui entreront en contact avec lui contracteront très vite la peste pulmonaire.
+
+### La lutte contre la peste et la littérature
 
 Jadis, à la seule évocation de le peste, cela équivaut à parler des rats et le visage change brusquement. Les rats sont vus comme les mânes des défunts. La grande épidémie de peste au quatorzième siècle a tué en Europe 25 millions de personnes, ce qui correspondait à l'époque à un quart de la population. De 1664 à 1665, la peste apparut à Londres en Angleterre. La population comptait 46 0000 habitants, 7 0000 moururent. En 1894, la peste éclata dans les villes chinoises de Guangzhou et Hongkong, il y eut plus de 10 0000 morts. Avec les progrès de l'Humanité et les avancées de la science, la peste n'est plus aussi redoutable qu'auparavant. En premier lieu, en éliminant les puces et les animaux vecteurs de la peste on a mis un frein au développement de la peste. Et même si la peste ressurgit, on a généralisé la vaccination contre la peste dans les régions épidémiques, ce qui renforce chez les gens les anticorps. Si l'on est déjà infecté, on peut être traité par des médicaments comme la streptomycine, la tétracycline, la sulfonamide...
 

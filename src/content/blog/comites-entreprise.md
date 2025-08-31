@@ -1,17 +1,16 @@
 ---
 title: "Comités d'entreprise"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Découvrez l'art énergétique de la calligraphie chinoise pour vos comités d'entreprise."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
     alt: "Calligraphie Lyon"
 }
 publishDate: "2022-11-07 15:39"
-category: ""
+category: "Ateliers d'entreprise"
 author: "Christophe Desmur"
-tags: []
+tags: ['calligraphie chinoise', 'atelier entreprise', 'cours privés', 'art énergétique', 'formation professionnelle', 'bien-être au travail', 'culture chinoise', 'développement personnel', 'activité de groupe', 'team building']
 ---
-
 
 ## Mes formats d'atelier pour les comités d'entreprise
 

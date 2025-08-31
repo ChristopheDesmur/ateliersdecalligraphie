@@ -1,17 +1,16 @@
 ---
 title: "Maisons de retraite"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Ateliers de calligraphie pour maisons de retraite, favorisant bien-être et créativité."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
     alt: "Calligraphie Lyon"
 }
 publishDate: "2022-11-07 15:39"
-category: ""
+category: "Ateliers"
 author: "Christophe Desmur"
-tags: []
+tags: ['calligraphie maisons de retraite', 'bien-être', 'créativité', 'ateliers seniors', 'art thérapie', 'activité manuelle', 'expression artistique', 'cours de calligraphie', 'santé mentale', 'loisirs créatifs']
 ---
-
 
 ## Mes formats d'atelier pour les maisons de retraite
 

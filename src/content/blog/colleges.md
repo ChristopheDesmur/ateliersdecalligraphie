@@ -9,7 +9,7 @@ image: {
 publishDate: "2022-11-07 15:39"
 category: ""
 author: "Christophe Desmur"
-tags: []
+tags: ['calligraphie chinoise', 'cours individuels', 'cours privés', 'écoles primaires', 'temps scolaire', 'atelier', 'collèges', 'participants', 'tarifs', 'durée']
 ---
 
 ## Mes formats d'atelier pour les collèges

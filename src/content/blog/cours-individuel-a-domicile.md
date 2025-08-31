@@ -1,17 +1,27 @@
 ---
 title: "Cours individuels à domicile"
-draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
-image: {
-    src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
-}
-publishDate: "2022-11-07 15:39"
-category: ""
-author: "Christophe Desmur"
-tags: []
----
 
+draft: false
+
+snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+
+image: {
+
+    src: "/assets/cours-calligraphie-ecoles-primaires.webp",
+
+    alt: "Calligraphie Lyon"
+
+}
+
+publishDate: "2022-11-07 15:39"
+
+category: "Éducation"
+
+author: "Christophe Desmur"
+
+tags: ['cours individuels', 'calligraphie chinoise', 'cours à domicile', 'coopérative de services', 'réduction d’impôt', 'crédit d’impôt', 'entrepreneur', 'services à domicile', 'coop A Dom', 'Lyon']
+
+---
 
 ## Progressez à votre rythme en calligraphie chinoise grâce à des cours individuel à domicile
 

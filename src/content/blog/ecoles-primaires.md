@@ -1,15 +1,15 @@
 ---
 title: "Écoles primaires"
 draft: false
-snippet: "Mes formats d'atelier pour les écoles primaires sur le temps scolaire"
+snippet: "Ateliers de calligraphie pour les écoles primaires, découverte des pictogrammes chinois."
 image: {
   src: "/assets/cours-calligraphie-ecoles-primaires.webp",
   alt: "Mes formats d'atelier pour les écoles primaires sur le temps scolaire"
 }
 publishDate: "2022-11-07 15:39"
-category: ""
+category: "Éducation"
 author: "Christophe Desmur"
-tags: [ateliers, groupes]
+tags: ['ateliers', 'écoles primaires', 'calligraphie', 'pictogrammes chinois', 'éducation', 'enfants', 'découverte', 'scolaire', 'dessin', 'culture']
 ---
 
 ## Mes formats d'atelier pour les écoles primaires sur le temps scolaire

@@ -7,11 +7,10 @@ image: {
     alt: "Calligraphie Lyon"
 }
 publishDate: "2022-11-07 15:39"
-category: ""
+category: "Éducation"
 author: "Christophe Desmur"
-tags: []
+tags: ['calligraphie chinoise', 'cours privés', 'chinois', 'ateliers universitaires', 'écoles supérieures', 'formation artistique', 'culture asiatique', 'apprentissage', 'atelier créatif', 'enseignement']
 ---
-
 
 ## Mes formats d'atelier pour les universités et grandes écoles
 

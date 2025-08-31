@@ -1,15 +1,15 @@
 ---
 title: "Les influences littéraires étrangères dans l’œuvre de Lu Yin"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Influence des auteurs étrangers sur Lu Yin et son impact sur la littérature chinoise."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
     alt: "Calligraphie Lyon"
 }
 publishDate: "2022-11-07 15:39"
-category: ""
+category: "Littérature chinoise"
 author: "Christophe Desmur"
-tags: []
+tags: ['influence littéraire', 'Lu Yin', 'littérature chinoise', 'Société d’Études littéraires', 'littérature occidentale', 'Goethe', 'Henrik Ibsen', 'Rabindranath Tagore', 'traduction', 'réalisme']
 ---
 
 ## Lu Yin et la Société d’Études littéraires

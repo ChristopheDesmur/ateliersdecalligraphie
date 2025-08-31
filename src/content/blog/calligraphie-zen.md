@@ -7,11 +7,10 @@ image: {
     alt: "Calligraphie Lyon"
 }
 publishDate: "2022-11-07 15:39"
-category: ""
+category: "Art Zen"
 author: "Christophe Desmur"
-tags: []
+tags: ['calligraphie zen', 'art ancestral', 'pratique spirituelle', 'maîtres zen', 'technique artistique', 'éveil spirituel', 'culture chinoise', 'culture japonaise', 'expression artistique', 'énergie spirituelle']
 ---
-
 
 ## Dans les traditions ancestrales chinoise et japonaise, une **calligraphie Zen** s'accomplit avec tout son être, au-delà de la technique. La pratique de cet art se perpétue aujourd'hui en Europe.
 

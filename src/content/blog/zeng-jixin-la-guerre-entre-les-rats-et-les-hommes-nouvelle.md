@@ -1,17 +1,16 @@
 ---
 title: "La guerre entre les rats et les hommes (nouvelle)"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Souvenirs d'enfance et lutte contre les rats dans un village enneigé."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
     alt: "Calligraphie Lyon"
 }
 publishDate: "2022-11-07 15:39"
-category: ""
+category: "Nouvelle"
 author: "Zeng Jixin - traduction Christophe Desmur"
-tags: []
+tags: ['souvenirs', 'enfance', 'rats', 'village', 'neige', 'grand-mère', 'survie', 'provisions', 'chat', 'nature']
 ---
-
 
 ## Les rats des jarres de riz
 
@@ -21,9 +20,13 @@ Ce fut là le point de départ de mes souvenirs.
 
 Bien que j'en soit tout à fait désolé, il m'est impossible d'éluder cette réalité bien difficile à changer. Les rats apparurent chez moi dans une jarre de riz. Un matin, de bonne heure, ma grand-mère tenant d'une main le récipient enleva de l'autre le couvercle et poussa malgré elle un "Ah !" de surprise. Elle se mit à vociférer une suite d'injures : "Des rats, encore des rats, saleté de rats !" puis elle se précipita vers le fourneau de la cuisine pour chercher des pincettes. J'entendais quelque chose qui frappait contre le bord de la jarre de riz qui était très haute et m'arrivait à la hauteur du cou. C'est en faisant tout mon possible pour me mettre sur la pointe des pieds et en étirant de mon mieux le cou que j'arrivai à apercevoir un rat noir. Il n'y avait déjà plus beaucoup de riz à l'intérieur de la jarre et le rat pris de panique essayait de toutes ses forces de grimper. Le rebord de la jarre était très glissant et après plusieurs tentatives infructueuses, il retombait encore et encore au fond. Il se dressait de tout son corps et grimpait encore, agitant sans cesse ses quatre petites pattes, grattant et griffant... Ma grand-mère était de retour, elle introduisit dans la jarre les pinces métalliques pour le bois de chauffage et les dirigea vers le rat. Le rat était encore plus paniqué. Tout en voulant grimper, il voulait aussi échapper aux tentatives de grand-mère de le pincer. Il esquivait et sautait en tout sens à l'intérieur de la jarre.
 
+## La lutte contre les rats
+
 Après avoir échoué à l'attraper deux fois, grand-mère s'énerva et n'arrêtant plus de jurer, elle agitait dans tous les sens les pinces métalliques dans l'espace restreint d'une jarre de riz. Après une série de chocs et de bruits métalliques, les pinces attrapèrent le rat par le dos qui se mit à couiner. Ses petites pattes se mirent soudain à griffer l'air, on pouvait voir traîner sa longue queue toute noire. J'étais fasciné, je n'avais encore jamais vu une queue si longue. Je tendis avec minutie la main pour lui pincer le bout de la queue. "Arrête !", l'ordre que me cria grand-mère me fit sursauter de frayeur, ma petite main se rétracta soudain comme si elle avait été en contact avec le feu. "Il ne faut pas toucher n'importe quoi." me dit grand-mère en ajoutant : "Ce rat est une vraie plaie, regarde, il nous à manger nos provisions. Il s'en est gavé à s'en faire éclater le ventre."Je regardai avec attention son ventre et effectivement il était tout rond et vraiment gros. Grand-mère ajouta : "Nos provisions sont déjà limitées et depuis un bon moment on ne mange plus que du riz, des navets et du brouet aux légumes sauvages. Et voilà que ce rat vient nous voler nos maigres rations de céréales, c'est vraiment écoeurant, c'est détestable." Tout en parlant, grand-mère coinça sans ménagement le rat au sol puis leva le pied droit et l'écrasa violemment juste sur sa tête.
 
 Lorsque grand-mère, encore toute jeune fille, entra au sein de sa belle-famille, elle avait déjà les pieds bandés. Bien que n'ayant pas la qualité des "lotus d'or de trois pouces", ses deux petits pieds n'étaient pas tellement plus grands que les miens. Et pourtant, je n'aurais jamais pensé qu'elle soit aussi adroite au point de réussir d'un seul coup de pied. Le rat émit un cri aigu, triste et désespéré. Un filet de sang sorti soudain de son nez et de sa bouche. Tout son corps se recroquevilla et se mit à trembler. Grand-mère tout en jurant : "Saleté, on va voir si tu vas continuer ou pas à nous nuire en te gavant sur notre dos comme un goinfre !", écrasa son ventre d'un coup de pied. La colère de grand-mère n'était toujours pas apaisée, elle prit à nouveau les tenailles métalliques et lui asséna une volée de coups sur tout le corps. Lorsque s'arrêtèrent les coups, le rat était étendu sur le sol, totalement immobile. Grand-mère se saisit alors du rat mort par le dos à l'aide des tenailles et le jeta dehors dans la fosse d'aisance. Une fois que tout fut terminé, grand-mère rentra et s'empressa de préparer le petit déjeuner.
+
+## La fascination pour le rat mort
 
 Mais moi, accroupi au bord de la fosse d'aisance, je regardais le rat mort qui s'y trouvait pendant un long moment sans pouvoir partir. Je tendis ma petite main dans le but de caresser sa longue queue mais inquiet de me faire gronder par grand-mère, je pris une branche morte et me mis à bouger le corps et la longue queue du rat mort. Son corps est long et fin, ses petits yeux sont tout ronds, son museau tout pointu, sa lèvre inférieure retroussée laisse apparaître des dents blanches minces et acérées et une moustache blanche bien fournie s'épanouit à la commissure de ses lèvres. En apercevant ces longs poils blancs, je fus pris d'une irrésistible tentation et m'empressai de tendre la main pour les caresser. Ils étaient fins, durs et lisses au toucher, quelle merveille ! Puis je me mis à lui caresser le tendre duvet qui lui recouvrait le corps, en commençant par la tête jusqu'au derrière. Alors que je touchai sa longue queue, je jetai inconsciemment un coup d'oeil en arrière, pas l'ombre d'une mamie en vue.
 

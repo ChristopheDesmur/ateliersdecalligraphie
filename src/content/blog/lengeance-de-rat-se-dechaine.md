@@ -1,23 +1,28 @@
 ---
 title: "L'engeance de rat se déchaîne"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Les rats résistent aux pesticides, développant des capacités de survie inattendues."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
     alt: "Calligraphie Lyon"
 }
 publishDate: "2022-11-07 15:39"
-category: ""
+category: "Animaux"
 author: "Zeng Jixin - traduction Christophe Desmur"
-tags: []
+tags: ['résistance des rats', 'pesticides', 'calamités', 'méthodes de lutte', 'survie des rongeurs', 'évolution des rats', 'pesticide BHC', 'stratégies anti-rats', 'adaptation animale', 'peste']
 ---
-
 
 Les calamités causées par les rats sont toujours plus nombreuses, tout le monde leur voue une haine implacable et la décision est prise de leur faire voir de quel boit l'on se chauffe. Après avoir fait le tour de la question, on en vient à penser à la méthode qui consiste à les empoisonner. Mère s'adressa au magasinier de l'équipe de production et lui demanda une boite de pesticide appelé « poudre » qu'elle ramena à la maison. La mort dans l'âme, elle prit aussi une petite poignée de grains aussi précieux que l'or du grand coffre en bois, elle mélangea le tout et en déposa aux endroits où les rats sortaient habituellement. Une fois les lumières éteintes, les rats comme à leur habitude et en faisant comme si ils étaient chez eux sortirent pour batifoler et chercher de la nourriture. Personne ne dormait mais personne ne faisait de bruit y compris grand-mère d'ordinaire si volubile, la peur était trop grande de voir s'enfuir les rats pris de panique et de voir ainsi tout le plan tomber à l'eau. Et pourtant, le lendemain au premier coup d'oeil, aucun résultat réjouissant qui était prévu n'était visible. Il ne restait pas un grain de céréale du mélange anti-rat mais point de rat mort en vue.
 
+### Silence après la tempête
+
 Le surlendemain au soir, bien que l'on n'aperçut toujours aucun rat mort, le silence était pourtant total, on entendait pas le moindre bruit de rat. « Est-ce que les rats sont tous morts empoisonnés dans leurs trous ? » se dit à elle-même grand-mère allongée sur son lit. Le troisième jour tôt le matin, père fut le premier à se lever, il eut à peine le temps de faire quelques pas qu'il trébucha sur quelque chose. Il baissa la tête et laissa éclater sa joie en s'exclamant : « Les rats, regardez, ils ont fini par crever... ». Tout le monde se leva et découvrit dans la pièce principale autour du poêle sept ou huit cadavres de rats. Comme il se devait, le déclanchement médicamenteux avait suivi sont processus obligatoire et les rats ne faisaient pas exception à la règle. Par la suite, on découvrit dans les coins des pièces, dans les réserves, dans les tas de bois de chauffage et d'herbe, dans les combles et dans bien d'autres endroits plus d'une trentaine de rats morts et même au-dehors, on en découvrit quatre ou cinq. Dans la maisonnée, nous étions tous très heureux, nous pensions qu'ainsi nous étions complètement débarrassés des calamités causées par les rats, nous connurent alors une période de calme authentique.
 
+### Résistance et adaptation des rats
+
 Mais voilà, une demie année après, les ravages dus aux rats réapparurent. Une année n'était pas encore passée que leurs activités ne connaissaient plus de limites et gagnaient même en effronterie. La méthode pour faire face à cela fut encore de répandre du pesticide, comme avant on mélangea de la poudre [^1] à des grains de riz qu'on déposa aux sorties habituellement fréquentés par les rats. Mais cette fois-ci, ils ne mangèrent pas un grain, la génération de leurs pères avant de mourir avait certainement transmis à leurs descendants toutes les connaissances et informations concernant ce poison. Si ils mangeaient des grains similaires, ils ne touchaient par contre pas ceux qui étaient mélangés à de la poudre de pesticide. Cette sorte de grains avaient une fine pellicule collante faite de poudre blanche et elle avait en même temps une odeur qui piquait le nez. Comment faire pour que les grains traités au pesticide n'aient ni odeur ni trace de poudre blanche ? Grand-mère trouva finalement une solution, il fallait mettre à griller dans la marmite le mélange de céréales et de pesticide qui allait dégager une odeur agréable puis le répandre.
+
+### Nouveaux défis et solutions
 
 Le résultat fut prodigieux, le bruit de mastication des rats ne cessa de la nuit? Après le lever du jour lorsque l'on leva, on ne vit qu'il ne restait que quelques écorces jaunes de céréales, pratiquement tout avait été mangé par les rats. Grand-mère et mes parents n'étaient que sourire, l'essentiel était que les rats acceptent de manger et même si ils avaient perdu quelques grains, ils étaient quand même heureux. Le lendemain naturellement aucun rat ne se montra mais en se fiant à la dernière expérience, on savait que les rats après avoir ingurgité le pesticide, ce dernier devait encore suivre son processus médicamenteux, confiants, il suffisait que l'on attende le troisième jour pour ramasse les rats et puis voilà. Cependant, il se produisit une chose inattendue et pour le moins extraordinaire, le troisième jour on ne découvrit pas de rat mort, on fouilla partout dans la maison sans découvrir le moindre rat. Se pouvait-il qu'ils soient dans leurs trous, morts ? En règle générale, les rats mourants ne crèveront pas dans une souricière, même à bout de force, ils se précipiteront avant de mourir à l'extérieur afin de trouver un endroit pour quitter ce monde. Alors que se passait-il donc ? A nouveau une semaine passa et l'on ne retrouva que deux cadavres tout maigrelet. Père considéra que la quantité de pesticide n'avait pas été suffisante et ajouta alors une grosse dose qu'il répandit une nouvelle fois.
 

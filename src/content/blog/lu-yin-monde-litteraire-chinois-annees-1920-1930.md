@@ -1,17 +1,16 @@
 ---
 title: "Lu Yin dans le monde littéraire chinois des années 1920 et 1930"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Lu Yin, figure littéraire des années 1920-1930, entre art et engagement social."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
     alt: "Calligraphie Lyon"
 }
 publishDate: "2022-11-07 15:39"
-category: ""
+category: "Littérature chinoise"
 author: "Christophe Desmur"
-tags: []
+tags: ['Lu Yin', 'littérature chinoise', 'sociétés littéraires', 'art pour l’art', 'art pour la vie', 'révolution culturelle', 'écrivaines chinoises', 'engagement social', 'patriotisme', 'impérialisme japonais']
 ---
-
 
 ## Lu Yin et les sociétés littéraires de son époque
 

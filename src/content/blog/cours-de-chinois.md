@@ -7,11 +7,10 @@ image: {
     alt: "Calligraphie Lyon"
 }
 publishDate: "2022-11-07 15:39"
-category: ""
+category: "Éducation"
 author: "Christophe Desmur"
-tags: []
+tags: ['calligraphie chinoise', 'cours de chinois', 'idéogrammes', 'culture chinoise', 'philosophie chinoise', 'poésie chinoise', 'Daodejing', 'Liezi', 'Xinjing', 'dynasties Tang et Song']
 ---
-
 
 ## Prenez des **cours de chinois** progressivement, en apprenant à tracer les idéogrammes au pinceau et à l'encre de Chine.
 
