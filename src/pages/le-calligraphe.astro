@@ -1,5 +1,4 @@
 ---
-import PostHogLayout from "../layouts/PostHogLayout.astro";
 import Base from "../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
 import fs from 'fs';
@@ -12,101 +11,99 @@ const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'
 const sortedYears = Object.keys(ateliers).sort((a, b) => Number(b) - Number(a));
 ---
 
-<PostHogLayout>
-  <Base title="Christophe Desmur, calligraphe et traducteur littéraire du chinois">
-    <main class="mx-auto max-w-[735px] mt-14">
+<Base title="Christophe Desmur, calligraphe et traducteur littéraire du chinois">
+  <main class="mx-auto max-w-[735px] mt-14">
       <h1
         class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">Christophe Desmur, calligraphe et traducteur littéraire du chinois</h1>
-      <p class="text-lg mt-4 text-gray-600">
-        Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques.
-      </p>
+    <p class="text-lg mt-4 text-gray-600">
+      Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques.
+    </p>
 
-      <p>
-        Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde, je suis titulaire :</p>
-      <ul class="list-disc pl-5">
-        <li>d’un diplôme d’étude universitaire générale en langue et civilisation coréennes&nbsp;;</li>
-        <li>d’une maîtrise de langue et civilisation chinoises&nbsp;;</li>
-        <li>d’un master de traduction littéraire du chinois vers le français.</li>
-      </ul>
+    <p>
+      Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde, je suis titulaire :</p>
+<ul class="list-disc pl-5">
+  <li>d’un diplôme d’étude universitaire générale en langue et civilisation coréennes&nbsp;;</li>
+  <li>d’une maîtrise de langue et civilisation chinoises&nbsp;;</li>
+  <li>d’un master de traduction littéraire du chinois vers le français.</li>
+</ul>
 
-      <img
-        src="/assets/christophe-desmur-calligraphie-chinoise.webp"
-        alt="Christophe Desmur, calligraphie chinoise à Lyon, en train de calligraphier."
-        style="width:100%; max-width:800px; height:auto;"
-      >
+<img
+  src="/assets/christophe-desmur-calligraphie-chinoise.webp"
+  alt="Christophe Desmur, calligraphie chinoise à Lyon, en train de calligraphier."
+  style="width:100%; max-width:800px; height:auto;"
+>
 
-      <p>
-        Je donne des cours de calligraphie et des cours de chinois individuels ou en groupe aussi bien aux enfants qu’aux adultes et anime également des stages (10 élèves maximum).
-      </p>
+    <p>
+      Je donne des cours de calligraphie et des cours de chinois individuels ou en groupe aussi bien aux enfants qu’aux adultes et anime également des stages (10 élèves maximum).
+    </p>
 
-      <h2 class="text-4xl lg:text-3xl font-bold text-gray-600 mt-10">Ateliers & interventions</h2>
+    <h2 class="text-4xl lg:text-3xl font-bold text-gray-600 mt-10">Ateliers & interventions</h2>
 
-      <!-- Year navigation -->
-      <nav class="flex flex-wrap gap-4 mb-6">
-        {sortedYears.map((annee, idx) => (
-          <button
-            class={`year-btn px-4 py-2 rounded font-semibold transition-colors duration-300
-              ${idx === 0 ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}
-            data-year={annee}
-          >
-            {annee}
-          </button>
-        ))}
-      </nav>
-
-      <!-- Yearly sections -->
+    <!-- Year navigation -->
+    <nav class="flex flex-wrap gap-4 mb-6">
       {sortedYears.map((annee, idx) => (
-        <section
-          key={annee}
-          class={`year-section ${idx === 0 ? '' : 'hidden'} mt-6`}
+        <button
+          class={`year-btn px-4 py-2 rounded font-semibold transition-colors duration-300
+            ${idx === 0 ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}
           data-year={annee}
         >
-          <ul class="mt-4 space-y-2">
-            {ateliers[annee].map((event) => (
-              <li key={event.date + event.titre} class="border-b pb-2">
-                <strong>{event.date}</strong> — {event.titre} <br />
-                <em>{event.lieu}</em><br />
-                {event.details}
-              </li>
-            ))}
-          </ul>
-        </section>
+          {annee}
+        </button>
       ))}
-    </main>
+    </nav>
 
-    <script>
-      const yearButtons = document.querySelectorAll(".year-btn");
+    <!-- Yearly sections -->
+    {sortedYears.map((annee, idx) => (
+      <section
+        key={annee}
+        class={`year-section ${idx === 0 ? '' : 'hidden'} mt-6`}
+        data-year={annee}
+      >
+        <ul class="mt-4 space-y-2">
+          {ateliers[annee].map((event) => (
+            <li key={event.date + event.titre} class="border-b pb-2">
+              <strong>{event.date}</strong> — {event.titre} <br />
+              <em>{event.lieu}</em><br />
+              {event.details}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </main>
 
-      yearButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-          const year = btn.dataset.year;
+  <script>
+    const yearButtons = document.querySelectorAll(".year-btn");
 
-          // Show selected year section
-          document.querySelectorAll(".year-section").forEach(sec => {
-            sec.classList.toggle("hidden", sec.dataset.year !== year);
-          });
+    yearButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const year = btn.dataset.year;
 
-          // Highlight selected button
-          yearButtons.forEach(b => {
-            b.classList.remove("bg-indigo-600", "text-white");
-            b.classList.add("bg-gray-200", "text-gray-800");
-          });
-          btn.classList.add("bg-indigo-600", "text-white");
-          btn.classList.remove("bg-gray-200", "text-gray-800");
-
-          // Smooth scroll to section
-          const section = document.querySelector(`.year-section[data-year='${year}']`);
-          if (section) {
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
+        // Show selected year section
+        document.querySelectorAll(".year-section").forEach(sec => {
+          sec.classList.toggle("hidden", sec.dataset.year !== year);
         });
-      });
 
-      // Highlight first year button on load
-      if (yearButtons.length) {
-        yearButtons[0].classList.add("bg-indigo-600", "text-white");
-        yearButtons[0].classList.remove("bg-gray-200", "text-gray-800");
-      }
-    </script>
-  </Base>
-</PostHogLayout>
+        // Highlight selected button
+        yearButtons.forEach(b => {
+          b.classList.remove("bg-indigo-600", "text-white");
+          b.classList.add("bg-gray-200", "text-gray-800");
+        });
+        btn.classList.add("bg-indigo-600", "text-white");
+        btn.classList.remove("bg-gray-200", "text-gray-800");
+
+        // Smooth scroll to section
+        const section = document.querySelector(`.year-section[data-year='${year}']`);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Highlight first year button on load
+    if (yearButtons.length) {
+      yearButtons[0].classList.add("bg-indigo-600", "text-white");
+      yearButtons[0].classList.remove("bg-gray-200", "text-gray-800");
+    }
+  </script>
+</Base>

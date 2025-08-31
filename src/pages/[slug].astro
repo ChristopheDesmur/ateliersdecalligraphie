@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import PostHogLayout from "../layouts/PostHogLayout.astro";
 
 // Generate paths for each blog post
 export async function getStaticPaths() {
@@ -17,10 +16,8 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
-<PostHogLayout>
-  <Layout title={post.data.title}>
-    <article class="prose mx-auto">
-      <Content />
-    </article>
-  </Layout>
-</PostHogLayout>
+<Layout title={post.data.title}>
+  <article class="prose mx-auto">
+    <Content />
+  </article>
+</Layout>
