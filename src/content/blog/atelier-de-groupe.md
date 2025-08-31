@@ -13,7 +13,7 @@ tags: ['atelier de groupe', 'calligraphie chinoise', 'cours individuels', 'pince
 
 # Découvrez les bienfaits de la calligraphie en groupe
 
-## Pratiquez la calligraphie chinoise en **atelier de groupe** de une à trois heures réunissant de deux à huit personnes.
+## Pratiquez la calligraphie chinoise en atelier de groupe de une à trois heures réunissant de deux à huit personnes.
 
 L’amplitude horaire idéale pour un **atelier de groupe** de calligraphie est de deux heures ou trois heures maximum. Le matériel nécessaire que sont pinceaux, encre, pierre d’encre et papier chinois, est mis à disposition du public. Pour qu’un atelier soit efficace, il est recommandé de ne pas dépasser les huit personnes.
 
