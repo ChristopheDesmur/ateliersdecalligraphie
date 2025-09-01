@@ -1,10 +1,10 @@
 ---
 import Base from "../layouts/Layout.astro";
-import fs from 'fs';
-import yaml from 'js-yaml';
+import fs from "fs";
+import yaml from "js-yaml";
 
 // Load YAML
-const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
+const ateliers = yaml.load(fs.readFileSync("./src/content/ateliers.yaml", "utf8"));
 
 // Helpers
 const frMonthYear = new Intl.DateTimeFormat("fr-FR", { month: "long", year: "numeric" });
@@ -18,30 +18,27 @@ function sameDay(d1, d2) {
   );
 }
 
-// Format a day number with French rules
 function formatDayFR(dayNum) {
   return dayNum === 1 ? "1<sup>er</sup>" : String(dayNum);
 }
 
-// Format full date with day (ordinal if 1), month, year
 function formatDateFR(date) {
   const day = formatDayFR(date.getDate());
   const monthYear = frMonthYear.format(date);
   return `${day} ${monthYear}`;
 }
 
-// Format without year (for items inside grouped list)
 function formatDateFRNoYear(date) {
   const day = formatDayFR(date.getDate());
   const month = frMonthOnly.format(date);
   return `${day} ${month}`;
 }
 
-// Flatten all events and keep only those with href="/ecoles-primaires"
+// Flatten and filter
 const ecolesPrimairesEvents = Object.values(ateliers)
   .flat()
-  .filter(event => event.href === "/ecoles-primaires")
-  .map(event => {
+  .filter((event) => event.href === "/ecoles-primaires")
+  .map((event) => {
     const fromDate = new Date(event.from);
     const toDate = event.to ? new Date(event.to) : fromDate;
 
@@ -52,13 +49,12 @@ const ecolesPrimairesEvents = Object.values(ateliers)
       fromDate.getFullYear() === toDate.getFullYear() &&
       fromDate.getMonth() === toDate.getMonth()
     ) {
-      // Same month: show day range, then month
-      displayDate = `${formatDayFR(fromDate.getDate())} → ${formatDayFR(toDate.getDate())} ${frMonthOnly.format(toDate)}`;
+      displayDate = `${formatDayFR(fromDate.getDate())} → ${formatDayFR(
+        toDate.getDate()
+      )} ${frMonthOnly.format(toDate)}`;
     } else if (fromDate.getFullYear() === toDate.getFullYear()) {
-      // Same year but different months
       displayDate = `${formatDateFRNoYear(fromDate)} → ${formatDateFRNoYear(toDate)}`;
     } else {
-      // Different years: keep full info
       displayDate = `${formatDateFR(fromDate)} → ${formatDateFR(toDate)}`;
     }
 
@@ -73,11 +69,19 @@ const ecolesPrimairesEvents = Object.values(ateliers)
     };
   })
   .sort((a, b) => b.toDate - a.toDate);
+
+const eventsByYear = Object.entries(
+  ecolesPrimairesEvents.reduce((acc, event) => {
+    const year = event.toDate.getFullYear();
+    acc[year] = acc[year] || [];
+    acc[year].push(event);
+    return acc;
+  }, {})
+).sort(([yearA], [yearB]) => yearB - yearA);
 ---
 
 <Base title="Ateliers pour écoles primaires">
   <main class="mx-auto max-w-[735px] mt-14">
-
     <h1 class="text-3xl font-bold mb-6">
       Ateliers de calligraphie et culture chinoise pour enfants
     </h1>
@@ -129,41 +133,61 @@ const ecolesPrimairesEvents = Object.values(ateliers)
       </table>
     </div>
 
-    <h2 class="text-2xl font-semibold mt-10 mb-4">
-      Interventions passées
-    </h2>
+    <h2 class="text-2xl font-semibold mt-10 mb-4">Interventions passées</h2>
 
-    {Object.entries(
-      ecolesPrimairesEvents.reduce((acc, event) => {
-        const year = event.toDate.getFullYear();
-        acc[year] = acc[year] || [];
-        acc[year].push(event);
-        return acc;
-      }, {})
-    )
-      .sort(([yearA], [yearB]) => yearB - yearA) // sort descending by year
-      .map(([year, events]) => (
-        <section>
-          <h3 class="text-xl font-bold mt-6 mb-3">{year}</h3>
-          <ul class="space-y-4">
-            {events.map(event => (
+    {eventsByYear.map(([year, events], index) => (
+      <section>
+        <details
+          class="mb-4 year-section"
+          open={index === 0}   // expand most recent year only
+        >
+          <summary class="cursor-pointer text-xl font-bold mt-6 mb-3">
+            {year}
+          </summary>
+          <ul class="space-y-4 mt-2">
+            {events.map((event) => (
               <li
                 key={event.from + event.titre + event.lieu}
                 class={`
                   border-b pb-2
                   odd:bg-gray-100
-                  ${event.multiYear ? 'bg-indigo-100 text-indigo-900 font-semibold odd:bg-indigo-100' : ''}
+                  ${
+                    event.multiYear
+                      ? "bg-indigo-100 text-indigo-900 font-semibold odd:bg-indigo-100"
+                      : ""
+                  }
                 `}
               >
                 <strong set:html={event.displayDate}></strong> — {event.titre}
                 <br />
                 <em>{event.lieu}</em>
-                <br />
-                {event.details}
+                {event.details && (
+                  <>
+                    <br />
+                    {event.details}
+                  </>
+                )}
               </li>
             ))}
           </ul>
-        </section>
-      ))}
+        </details>
+      </section>
+    ))}
+
+    <script>
+      // Accordion behavior: only one <details> open at a time
+      document.addEventListener("DOMContentLoaded", () => {
+        const detailsList = document.querySelectorAll(".year-section");
+        detailsList.forEach((details) => {
+          details.addEventListener("toggle", () => {
+            if (details.open) {
+              detailsList.forEach((other) => {
+                if (other !== details) other.removeAttribute("open");
+              });
+            }
+          });
+        });
+      });
+    </script>
   </main>
 </Base>

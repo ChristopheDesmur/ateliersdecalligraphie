@@ -15,21 +15,15 @@ function sameDay(d1, d2) {
   );
 }
 
-// Format day with French rules
 function formatDayFR(dayNum, mode = "date") {
   if (dayNum !== 1) return String(dayNum);
-
   switch (mode) {
-    case "date":
-      return "1<sup>er</sup>"; // 1er janvier
-    case "ordinal":
-      return "1<sup>e</sup>";  // 1re édition, etc.
-    default:
-      return "1";
+    case "date": return "1<sup>er</sup>";
+    case "ordinal": return "1<sup>e</sup>";
+    default: return "1";
   }
 }
 
-// Format full date (with year)
 function formatDateFR(date) {
   return `${formatDayFR(date.getDate(), "date")} ${date.toLocaleDateString("fr-FR", {
     month: "long",
@@ -37,57 +31,56 @@ function formatDateFR(date) {
   })}`;
 }
 
-// Format date without year (used inside grouped lists)
 function formatDateFRNoYear(date) {
   return `${formatDayFR(date.getDate(), "date")} ${date.toLocaleDateString("fr-FR", {
     month: "long",
   })}`;
 }
 
-// Format date ranges
 function formatDateRange(from, to) {
   if (sameDay(from, to)) {
     return formatDateFRNoYear(from);
-  } else if (
-    from.getFullYear() === to.getFullYear() &&
-    from.getMonth() === to.getMonth()
-  ) {
+  } else if (from.getFullYear() === to.getFullYear() && from.getMonth() === to.getMonth()) {
     return `${formatDayFR(from.getDate(), "date")} → ${formatDayFR(to.getDate(), "date")} ${to.toLocaleDateString("fr-FR", { month: "long" })}`;
   } else if (from.getFullYear() === to.getFullYear()) {
     return `${formatDateFRNoYear(from)} → ${formatDateFRNoYear(to)}`;
   } else {
-    // multi-year
     return `${formatDateFR(from)} → ${formatDateFR(to)}`;
   }
 }
 
-// --- Flatten all events, keep only those for comités d’entreprise, avoid duplicates ---
+// --- Flatten events, filter for comités d’entreprise ---
 const comiteEntrepriseEvents = Object.values(ateliers)
   .flat()
   .filter(event => event.href === "/comites-entreprise")
-  .reduce((acc, event) => {
+  .map(event => {
     const fromDate = new Date(event.from);
     const toDate = event.to ? new Date(event.to) : fromDate;
-
-    // Unique key to avoid duplicates
-    const key = event.from + event.titre + event.lieu;
-    if (!acc.some(e => e.key === key)) {
-      const displayDate = formatDateRange(fromDate, toDate);
-      const multiYear = fromDate.getFullYear() !== toDate.getFullYear();
-
-      acc.push({
-        ...event,
-        fromDate,
-        toDate,
-        displayDate,
-        key,
-        multiYear,
-      });
-    }
-    return acc;
-  }, [])
-  // Sort descending by toDate
+    return {
+      ...event,
+      fromDate,
+      toDate,
+      displayDate: formatDateRange(fromDate, toDate),
+      multiYear: fromDate.getFullYear() !== toDate.getFullYear(),
+      key: event.from + event.titre + event.lieu,
+    };
+  })
+  // deduplicate
+  .filter((event, index, self) =>
+    index === self.findIndex(e => e.key === event.key)
+  )
+  // sort descending
   .sort((a, b) => b.toDate - a.toDate);
+
+// Group by year
+const eventsByYear = Object.entries(
+  comiteEntrepriseEvents.reduce((acc, event) => {
+    const year = event.toDate.getFullYear();
+    acc[year] = acc[year] || [];
+    acc[year].push(event);
+    return acc;
+  }, {})
+).sort(([yA], [yB]) => yB - yA);
 ---
 
 <Base title="Ateliers pour comités d'entreprise">
@@ -134,18 +127,24 @@ const comiteEntrepriseEvents = Object.values(ateliers)
       Interventions passées
     </h2>
 
-    {Object.entries(
-      comiteEntrepriseEvents.reduce((acc, event) => {
-        const year = event.toDate.getFullYear();
-        acc[year] = acc[year] || [];
-        acc[year].push(event);
-        return acc;
-      }, {})
-    )
-      .sort(([yearA], [yearB]) => yearB - yearA) // sort years descending
-      .map(([year, events]) => (
-        <section>
-          <h3 class="text-xl font-bold mt-6 mb-3">{year}</h3>
+    {eventsByYear.map(([year, events], index) => (
+      <section>
+        <details
+          class="mb-4 year-section"
+          open={index === 0}   // expand most recent year only
+          onToggle={(e) => {
+            if (e.currentTarget.open) {
+              document
+                .querySelectorAll(".year-section")
+                .forEach(el => {
+                  if (el !== e.currentTarget) el.removeAttribute("open");
+                });
+            }
+          }}
+        >
+          <summary class="cursor-pointer text-xl font-bold mt-6 mb-3">
+            {year}
+          </summary>
           <ul class="space-y-4">
             {events.map(event => (
               <li
@@ -168,7 +167,8 @@ const comiteEntrepriseEvents = Object.values(ateliers)
               </li>
             ))}
           </ul>
-        </section>
-      ))}
+        </details>
+      </section>
+    ))}
   </main>
 </Base>

@@ -1,10 +1,12 @@
 ---
 import Base from "../layouts/Layout.astro";
-import fs from 'fs';
-import yaml from 'js-yaml';
+import fs from "fs";
+import yaml from "js-yaml";
 
 // Load YAML
-const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
+const ateliers = yaml.load(
+  fs.readFileSync("./src/content/ateliers.yaml", "utf8")
+);
 
 // --- Helpers ---
 function sameDay(d1, d2) {
@@ -23,7 +25,7 @@ function formatDayFR(dayNum, mode = "date") {
     case "date":
       return "1<sup>er</sup>"; // 1er janvier
     case "ordinal":
-      return "1<sup>e</sup>";  // 1re édition, etc.
+      return "1<sup>e</sup>"; // 1re édition
     default:
       return "1";
   }
@@ -31,20 +33,21 @@ function formatDayFR(dayNum, mode = "date") {
 
 // Format full date (with year)
 function formatDateFR(date) {
-  return `${formatDayFR(date.getDate(), "date")} ${date.toLocaleDateString("fr-FR", {
-    month: "long",
-    year: "numeric",
-  })}`;
+  return `${formatDayFR(date.getDate(), "date")} ${date.toLocaleDateString(
+    "fr-FR",
+    { month: "long", year: "numeric" }
+  )}`;
 }
 
-// Format date without year (used inside grouped lists)
+// Format date without year
 function formatDateFRNoYear(date) {
-  return `${formatDayFR(date.getDate(), "date")} ${date.toLocaleDateString("fr-FR", {
-    month: "long",
-  })}`;
+  return `${formatDayFR(date.getDate(), "date")} ${date.toLocaleDateString(
+    "fr-FR",
+    { month: "long" }
+  )}`;
 }
 
-// Format date ranges
+// Format ranges
 function formatDateRange(from, to) {
   if (sameDay(from, to)) {
     return formatDateFRNoYear(from);
@@ -52,20 +55,22 @@ function formatDateRange(from, to) {
     from.getFullYear() === to.getFullYear() &&
     from.getMonth() === to.getMonth()
   ) {
-    return `${formatDayFR(from.getDate(), "date")} → ${formatDayFR(to.getDate(), "date")} ${to.toLocaleDateString("fr-FR", { month: "long" })}`;
+    return `${formatDayFR(from.getDate(), "date")} → ${formatDayFR(
+      to.getDate(),
+      "date"
+    )} ${to.toLocaleDateString("fr-FR", { month: "long" })}`;
   } else if (from.getFullYear() === to.getFullYear()) {
     return `${formatDateFRNoYear(from)} → ${formatDateFRNoYear(to)}`;
   } else {
-    // multi-year
     return `${formatDateFR(from)} → ${formatDateFR(to)}`;
   }
 }
 
-// --- Flatten all events, keep only those with href="/colleges" ---
+// --- Flatten all events for collèges ---
 const collegesEvents = Object.values(ateliers)
   .flat()
-  .filter(event => event.href === "/colleges")
-  .map(event => {
+  .filter((event) => event.href === "/colleges")
+  .map((event) => {
     const fromDate = new Date(event.from);
     const toDate = event.to ? new Date(event.to) : fromDate;
 
@@ -81,12 +86,23 @@ const collegesEvents = Object.values(ateliers)
       uniqueKey: event.from + event.titre + event.lieu,
     };
   })
-  // Remove duplicates
-  .filter((event, index, self) =>
-    index === self.findIndex(e => e.uniqueKey === event.uniqueKey)
+  // deduplicate
+  .filter(
+    (event, index, self) =>
+      index === self.findIndex((e) => e.uniqueKey === event.uniqueKey)
   )
-  // Sort descending by toDate
+  // sort descending
   .sort((a, b) => b.toDate - a.toDate);
+
+// Group by year
+const eventsByYear = Object.entries(
+  collegesEvents.reduce((acc, event) => {
+    const year = event.toDate.getFullYear();
+    acc[year] = acc[year] || [];
+    acc[year].push(event);
+    return acc;
+  }, {})
+).sort(([yA], [yB]) => yB - yA);
 ---
 
 <Base title="Ateliers pour collèges">
@@ -95,9 +111,7 @@ const collegesEvents = Object.values(ateliers)
       Ateliers de calligraphie pour collèges : horaires, tarifs et organisation
     </h1>
 
-    <h2 class="text-2xl font-semibold mb-4">
-      Mes formats d'atelier pour les collèges
-    </h2>
+    <h2 class="text-2xl font-semibold mb-4">Mes formats d'atelier pour les collèges</h2>
 
     <div class="overflow-x-auto">
       <table class="min-w-full border border-gray-300 divide-y divide-gray-200">
@@ -124,41 +138,54 @@ const collegesEvents = Object.values(ateliers)
       </table>
     </div>
 
-    <h2 class="text-2xl font-semibold mb-4 mt-8">
-      Interventions passées
-    </h2>
+    <h2 class="text-2xl font-semibold mb-4 mt-8">Interventions passées</h2>
 
-    {Object.entries(
-      collegesEvents.reduce((acc, event) => {
-        const year = event.toDate.getFullYear();
-        acc[year] = acc[year] || [];
-        acc[year].push(event);
-        return acc;
-      }, {})
-    )
-      .sort(([yearA], [yearB]) => yearB - yearA) // sort years descending
-      .map(([year, events]) => (
-        <section>
-          <h3 class="text-xl font-bold mt-6 mb-3">{year}</h3>
-          <ul class="space-y-4">
-            {events.map(event => (
+    {eventsByYear.map(([year, events], index) => (
+      <section>
+        <details
+          class="mb-4 year-section"
+          open={index === 0}   // expand most recent year by default
+          onToggle={(e) => {
+            if (e.currentTarget.open) {
+              document
+                .querySelectorAll(".year-section")
+                .forEach((el) => {
+                  if (el !== e.currentTarget) el.removeAttribute("open");
+                });
+            }
+          }}
+        >
+          <summary class="cursor-pointer text-xl font-bold mt-6 mb-3">
+            {year}
+          </summary>
+          <ul class="space-y-4 mt-2">
+            {events.map((event) => (
               <li
                 key={event.uniqueKey}
                 class={`
                   border-b pb-2
                   odd:bg-gray-100
-                  ${event.multiYear ? 'bg-indigo-100 text-indigo-900 font-semibold odd:bg-indigo-100' : ''}
+                  ${
+                    event.multiYear
+                      ? "bg-indigo-100 text-indigo-900 font-semibold odd:bg-indigo-100"
+                      : ""
+                  }
                 `}
               >
                 <strong set:html={event.displayDate}></strong> — {event.titre}
                 <br />
                 <em>{event.lieu}</em>
-                <br />
-                {event.details}
+                {event.details && (
+                  <>
+                    <br />
+                    {event.details}
+                  </>
+                )}
               </li>
             ))}
           </ul>
-        </section>
-      ))}
+        </details>
+      </section>
+    ))}
   </main>
 </Base>

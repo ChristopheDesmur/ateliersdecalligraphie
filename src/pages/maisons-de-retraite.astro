@@ -1,10 +1,10 @@
 ---
 import Base from "../layouts/Layout.astro";
-import fs from 'fs';
-import yaml from 'js-yaml';
+import fs from "fs";
+import yaml from "js-yaml";
 
 // Load YAML
-const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
+const ateliers = yaml.load(fs.readFileSync("./src/content/ateliers.yaml", "utf8"));
 
 // Helpers
 const frMonthYear = new Intl.DateTimeFormat("fr-FR", { month: "long", year: "numeric" });
@@ -49,8 +49,8 @@ function formatDateRange(from, to) {
 // Flatten all events and filter
 const maisonRetraitesEvents = Object.values(ateliers)
   .flat()
-  .filter(event => event.href === "/maisons-de-retraite")
-  .map(event => {
+  .filter((event) => event.href === "/maisons-de-retraite")
+  .map((event) => {
     const fromDate = new Date(event.from);
     const toDate = event.to ? new Date(event.to) : fromDate;
     const multiYear = fromDate.getFullYear() !== toDate.getFullYear();
@@ -64,16 +64,22 @@ const maisonRetraitesEvents = Object.values(ateliers)
     };
   })
   // Remove duplicates
-  .filter((event, index, self) =>
-    index === self.findIndex(e => e.uniqueKey === event.uniqueKey)
-  )
+  .filter((event, index, self) => index === self.findIndex((e) => e.uniqueKey === event.uniqueKey))
   // Sort descending by toDate
   .sort((a, b) => b.toDate - a.toDate);
+
+const eventsByYear = Object.entries(
+  maisonRetraitesEvents.reduce((acc, event) => {
+    const year = event.toDate.getFullYear();
+    acc[year] = acc[year] || [];
+    acc[year].push(event);
+    return acc;
+  }, {})
+).sort(([yearA], [yearB]) => yearB - yearA);
 ---
 
 <Base title="Ateliers pour maisons de retraite et ÉPHAD">
   <main class="mx-auto max-w-[735px] mt-14">
-
     <h1 class="text-3xl font-bold mb-6">
       Ateliers de calligraphie pour le bien-être des seniors
     </h1>
@@ -107,30 +113,29 @@ const maisonRetraitesEvents = Object.values(ateliers)
       </table>
     </div>
 
-    <h2 class="text-2xl font-semibold mt-10 mb-4">
-      Interventions passées
-    </h2>
+    <h2 class="text-2xl font-semibold mt-10 mb-4">Interventions passées</h2>
 
-    {Object.entries(
-      maisonRetraitesEvents.reduce((acc, event) => {
-        const year = event.toDate.getFullYear();
-        acc[year] = acc[year] || [];
-        acc[year].push(event);
-        return acc;
-      }, {})
-    )
-      .sort(([yearA], [yearB]) => yearB - yearA)
-      .map(([year, events]) => (
-        <section>
-          <h3 class="text-xl font-bold mt-6 mb-3">{year}</h3>
-          <ul class="space-y-4">
-            {events.map(event => (
+    {eventsByYear.map(([year, events]) => (
+      <section>
+        <details
+          class="mb-4 year-section"
+          open={eventsByYear[0][0] === year}
+        >
+          <summary class="cursor-pointer text-xl font-bold mt-6 mb-3">
+            {year}
+          </summary>
+          <ul class="space-y-4 mt-2">
+            {events.map((event) => (
               <li
                 key={event.uniqueKey}
                 class={`
                   border-b pb-2 
                   odd:bg-gray-100 
-                  ${event.multiYear ? 'bg-indigo-100 text-indigo-900 font-semibold odd:bg-indigo-100' : ''}
+                  ${
+                    event.multiYear
+                      ? "bg-indigo-100 text-indigo-900 font-semibold odd:bg-indigo-100"
+                      : ""
+                  }
                 `}
               >
                 <strong set:html={event.displayDate}></strong> — {event.titre}
@@ -145,7 +150,24 @@ const maisonRetraitesEvents = Object.values(ateliers)
               </li>
             ))}
           </ul>
-        </section>
-      ))}
+        </details>
+      </section>
+    ))}
+
+    <script>
+      // Accordion behavior: only one <details> open at a time
+      document.addEventListener("DOMContentLoaded", () => {
+        const detailsList = document.querySelectorAll(".year-section");
+        detailsList.forEach((details) => {
+          details.addEventListener("toggle", () => {
+            if (details.open) {
+              detailsList.forEach((other) => {
+                if (other !== details) other.removeAttribute("open");
+              });
+            }
+          });
+        });
+      });
+    </script>
   </main>
 </Base>
