@@ -1,0 +1,108 @@
+---
+import Base from "../layouts/Layout.astro";
+import fs from 'fs';
+import yaml from 'js-yaml';
+
+// Load YAML
+const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
+
+// Helper to parse French dates like "11 février 2025"
+function parseFrenchDate(str) {
+  const months = {
+    janvier: 0,
+    février: 1,
+    mars: 2,
+    avril: 3,
+    mai: 4,
+    juin: 5,
+    juillet: 6,
+    août: 7,
+    septembre: 8,
+    octobre: 9,
+    novembre: 10,
+    décembre: 11
+  };
+  const [day, monthName, year] = str.split(" ");
+  return new Date(Number(year), months[monthName], Number(day));
+}
+
+// Flatten all events and keep only those with href="/ecoles-primaires"
+const maisonRetraitesEvents = Object.values(ateliers)
+  .flat()
+  .filter(event => event.href === "/ecoles-primaires")
+  // Sort descending by French date
+  .sort((a, b) => parseFrenchDate(b.date) - parseFrenchDate(a.date));
+---
+
+<Base title="Ateliers pour écoles primaires">
+  <main class="mx-auto max-w-[735px] mt-14">
+
+<h1 class="text-3xl font-bold mb-6">
+  Ateliers de calligraphie et culture chinoise pour enfants
+</h1>
+
+<h2 class="text-2xl font-semibold mb-4">
+  Mes formats d'atelier pour les écoles primaires sur le temps scolaire
+</h2>
+
+<img
+  src="/assets/cours-calligraphie-ecoles-primaires.webp"
+  alt="Cours de calligraphie écoles primaires"
+  class="w-full max-w-xl mb-6 rounded shadow"
+/>
+
+<div class="overflow-x-auto">
+  <table class="min-w-full border border-gray-300 divide-y divide-gray-200">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-4 py-2 text-left font-medium text-gray-700">Jours possibles</th>
+        <th class="px-4 py-2 text-left font-medium text-gray-700">Du lundi au vendredi</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      <tr>
+        <td class="px-4 py-2">Horaires</td>
+        <td class="px-4 py-2">Entre 10 et 16 h</td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2">Durée</td>
+        <td class="px-4 py-2">Atelier de deux à trois heures minimum</td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2">Nombre de participants</td>
+        <td class="px-4 py-2">30 enfants maximum</td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2">Tarifs</td>
+        <td class="px-4 py-2">60 euros HT l'heure</td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2">Programme</td>
+        <td class="px-4 py-2">
+          Découverte des pictogrammes chinois au pinceau<br>
+          Salutations en chinois<br>
+          Apprendre à dessiner à l'encre de Chine (Sumi-e) : animaux, fleurs...
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+    <h2 class="text-2xl font-semibold mt-10 mb-4">
+      Interventions passées
+    </h2>
+
+    <ul class="mt-6 space-y-4">
+      {maisonRetraitesEvents.map(event => (
+        <li key={event.date + event.titre} class="border-b pb-2">
+          <strong>{event.date}</strong> — {event.titre}
+          <br />
+          <em>{event.lieu}</em>
+          <br />
+          {event.details}
+        </li>
+      ))}
+    </ul>
+
+  </main>
+</Base>
