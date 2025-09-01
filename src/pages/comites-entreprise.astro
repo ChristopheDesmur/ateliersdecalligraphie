@@ -1,0 +1,94 @@
+---
+import Base from "../layouts/Layout.astro";
+import fs from 'fs';
+import yaml from 'js-yaml';
+
+// Load YAML
+const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
+
+// Helper to parse French dates like "11 février 2025"
+function parseFrenchDate(str) {
+  const months = {
+    janvier: 0,
+    février: 1,
+    mars: 2,
+    avril: 3,
+    mai: 4,
+    juin: 5,
+    juillet: 6,
+    août: 7,
+    septembre: 8,
+    octobre: 9,
+    novembre: 10,
+    décembre: 11
+  };
+  const [day, monthName, year] = str.split(" ");
+  return new Date(Number(year), months[monthName], Number(day));
+}
+
+// Flatten all events and keep only those with href="/comites-entreprise"
+const maisonRetraitesEvents = Object.values(ateliers)
+  .flat()
+  .filter(event => event.href === "/comites-entreprise")
+  // Sort descending by French date
+  .sort((a, b) => parseFrenchDate(b.date) - parseFrenchDate(a.date));
+---
+
+<Base title="Ateliers pour comités d'entreprise">
+  <main class="mx-auto max-w-[735px] mt-14">
+
+<h1 class="text-3xl font-bold mb-6">
+  Ateliers de calligraphie chinoise pour le bien-être en entreprise
+</h1>
+
+<h2 class="text-2xl font-semibold mb-4">
+  Mes formats d'atelier pour les comités d'entreprise
+</h2>
+
+<p class="mb-6">
+  Je me déplace dans vos locaux avec tout le matériel nécessaire pour faire pratiquer à vos collaborateurs l'art énergétique de la calligraphie chinoise.
+</p>
+
+<div class="overflow-x-auto">
+  <table class="min-w-full border border-gray-300 divide-y divide-gray-200">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-4 py-2 text-left font-medium text-gray-700">Horaires</th>
+        <th class="px-4 py-2 text-left font-medium text-gray-700">Entre 12 et 14 h</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      <tr>
+        <td class="px-4 py-2">Durée</td>
+        <td class="px-4 py-2">Ateliers d'une heure</td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2">Nombre de participants</td>
+        <td class="px-4 py-2">De 6 à 12</td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2">Tarifs</td>
+        <td class="px-4 py-2">90 euros de l'heure</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+    <h2 class="text-2xl font-semibold mt-10 mb-4">
+      Interventions passées
+    </h2>
+
+    <ul class="mt-6 space-y-4">
+      {maisonRetraitesEvents.map(event => (
+        <li key={event.date + event.titre} class="border-b pb-2">
+          <strong>{event.date}</strong> — {event.titre}
+          <br />
+          <em>{event.lieu}</em>
+          <br />
+          {event.details}
+        </li>
+      ))}
+    </ul>
+
+  </main>
+</Base>
