@@ -59,16 +59,25 @@ const sortedYears = Object.keys(ateliers).sort((a, b) => Number(b) - Number(a));
         class={`year-section ${idx === 0 ? '' : 'hidden'} mt-6`}
         data-year={annee}
       >
-        <ul class="mt-4 space-y-2">
-          {ateliers[annee].map((event) => (
-            <li key={event.date + event.titre} class="border-b pb-2">
-              <strong>{event.date}</strong> — {event.titre} <br />
-              <em>{event.lieu}</em><br />
-              {event.details}
-            </li>
-          ))}
-        </ul>
-      </section>
+<ul class="mt-4 space-y-2">
+  {ateliers[annee].map((event) => (
+    <li key={event.date + event.titre} class="border-b pb-2">
+      <strong>{event.date}</strong> —{" "}
+      {event.href ? (
+        <a href={event.href} class="text-indigo-600 hover:underline">
+          {event.titre}
+        </a>
+      ) : (
+        event.titre
+      )}
+      <br />
+      <em>{event.lieu}</em>
+      <br />
+      {event.details}
+    </li>
+  ))}
+</ul>
+</section>
     ))}
   </main>
 
