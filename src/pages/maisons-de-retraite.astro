@@ -22,12 +22,13 @@ function sameDay(d1, d2) {
 }
 
 // Flatten all events and keep only those with href="/maisons-de-retraite"
+// Include toDate, prevent duplicates, sort descending by toDate
 const maisonRetraitesEvents = Object.values(ateliers)
   .flat()
   .filter(event => event.href === "/maisons-de-retraite")
   .map(event => {
     const fromDate = new Date(event.from);
-    const toDate = new Date(event.to);
+    const toDate = event.to ? new Date(event.to) : fromDate;
 
     let displayDate;
     if (sameDay(fromDate, toDate)) {
@@ -39,11 +40,17 @@ const maisonRetraitesEvents = Object.values(ateliers)
     return {
       ...event,
       fromDate,
+      toDate,
       displayDate,
+      uniqueKey: event.from + event.titre + event.lieu, // for duplicates
     };
   })
-  // Sort descending by fromDate
-  .sort((a, b) => b.fromDate - a.fromDate);
+  // Remove duplicates
+  .filter((event, index, self) =>
+    index === self.findIndex(e => e.uniqueKey === event.uniqueKey)
+  )
+  // Sort descending by toDate
+  .sort((a, b) => b.toDate - a.toDate);
 ---
 
 <Base title="Ateliers pour maisons de retraite et ÉPHAD">
@@ -88,7 +95,7 @@ const maisonRetraitesEvents = Object.values(ateliers)
 
     <ul class="mt-6 space-y-4">
       {maisonRetraitesEvents.map(event => (
-        <li key={event.from + event.titre} class="border-b pb-2">
+        <li key={event.uniqueKey} class="border-b pb-2">
           <strong>{event.displayDate}</strong> — {event.titre}
           <br />
           <em>{event.lieu}</em>

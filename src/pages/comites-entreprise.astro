@@ -21,27 +21,34 @@ function sameDay(d1, d2) {
   );
 }
 
-// Flatten all events and keep only those with href="/comites-entreprise"
+// Flatten all events, keep only those for comités d’entreprise, avoid duplicates
 const comiteEntrepriseEvents = Object.values(ateliers)
   .flat()
   .filter(event => event.href === "/comites-entreprise")
-  .map(event => {
+  .reduce((acc, event) => {
     const fromDate = new Date(event.from);
-    const toDate = new Date(event.to);
+    const toDate = event.to ? new Date(event.to) : fromDate;
 
-    let displayDate;
-    if (sameDay(fromDate, toDate)) {
-      displayDate = formatDate(fromDate);
-    } else {
-      displayDate = `${formatDate(fromDate)} → ${formatDate(toDate)}`;
+    // Unique key to avoid duplicates
+    const key = event.from + event.titre + event.lieu;
+    if (!acc.some(e => e.key === key)) {
+      let displayDate;
+      if (sameDay(fromDate, toDate)) {
+        displayDate = formatDate(fromDate);
+      } else {
+        displayDate = `${formatDate(fromDate)} → ${formatDate(toDate)}`;
+      }
+
+      acc.push({
+        ...event,
+        fromDate,
+        toDate,
+        displayDate,
+        key,
+      });
     }
-
-    return {
-      ...event,
-      fromDate,
-      displayDate,
-    };
-  })
+    return acc;
+  }, [])
   // Sort descending by fromDate
   .sort((a, b) => b.fromDate - a.fromDate);
 ---
@@ -92,12 +99,16 @@ const comiteEntrepriseEvents = Object.values(ateliers)
 
     <ul class="mt-6 space-y-4">
       {comiteEntrepriseEvents.map(event => (
-        <li key={event.from + event.titre} class="border-b pb-2">
+        <li key={event.key} class="border-b pb-2">
           <strong>{event.displayDate}</strong> — {event.titre}
           <br />
           <em>{event.lieu}</em>
-          <br />
-          {event.details}
+          {event.details && (
+            <>
+              <br />
+              {event.details}
+            </>
+          )}
         </li>
       ))}
     </ul>

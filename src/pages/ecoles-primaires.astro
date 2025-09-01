@@ -27,7 +27,7 @@ const ecolesPrimairesEvents = Object.values(ateliers)
   .filter(event => event.href === "/ecoles-primaires")
   .map(event => {
     const fromDate = new Date(event.from);
-    const toDate = new Date(event.to);
+    const toDate = event.to ? new Date(event.to) : fromDate;
 
     let displayDate;
     if (sameDay(fromDate, toDate)) {
@@ -39,11 +39,12 @@ const ecolesPrimairesEvents = Object.values(ateliers)
     return {
       ...event,
       fromDate,
+      toDate,       // end date included
       displayDate,
     };
   })
-  // Sort descending by fromDate
-  .sort((a, b) => b.fromDate - a.fromDate);
+  // Sort descending by toDate
+  .sort((a, b) => b.toDate - a.toDate);
 ---
 
 <Base title="Ateliers pour écoles primaires">
@@ -106,7 +107,7 @@ const ecolesPrimairesEvents = Object.values(ateliers)
 
     <ul class="mt-6 space-y-4">
       {ecolesPrimairesEvents.map(event => (
-        <li key={event.from + event.titre} class="border-b pb-2">
+        <li key={event.from + event.titre + event.lieu} class="border-b pb-2">
           <strong>{event.displayDate}</strong> — {event.titre}
           <br />
           <em>{event.lieu}</em>
