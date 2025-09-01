@@ -7,11 +7,9 @@ import yaml from 'js-yaml';
 const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
 
 // Helpers
-const frDate = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long" });
-
-function formatDate(dateStr) {
-  return frDate.format(new Date(dateStr));
-}
+const frDate = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+const frDay = new Intl.DateTimeFormat("fr-FR", { day: "numeric" });
+const frMonthYear = new Intl.DateTimeFormat("fr-FR", { month: "long", year: "numeric" });
 
 function sameDay(d1, d2) {
   return (
@@ -31,19 +29,28 @@ const ecolesPrimairesEvents = Object.values(ateliers)
 
     let displayDate;
     if (sameDay(fromDate, toDate)) {
-      displayDate = formatDate(fromDate);
+      displayDate = frDate.format(fromDate);
+    } else if (
+      fromDate.getFullYear() === toDate.getFullYear() &&
+      fromDate.getMonth() === toDate.getMonth()
+    ) {
+      // Same month: show only day for "from" and "to", then month + year at end
+      displayDate = `${frDay.format(fromDate)} → ${frDay.format(toDate)} ${frMonthYear.format(toDate)}`;
     } else {
-      displayDate = `${formatDate(fromDate)} → ${formatDate(toDate)}`;
+      displayDate = `${frDate.format(fromDate)} → ${frDate.format(toDate)}`;
     }
+
+    // Highlight if event spans multiple years
+    const multiYear = fromDate.getFullYear() !== toDate.getFullYear();
 
     return {
       ...event,
       fromDate,
-      toDate,       // end date included
+      toDate,
       displayDate,
+      multiYear,
     };
   })
-  // Sort descending by toDate
   .sort((a, b) => b.toDate - a.toDate);
 ---
 
@@ -107,7 +114,10 @@ const ecolesPrimairesEvents = Object.values(ateliers)
 
     <ul class="mt-6 space-y-4">
       {ecolesPrimairesEvents.map(event => (
-        <li key={event.from + event.titre + event.lieu} class="border-b pb-2">
+        <li
+          key={event.from + event.titre + event.lieu}
+          class={`border-b pb-2 ${event.multiYear ? 'bg-yellow-100 font-semibold' : ''}`}
+        >
           <strong>{event.displayDate}</strong> — {event.titre}
           <br />
           <em>{event.lieu}</em>

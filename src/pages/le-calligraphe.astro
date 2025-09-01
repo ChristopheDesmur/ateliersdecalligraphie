@@ -10,33 +10,57 @@ let rawAteliers = [];
 if (Array.isArray(rawData)) {
   rawAteliers = rawData;
 } else if (rawData && typeof rawData === 'object') {
-  // flatten object values (each may be an array)
   rawAteliers = Object.values(rawData).flat();
 } else {
   rawAteliers = [];
 }
 
-// Helper pour afficher les dates en français "5 février 2011"
-function formatDateFR(dateStr) {
-  if (!dateStr) return "";
-  const months = [
-    "janvier", "février", "mars", "avril", "mai", "juin",
-    "juillet", "août", "septembre", "octobre", "novembre", "décembre"
-  ];
-  const date = new Date(dateStr.split(" ")[0]);
-  return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+// Helpers pour afficher les dates en français
+const frDate = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+const frDay = new Intl.DateTimeFormat("fr-FR", { day: "numeric" });
+const frMonthYear = new Intl.DateTimeFormat("fr-FR", { month: "long", year: "numeric" });
+
+function sameDay(d1, d2) {
+  return (
+    d1.getFullYear() === d2.getFullYear() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getDate() === d2.getDate()
+  );
+}
+
+function formatDateFR(fromStr, toStr) {
+  const fromDate = new Date(fromStr);
+  const toDate = toStr ? new Date(toStr) : fromDate;
+
+  if (sameDay(fromDate, toDate)) {
+    return frDate.format(fromDate);
+  } else if (fromDate.getFullYear() === toDate.getFullYear() &&
+             fromDate.getMonth() === toDate.getMonth()) {
+    // Même mois : n'afficher que les jours pour "from" et "to"
+    return `${frDay.format(fromDate)} → ${frDay.format(toDate)} ${frMonthYear.format(toDate)}`;
+  } else {
+    return `${frDate.format(fromDate)} → ${frDate.format(toDate)}`;
+  }
 }
 
 // Construire ateliers par année (y compris multi-années) et éviter les doublons
 const ateliersByYear = {};
 rawAteliers.forEach(event => {
-  const fromYear = new Date(event.from).getFullYear();
-  const toYear = event.to ? new Date(event.to).getFullYear() : fromYear;
+  const fromDate = new Date(event.from);
+  const toDate = event.to ? new Date(event.to) : fromDate;
+  const fromYear = fromDate.getFullYear();
+  const toYear = toDate.getFullYear();
+  const multiYear = fromYear !== toYear;
+
   for (let y = fromYear; y <= toYear; y++) {
     if (!ateliersByYear[y]) ateliersByYear[y] = [];
-    const key = event.from + event.titre + event.lieu; // clé unique pour éviter doublons
+    const key = event.from + event.titre + event.lieu;
     if (!ateliersByYear[y].some(e => (e.from + e.titre + e.lieu) === key)) {
-      ateliersByYear[y].push(event);
+      ateliersByYear[y].push({
+        ...event,
+        multiYear,
+        displayDate: formatDateFR(event.from, event.to)
+      });
     }
   }
 });
@@ -47,25 +71,27 @@ const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Numbe
 
 <Base title="Christophe Desmur, calligraphe et traducteur littéraire du chinois">
   <main class="mx-auto max-w-[735px] mt-14">
-      <h1
-        class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">Christophe Desmur, calligraphe et traducteur littéraire du chinois</h1>
+    <h1 class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">
+      Christophe Desmur, calligraphe et traducteur littéraire du chinois
+    </h1>
     <p class="text-lg mt-4 text-gray-600">
       Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques.
     </p>
 
     <p>
-      Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde, je suis titulaire :</p>
-<ul class="list-disc pl-5">
-  <li>d’un diplôme d’étude universitaire générale en langue et civilisation coréennes&nbsp;;</li>
-  <li>d’une maîtrise de langue et civilisation chinoises&nbsp;;</li>
-  <li>d’un master de traduction littéraire du chinois vers le français.</li>
-</ul>
+      Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde, je suis titulaire :
+    </p>
+    <ul class="list-disc pl-5">
+      <li>d’un diplôme d’étude universitaire générale en langue et civilisation coréennes&nbsp;;</li>
+      <li>d’une maîtrise de langue et civilisation chinoises&nbsp;;</li>
+      <li>d’un master de traduction littéraire du chinois vers le français.</li>
+    </ul>
 
-<img
-  src="/assets/christophe-desmur-calligraphie-chinoise.webp"
-  alt="Christophe Desmur, calligraphie chinoise à Lyon, en train de calligraphier."
-  style="width:100%; max-width:800px; height:auto;"
->
+    <img
+      src="/assets/christophe-desmur-calligraphie-chinoise.webp"
+      alt="Christophe Desmur, calligraphie chinoise à Lyon, en train de calligraphier."
+      style="width:100%; max-width:800px; height:auto;"
+    >
 
     <p>
       Je donne des cours de calligraphie et des cours de chinois individuels ou en groupe aussi bien aux enfants qu’aux adultes et anime également des stages (10 élèves maximum).
@@ -95,12 +121,11 @@ const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Numbe
       >
         <ul class="mt-4 space-y-2">
           {ateliersByYear[annee].map((event) => (
-            <li key={event.from + event.titre + event.lieu} class="border-b pb-2">
-              <strong>
-                {event.to && event.to.split(" ")[0] !== event.from.split(" ")[0]
-                  ? `${formatDateFR(event.from)} — ${formatDateFR(event.to)}`
-                  : formatDateFR(event.from)}
-              </strong>
+            <li
+              key={event.from + event.titre + event.lieu}
+              class={`border-b pb-2 ${event.multiYear ? 'bg-yellow-100 font-semibold' : ''}`}
+            >
+              <strong>{event.displayDate}</strong>
               {" — "}
               {event.href ? (
                 <a href={event.href} class="text-indigo-600 hover:underline">
@@ -131,12 +156,10 @@ const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Numbe
       btn.addEventListener("click", () => {
         const year = btn.dataset.year;
 
-        // Afficher la section de l'année choisie
         document.querySelectorAll(".year-section").forEach(sec => {
           sec.classList.toggle("hidden", sec.dataset.year !== year);
         });
 
-        // Changer le style du bouton actif
         yearButtons.forEach(b => {
           b.classList.remove("bg-indigo-600", "text-white");
           b.classList.add("bg-gray-200", "text-gray-800");
@@ -144,7 +167,6 @@ const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Numbe
         btn.classList.add("bg-indigo-600", "text-white");
         btn.classList.remove("bg-gray-200", "text-gray-800");
 
-        // Scroll fluide
         const section = document.querySelector(`.year-section[data-year='${year}']`);
         if (section) {
           section.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -152,7 +174,6 @@ const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Numbe
       });
     });
 
-    // Mettre en surbrillance le premier bouton
     if (yearButtons.length) {
       yearButtons[0].classList.add("bg-indigo-600", "text-white");
       yearButtons[0].classList.remove("bg-gray-200", "text-gray-800");
