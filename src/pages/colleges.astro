@@ -17,7 +17,6 @@ function sameDay(d1, d2) {
   );
 }
 
-// Format day with French rules
 function formatDayFR(dayNum, mode = "date") {
   if (dayNum !== 1) return String(dayNum);
 
@@ -31,7 +30,6 @@ function formatDayFR(dayNum, mode = "date") {
   }
 }
 
-// Format full date (with year)
 function formatDateFR(date) {
   return `${formatDayFR(date.getDate(), "date")} ${date.toLocaleDateString(
     "fr-FR",
@@ -39,7 +37,6 @@ function formatDateFR(date) {
   )}`;
 }
 
-// Format date without year
 function formatDateFRNoYear(date) {
   return `${formatDayFR(date.getDate(), "date")} ${date.toLocaleDateString(
     "fr-FR",
@@ -47,7 +44,6 @@ function formatDateFRNoYear(date) {
   )}`;
 }
 
-// Format ranges
 function formatDateRange(from, to) {
   if (sameDay(from, to)) {
     return formatDateFRNoYear(from);
@@ -86,12 +82,12 @@ const collegesEvents = Object.values(ateliers)
       uniqueKey: event.from + event.titre + event.lieu,
     };
   })
-  // deduplicate
+  // Deduplicate
   .filter(
     (event, index, self) =>
       index === self.findIndex((e) => e.uniqueKey === event.uniqueKey)
   )
-  // sort descending
+  // Sort descending
   .sort((a, b) => b.toDate - a.toDate);
 
 // Group by year
@@ -142,22 +138,8 @@ const eventsByYear = Object.entries(
 
     {eventsByYear.map(([year, events], index) => (
       <section>
-        <details
-          class="mb-4 year-section"
-          open={index === 0}   // expand most recent year by default
-          onToggle={(e) => {
-            if (e.currentTarget.open) {
-              document
-                .querySelectorAll(".year-section")
-                .forEach((el) => {
-                  if (el !== e.currentTarget) el.removeAttribute("open");
-                });
-            }
-          }}
-        >
-          <summary class="cursor-pointer text-xl font-bold mt-6 mb-3">
-            {year}
-          </summary>
+        <details class="mb-4 year-section" open={index === 0}>
+          <summary class="cursor-pointer text-xl font-bold mt-6 mb-3">{year}</summary>
           <ul class="space-y-4 mt-2">
             {events.map((event) => (
               <li
@@ -165,11 +147,7 @@ const eventsByYear = Object.entries(
                 class={`
                   border-b pb-2
                   odd:bg-gray-100
-                  ${
-                    event.multiYear
-                      ? "bg-indigo-100 text-indigo-900 font-semibold odd:bg-indigo-100"
-                      : ""
-                  }
+                  ${event.multiYear ? "bg-indigo-100 text-indigo-900 font-semibold odd:bg-indigo-100" : ""}
                 `}
               >
                 <strong set:html={event.displayDate}></strong> — {event.titre}
@@ -187,5 +165,20 @@ const eventsByYear = Object.entries(
         </details>
       </section>
     ))}
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const detailsList = document.querySelectorAll(".year-section");
+        detailsList.forEach((details) => {
+          details.addEventListener("toggle", () => {
+            if (details.open) {
+              detailsList.forEach((other) => {
+                if (other !== details) other.removeAttribute("open");
+              });
+            }
+          });
+        });
+      });
+    </script>
   </main>
 </Base>
