@@ -115,7 +115,7 @@ const maisonRetraitesEvents = Object.values(ateliers)
       {maisonRetraitesEvents.map(event => (
         <li
           key={event.uniqueKey}
-          class={`border-b pb-2 ${event.multiYear ? 'bg-yellow-100 font-semibold' : ''}`}
+          class={`border-b pb-2 ${event.multiYear ? 'bg-gray-100 font-semibold' : ''}`}
         >
           <strong set:html={event.displayDate}></strong> — {event.titre}
           <br />

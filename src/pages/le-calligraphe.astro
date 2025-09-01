@@ -118,7 +118,7 @@ const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Numbe
           {ateliersByYear[annee].map(event => (
             <li
               key={event.from + event.titre + event.lieu}
-              class={`border-b pb-2 ${event.multiYear ? 'bg-yellow-100 font-semibold' : ''}`}
+              class={`border-b pb-2 ${event.multiYear ? 'bg-gray-100 font-semibold' : ''}`}
             >
               <strong set:html={event.displayDate}></strong>
               {" — "}
