@@ -25,7 +25,7 @@ Des cours d'initiation-découverte ou d'accompagnement et de soutien à la langu
 
 
 
-Les cours de [calligraphie](shodo-voie-pinceau.md) peuvent aussi être l'occasion de découvrir des textes classiques les plus connus à partir du texte original en chinois.
+Les cours de [calligraphie](shodo-voie-pinceau) peuvent aussi être l'occasion de découvrir des textes classiques les plus connus à partir du texte original en chinois.
 
 
 
