@@ -6,11 +6,7 @@ import yaml from 'js-yaml';
 // Load YAML
 const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
 
-// Helpers
-const frDate = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
-const frDay = new Intl.DateTimeFormat("fr-FR", { day: "numeric" });
-const frMonthYear = new Intl.DateTimeFormat("fr-FR", { month: "long", year: "numeric" });
-
+// --- Helpers ---
 function sameDay(d1, d2) {
   return (
     d1.getFullYear() === d2.getFullYear() &&
@@ -19,7 +15,40 @@ function sameDay(d1, d2) {
   );
 }
 
-// Flatten all events, keep only those for comités d’entreprise, avoid duplicates
+// Format day with French rules
+function formatDayFR(dayNum, mode = "date") {
+  if (dayNum !== 1) return String(dayNum);
+
+  switch (mode) {
+    case "date":
+      return "1<sup>er</sup>"; // 1er janvier
+    case "ordinal":
+      return "1<sup>e</sup>";  // 1re édition, etc.
+    default:
+      return "1";
+  }
+}
+
+// Format date ranges
+function formatDateFR(from, to) {
+  const optionsMonthYear = { month: "long", year: "numeric" };
+
+  const frDayFrom = formatDayFR(from.getDate(), "date");
+  const frDayTo   = to ? formatDayFR(to.getDate(), "date") : null;
+
+  if (sameDay(from, to)) {
+    return `${frDayFrom} ${from.toLocaleDateString("fr-FR", optionsMonthYear)}`;
+  } else if (
+    from.getFullYear() === to.getFullYear() &&
+    from.getMonth() === to.getMonth()
+  ) {
+    return `${frDayFrom} → ${frDayTo} ${to.toLocaleDateString("fr-FR", optionsMonthYear)}`;
+  } else {
+    return `${frDayFrom} ${from.toLocaleDateString("fr-FR", optionsMonthYear)} → ${frDayTo} ${to.toLocaleDateString("fr-FR", optionsMonthYear)}`;
+  }
+}
+
+// --- Flatten all events, keep only those for comités d’entreprise, avoid duplicates ---
 const comiteEntrepriseEvents = Object.values(ateliers)
   .flat()
   .filter(event => event.href === "/comites-entreprise")
@@ -30,20 +59,7 @@ const comiteEntrepriseEvents = Object.values(ateliers)
     // Unique key to avoid duplicates
     const key = event.from + event.titre + event.lieu;
     if (!acc.some(e => e.key === key)) {
-
-      let displayDate;
-      if (sameDay(fromDate, toDate)) {
-        displayDate = frDate.format(fromDate);
-      } else if (
-        fromDate.getFullYear() === toDate.getFullYear() &&
-        fromDate.getMonth() === toDate.getMonth()
-      ) {
-        // Same month: show only day for "from" and "to", month + year at end
-        displayDate = `${frDay.format(fromDate)} → ${frDay.format(toDate)} ${frMonthYear.format(toDate)}`;
-      } else {
-        displayDate = `${frDate.format(fromDate)} → ${frDate.format(toDate)}`;
-      }
-
+      const displayDate = formatDateFR(fromDate, toDate);
       const multiYear = fromDate.getFullYear() !== toDate.getFullYear();
 
       acc.push({
@@ -111,7 +127,7 @@ const comiteEntrepriseEvents = Object.values(ateliers)
           key={event.key}
           class={`border-b pb-2 ${event.multiYear ? 'bg-yellow-100 font-semibold' : ''}`}
         >
-          <strong>{event.displayDate}</strong> — {event.titre}
+          <strong set:html={event.displayDate}></strong> — {event.titre}
           <br />
           <em>{event.lieu}</em>
           {event.details && (

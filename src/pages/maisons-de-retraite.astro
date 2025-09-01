@@ -7,8 +7,6 @@ import yaml from 'js-yaml';
 const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
 
 // Helpers
-const frDate = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
-const frDay = new Intl.DateTimeFormat("fr-FR", { day: "numeric" });
 const frMonthYear = new Intl.DateTimeFormat("fr-FR", { month: "long", year: "numeric" });
 
 function sameDay(d1, d2) {
@@ -17,6 +15,18 @@ function sameDay(d1, d2) {
     d1.getMonth() === d2.getMonth() &&
     d1.getDate() === d2.getDate()
   );
+}
+
+// Format a day number with French rules
+function formatDayFR(dayNum) {
+  return dayNum === 1 ? "1<sup>er</sup>" : String(dayNum);
+}
+
+// Format full date with day + month + year
+function formatDateFR(date) {
+  const day = formatDayFR(date.getDate());
+  const monthYear = frMonthYear.format(date);
+  return `${day} ${monthYear}`;
 }
 
 // Flatten all events and keep only those with href="/maisons-de-retraite"
@@ -30,15 +40,16 @@ const maisonRetraitesEvents = Object.values(ateliers)
 
     let displayDate;
     if (sameDay(fromDate, toDate)) {
-      displayDate = frDate.format(fromDate);
+      displayDate = formatDateFR(fromDate);
     } else if (
       fromDate.getFullYear() === toDate.getFullYear() &&
       fromDate.getMonth() === toDate.getMonth()
     ) {
-      // Same month: show only day for "from" and "to", then month + year at end
-      displayDate = `${frDay.format(fromDate)} → ${frDay.format(toDate)} ${frMonthYear.format(toDate)}`;
+      // Same month
+      displayDate = `${formatDayFR(fromDate.getDate())} → ${formatDayFR(toDate.getDate())} ${frMonthYear.format(toDate)}`;
     } else {
-      displayDate = `${frDate.format(fromDate)} → ${frDate.format(toDate)}`;
+      // Different months or years
+      displayDate = `${formatDateFR(fromDate)} → ${formatDateFR(toDate)}`;
     }
 
     const multiYear = fromDate.getFullYear() !== toDate.getFullYear();
@@ -48,7 +59,7 @@ const maisonRetraitesEvents = Object.values(ateliers)
       fromDate,
       toDate,
       displayDate,
-      uniqueKey: event.from + event.titre + event.lieu, // for duplicates
+      uniqueKey: event.from + event.titre + event.lieu,
       multiYear,
     };
   })
@@ -106,7 +117,7 @@ const maisonRetraitesEvents = Object.values(ateliers)
           key={event.uniqueKey}
           class={`border-b pb-2 ${event.multiYear ? 'bg-yellow-100 font-semibold' : ''}`}
         >
-          <strong>{event.displayDate}</strong> — {event.titre}
+          <strong set:html={event.displayDate}></strong> — {event.titre}
           <br />
           <em>{event.lieu}</em>
           <br />
