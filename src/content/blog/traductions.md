@@ -13,7 +13,7 @@ tags: ['traduction littéraire', 'Lu Yin', 'littérature chinoise', 'mouvement d
 ---
 # Traduction et analyse littéraire de Lu Yin
 
-La nouvelle Fuqin (Père), dont nous proposons une traduction a été écrite en 1924 par Lu Yin (1899-1934). Lu Yin fait partie de cette jeunesse chinoise qui a été profondément marquée par le mouvement du 4 mai 1919 et le bouillonnement d'idées qui l'accompagne. En tant que femme, elle participe au débat d'idées qui vise à cette époque à faire évoluer la société en général par le biais de la littérature, de l'éducation, des arts et de la culture dans son ensemble. Lu Yin écrit dans un premier temps quelques textes traitant de problèmes sociaux, elle réclame entre autres l'amélioration des conditions de travail des ouvrières dans les filatures de soie et celle des paysannes en général.
+La nouvelle Fuqin (Père), dont nous proposons une traduction a été écrite en 1924 par [Lu Yin](presentation-de-lauteur.md) (1899-1934). Lu Yin fait partie de cette jeunesse chinoise qui a été profondément marquée par le mouvement du 4 mai 1919 et le bouillonnement d'idées qui l'accompagne. En tant que femme, elle participe au débat d'idées qui vise à cette époque à faire évoluer la société en général par le biais de la littérature, de l'éducation, des arts et de la culture dans son ensemble. Lu Yin écrit dans un premier temps quelques textes traitant de problèmes sociaux, elle réclame entre autres l'amélioration des conditions de travail des ouvrières dans les filatures de soie et celle des paysannes en général.
 
 ### Exploration de la création littéraire
 

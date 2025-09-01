@@ -37,7 +37,7 @@ Comme c'est drôle ! Aujourd'hui, je suis allé là-bas à midi, Père était en
 
 
 
-Il ne faudrait pas penser que je cherche à faire des histoires, par contre je ne peux m'empêcher de m'inquiéter pour elle, craignant qu'elle ne soit davantage abusée. Plus d'une fois, j'ai désiré, rassemblant tout mon courage, lui dire : « Je t'aime de tout mon cœur » mais j'échoue constamment. Il m'arrive parfois de me dégoûter moi-même d'être aussi lâche et j'use des méthodes les plus extrêmes pour me réprimander. Lorsque je suis près de lui déclarer ma flamme, mon esprit s'affole aussitôt. C'est vraiment peine perdue. Mais bien que la quête amoureuse des hommes auprès des femmes soit par nature une affaire particulièrement délicate, à force de patience et d'opiniâtreté, j'attendrai un jour mon but.
+Il ne faudrait pas penser que je cherche à faire des histoires, par contre je ne peux m'empêcher de m'inquiéter pour elle, craignant qu'elle ne soit davantage abusée. Plus d'une fois, j'ai désiré, rassemblant tout mon courage, lui dire : « Je t'aime de tout mon cœur » mais j'échoue constamment. Il m'arrive parfois de me dégoûter moi-même d'être aussi lâche et j'use des méthodes les plus extrêmes pour me réprimander. Lorsque je suis près de lui déclarer ma flamme, mon esprit s'affole aussitôt. C'est vraiment peine perdue. Mais bien que la quête amoureuse des hommes auprès des femmes soit par [nature](zeng-jixin-la-guerre-entre-les-rats-et-les-hommes-nouvelle.md) une affaire particulièrement délicate, à force de patience et d'opiniâtreté, j'attendrai un jour mon but.
 
 
 

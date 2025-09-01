@@ -32,7 +32,7 @@ Une fois, je suis tombé sur un rapport concernant l'extermination des rats et q
 
 
 
-Si l'on parle des dangers pour l'Homme liés aux rats, il n'y a pas de plus grave que celui de la peste.
+Si l'on parle des dangers pour l'Homme liés aux rats, il n'y a pas de plus grave que celui de la [peste](lengeance-de-rat-se-dechaine.md).
 
 
 
