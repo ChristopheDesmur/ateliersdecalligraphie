@@ -67,17 +67,24 @@ const comiteEntrepriseEvents = Object.values(ateliers)
   })
   .filter((event, index, self) =>
     index === self.findIndex(e => e.key === event.key)
-  )
-  .sort((a, b) => b.toDate - a.toDate);
+  );
 
+// --- Group by year (multi-year handling) ---
 const eventsByYear = Object.entries(
   comiteEntrepriseEvents.reduce((acc, event) => {
-    const year = event.toDate.getFullYear();
-    acc[year] = acc[year] || [];
-    acc[year].push(event);
+    const startYear = event.fromDate.getFullYear();
+    const endYear = event.toDate.getFullYear();
+
+    for (let year = startYear; year <= endYear; year++) {
+      acc[year] = acc[year] || [];
+      acc[year].push(event);
+    }
     return acc;
   }, {})
-).sort(([yA], [yB]) => yB - yA);
+).map(([year, events]) => [
+  year,
+  events.sort((a, b) => a.fromDate - b.fromDate || a.toDate - b.toDate),
+]).sort(([yA], [yB]) => yB - yA);
 ---
 
 <Base title="Ateliers pour comités d'entreprise">
@@ -160,7 +167,7 @@ const eventsByYear = Object.entries(
       document.addEventListener("DOMContentLoaded", () => {
         const detailsList = document.querySelectorAll(".year-section");
         detailsList.forEach(details => {
-          details.addEventListener("toggle", (e) => {
+          details.addEventListener("toggle", () => {
             if (details.open) {
               detailsList.forEach(other => {
                 if (other !== details) other.removeAttribute("open");

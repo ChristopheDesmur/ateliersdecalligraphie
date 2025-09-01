@@ -22,9 +22,9 @@ function formatDayFR(dayNum, mode = "date") {
 
   switch (mode) {
     case "date":
-      return "1<sup>er</sup>"; // 1er janvier
+      return "1<sup>er</sup>";
     case "ordinal":
-      return "1<sup>e</sup>"; // 1re édition
+      return "1<sup>e</sup>";
     default:
       return "1";
   }
@@ -86,19 +86,33 @@ const collegesEvents = Object.values(ateliers)
   .filter(
     (event, index, self) =>
       index === self.findIndex((e) => e.uniqueKey === event.uniqueKey)
-  )
-  // Sort descending
-  .sort((a, b) => b.toDate - a.toDate);
+  );
 
-// Group by year
-const eventsByYear = Object.entries(
-  collegesEvents.reduce((acc, event) => {
-    const year = event.toDate.getFullYear();
+// --- Group by year span ---
+const grouped = collegesEvents.reduce((acc, event) => {
+  const startYear = event.fromDate.getFullYear();
+  const endYear = event.toDate.getFullYear();
+
+  for (let year = startYear; year <= endYear; year++) {
     acc[year] = acc[year] || [];
     acc[year].push(event);
-    return acc;
-  }, {})
-).sort(([yA], [yB]) => yB - yA);
+  }
+  return acc;
+}, {});
+
+// --- Sort events inside each year ---
+for (const year in grouped) {
+  grouped[year].sort((a, b) => {
+    if (a.fromDate.getTime() !== b.fromDate.getTime()) {
+      return b.fromDate - a.fromDate; // plus récents en haut
+    }
+    return b.toDate - a.toDate;
+  });
+}
+
+const eventsByYear = Object.entries(grouped).sort(
+  ([yA], [yB]) => yB - yA
+);
 ---
 
 <Base title="Ateliers pour collèges">

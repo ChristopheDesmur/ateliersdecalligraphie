@@ -67,17 +67,33 @@ const ecolesPrimairesEvents = Object.values(ateliers)
       displayDate,
       multiYear,
     };
-  })
-  .sort((a, b) => b.toDate - a.toDate);
+  });
 
-const eventsByYear = Object.entries(
-  ecolesPrimairesEvents.reduce((acc, event) => {
-    const year = event.toDate.getFullYear();
+// Group by year (all years in span) and sort
+const grouped = ecolesPrimairesEvents.reduce((acc, event) => {
+  const startYear = event.fromDate.getFullYear();
+  const endYear = event.toDate.getFullYear();
+
+  for (let year = startYear; year <= endYear; year++) {
     acc[year] = acc[year] || [];
     acc[year].push(event);
-    return acc;
-  }, {})
-).sort(([yearA], [yearB]) => yearB - yearA);
+  }
+  return acc;
+}, {});
+
+// Sort events within each year by fromDate then toDate
+for (const year in grouped) {
+  grouped[year].sort((a, b) => {
+    if (a.fromDate.getTime() !== b.fromDate.getTime()) {
+      return b.fromDate - a.fromDate; // plus anciens en bas
+    }
+    return b.toDate - a.toDate;
+  });
+}
+
+const eventsByYear = Object.entries(grouped).sort(
+  ([yearA], [yearB]) => yearB - yearA
+);
 ---
 
 <Base title="Ateliers pour écoles primaires">

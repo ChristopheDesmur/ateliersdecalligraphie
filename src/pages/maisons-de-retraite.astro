@@ -64,18 +64,29 @@ const maisonRetraitesEvents = Object.values(ateliers)
     };
   })
   // Remove duplicates
-  .filter((event, index, self) => index === self.findIndex((e) => e.uniqueKey === event.uniqueKey))
-  // Sort descending by toDate
-  .sort((a, b) => b.toDate - a.toDate);
+  .filter((event, index, self) => index === self.findIndex((e) => e.uniqueKey === event.uniqueKey));
 
+// Group by year range (multi-year included in all)
 const eventsByYear = Object.entries(
   maisonRetraitesEvents.reduce((acc, event) => {
-    const year = event.toDate.getFullYear();
-    acc[year] = acc[year] || [];
-    acc[year].push(event);
+    const startYear = event.fromDate.getFullYear();
+    const endYear = event.toDate.getFullYear();
+
+    for (let year = startYear; year <= endYear; year++) {
+      acc[year] = acc[year] || [];
+      acc[year].push(event);
+    }
     return acc;
   }, {})
-).sort(([yearA], [yearB]) => yearB - yearA);
+)
+// Sort years descending
+.sort(([yearA], [yearB]) => yearB - yearA)
+.map(([year, events]) => [
+  year,
+  events.sort((a, b) =>
+    a.fromDate - b.fromDate || a.toDate - b.toDate
+  ),
+]);
 ---
 
 <Base title="Ateliers pour maisons de retraite et ÉPHAD">
