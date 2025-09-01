@@ -3,56 +3,51 @@ import Base from "../layouts/Layout.astro";
 import fs from 'fs';
 import yaml from 'js-yaml';
 
-// Charger le YAML et s'assurer que c'est un tableau plat
+// --- Load YAML and normalize ---
 const rawData = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
-let rawAteliers = [];
+const rawAteliers = Array.isArray(rawData)
+  ? rawData
+  : rawData && typeof rawData === 'object'
+  ? Object.values(rawData).flat()
+  : [];
 
-if (Array.isArray(rawData)) {
-  rawAteliers = rawData;
-} else if (rawData && typeof rawData === 'object') {
-  rawAteliers = Object.values(rawData).flat();
-} else {
-  rawAteliers = [];
+// --- Date helpers ---
+function sameDay(d1, d2) {
+  return d1.getFullYear() === d2.getFullYear()
+      && d1.getMonth() === d2.getMonth()
+      && d1.getDate() === d2.getDate();
 }
 
-// Helpers pour afficher les dates en français
-const frDate = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
-const frDay = new Intl.DateTimeFormat("fr-FR", { day: "numeric" });
-const frMonthYear = new Intl.DateTimeFormat("fr-FR", { month: "long", year: "numeric" });
-
-function sameDay(d1, d2) {
-  return (
-    d1.getFullYear() === d2.getFullYear() &&
-    d1.getMonth() === d2.getMonth() &&
-    d1.getDate() === d2.getDate()
-  );
+function formatDayFR(dayNum) {
+  return dayNum === 1 ? "1<sup>er</sup>" : String(dayNum);
 }
 
 function formatDateFR(fromStr, toStr) {
-  const fromDate = new Date(fromStr);
-  const toDate = toStr ? new Date(toStr) : fromDate;
+  const from = new Date(fromStr);
+  const to = toStr ? new Date(toStr) : from;
 
-  if (sameDay(fromDate, toDate)) {
-    return frDate.format(fromDate);
-  } else if (fromDate.getFullYear() === toDate.getFullYear() &&
-             fromDate.getMonth() === toDate.getMonth()) {
-    // Même mois : n'afficher que les jours pour "from" et "to"
-    return `${frDay.format(fromDate)} → ${frDay.format(toDate)} ${frMonthYear.format(toDate)}`;
+  const optionsMonthYear = { month: "long", year: "numeric" };
+
+  const frDayFrom = formatDayFR(from.getDate());
+  const frDayTo = toStr ? formatDayFR(to.getDate()) : null;
+
+  if (sameDay(from, to)) {
+    return `${frDayFrom} ${from.toLocaleDateString("fr-FR", optionsMonthYear)}`;
+  } else if (from.getFullYear() === to.getFullYear() && from.getMonth() === to.getMonth()) {
+    return `${frDayFrom} → ${frDayTo} ${to.toLocaleDateString("fr-FR", optionsMonthYear)}`;
   } else {
-    return `${frDate.format(fromDate)} → ${frDate.format(toDate)}`;
+    return `${frDayFrom} ${from.toLocaleDateString("fr-FR", optionsMonthYear)} → ${frDayTo} ${to.toLocaleDateString("fr-FR", optionsMonthYear)}`;
   }
 }
 
-// Construire ateliers par année (y compris multi-années) et éviter les doublons
+// --- Group ateliers by year ---
 const ateliersByYear = {};
 rawAteliers.forEach(event => {
-  const fromDate = new Date(event.from);
-  const toDate = event.to ? new Date(event.to) : fromDate;
-  const fromYear = fromDate.getFullYear();
-  const toYear = toDate.getFullYear();
-  const multiYear = fromYear !== toYear;
+  const from = new Date(event.from);
+  const to = event.to ? new Date(event.to) : from;
+  const multiYear = from.getFullYear() !== to.getFullYear();
 
-  for (let y = fromYear; y <= toYear; y++) {
+  for (let y = from.getFullYear(); y <= to.getFullYear(); y++) {
     if (!ateliersByYear[y]) ateliersByYear[y] = [];
     const key = event.from + event.titre + event.lieu;
     if (!ateliersByYear[y].some(e => (e.from + e.titre + e.lieu) === key)) {
@@ -65,7 +60,7 @@ rawAteliers.forEach(event => {
   }
 });
 
-// Trier les années décroissantes
+// --- Sort years descending ---
 const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Number(a));
 ---
 
@@ -90,11 +85,11 @@ const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Numbe
     <img
       src="/assets/christophe-desmur-calligraphie-chinoise.webp"
       alt="Christophe Desmur, calligraphie chinoise à Lyon, en train de calligraphier."
-      style="width:100%; max-width:800px; height:auto;"
+      class="w-full max-w-[800px] h-auto"
     >
 
     <p>
-      Je donne des cours de calligraphie et des cours de chinois individuels ou en groupe aussi bien aux enfants qu’aux adultes et anime également des stages (10 élèves maximum).
+      Je donne des cours de calligraphie et des cours de chinois individuels ou en groupe, aux enfants comme aux adultes, et j’anime également des stages (10 élèves maximum).
     </p>
 
     <h2 class="text-4xl lg:text-3xl font-bold text-gray-600 mt-10">Ateliers & interventions</h2>
@@ -120,28 +115,21 @@ const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Numbe
         data-year={annee}
       >
         <ul class="mt-4 space-y-2">
-          {ateliersByYear[annee].map((event) => (
+          {ateliersByYear[annee].map(event => (
             <li
               key={event.from + event.titre + event.lieu}
               class={`border-b pb-2 ${event.multiYear ? 'bg-yellow-100 font-semibold' : ''}`}
             >
-              <strong>{event.displayDate}</strong>
+              <strong set:html={event.displayDate}></strong>
               {" — "}
               {event.href ? (
-                <a href={event.href} class="text-indigo-600 hover:underline">
-                  {event.titre}
-                </a>
+                <a href={event.href} class="text-indigo-600 hover:underline">{event.titre}</a>
               ) : (
                 event.titre
               )}
               <br />
               <em>{event.lieu}</em>
-              {event.details && (
-                <>
-                  <br />
-                  {event.details}
-                </>
-              )}
+              {event.details && (<><br />{event.details}</>)}
             </li>
           ))}
         </ul>
@@ -155,11 +143,9 @@ const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Numbe
     yearButtons.forEach(btn => {
       btn.addEventListener("click", () => {
         const year = btn.dataset.year;
-
         document.querySelectorAll(".year-section").forEach(sec => {
           sec.classList.toggle("hidden", sec.dataset.year !== year);
         });
-
         yearButtons.forEach(b => {
           b.classList.remove("bg-indigo-600", "text-white");
           b.classList.add("bg-gray-200", "text-gray-800");
@@ -168,15 +154,8 @@ const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Numbe
         btn.classList.remove("bg-gray-200", "text-gray-800");
 
         const section = document.querySelector(`.year-section[data-year='${year}']`);
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
-
-    if (yearButtons.length) {
-      yearButtons[0].classList.add("bg-indigo-600", "text-white");
-      yearButtons[0].classList.remove("bg-gray-200", "text-gray-800");
-    }
   </script>
 </Base>
