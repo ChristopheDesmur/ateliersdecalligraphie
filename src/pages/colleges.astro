@@ -10,17 +10,11 @@ const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'
 const collegesEvents = Object.values(ateliers)
   .flat()
   .filter(event => event.href === "/colleges")
+  // Sort descending by date (DD/MM/YYYY)
   .sort((a, b) => {
-    // Parse DD/MM/YYYY
     const [dayA, monthA, yearA] = a.date.split("/").map(Number);
     const [dayB, monthB, yearB] = b.date.split("/").map(Number);
-
-    // Create Date objects
-    const dateA = new Date(yearA, monthA - 1, dayA);
-    const dateB = new Date(yearB, monthB - 1, dayB);
-
-    // Sort descending: most recent first
-    return dateB - dateA;
+    return new Date(yearB, monthB - 1, dayB) - new Date(yearA, monthA - 1, dayA);
   });
 ---
 
@@ -59,18 +53,13 @@ const collegesEvents = Object.values(ateliers)
   </table>
 </div>
 
+<h2 class="text-2xl font-semibold mb-4">
+Interventions passées</h2>
 
-    <p class="text-lg mt-4 text-gray-600">
-      Liste de tous les ateliers destinés aux collèges, du plus récent au plus ancien.
-    </p>
-
-    <ul class="mt-6 space-y-4">
+ <ul class="mt-6 space-y-4">
       {collegesEvents.map(event => (
         <li key={event.date + event.titre} class="border-b pb-2">
-          <strong>{event.date}</strong> —{" "}
-          <a href={event.href} class="text-indigo-600 hover:underline">
-            {event.titre}
-          </a>
+          <strong>{event.date}</strong> — {event.titre}
           <br />
           <em>{event.lieu}</em>
           <br />
