@@ -66,6 +66,7 @@ const ecolesPrimairesEvents = Object.values(ateliers)
       toDate,
       displayDate,
       multiYear,
+      key: event.from + event.titre + event.lieu,
     };
   });
 
@@ -151,57 +152,73 @@ const eventsByYear = Object.entries(grouped).sort(
 
     <h2 class="text-2xl font-semibold mt-10 mb-4">Interventions passées</h2>
 
-    {eventsByYear.map(([year, events], index) => (
-      <section>
-        <details
-          class="mb-4 year-section"
-          open={index === 0}   // expand most recent year only
+    <!-- Navigation années -->
+    <nav class="flex flex-wrap gap-4 mb-6">
+      {eventsByYear.map(([year], idx) => (
+        <button
+          class={`year-btn px-4 py-2 rounded font-semibold transition-colors duration-300
+            ${idx === 0 ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-800 hover:bg-gray-300"}`}
+          data-year={year}
         >
-          <summary class="cursor-pointer text-xl font-bold mt-6 mb-3">
-            {year}
-          </summary>
-          <ul class="space-y-4 mt-2">
-            {events.map((event) => (
-              <li
-                key={event.from + event.titre + event.lieu}
-                class={`
-                  border-b pb-2
-                  odd:bg-gray-100
-                  ${
-                    event.multiYear
-                      ? "bg-indigo-100 text-indigo-900 font-semibold odd:bg-indigo-100"
-                      : ""
-                  }
-                `}
-              >
-                <strong set:html={event.displayDate}></strong> — {event.titre}
-                <br />
-                <em>{event.lieu}</em>
-                {event.details && (
-                  <>
-                    <br />
-                    {event.details}
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
-        </details>
+          {year}
+        </button>
+      ))}
+    </nav>
+
+    <!-- Sections par année -->
+    {eventsByYear.map(([year, events], idx) => (
+      <section
+        key={year}
+        class={`year-section ${idx === 0 ? "" : "hidden"} mt-6`}
+        data-year={year}
+      >
+        <ul class="space-y-4 mt-2">
+          {events.map((event) => (
+            <li
+              key={event.key}
+              class={`
+                border-b pb-2
+                odd:bg-gray-100
+                ${
+                  event.multiYear
+                    ? "bg-indigo-100 text-indigo-900 font-semibold odd:bg-indigo-100"
+                    : ""
+                }
+              `}
+            >
+              <strong set:html={event.displayDate}></strong> — {event.titre}
+              <br />
+              <em>{event.lieu}</em>
+              {event.details && (
+                <>
+                  <br />
+                  {event.details}
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
       </section>
     ))}
 
     <script>
-      // Accordion behavior: only one <details> open at a time
-      document.addEventListener("DOMContentLoaded", () => {
-        const detailsList = document.querySelectorAll(".year-section");
-        detailsList.forEach((details) => {
-          details.addEventListener("toggle", () => {
-            if (details.open) {
-              detailsList.forEach((other) => {
-                if (other !== details) other.removeAttribute("open");
-              });
-            }
+      const yearButtons = document.querySelectorAll(".year-btn");
+
+      yearButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const year = btn.dataset.year;
+          document.querySelectorAll(".year-section").forEach((sec) => {
+            sec.classList.toggle("hidden", sec.dataset.year !== year);
           });
+          yearButtons.forEach((b) => {
+            b.classList.remove("bg-indigo-600", "text-white");
+            b.classList.add("bg-gray-200", "text-gray-800");
+          });
+          btn.classList.add("bg-indigo-600", "text-white");
+          btn.classList.remove("bg-gray-200", "text-gray-800");
+
+          const section = document.querySelector(`.year-section[data-year='${year}']`);
+          if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
         });
       });
     </script>
