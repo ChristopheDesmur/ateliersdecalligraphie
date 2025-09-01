@@ -65,14 +65,11 @@ const comiteEntrepriseEvents = Object.values(ateliers)
       key: event.from + event.titre + event.lieu,
     };
   })
-  // deduplicate
   .filter((event, index, self) =>
     index === self.findIndex(e => e.key === event.key)
   )
-  // sort descending
   .sort((a, b) => b.toDate - a.toDate);
 
-// Group by year
 const eventsByYear = Object.entries(
   comiteEntrepriseEvents.reduce((acc, event) => {
     const year = event.toDate.getFullYear();
@@ -129,19 +126,7 @@ const eventsByYear = Object.entries(
 
     {eventsByYear.map(([year, events], index) => (
       <section>
-        <details
-          class="mb-4 year-section"
-          open={index === 0}   // expand most recent year only
-          onToggle={(e) => {
-            if (e.currentTarget.open) {
-              document
-                .querySelectorAll(".year-section")
-                .forEach(el => {
-                  if (el !== e.currentTarget) el.removeAttribute("open");
-                });
-            }
-          }}
-        >
+        <details class="mb-4 year-section" open={index === 0}>
           <summary class="cursor-pointer text-xl font-bold mt-6 mb-3">
             {year}
           </summary>
@@ -170,5 +155,20 @@ const eventsByYear = Object.entries(
         </details>
       </section>
     ))}
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const detailsList = document.querySelectorAll(".year-section");
+        detailsList.forEach(details => {
+          details.addEventListener("toggle", (e) => {
+            if (details.open) {
+              detailsList.forEach(other => {
+                if (other !== details) other.removeAttribute("open");
+              });
+            }
+          });
+        });
+      });
+    </script>
   </main>
 </Base>
