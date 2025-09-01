@@ -6,32 +6,27 @@ import yaml from 'js-yaml';
 // Load YAML
 const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
 
-// Helper to parse French dates like "11 février 2025"
-function parseFrenchDate(str) {
-  const months = {
-    janvier: 0,
-    février: 1,
-    mars: 2,
-    avril: 3,
-    mai: 4,
-    juin: 5,
-    juillet: 6,
-    août: 7,
-    septembre: 8,
-    octobre: 9,
-    novembre: 10,
-    décembre: 11
-  };
-  const [day, monthName, year] = str.split(" ");
-  return new Date(Number(year), months[monthName], Number(day));
+// Helper: parse "YYYY-MM-DD HH:mm" into Date
+function parseDate(str) {
+  return new Date(str);
+}
+
+// Helper: format date as "7 novembre 2022"
+function formatDate(str) {
+  const months = [
+    "janvier", "février", "mars", "avril", "mai", "juin",
+    "juillet", "août", "septembre", "octobre", "novembre", "décembre"
+  ];
+  const date = parseDate(str);
+  return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
 }
 
 // Flatten all events and keep only those with href="/ecoles-primaires"
 const maisonRetraitesEvents = Object.values(ateliers)
   .flat()
   .filter(event => event.href === "/ecoles-primaires")
-  // Sort descending by French date
-  .sort((a, b) => parseFrenchDate(b.date) - parseFrenchDate(a.date));
+  // Sort descending by "from"
+  .sort((a, b) => parseDate(b.from) - parseDate(a.from));
 ---
 
 <Base title="Ateliers pour écoles primaires">
@@ -94,8 +89,12 @@ const maisonRetraitesEvents = Object.values(ateliers)
 
     <ul class="mt-6 space-y-4">
       {maisonRetraitesEvents.map(event => (
-        <li key={event.date + event.titre} class="border-b pb-2">
-          <strong>{event.date}</strong> — {event.titre}
+        <li key={event.from + event.titre} class="border-b pb-2">
+          <strong>
+            {formatDate(event.from)}
+            {event.to !== event.from ? ` – ${formatDate(event.to)}` : ""}
+          </strong>
+          — {event.titre}
           <br />
           <em>{event.lieu}</em>
           <br />
