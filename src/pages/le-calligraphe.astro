@@ -3,31 +3,72 @@ import Base from "../layouts/Layout.astro";
 import fs from 'fs';
 import yaml from 'js-yaml';
 
-// Charger le YAML
-const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
+// Charger le YAML et s'assurer que c'est un tableau plat
+const rawData = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
+let rawAteliers = [];
 
-// Trier les années décroissantes
-const sortedYears = Object.keys(ateliers).sort((a, b) => Number(b) - Number(a));
+if (Array.isArray(rawData)) {
+  rawAteliers = rawData;
+} else if (rawData && typeof rawData === 'object') {
+  // flatten object values (each may be an array)
+  rawAteliers = Object.values(rawData).flat();
+} else {
+  rawAteliers = [];
+}
 
 // Helper pour afficher les dates en français "5 février 2011"
-function formatDateFR(from) {
-  if (!from) return "";
+function formatDateFR(dateStr) {
+  if (!dateStr) return "";
   const months = [
     "janvier", "février", "mars", "avril", "mai", "juin",
     "juillet", "août", "septembre", "octobre", "novembre", "décembre"
   ];
-  const date = new Date(from.split(" ")[0]); // ignore heure si présente
+  const date = new Date(dateStr.split(" ")[0]);
   return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
 }
+
+// Construire ateliers par année (y compris multi-années) et éviter les doublons
+const ateliersByYear = {};
+rawAteliers.forEach(event => {
+  const fromYear = new Date(event.from).getFullYear();
+  const toYear = event.to ? new Date(event.to).getFullYear() : fromYear;
+  for (let y = fromYear; y <= toYear; y++) {
+    if (!ateliersByYear[y]) ateliersByYear[y] = [];
+    const key = event.from + event.titre + event.lieu; // clé unique pour éviter doublons
+    if (!ateliersByYear[y].some(e => (e.from + e.titre + e.lieu) === key)) {
+      ateliersByYear[y].push(event);
+    }
+  }
+});
+
+// Trier les années décroissantes
+const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Number(a));
 ---
 
-<Base title="Christophe Desmur — Calligraphe et traducteur littéraire du chinois">
+<Base title="Christophe Desmur, calligraphe et traducteur littéraire du chinois">
   <main class="mx-auto max-w-[735px] mt-14">
-    <h1 class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">
-      Christophe Desmur, calligraphe et traducteur littéraire du chinois
-    </h1>
+      <h1
+        class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">Christophe Desmur, calligraphe et traducteur littéraire du chinois</h1>
     <p class="text-lg mt-4 text-gray-600">
       Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques.
+    </p>
+
+    <p>
+      Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde, je suis titulaire :</p>
+<ul class="list-disc pl-5">
+  <li>d’un diplôme d’étude universitaire générale en langue et civilisation coréennes&nbsp;;</li>
+  <li>d’une maîtrise de langue et civilisation chinoises&nbsp;;</li>
+  <li>d’un master de traduction littéraire du chinois vers le français.</li>
+</ul>
+
+<img
+  src="/assets/christophe-desmur-calligraphie-chinoise.webp"
+  alt="Christophe Desmur, calligraphie chinoise à Lyon, en train de calligraphier."
+  style="width:100%; max-width:800px; height:auto;"
+>
+
+    <p>
+      Je donne des cours de calligraphie et des cours de chinois individuels ou en groupe aussi bien aux enfants qu’aux adultes et anime également des stages (10 élèves maximum).
     </p>
 
     <h2 class="text-4xl lg:text-3xl font-bold text-gray-600 mt-10">Ateliers & interventions</h2>
@@ -53,9 +94,13 @@ function formatDateFR(from) {
         data-year={annee}
       >
         <ul class="mt-4 space-y-2">
-          {ateliers[annee].map((event) => (
-            <li key={event.from + event.titre} class="border-b pb-2">
-              <strong>{formatDateFR(event.from)}</strong>
+          {ateliersByYear[annee].map((event) => (
+            <li key={event.from + event.titre + event.lieu} class="border-b pb-2">
+              <strong>
+                {event.to && event.to.split(" ")[0] !== event.from.split(" ")[0]
+                  ? `${formatDateFR(event.from)} — ${formatDateFR(event.to)}`
+                  : formatDateFR(event.from)}
+              </strong>
               {" — "}
               {event.href ? (
                 <a href={event.href} class="text-indigo-600 hover:underline">
