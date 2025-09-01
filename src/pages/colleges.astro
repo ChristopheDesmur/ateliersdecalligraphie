@@ -1,0 +1,52 @@
+---
+import Base from "../layouts/Layout.astro";
+import fs from 'fs';
+import yaml from 'js-yaml';
+
+// Load YAML
+const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
+
+// Flatten all events and keep only those with href="/colleges"
+const collegesEvents = Object.values(ateliers)
+  .flat()
+  .filter(event => event.href === "/colleges")
+  .sort((a, b) => {
+    // Parse DD/MM/YYYY
+    const [dayA, monthA, yearA] = a.date.split("/").map(Number);
+    const [dayB, monthB, yearB] = b.date.split("/").map(Number);
+
+    // Create Date objects
+    const dateA = new Date(yearA, monthA - 1, dayA);
+    const dateB = new Date(yearB, monthB - 1, dayB);
+
+    // Sort descending: most recent first
+    return dateB - dateA;
+  });
+---
+
+<Base title="Ateliers pour collèges">
+  <main class="mx-auto max-w-[735px] mt-14">
+    <h1 class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">
+      Ateliers pour collèges
+    </h1>
+
+    <p class="text-lg mt-4 text-gray-600">
+      Liste de tous les ateliers destinés aux collèges, du plus récent au plus ancien.
+    </p>
+
+    <ul class="mt-6 space-y-4">
+      {collegesEvents.map(event => (
+        <li key={event.date + event.titre} class="border-b pb-2">
+          <strong>{event.date}</strong> —{" "}
+          <a href={event.href} class="text-indigo-600 hover:underline">
+            {event.titre}
+          </a>
+          <br />
+          <em>{event.lieu}</em>
+          <br />
+          {event.details}
+        </li>
+      ))}
+    </ul>
+  </main>
+</Base>
