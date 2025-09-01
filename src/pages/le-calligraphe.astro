@@ -1,45 +1,38 @@
 ---
 import Base from "../layouts/Layout.astro";
-import { Icon } from "astro-icon/components";
 import fs from 'fs';
 import yaml from 'js-yaml';
 
-// Load YAML
+// Charger le YAML
 const ateliers = yaml.load(fs.readFileSync('./src/content/ateliers.yaml', 'utf8'));
 
-// Sort years descending
+// Trier les années décroissantes
 const sortedYears = Object.keys(ateliers).sort((a, b) => Number(b) - Number(a));
+
+// Helper pour afficher les dates en français "5 février 2011"
+function formatDateFR(from) {
+  if (!from) return "";
+  const months = [
+    "janvier", "février", "mars", "avril", "mai", "juin",
+    "juillet", "août", "septembre", "octobre", "novembre", "décembre"
+  ];
+  const date = new Date(from.split(" ")[0]); // ignore heure si présente
+  return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+}
 ---
 
-<Base title="Christophe Desmur, calligraphe et traducteur littéraire du chinois">
+<Base title="Christophe Desmur — Calligraphe et traducteur littéraire du chinois">
   <main class="mx-auto max-w-[735px] mt-14">
-      <h1
-        class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">Christophe Desmur, calligraphe et traducteur littéraire du chinois</h1>
+    <h1 class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">
+      Christophe Desmur, calligraphe et traducteur littéraire du chinois
+    </h1>
     <p class="text-lg mt-4 text-gray-600">
       Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques.
     </p>
 
-    <p>
-      Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde, je suis titulaire :</p>
-<ul class="list-disc pl-5">
-  <li>d’un diplôme d’étude universitaire générale en langue et civilisation coréennes&nbsp;;</li>
-  <li>d’une maîtrise de langue et civilisation chinoises&nbsp;;</li>
-  <li>d’un master de traduction littéraire du chinois vers le français.</li>
-</ul>
-
-<img
-  src="/assets/christophe-desmur-calligraphie-chinoise.webp"
-  alt="Christophe Desmur, calligraphie chinoise à Lyon, en train de calligraphier."
-  style="width:100%; max-width:800px; height:auto;"
->
-
-    <p>
-      Je donne des cours de calligraphie et des cours de chinois individuels ou en groupe aussi bien aux enfants qu’aux adultes et anime également des stages (10 élèves maximum).
-    </p>
-
     <h2 class="text-4xl lg:text-3xl font-bold text-gray-600 mt-10">Ateliers & interventions</h2>
 
-    <!-- Year navigation -->
+    <!-- Navigation années -->
     <nav class="flex flex-wrap gap-4 mb-6">
       {sortedYears.map((annee, idx) => (
         <button
@@ -52,32 +45,37 @@ const sortedYears = Object.keys(ateliers).sort((a, b) => Number(b) - Number(a));
       ))}
     </nav>
 
-    <!-- Yearly sections -->
+    <!-- Sections par année -->
     {sortedYears.map((annee, idx) => (
       <section
         key={annee}
         class={`year-section ${idx === 0 ? '' : 'hidden'} mt-6`}
         data-year={annee}
       >
-<ul class="mt-4 space-y-2">
-  {ateliers[annee].map((event) => (
-    <li key={event.date + event.titre} class="border-b pb-2">
-      <strong>{event.date}</strong> —{" "}
-      {event.href ? (
-        <a href={event.href} class="text-indigo-600 hover:underline">
-          {event.titre}
-        </a>
-      ) : (
-        event.titre
-      )}
-      <br />
-      <em>{event.lieu}</em>
-      <br />
-      {event.details}
-    </li>
-  ))}
-</ul>
-</section>
+        <ul class="mt-4 space-y-2">
+          {ateliers[annee].map((event) => (
+            <li key={event.from + event.titre} class="border-b pb-2">
+              <strong>{formatDateFR(event.from)}</strong>
+              {" — "}
+              {event.href ? (
+                <a href={event.href} class="text-indigo-600 hover:underline">
+                  {event.titre}
+                </a>
+              ) : (
+                event.titre
+              )}
+              <br />
+              <em>{event.lieu}</em>
+              {event.details && (
+                <>
+                  <br />
+                  {event.details}
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
     ))}
   </main>
 
@@ -88,12 +86,12 @@ const sortedYears = Object.keys(ateliers).sort((a, b) => Number(b) - Number(a));
       btn.addEventListener("click", () => {
         const year = btn.dataset.year;
 
-        // Show selected year section
+        // Afficher la section de l'année choisie
         document.querySelectorAll(".year-section").forEach(sec => {
           sec.classList.toggle("hidden", sec.dataset.year !== year);
         });
 
-        // Highlight selected button
+        // Changer le style du bouton actif
         yearButtons.forEach(b => {
           b.classList.remove("bg-indigo-600", "text-white");
           b.classList.add("bg-gray-200", "text-gray-800");
@@ -101,7 +99,7 @@ const sortedYears = Object.keys(ateliers).sort((a, b) => Number(b) - Number(a));
         btn.classList.add("bg-indigo-600", "text-white");
         btn.classList.remove("bg-gray-200", "text-gray-800");
 
-        // Smooth scroll to section
+        // Scroll fluide
         const section = document.querySelector(`.year-section[data-year='${year}']`);
         if (section) {
           section.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -109,7 +107,7 @@ const sortedYears = Object.keys(ateliers).sort((a, b) => Number(b) - Number(a));
       });
     });
 
-    // Highlight first year button on load
+    // Mettre en surbrillance le premier bouton
     if (yearButtons.length) {
       yearButtons[0].classList.add("bg-indigo-600", "text-white");
       yearButtons[0].classList.remove("bg-gray-200", "text-gray-800");
