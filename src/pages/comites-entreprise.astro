@@ -125,7 +125,11 @@ const comiteEntrepriseEvents = Object.values(ateliers)
       {comiteEntrepriseEvents.map(event => (
         <li
           key={event.key}
-          class={`border-b pb-2 ${event.multiYear ? 'bg-gray-100 font-semibold' : ''}`}
+          class={`
+            border-b pb-2
+            odd:bg-gray-100
+            ${event.multiYear ? 'bg-indigo-100 text-indigo-900 font-semibold odd:bg-indigo-100' : ''}
+          `}
         >
           <strong set:html={event.displayDate}></strong> — {event.titre}
           <br />
