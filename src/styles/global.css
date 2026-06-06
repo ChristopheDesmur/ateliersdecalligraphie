@@ -2,6 +2,8 @@
 
 @plugin '@tailwindcss/typography';
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: 'Cormorant Garamond', Georgia, serif;
 }
