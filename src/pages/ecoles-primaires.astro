@@ -125,33 +125,33 @@ const eventsByYear = Object.entries(grouped).sort(
     />
 
     <div class="overflow-x-auto">
-      <table class="min-w-full border border-gray-300 divide-y divide-gray-200">
-        <thead class="bg-gray-100">
+      <table class="min-w-full border border-gray-300 divide-y divide-gray-200 dark:border-gray-600 dark:divide-gray-600">
+        <thead class="bg-gray-100 dark:bg-gray-600">
           <tr>
-            <th class="px-4 py-2 text-left font-medium text-gray-700">Jours possibles</th>
-            <th class="px-4 py-2 text-left font-medium text-gray-700">Du lundi au vendredi</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-700 dark:text-gray-200">Jours possibles</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-700 dark:text-gray-200">Du lundi au vendredi</th>
           </tr>
         </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
+        <tbody class="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600">
           <tr>
-            <td class="px-4 py-2">Horaires</td>
-            <td class="px-4 py-2">Entre 10 et 16 h</td>
+            <td class="px-4 py-2 dark:text-gray-200">Horaires</td>
+            <td class="px-4 py-2 dark:text-gray-200">Entre 10 et 16 h</td>
           </tr>
-          <tr class="bg-gray-50">
-            <td class="px-4 py-2">Durée</td>
-            <td class="px-4 py-2">Atelier de deux à trois heures minimum</td>
-          </tr>
-          <tr>
-            <td class="px-4 py-2">Nombre de participants</td>
-            <td class="px-4 py-2">30 enfants maximum</td>
-          </tr>
-          <tr class="bg-gray-50">
-            <td class="px-4 py-2">Tarifs</td>
-            <td class="px-4 py-2">60 euros HT l'heure</td>
+          <tr class="bg-gray-50 dark:bg-gray-600">
+            <td class="px-4 py-2 dark:text-gray-200">Durée</td>
+            <td class="px-4 py-2 dark:text-gray-200">Atelier de deux à trois heures minimum</td>
           </tr>
           <tr>
-            <td class="px-4 py-2">Programme</td>
-            <td class="px-4 py-2">
+            <td class="px-4 py-2 dark:text-gray-200">Nombre de participants</td>
+            <td class="px-4 py-2 dark:text-gray-200">30 enfants maximum</td>
+          </tr>
+          <tr class="bg-gray-50 dark:bg-gray-600">
+            <td class="px-4 py-2 dark:text-gray-200">Tarifs</td>
+            <td class="px-4 py-2 dark:text-gray-200">60 euros HT l'heure</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-2 dark:text-gray-200">Programme</td>
+            <td class="px-4 py-2 dark:text-gray-200">
               Découverte des pictogrammes chinois au pinceau<br />
               Salutations en chinois<br />
               Apprendre à dessiner à l'encre de Chine (Sumi-e) : animaux, fleurs...
@@ -188,8 +188,8 @@ const eventsByYear = Object.entries(grouped).sort(
             <li
               key={event.key}
               class={`
-                border-b pb-2
-                odd:bg-gray-100
+                border-b pb-2 dark:border-gray-600 dark:text-gray-200
+                odd:bg-gray-100 dark:odd:bg-gray-700
                 ${
                   event.multiYear
                     ? "bg-indigo-100 text-indigo-900 font-semibold odd:bg-indigo-100 dark:bg-indigo-900 dark:text-indigo-200"
