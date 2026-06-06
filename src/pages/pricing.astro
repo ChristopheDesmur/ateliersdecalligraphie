@@ -65,6 +65,27 @@ const pricing = [
 ---
 
 <Layout title="Tarifs" description="Tarifs des cours de calligraphie chinoise à Lyon : ateliers de groupe dès 60 € HT/h, cours particuliers et stages. Formules adaptées à chaque public et budget.">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify([
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "Cours collectif de calligraphie chinoise",
+      "description": "Atelier de groupe de calligraphie chinoise à Lyon. 2 heures, 2 à 8 participants, matériel fourni.",
+      "url": "https://ateliersdecalligraphie.com/pricing",
+      "provider": { "@type": "Person", "name": "Christophe Desmur", "url": "https://ateliersdecalligraphie.com/le-calligraphe" },
+      "inLanguage": "fr",
+      "offers": { "@type": "Offer", "price": "60", "priceCurrency": "EUR", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "60", "priceCurrency": "EUR", "unitText": "heure" } }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "Cours particulier de calligraphie chinoise",
+      "description": "Cours individuel de calligraphie chinoise à Lyon avec Christophe Desmur.",
+      "url": "https://ateliersdecalligraphie.com/pricing",
+      "provider": { "@type": "Person", "name": "Christophe Desmur", "url": "https://ateliersdecalligraphie.com/le-calligraphe" },
+      "inLanguage": "fr"
+    }
+  ])} />
   <Container>
     <Sectionhead>
       <Fragment slot="title">Pricing</Fragment>

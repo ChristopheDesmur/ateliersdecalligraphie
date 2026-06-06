@@ -98,6 +98,17 @@ const eventsByYear = Object.entries(grouped).sort(
 ---
 
 <Base title="Ateliers pour écoles primaires" description="Ateliers de calligraphie chinoise pour écoles primaires à Lyon : pictogrammes, Sumi-e et salutations en mandarin. Interventions en classe, 30 enfants maximum.">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Atelier de calligraphie chinoise pour écoles primaires",
+    "description": "Intervention pédagogique de calligraphie et culture chinoise en école primaire à Lyon : pictogrammes, Sumi-e, salutations en mandarin. 30 enfants maximum.",
+    "url": "https://ateliersdecalligraphie.com/ecoles-primaires",
+    "provider": { "@type": "Person", "name": "Christophe Desmur", "url": "https://ateliersdecalligraphie.com/le-calligraphe" },
+    "audience": { "@type": "Audience", "audienceType": "Enfants de primaire" },
+    "inLanguage": "fr",
+    "offers": { "@type": "Offer", "price": "60", "priceCurrency": "EUR", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "60", "priceCurrency": "EUR", "unitText": "heure" } }
+  })} />
   <main class="mx-auto max-w-[735px] mt-14">
     <h1 class="text-3xl font-bold mb-6">
       Ateliers de calligraphie et culture chinoise pour enfants

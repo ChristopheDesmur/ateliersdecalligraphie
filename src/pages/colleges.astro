@@ -116,6 +116,17 @@ const eventsByYear = Object.entries(grouped).sort(
 ---
 
 <Base title="Ateliers pour collèges" description="Ateliers de calligraphie chinoise en collège à Lyon : pictogrammes, encre de Chine, culture asiatique. Interventions sur le temps scolaire, 25 élèves max.">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Atelier de calligraphie chinoise pour collèges",
+    "description": "Intervention pédagogique de calligraphie chinoise en collège à Lyon : pictogrammes, encre de Chine, culture asiatique. 2 à 3 heures, 25 élèves maximum.",
+    "url": "https://ateliersdecalligraphie.com/colleges",
+    "provider": { "@type": "Person", "name": "Christophe Desmur", "url": "https://ateliersdecalligraphie.com/le-calligraphe" },
+    "audience": { "@type": "Audience", "audienceType": "Collégiens" },
+    "inLanguage": "fr",
+    "offers": { "@type": "Offer", "price": "60", "priceCurrency": "EUR", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "60", "priceCurrency": "EUR", "unitText": "heure" } }
+  })} />
   <main class="mx-auto max-w-[735px] mt-14">
     <h1 class="text-3xl font-bold mb-6">
       Ateliers de calligraphie pour collèges : horaires, tarifs et organisation

@@ -88,6 +88,17 @@ const eventsByYear = Object.entries(
 ---
 
 <Base title="Ateliers pour maisons de retraite et ÉPHAD" description="Ateliers de calligraphie chinoise pour maisons de retraite et ÉPHAD à Lyon. Activité créative et apaisante pour 6 à 12 résidents, 2 heures minimum, 60 € HT/h.">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Atelier de calligraphie chinoise pour maisons de retraite et ÉPHAD",
+    "description": "Atelier de calligraphie chinoise pour seniors en maison de retraite ou ÉPHAD à Lyon. Activité créative et apaisante, 6 à 12 participants, 2 heures minimum.",
+    "url": "https://ateliersdecalligraphie.com/maisons-de-retraite",
+    "provider": { "@type": "Person", "name": "Christophe Desmur", "url": "https://ateliersdecalligraphie.com/le-calligraphe" },
+    "audience": { "@type": "Audience", "audienceType": "Seniors, résidents ÉPHAD" },
+    "inLanguage": "fr",
+    "offers": { "@type": "Offer", "price": "60", "priceCurrency": "EUR", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "60", "priceCurrency": "EUR", "unitText": "heure" } }
+  })} />
   <main class="mx-auto max-w-[735px] mt-14">
     <h1 class="text-3xl font-bold mb-6">
       Ateliers de calligraphie pour le bien-être des seniors

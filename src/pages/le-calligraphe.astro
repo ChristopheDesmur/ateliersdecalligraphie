@@ -65,6 +65,28 @@ const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Numbe
 ---
 
 <Base title="Christophe Desmur, calligraphe et traducteur littéraire du chinois" description="Christophe Desmur, calligraphe et traducteur littéraire du chinois à Lyon. Trente ans de pratique et master de traduction littéraire chinois-français.">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Christophe Desmur",
+    "jobTitle": "Calligraphe et traducteur littéraire du chinois",
+    "description": "Calligraphe et traducteur littéraire du chinois à Lyon, titulaire d'un master de traduction littéraire chinois-français.",
+    "url": "https://ateliersdecalligraphie.com/le-calligraphe",
+    "email": "christophe.desmur@orange.fr",
+    "telephone": ["+33472078861", "+33769941643"],
+    "image": "https://ateliersdecalligraphie.com/assets/christophe-desmur-calligraphie-chinoise.webp",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lyon",
+      "addressCountry": "FR"
+    },
+    "knowsAbout": ["Calligraphie chinoise", "Traduction littéraire du chinois", "Langue et civilisation chinoises", "Langue et civilisation coréennes"],
+    "hasCredential": [
+      { "@type": "EducationalOccupationalCredential", "name": "Master de traduction littéraire du chinois vers le français" },
+      { "@type": "EducationalOccupationalCredential", "name": "Maîtrise de langue et civilisation chinoises" },
+      { "@type": "EducationalOccupationalCredential", "name": "DEUG de langue et civilisation coréennes" }
+    ]
+  })} />
   <main class="mx-auto max-w-[735px] mt-14">
     <h1 class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">
       Christophe Desmur, calligraphe et traducteur littéraire du chinois

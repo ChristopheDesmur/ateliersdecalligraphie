@@ -50,7 +50,66 @@ const makeTitle = title ? `${title} | Calligraphie Lyon` : "Calligraphie chinois
         },
       }}
     />
-     <Analytics />
+    <Analytics />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Ateliers de calligraphie chinoise – Christophe Desmur",
+      "description": "Cours de calligraphie chinoise à Lyon : ateliers collectifs, cours particuliers et interventions en écoles, associations et entreprises.",
+      "url": "https://ateliersdecalligraphie.com",
+      "telephone": ["+33472078861", "+33769941643"],
+      "email": "christophe.desmur@orange.fr",
+      "image": "https://ateliersdecalligraphie.com/opengraph.webp",
+      "priceRange": "€€",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "11, rue Dumenge",
+        "addressLocality": "Lyon",
+        "addressCountry": "FR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 45.776853,
+        "longitude": 4.831559
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Monday",
+          "opens": "18:30",
+          "closes": "20:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Wednesday",
+          "opens": "10:00",
+          "closes": "12:00"
+        }
+      ],
+      "location": [
+        {
+          "@type": "Place",
+          "name": "Dojo zen de Lyon",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "11, rue Dumenge",
+            "addressLocality": "Lyon",
+            "addressCountry": "FR"
+          }
+        },
+        {
+          "@type": "Place",
+          "name": "Boutique Miroirs du Ciel",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "9, rue de Belfort",
+            "addressLocality": "Lyon",
+            "addressCountry": "FR"
+          }
+        }
+      ]
+    })} />
+    <slot name="head" />
   </head>
   <body class="bg-white text-gray-900">
     <Navbar />
