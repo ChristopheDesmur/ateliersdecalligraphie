@@ -3,15 +3,15 @@ import Base from "../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
 
 const images = [
-  "/assets/FUKU-Bonheur.webp",
-  "/assets/Shin-1-c2g.webp",
-  "/assets/art-energetique-chinois.webp",
-  "/assets/atelier-de-groupe-calligraphie-lyon.webp",
-  "/assets/calligraphie-japonaise.webp",
-  "/assets/cours-calligraphie-comites-entreprise.webp",
-  "/assets/cours-calligraphie-lycees.webp",
-  "/assets/cours-calligraphie-universites-grandes-ecoles.webp",
-  "/assets/cours-de-chinois.webp",
+  { src: "/assets/FUKU-Bonheur.webp", alt: "Calligraphie du caractère 福 (Bonheur)" },
+  { src: "/assets/Shin-1-c2g.webp", alt: "Calligraphie à l'encre de Chine sur papier" },
+  { src: "/assets/art-energetique-chinois.webp", alt: "Art énergétique chinois au pinceau" },
+  { src: "/assets/atelier-de-groupe-calligraphie-lyon.webp", alt: "Participants à un atelier de calligraphie en groupe" },
+  { src: "/assets/calligraphie-japonaise.webp", alt: "Calligraphie japonaise à l'encre" },
+  { src: "/assets/cours-calligraphie-comites-entreprise.webp", alt: "Atelier de calligraphie pour un comité d'entreprise" },
+  { src: "/assets/cours-calligraphie-lycees.webp", alt: "Élèves de lycée pratiquant la calligraphie" },
+  { src: "/assets/cours-calligraphie-universites-grandes-ecoles.webp", alt: "Étudiants pratiquant la calligraphie" },
+  { src: "/assets/cours-de-chinois.webp", alt: "Cours de chinois et initiation aux sinogrammes" },
 ];
 ---
 
@@ -26,12 +26,13 @@ const images = [
     <!-- Galerie -->
     <div class="mt-12">
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        {images.map((src, index) => (
+        {images.map((image, index) => (
           <img
-            src={src}
-            alt="Fukusa"
+            src={image.src}
+            alt={image.alt}
             class="rounded-lg shadow-md w-full object-cover cursor-pointer hover:opacity-80 transition"
             data-index={index}
+            data-alt={image.alt}
           />
         ))}
       </div>
@@ -41,7 +42,7 @@ const images = [
   <!-- Lightbox -->
   <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50">
     <button id="prev" class="absolute left-4 text-white text-3xl top-1/2 -translate-y-1/2">&#10094;</button>
-    <img id="lightbox-img" src="" alt="Fukusa" class="max-h-[90%] max-w-[90%] rounded-lg shadow-xl" />
+    <img id="lightbox-img" src="" alt="" class="max-h-[90%] max-w-[90%] rounded-lg shadow-xl" />
     <button id="next" class="absolute right-4 text-white text-3xl top-1/2 -translate-y-1/2">&#10095;</button>
   </div>
 
@@ -57,6 +58,7 @@ const images = [
     function showLightbox(index) {
       currentIndex = index;
       img.src = images[currentIndex].getAttribute("src");
+      img.alt = images[currentIndex].getAttribute("data-alt") || "";
       lightbox.classList.remove("hidden");
       lightbox.classList.add("flex");
     }
@@ -69,11 +71,13 @@ const images = [
     function showPrev() {
       currentIndex = (currentIndex - 1 + images.length) % images.length;
       img.src = images[currentIndex].getAttribute("src");
+      img.alt = images[currentIndex].getAttribute("data-alt") || "";
     }
 
     function showNext() {
       currentIndex = (currentIndex + 1) % images.length;
       img.src = images[currentIndex].getAttribute("src");
+      img.alt = images[currentIndex].getAttribute("data-alt") || "";
     }
 
     images.forEach((image, index) => {
