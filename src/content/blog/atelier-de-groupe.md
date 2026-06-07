@@ -1,7 +1,7 @@
 ---
 title: "Atelier de groupe"
 draft: false
-snippet: "Atelier de groupe de calligraphie chinoise pour 2 à 8 personnes."
+snippet: "Atelier collectif de calligraphie chinoise à Lyon : 2 à 8 personnes, matériel fourni, tous niveaux acceptés. Dojo zen et boutique Miroirs du Ciel."
 image:
   src: "/assets/cours-calligraphie-ecoles-primaires.webp"
   alt: "Mes formats d'atelier pour les écoles primaires sur le temps scolaire"
