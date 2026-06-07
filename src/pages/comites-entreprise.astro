@@ -188,27 +188,28 @@ const eventsByYear = Object.entries(
       </section>
     ))}
 
-    <script>
-      const yearButtons = document.querySelectorAll(".year-btn");
-
-      yearButtons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const year = btn.dataset.year;
-          document.querySelectorAll(".year-section").forEach((sec) => {
-            sec.classList.toggle("hidden", sec.dataset.year !== year);
-          });
-          yearButtons.forEach((b) => {
-            b.classList.remove("bg-indigo-600", "text-white");
-            b.classList.add("bg-gray-200", "text-gray-800");
-          });
-          btn.classList.add("bg-indigo-600", "text-white");
-          btn.classList.remove("bg-gray-200", "text-gray-800");
-
-          const section = document.querySelector(`.year-section[data-year='${year}']`);
-          if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      });
-    </script>
     <RelatedPages current="/comites-entreprise" />
   </main>
+
+  <script>
+    const yearButtons = document.querySelectorAll(".year-btn");
+
+    yearButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const year = btn.dataset.year;
+        document.querySelectorAll(".year-section").forEach((sec) => {
+          sec.classList.toggle("hidden", sec.dataset.year !== year);
+        });
+        yearButtons.forEach((b) => {
+          b.classList.remove("bg-indigo-600", "text-white");
+          b.classList.add("bg-gray-200", "text-gray-800");
+        });
+        btn.classList.add("bg-indigo-600", "text-white");
+        btn.classList.remove("bg-gray-200", "text-gray-800");
+
+        const section = document.querySelector(`.year-section[data-year='${year}']`);
+        if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  </script>
 </Base>
