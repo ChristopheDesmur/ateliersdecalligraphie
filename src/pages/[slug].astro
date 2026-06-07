@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import RelatedPages from "../components/related-pages.astro";
 
 // Generate paths for each blog post
 export async function getStaticPaths() {
@@ -19,5 +20,6 @@ const { Content } = await post.render();
 <Layout title={post.data.title} description={post.data.snippet}>
   <article class="prose dark:prose-invert mx-auto">
     <Content />
+    {post.data.showRelated && <RelatedPages current={`/${post.slug}`} />}
   </article>
 </Layout>
