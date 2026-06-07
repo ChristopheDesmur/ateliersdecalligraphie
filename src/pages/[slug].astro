@@ -21,5 +21,9 @@ const { Content } = await post.render();
   <article class="prose dark:prose-invert mx-auto">
     <Content />
   </article>
-  {post.data.showRelated && <RelatedPages current={`/${post.slug}`} />}
+  {post.data.showRelated && (
+    <div class="max-w-prose mx-auto">
+      <RelatedPages current={`/${post.slug}`} />
+    </div>
+  )}
 </Layout>
