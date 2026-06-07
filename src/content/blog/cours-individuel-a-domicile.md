@@ -19,3 +19,35 @@ tags: ['cours individuels', 'calligraphie chinoise', 'cours à domicile', 'coop�
 40 € TTC / heure
 
 ![Cours individuel à domicile de calligraphie - Lyon](/assets/cours-individuel-a-domicile-calligraphie-lyon.webp)
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Cours particulier de calligraphie chinoise à domicile",
+  "description": "Cours individuel de calligraphie chinoise à domicile à Lyon, dispensé par Christophe Desmur au sein de la coopérative Coop A Dom (agrément n° 2006-1-42.10). Réduction ou crédit d'impôt de 50 %.",
+  "provider": {
+    "@type": "Person",
+    "name": "Christophe Desmur",
+    "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+  },
+  "areaServed": { "@type": "City", "name": "Lyon" },
+  "serviceType": "Cours à domicile",
+  "offers": {
+    "@type": "Offer",
+    "price": "40",
+    "priceCurrency": "EUR",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "40",
+      "priceCurrency": "EUR",
+      "unitText": "heure"
+    }
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services à domicile agréés",
+    "description": "Agrément Coop A Dom n° 2006-1-42.10 — éligible à la réduction d'impôt de 50 % (article 199 sexdecies du CGI)"
+  }
+}
+</script>
