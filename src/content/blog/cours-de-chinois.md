@@ -1,10 +1,10 @@
 ---
 title: "Cours de chinois"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Cours de chinois et calligraphie chinoise à Lyon : idéogrammes au pinceau, classiques philosophiques (Daodejing, Liezi) et poèmes des dynasties Tang et Song."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
+    alt: "Calligraphie chinoise Lyon"
 }
 publishDate: "2022-11-07 15:39"
 category: "Éducation"

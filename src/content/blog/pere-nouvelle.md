@@ -4,7 +4,7 @@ draft: false
 snippet: "Un après-midi pluvieux révèle des tensions familiales et des découvertes personnelles."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
+    alt: "Calligraphie chinoise Lyon"
 }
 publishDate: "2022-11-07 15:39"
 category: "Littérature"

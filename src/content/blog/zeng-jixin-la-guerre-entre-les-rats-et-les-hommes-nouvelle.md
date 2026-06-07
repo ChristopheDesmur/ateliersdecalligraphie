@@ -4,7 +4,7 @@ draft: false
 snippet: "Souvenirs d'enfance et lutte contre les rats dans un village enneigé."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
+    alt: "Calligraphie chinoise Lyon"
 }
 publishDate: "2022-11-07 15:39"
 category: "Nouvelle"

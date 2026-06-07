@@ -4,7 +4,7 @@ draft: false
 snippet: "L'évolution des rats et leur incroyable capacité d'adaptation face à l'humanité."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
+    alt: "Calligraphie chinoise Lyon"
 }
 publishDate: "2022-11-07 15:39"
 category: "Zoologie"

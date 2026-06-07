@@ -4,7 +4,7 @@ draft: false
 snippet: "Lu Yin défend une nouvelle littérature tout en valorisant les classiques chinois."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
+    alt: "Calligraphie chinoise Lyon"
 }
 publishDate: "2022-11-07 15:39"
 category: "Littérature chinoise"

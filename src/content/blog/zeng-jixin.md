@@ -4,7 +4,7 @@ draft: false
 snippet: "Découvrez le parcours inspirant de Zeng Jixin, de paysan à écrivain célèbre en Chine."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
+    alt: "Calligraphie chinoise Lyon"
 }
 publishDate: "2022-11-07 15:39"
 category: "Littérature chinoise"

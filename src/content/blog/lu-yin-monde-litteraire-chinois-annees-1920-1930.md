@@ -4,7 +4,7 @@ draft: false
 snippet: "Lu Yin, figure littéraire des années 1920-1930, entre art et engagement social."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
+    alt: "Calligraphie chinoise Lyon"
 }
 publishDate: "2022-11-07 15:39"
 category: "Littérature chinoise"

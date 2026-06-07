@@ -4,7 +4,7 @@ draft: false
 snippet: "Cours particulier de calligraphie chinoise à domicile à Lyon : matériel fourni, agrément Coop A Dom, réduction d'impôt de 50 %. 40 € TTC/h."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
+    alt: "Calligraphie chinoise Lyon"
 }
 publishDate: "2022-11-07 15:39"
 category: "Éducation"

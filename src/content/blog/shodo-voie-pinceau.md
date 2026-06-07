@@ -4,7 +4,7 @@ draft: false
 snippet: "Découvrez le shodo, art spirituel de la calligraphie influencé par la culture chinoise."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
+    alt: "Calligraphie chinoise Lyon"
 }
 publishDate: "2022-11-07 15:39"
 category: "Culture asiatique"

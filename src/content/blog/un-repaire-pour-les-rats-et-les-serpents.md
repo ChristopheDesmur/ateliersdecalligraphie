@@ -4,7 +4,7 @@ draft: false
 snippet: "Les rats envahissent la maison jusqu'à l'arrivée d'un serpent mystérieux."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
+    alt: "Calligraphie chinoise Lyon"
 }
 publishDate: "2022-11-07 15:39"
 category: "Conte zen"

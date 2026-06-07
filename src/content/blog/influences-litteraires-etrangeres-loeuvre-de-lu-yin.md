@@ -4,7 +4,7 @@ draft: false
 snippet: "Influence des auteurs étrangers sur Lu Yin et son impact sur la littérature chinoise."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
+    alt: "Calligraphie chinoise Lyon"
 }
 publishDate: "2022-11-07 15:39"
 category: "Littérature chinoise"

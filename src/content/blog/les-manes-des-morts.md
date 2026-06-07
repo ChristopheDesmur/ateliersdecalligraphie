@@ -4,7 +4,7 @@ draft: false
 snippet: "Découvrez l'ingéniosité des rats face aux poisons et l'histoire de la peste."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
+    alt: "Calligraphie chinoise Lyon"
 }
 publishDate: "2022-11-07 15:39"
 category: ""

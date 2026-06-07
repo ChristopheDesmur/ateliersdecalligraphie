@@ -4,7 +4,7 @@ draft: false
 snippet: "Traduction de la nouvelle Fuqin de Lu Yin, révélant les enjeux littéraires et sociaux de la Chine des années 1920."
 image: {
     src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie Lyon"
+    alt: "Calligraphie chinoise Lyon"
 }
 publishDate: "2022-11-07 15:39"
 category: "Littérature chinoise"

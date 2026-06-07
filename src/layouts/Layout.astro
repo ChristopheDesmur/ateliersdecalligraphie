@@ -18,7 +18,7 @@ const metaDescription = description ?? "Cours de calligraphie chinoise à Lyon a
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 const resolvedImageWithDomain = new URL("/opengraph.webp", Astro.site).toString();
 
-const makeTitle = title ? `${title} | Calligraphie Lyon` : "Calligraphie chinoise à Lyon – Ateliers Christophe Desmur";
+const makeTitle = title ? `${title} | Calligraphie chinoise Lyon` : "Calligraphie chinoise Lyon – Christophe Desmur";
 ---
 
 <!doctype html>
@@ -52,11 +52,11 @@ const makeTitle = title ? `${title} | Calligraphie Lyon` : "Calligraphie chinois
         basic: {
           url: canonicalURL,
           type: "website",
-          title: `Ateliers de calligraphie chinoise à Lyon`,
+          title: `Calligraphie chinoise Lyon`,
           image: resolvedImageWithDomain,
         },
         image: {
-          alt: "Ateliers de calligraphie chinoise à Lyon",
+          alt: "Calligraphie chinoise Lyon",
         },
       }}
     />
@@ -64,7 +64,7 @@ const makeTitle = title ? `${title} | Calligraphie Lyon` : "Calligraphie chinois
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "name": "Ateliers de calligraphie chinoise – Christophe Desmur",
+      "name": "Calligraphie chinoise Lyon",
       "description": "Cours de calligraphie chinoise à Lyon : ateliers collectifs, cours particuliers et interventions en écoles, associations et entreprises.",
       "url": "https://ateliersdecalligraphie.com",
       "telephone": ["+33472078861", "+33769941643"],
