@@ -20,6 +20,6 @@ const { Content } = await post.render();
 <Layout title={post.data.title} description={post.data.snippet}>
   <article class="prose dark:prose-invert mx-auto">
     <Content />
-    {post.data.showRelated && <RelatedPages current={`/${post.slug}`} />}
   </article>
+  {post.data.showRelated && <RelatedPages current={`/${post.slug}`} />}
 </Layout>
