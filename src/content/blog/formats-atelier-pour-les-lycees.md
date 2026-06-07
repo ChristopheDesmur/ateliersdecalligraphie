@@ -22,3 +22,7 @@ tags: ['calligraphie chinoise', 'cours privés', 'lycées', 'ateliers éducatifs
 | Durée                  | 1/2 heure 3/4 d'heure ou 1 heure |
 | Nombre de participants | De 6 à 12                        |
 | Tarifs                 | 60 euros HT par heure            |
+
+---
+
+**Voir aussi :** [Accueil](/) · [Un atelier pour chaque public](/atelier-de-groupe) · [Écoles primaires](/ecoles-primaires) · [Collèges](/colleges) · [Universités et grandes écoles](/universites-et-grandes-ecoles) · [Comités d'entreprise](/comites-entreprise) · [Maisons de retraite](/maisons-de-retraite) · [Cours individuels à domicile](/cours-individuel-a-domicile)
