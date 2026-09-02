@@ -10,6 +10,7 @@ export async function getStaticPaths() {
     "formats-atelier-pour-les-lycees",
     "universites-et-grandes-ecoles",
     "atelier-de-groupe",
+    "traductions",
   ]);
   return posts
     .filter((post) => !dedicatedSlugs.has(post.slug.replace(/^blog\//, "")))
@@ -20,8 +21,55 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-// Render markdown content AFTER post exists
 const { Content } = await post.render();
+
+const currentSlug = post.slug.replace(/^blog\//, "");
+
+// Short story chapter configurations
+const pereChapters = [
+  { slug: "pere-nouvelle", title: "15 septembre (Prologue)", label: "Prologue" },
+  { slug: "le-19-septembre", title: "19 septembre", label: "Chapitre 1" },
+  { slug: "le-20-septembre", title: "20 septembre", label: "Chapitre 2" },
+  { slug: "le-22-septembre", title: "22 septembre", label: "Chapitre 3" },
+  { slug: "le-28-septembre", title: "28 septembre", label: "Chapitre 4" },
+  { slug: "le-5-octobre", title: "5 octobre", label: "Chapitre 5" },
+  { slug: "le-6-octobre", title: "6 octobre (Épilogue)", label: "Épilogue" },
+];
+
+const zengChapters = [
+  { slug: "zeng-jixin-la-guerre-entre-les-rats-et-les-hommes-nouvelle", title: "1. Les rats des jarres de riz", label: "Chapitre 1" },
+  { slug: "instinct-animal", title: "2. Instinct animal", label: "Chapitre 2" },
+  { slug: "lengeance-de-rat-se-dechaine", title: "3. L'engeance de rat se déchaîne", label: "Chapitre 3" },
+  { slug: "les-manes-des-morts", title: "4. Les mânes des morts", label: "Chapitre 4" },
+  { slug: "un-repaire-pour-les-rats-et-les-serpents", title: "5. Un repaire pour les rats et les serpents", label: "Chapitre 5" },
+];
+
+let storyMeta = null;
+const pereIndex = pereChapters.findIndex((c) => c.slug === currentSlug);
+if (pereIndex !== -1) {
+  storyMeta = {
+    seriesTitle: "Nouvelle « Père » (Fuqin) de Lu Yin",
+    currentIndex: pereIndex,
+    total: pereChapters.length,
+    currentChapter: pereChapters[pereIndex],
+    prev: pereIndex > 0 ? pereChapters[pereIndex - 1] : null,
+    next: pereIndex < pereChapters.length - 1 ? pereChapters[pereIndex + 1] : null,
+    hubUrl: "/traductions#lu-yin-section",
+  };
+} else {
+  const zengIndex = zengChapters.findIndex((c) => c.slug === currentSlug);
+  if (zengIndex !== -1) {
+    storyMeta = {
+      seriesTitle: "Nouvelle « La Guerre entre les rats et les hommes » de Zeng Jixin",
+      currentIndex: zengIndex,
+      total: zengChapters.length,
+      currentChapter: zengChapters[zengIndex],
+      prev: zengIndex > 0 ? zengChapters[zengIndex - 1] : null,
+      next: zengIndex < zengChapters.length - 1 ? zengChapters[zengIndex + 1] : null,
+      hubUrl: "/traductions#zeng-jixin-section",
+    };
+  }
+}
 ---
 
 <Layout title={post.data.title} description={post.data.snippet}>
@@ -31,7 +79,7 @@ const { Content } = await post.render();
       <ol class="flex items-center gap-1.5 flex-wrap">
         <li><a href="/" class="hover:underline">Accueil</a></li>
         <li aria-hidden="true">/</li>
-        {post.data.category === "Littérature chinoise" || post.data.category === "Journal intime" ? (
+        {post.data.category === "Littérature chinoise" || post.data.category === "Journal intime" || post.data.category === "Nouvelle" || post.data.category === "Littérature" ? (
           <>
             <li><a href="/traductions" class="hover:underline">Traductions littéraires</a></li>
             <li aria-hidden="true">/</li>
@@ -51,6 +99,19 @@ const { Content } = await post.render();
       </ol>
     </nav>
 
+    <!-- Bannière de série pour les chapitres de nouvelles -->
+    {storyMeta && (
+      <div class="mb-6 p-4 rounded-xl bg-amber-50/70 dark:bg-gray-800/60 border border-amber-200/60 dark:border-gray-700 text-xs sm:text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <span class="font-bold text-gray-900 dark:text-gray-100">{storyMeta.seriesTitle}</span>
+          <span class="text-gray-500 dark:text-gray-400 ml-1.5">• Traduction Christophe Desmur</span>
+        </div>
+        <span class="text-xs font-semibold text-amber-900 dark:text-amber-300 font-mono">
+          Partie {storyMeta.currentIndex + 1} / {storyMeta.total}
+        </span>
+      </div>
+    )}
+
     <header class="mb-8 border-b border-gray-100 dark:border-gray-800 pb-4">
       <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
         {post.data.category}
@@ -63,6 +124,41 @@ const { Content } = await post.render();
     <article class="prose prose-lg dark:prose-invert max-w-none">
       <Content />
     </article>
+
+    <!-- Navigation chapitre précédent / suivant pour les nouvelles traduites -->
+    {storyMeta && (
+      <nav class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800" aria-label="Navigation dans la nouvelle">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          {storyMeta.prev ? (
+            <a
+              href={`/${storyMeta.prev.slug}`}
+              class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+              <span>&larr;</span>
+              <span>{storyMeta.prev.title}</span>
+            </a>
+          ) : (
+            <span class="text-xs text-gray-400 italic">Début de la nouvelle</span>
+          )}
+
+          <a
+            href={storyMeta.hubUrl}
+            class="text-xs text-center font-semibold text-indigo-600 dark:text-indigo-400 hover:underline py-1">
+            Sommaire de l'œuvre &rarr;
+          </a>
+
+          {storyMeta.next ? (
+            <a
+              href={`/${storyMeta.next.slug}`}
+              class="inline-flex items-center justify-end gap-2 px-4 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-xs sm:text-sm font-medium text-white transition shadow-xs">
+              <span>{storyMeta.next.title}</span>
+              <span>&rarr;</span>
+            </a>
+          ) : (
+            <span class="text-xs text-gray-400 italic">Fin de la nouvelle</span>
+          )}
+        </div>
+      </nav>
+    )}
 
     {post.data.showRelated && (
       <div class="mt-12">
