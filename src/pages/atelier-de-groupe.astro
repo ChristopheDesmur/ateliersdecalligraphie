@@ -1,0 +1,354 @@
+---
+import Base from "../layouts/Layout.astro";
+import RelatedPages from "../components/related-pages.astro";
+
+const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d'information%20atelier%20de%20groupe";
+---
+
+<Base
+  title="Ateliers de groupe de calligraphie chinoise à Lyon"
+  description="Ateliers collectifs de calligraphie chinoise à Lyon : formules sur mesure pour écoles, collèges, lycées, universités, entreprises et résidences seniors. Matériel fourni.">
+
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Ateliers de groupe de calligraphie chinoise",
+    "description": "Ateliers collectifs et interventions sur mesure de calligraphie chinoise à Lyon pour écoles, collèges, lycées, universités, entreprises et maisons de retraite.",
+    "url": "https://ateliersdecalligraphie.com/atelier-de-groupe",
+    "provider": {
+      "@type": "Person",
+      "name": "Christophe Desmur",
+      "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+    },
+    "inLanguage": "fr",
+    "offers": {
+      "@type": "AggregateOffer",
+      "lowPrice": "60",
+      "highPrice": "90",
+      "priceCurrency": "EUR"
+    }
+  })} />
+
+  <div class="max-w-5xl mx-auto">
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6 sm:mb-8">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span class="text-gray-500">Pour les groupes</span></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-800 dark:text-gray-200 font-medium">Vue d'ensemble des ateliers</li>
+      </ol>
+    </nav>
+
+    <!-- Hero Section : Two-column desktop, natural stack on mobile -->
+    <header class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start" aria-labelledby="hero-title">
+      
+      <!-- Colonne Gauche (Desktop : 48%) -->
+      <div class="lg:col-span-6 flex flex-col">
+        <h1
+          id="hero-title"
+          class="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 leading-tight">
+          Ateliers de groupe de calligraphie chinoise
+        </h1>
+
+        <p class="text-lg sm:text-xl font-serif italic text-indigo-800 dark:text-indigo-300 mt-3">
+          Des formules adaptées pour chaque public, établissement et collectivité à Lyon
+        </p>
+
+        <!-- Image mobile uniquement (sous le sous-titre) -->
+        <div class="mt-6 lg:hidden">
+          <img
+            src="/assets/atelier-de-groupe-calligraphie-lyon.webp"
+            alt="Atelier collectif de calligraphie chinoise"
+            width="576"
+            height="384"
+            loading="eager"
+            class="w-full h-auto rounded-xl shadow-xs border border-gray-200 dark:border-gray-800 object-cover"
+          />
+        </div>
+
+        <p class="text-base text-gray-600 dark:text-gray-300 mt-5 leading-relaxed">
+          L’amplitude horaire idéale pour un atelier de groupe est de une à trois heures selon le public visé. Christophe Desmur se déplace directement au sein de votre établissement à Lyon et dans sa région avec tout le matériel nécessaire (pinceaux, encre de Chine, pierres et papier traditionnel).
+        </p>
+
+        <!-- CTA Principal (visible sur desktop) -->
+        <div class="mt-8 hidden lg:flex flex-wrap items-center gap-4">
+          <a
+            href={contactMailHref}
+            class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-xs">
+            Demander un projet d'atelier
+          </a>
+          <a
+            href="tel:+33472078861"
+            class="inline-flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+            aria-label="Contacter Christophe Desmur au 04 72 07 88 61">
+            📞 04 72 07 88 61
+          </a>
+        </div>
+      </div>
+
+      <!-- Colonne Droite (Desktop : 52%) -->
+      <div class="hidden lg:block lg:col-span-6">
+        <img
+          src="/assets/atelier-de-groupe-calligraphie-lyon.webp"
+          alt="Atelier collectif de calligraphie chinoise"
+          width="576"
+          height="384"
+          loading="eager"
+          class="w-full h-auto rounded-xl shadow-xs border border-gray-200 dark:border-gray-800 object-cover"
+        />
+      </div>
+
+    </header>
+
+    <!-- Informations clés (Grille sobre, scannable et non-SaaS) -->
+    <section class="mt-10 sm:mt-14 py-6 border-y border-gray-200 dark:border-gray-800" aria-label="Informations pratiques">
+      <dl class="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
+        <div>
+          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+            Durée
+          </dt>
+          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+            De 1 à 3 heures selon formule
+          </dd>
+        </div>
+
+        <div>
+          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+            Effectif
+          </dt>
+          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+            2 à 12 personnes (jusqu'à 30 en école)
+          </dd>
+        </div>
+
+        <div>
+          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+            Tarifs
+          </dt>
+          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+            De 60 € à 90 € HT / heure
+          </dd>
+        </div>
+
+        <div>
+          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+            Matériel
+          </dt>
+          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+            100 % fourni et apporté sur place
+          </dd>
+        </div>
+      </dl>
+
+      <!-- CTA Principal mobile (après les informations clés) -->
+      <div class="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800 lg:hidden flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+        <a
+          href={contactMailHref}
+          class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-xs text-center">
+          Demander un projet d'atelier
+        </a>
+        <a
+          href="tel:+33472078861"
+          class="inline-flex items-center justify-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition py-2 text-center">
+          📞 04 72 07 88 61
+        </a>
+      </div>
+    </section>
+
+    <!-- Programme commun des ateliers -->
+    <section class="mt-12 sm:mt-16" aria-labelledby="programme-heading">
+      <h2 id="programme-heading" class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+        Au programme de nos interventions
+      </h2>
+
+      <ol class="grid sm:grid-cols-3 gap-6 sm:gap-8 border-b border-gray-200 dark:border-gray-800 pb-12">
+        <li class="flex flex-col">
+          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+            01
+          </span>
+          <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
+            Préparation de l'encre à la pierre, respiration, posture corporelle et concentration
+          </p>
+        </li>
+
+        <li class="flex flex-col">
+          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+            02
+          </span>
+          <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
+            Maniement du pinceau traditionnel et découverte des styles classiques
+          </p>
+        </li>
+
+        <li class="flex flex-col">
+          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+            03
+          </span>
+          <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
+            Tracé de sinogrammes et réalisation d'une calligraphie individuelle signée
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Grille des formats d'ateliers par public -->
+    <section class="mt-12 sm:mt-16" aria-labelledby="formats-heading">
+      <h2 id="formats-heading" class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+        Choisissez votre format d'atelier selon votre public
+      </h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Écoles primaires -->
+        <a
+          href="/ecoles-primaires"
+          class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
+          <div>
+            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
+              Écoles élémentaires
+            </span>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+              Écoles primaires
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
+              Initiation au pinceau, découverte des pictogrammes et dessin à l'encre (Sumi-e) pour les enfants.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+            <span>60 € HT / h</span>
+            <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Collèges -->
+        <a
+          href="/colleges"
+          class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
+          <div>
+            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
+              Secondaire
+            </span>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+              Collèges
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
+              Formules de 2 à 3 h sur temps scolaire, étymologie des sinogrammes et repères culturels asiatiques.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+            <span>60 € HT / h</span>
+            <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Lycées -->
+        <a
+          href="/formats-atelier-pour-les-lycees"
+          class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
+          <div>
+            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
+              Secondaire & Projets
+            </span>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+              Lycées
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
+              Pause méridienne (12-14 h) ou temps scolaire, soutien aux sections LV2/LV3 chinois et arts plastiques.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+            <span>60 € HT / h</span>
+            <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Universités & Grandes écoles -->
+        <a
+          href="/universites-et-grandes-ecoles"
+          class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
+          <div>
+            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
+              Enseignement supérieur
+            </span>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+              Universités & Grandes écoles
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
+              Modules approfondis pour filières LEA/LLCER chinois, écoles d'ingénieurs et semaines culturelles.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+            <span>60 € HT / h</span>
+            <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Comités d'entreprise (CSE) -->
+        <a
+          href="/comites-entreprise"
+          class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
+          <div>
+            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
+              Entreprises & CSE
+            </span>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+              Comités d'entreprise
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
+              Initiation conviviale, déconnexion mentale et cohésion d'équipe sur la pause déjeuner ou en séminaire.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+            <span>90 € HT / h</span>
+            <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
+          </div>
+        </a>
+
+        <!-- Maisons de retraite & EHPAD -->
+        <a
+          href="/maisons-de-retraite"
+          class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
+          <div>
+            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
+              Résidences seniors
+            </span>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+              Maisons de retraite & EHPAD
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
+              Parenthèse apaisante et valorisante, stimulation douce de la motricité fine et mémoire des formes.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+            <span>60 € HT / h</span>
+            <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Encart cours collectifs particuliers -->
+    <section class="mt-12 sm:mt-16 p-6 sm:p-8 rounded-2xl bg-indigo-50/60 dark:bg-gray-800/50 border border-indigo-100 dark:border-gray-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6" aria-label="Cours pour les particuliers">
+      <div>
+        <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-300">
+          Vous êtes un particulier ?
+        </span>
+        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mt-1">
+          Cours collectifs réguliers à Lyon
+        </h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 max-w-xl leading-relaxed">
+          Rejoignez nos séances hebdomadaires au Dojo Zen de Lyon (lundi soir) ou à la boutique Miroirs du Ciel (mercredi matin). 80 € par trimestre après déduction fiscale, matériel fourni, tous niveaux.
+        </p>
+      </div>
+      <a
+        href="/cours-collectifs"
+        class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-indigo-600 hover:bg-indigo-700 text-white transition shrink-0">
+        Voir les cours à Lyon &rarr;
+      </a>
+    </section>
+
+    <!-- Navigation contextuelle groupée -->
+    <RelatedPages current="/atelier-de-groupe" />
+  </div>
+</Base>

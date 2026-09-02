@@ -6,10 +6,17 @@ import RelatedPages from "../components/related-pages.astro";
 // Generate paths for each blog post
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
-  return posts.map((post) => ({
-    params: { slug: post.slug.replace(/^blog\//, "") },
-    props: { post },
-  }));
+  const dedicatedSlugs = new Set([
+    "formats-atelier-pour-les-lycees",
+    "universites-et-grandes-ecoles",
+    "atelier-de-groupe",
+  ]);
+  return posts
+    .filter((post) => !dedicatedSlugs.has(post.slug.replace(/^blog\//, "")))
+    .map((post) => ({
+      params: { slug: post.slug.replace(/^blog\//, "") },
+      props: { post },
+    }));
 }
 
 const { post } = Astro.props;

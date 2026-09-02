@@ -1,0 +1,253 @@
+---
+import Base from "../layouts/Layout.astro";
+import RelatedPages from "../components/related-pages.astro";
+
+const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation%20d'un%20atelier%20calligraphie%20en%20lyc%C3%A9e";
+---
+
+<Base
+  title="Ateliers de calligraphie chinoise pour lycées à Lyon"
+  description="Ateliers de calligraphie chinoise en lycée à Lyon : formules adaptées de 30 min à 2 h (pause méridienne ou temps scolaire), 6 à 12 élèves, 60 € HT/h. Matériel fourni.">
+
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Atelier de calligraphie chinoise pour lycées",
+    "description": "Intervention pédagogique de calligraphie chinoise en lycée à Lyon : pause méridienne ou temps scolaire, de 30 min à 2 h, 6 à 12 élèves par groupe. Matériel fourni.",
+    "url": "https://ateliersdecalligraphie.com/formats-atelier-pour-les-lycees",
+    "provider": {
+      "@type": "Person",
+      "name": "Christophe Desmur",
+      "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+    },
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Lycéens"
+    },
+    "inLanguage": "fr",
+    "offers": {
+      "@type": "Offer",
+      "price": "60",
+      "priceCurrency": "EUR",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "60",
+        "priceCurrency": "EUR",
+        "unitText": "heure"
+      }
+    }
+  })} />
+
+  <div class="max-w-5xl mx-auto">
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6 sm:mb-8">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span class="text-gray-500">Pour les groupes</span></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-800 dark:text-gray-200 font-medium">Lycées</li>
+      </ol>
+    </nav>
+
+    <!-- Hero Section : Two-column desktop, natural stack on mobile -->
+    <header class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start" aria-labelledby="hero-title">
+      
+      <!-- Colonne Gauche (Desktop : 48%) -->
+      <div class="lg:col-span-6 flex flex-col">
+        <h1
+          id="hero-title"
+          class="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 leading-tight">
+          Ateliers de calligraphie chinoise pour lycées
+        </h1>
+
+        <p class="text-lg sm:text-xl font-serif italic text-indigo-800 dark:text-indigo-300 mt-3">
+          Mes formats d'atelier pour les lycées sur la pause méridienne ou le temps scolaire
+        </p>
+
+        <!-- Image mobile uniquement (sous le sous-titre) -->
+        <div class="mt-6 lg:hidden">
+          <img
+            src="/assets/lycees.webp"
+            alt="Lycéens s'initiant à la calligraphie chinoise au pinceau"
+            width="576"
+            height="384"
+            loading="eager"
+            class="w-full h-auto rounded-xl shadow-xs border border-gray-200 dark:border-gray-800 object-cover"
+          />
+        </div>
+
+        <p class="text-base text-gray-600 dark:text-gray-300 mt-5 leading-relaxed">
+          L'apprentissage de la calligraphie chinoise en lycée offre aux élèves une ouverture culturelle concrète et un temps de concentration précieux. Christophe Desmur intervient directement au sein des lycées de Lyon et de la région avec tout le matériel nécessaire.
+        </p>
+
+        <!-- CTA Principal (visible sur desktop) -->
+        <div class="mt-8 hidden lg:flex flex-wrap items-center gap-4">
+          <a
+            href={contactMailHref}
+            class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-xs">
+            Organiser un atelier
+          </a>
+          <a
+            href="tel:+33472078861"
+            class="inline-flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+            aria-label="Contacter Christophe Desmur au 04 72 07 88 61">
+            📞 04 72 07 88 61
+          </a>
+        </div>
+      </div>
+
+      <!-- Colonne Droite (Desktop : 52%) -->
+      <div class="hidden lg:block lg:col-span-6">
+        <img
+          src="/assets/lycees.webp"
+          alt="Lycéens s'initiant à la calligraphie chinoise au pinceau"
+          width="576"
+          height="384"
+          loading="eager"
+          class="w-full h-auto rounded-xl shadow-xs border border-gray-200 dark:border-gray-800 object-cover"
+        />
+      </div>
+
+    </header>
+
+    <!-- Informations clés (Grille sobre, scannable et non-SaaS) -->
+    <section class="mt-10 sm:mt-14 py-6 border-y border-gray-200 dark:border-gray-800" aria-label="Informations pratiques">
+      <dl class="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
+        <div>
+          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+            Créneaux
+          </dt>
+          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+            Pause méridienne ou temps scolaire
+          </dd>
+        </div>
+
+        <div>
+          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+            Durée
+          </dt>
+          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+            30 min, 45 min, 1 h ou 2 h
+          </dd>
+        </div>
+
+        <div>
+          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+            Participants
+          </dt>
+          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+            De 6 à 12 élèves par groupe
+          </dd>
+        </div>
+
+        <div>
+          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+            Tarif
+          </dt>
+          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+            60 euros HT par heure
+          </dd>
+        </div>
+      </dl>
+
+      <!-- CTA Principal mobile (après les informations clés) -->
+      <div class="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800 lg:hidden flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+        <a
+          href={contactMailHref}
+          class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-xs text-center">
+          Organiser un atelier
+        </a>
+        <a
+          href="tel:+33472078861"
+          class="inline-flex items-center justify-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition py-2 text-center">
+          📞 04 72 07 88 61
+        </a>
+      </div>
+    </section>
+
+    <!-- Programme de l'atelier -->
+    <section class="mt-12 sm:mt-16" aria-labelledby="programme-heading">
+      <h2 id="programme-heading" class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+        Au programme
+      </h2>
+
+      <ol class="grid sm:grid-cols-3 gap-6 sm:gap-8 border-b border-gray-200 dark:border-gray-800 pb-12">
+        <li class="flex flex-col">
+          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+            01
+          </span>
+          <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
+            Découverte des Quatre Trésors du Lettré et gestuelle du pinceau
+          </p>
+        </li>
+
+        <li class="flex flex-col">
+          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+            02
+          </span>
+          <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
+            Tracé des traits fondamentaux et styles régulier (Kaishu) et semi-cursif (Xingshu)
+          </p>
+        </li>
+
+        <li class="flex flex-col">
+          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+            03
+          </span>
+          <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
+            Réalisation d'une œuvre individuelle calligraphiée et signée sur papier traditionnel
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Objectifs pédagogiques & Enseignements -->
+    <section class="mt-12 sm:mt-16" aria-labelledby="objectifs-heading">
+      <h2 id="objectifs-heading" class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+        Objectifs pédagogiques & Projets de lycée
+      </h2>
+
+      <div class="grid sm:grid-cols-2 gap-6 text-sm sm:text-base">
+        <div class="p-5 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/30">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100 text-base mb-2">
+            Classes de chinois (LV2 / LV3)
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
+            Renforcer la mémorisation des sinogrammes par le geste et le souffle, comprendre l'ordre des traits et l'étymologie des caractères, des pictogrammes archaïques aux caractères modernes.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/30">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100 text-base mb-2">
+            Arts plastiques & Enseignement artistique
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
+            Explorer le rapport au vide, au plein, au rythme du noir et blanc, et à la spontanéité du trait d'encre qui ne supporte aucune retouche.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/30">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100 text-base mb-2">
+            Projets interdisciplinaires (Histoire & Philosophie)
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
+            Découvrir la place centrale de l'écriture dans la civilisation chinoise, les grands courants de pensée classiques (taoïsme, confucianisme) et l'art des lettrés.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/30">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100 text-base mb-2">
+            Clubs culturels, MDL & FSE
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
+            Proposer une activité de détente, de recentrage et d'ouverture culturelle sur la pause du midi pour les élèves désireux de découvrir la culture asiatique.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation contextuelle groupée -->
+    <RelatedPages current="/formats-atelier-pour-les-lycees" />
+  </div>
+</Base>
