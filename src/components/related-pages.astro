@@ -4,36 +4,66 @@ export interface Props {
 }
 const { current } = Astro.props;
 
-const allPages = [
-  { href: "/cours-collectifs", label: "Cours collectifs à Lyon" },
-  { href: "/cours-individuel-a-domicile", label: "Cours individuels à domicile" },
-  { href: "/tarifs", label: "Tarifs des cours" },
-  { href: "/atelier-de-groupe", label: "Un atelier pour chaque public" },
+const audienceLinks = [
   { href: "/ecoles-primaires", label: "Écoles primaires" },
   { href: "/colleges", label: "Collèges" },
   { href: "/formats-atelier-pour-les-lycees", label: "Lycées" },
   { href: "/universites-et-grandes-ecoles", label: "Universités et grandes écoles" },
-  { href: "/comites-entreprise", label: "Comités d'entreprise" },
-  { href: "/maisons-de-retraite", label: "Maisons de retraite" },
-];
+  { href: "/comites-entreprise", label: "Comités d’entreprise (CSE)" },
+  { href: "/maisons-de-retraite", label: "Maisons de retraite & EHPAD" },
+].filter((p) => p.href !== current);
 
-const links = allPages.filter(p => p.href !== current);
+const generalLinks = [
+  { href: "/", label: "Accueil" },
+  { href: "/cours-collectifs", label: "Cours collectifs à Lyon" },
+  { href: "/cours-individuel-a-domicile", label: "Cours individuels à domicile" },
+  { href: "/tarifs", label: "Tarifs des cours et ateliers" },
+  { href: "/atelier-de-groupe", label: "Un atelier pour chaque public" },
+].filter((p) => p.href !== current);
 ---
 
-<nav class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-600">
-  <p class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-4">Voir aussi</p>
-  <ul class="flex flex-wrap gap-3">
-    <li>
-      <a href="/" class="inline-block px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition">
-        Accueil
-      </a>
-    </li>
-    {links.map(link => (
-      <li>
-        <a href={link.href} class="inline-block px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition">
-          {link.label}
-        </a>
-      </li>
-    ))}
-  </ul>
+<nav class="mt-16 pt-10 border-t border-gray-200 dark:border-gray-800" aria-label="Pages complémentaires">
+  <h2 class="text-xs uppercase tracking-widest font-semibold text-gray-500 dark:text-gray-400 mb-6">
+    Voir aussi
+  </h2>
+
+  <div class="grid sm:grid-cols-2 gap-8 text-sm">
+    <!-- Groupe 1 : Autres publics -->
+    <div>
+      <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3 text-sm">
+        Pour d'autres publics
+      </h3>
+      <ul class="space-y-2">
+        {audienceLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition flex items-center gap-1.5">
+              <span class="text-gray-400 select-none">&rarr;</span>
+              <span>{link.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Groupe 2 : Cours & Formules à Lyon -->
+    <div>
+      <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3 text-sm">
+        Formules & Pratique à Lyon
+      </h3>
+      <ul class="space-y-2">
+        {generalLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition flex items-center gap-1.5">
+              <span class="text-gray-400 select-none">&rarr;</span>
+              <span>{link.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
 </nav>
