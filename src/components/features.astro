@@ -1,103 +1,338 @@
 ---
-import { getCollection } from "astro:content";
-import { Picture } from "astro:assets";
-import Layout from "@layouts/Layout.astro";
-import Container from "@components/container.astro";
-import Sectionhead from "@components/sectionhead.astro";
-
-// Filter team entries with 'draft: false' & date before current date
-const publishedTeamMembers = await getCollection("team", ({ data }) => {
-  return !data.draft && data.publishDate < new Date();
-});
-
-// Example grid items (replace with your actual subpages/images if needed)
-const gridItems = [
-  { title: "Ateliers de groupe", image: "/assets/atelier-de-groupe-calligraphie-lyon.webp", link: "/atelier-de-groupe" },
-  { title: "Cours individuels à domicile", image: "/assets/cours-individuel-a-domicile-calligraphie-lyon.webp", link: "/cours-individuel-a-domicile" },
-  { title: "Cours de chinois", image: "/assets/cours-de-chinois.webp", link: "/cours-de-chinois" },
-  { title: "Galerie", image: "/assets/FUKU-Bonheur.webp", link: "/galerie" },
+// Features.astro - Parcours par public, Lieux & Horaires scannables, et Guide débutant
+const audiences = [
+  {
+    title: "Particuliers & Débutants",
+    description: "Apprenez à votre rythme au sein d'un groupe convivial ou à domicile. Aucun prérequis linguistique ou artistique nécessaire.",
+    link: "/cours-collectifs",
+    linkText: "Découvrir les cours particuliers et collectifs",
+    image: "/assets/atelier-de-groupe-calligraphie-lyon.webp",
+    alt: "Groupe de participants apprenant la calligraphie chinoise à Lyon",
+    tag: "Particuliers",
+  },
+  {
+    title: "Écoles, Collèges & Lycées",
+    description: "Interventions pédagogiques adaptées de la primaire au lycée : pictogrammes, découverte de l'encre, Sumi-e et culture chinoise.",
+    link: "/ecoles-primaires",
+    linkText: "Voir les formules scolaires",
+    image: "/assets/cours-calligraphie-ecoles-primaires.webp",
+    alt: "Atelier de calligraphie chinoise pour enfants en classe",
+    tag: "Scolaires",
+  },
+  {
+    title: "Universités & Enseignement Supérieur",
+    description: "Ateliers et modules spécialisés pour cursus LEA, LLCER, écoles d'ingénieurs et associations étudiantes.",
+    link: "/universites-et-grandes-ecoles",
+    linkText: "Voir les formules universitaires",
+    image: "/assets/ecoles.webp",
+    alt: "Étudiants en atelier de calligraphie chinoise",
+    tag: "Universités",
+  },
+  {
+    title: "Comités d'Entreprise (CSE)",
+    description: "Ateliers de déconnexion, de concentration et de cohésion pour vos salariés sur la pause déjeuner (12h-14h) ou en séminaire.",
+    link: "/comites-entreprise",
+    linkText: "Voir l'offre pour les entreprises",
+    image: "/assets/cours-calligraphie-comites-entreprise.webp",
+    alt: "Atelier bien-être et calligraphie pour salariés en entreprise",
+    tag: "Entreprises",
+  },
+  {
+    title: "Maisons de Retraite & EHPAD",
+    description: "Séances valorisantes et douces stimulant la motricité fine, la concentration et la mémoire des formes dans un cadre apaisant.",
+    link: "/maisons-de-retraite",
+    linkText: "Voir l'offre résidences seniors",
+    image: "/assets/ephad.webp",
+    alt: "Atelier de calligraphie chinoise pour personnes âgées",
+    tag: "Seniors",
+  },
+  {
+    title: "Cours Particuliers à Domicile",
+    description: "Accompagnement individuel personnalisé sur Lyon et son agglomération. Agréé Coop A Dom : 50 % de crédit d'impôt.",
+    link: "/cours-individuel-a-domicile",
+    linkText: "En savoir plus sur les cours à domicile",
+    image: "/assets/cours-individuel-a-domicile-calligraphie-lyon.webp",
+    alt: "Cours individuel de calligraphie chinoise à domicile à Lyon",
+    tag: "50 % crédit d'impôt",
+  },
 ];
 ---
 
-<div class="flex flex-col lg:flex-row gap-8 mx-auto max-w-6xl mt-16">
+<div class="space-y-20 sm:space-y-28 mt-12 sm:mt-16">
 
-  <!-- Main Text -->
-  <div class="flex flex-col gap-3 max-w-4xl">
+  <!-- 1. Lieux et Horaires des cours réguliers à Lyon (Scannable Table / Cards) -->
+  <section aria-labelledby="schedule-section-heading" class="bg-gray-50 dark:bg-gray-800/60 rounded-3xl p-6 sm:p-10 border border-gray-200 dark:border-gray-700">
+    <div class="max-w-3xl mb-8">
+      <span class="text-indigo-600 dark:text-indigo-400 uppercase tracking-widest text-xs font-semibold">
+        Régularité & Proximité
+      </span>
+      <h2 id="schedule-section-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-2">
+        Lieux et horaires des cours à Lyon (Croix-Rousse)
+      </h2>
+      <p class="text-gray-600 dark:text-gray-300 text-base mt-2">
+        Deux créneaux hebdomadaires réguliers vous accueillent chaque semaine dans le 4<sup>e</sup> arrondissement de Lyon.
+      </p>
+    </div>
 
-    <h2 class="text-2xl font-semibold mt-8 mb-4">L'attitude, la concentration et l'expression</h2>
-    <p class="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-      L'importance de l'attitude corporelle, la concentration sur la respiration et la recherche d'harmonie et d'équilibre font partie intégrante de l'art millénaire de la calligraphie chinoise.
-    </p>
+    <!-- Tableau responsive / Cartes -->
+    <div class="grid md:grid-cols-2 gap-6">
+      
+      <!-- Lieu 1 : Dojo Zen -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-xs flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 dark:bg-indigo-950 text-indigo-800 dark:text-indigo-300">
+              Chaque lundi soir
+            </span>
+            <span class="text-sm font-bold text-gray-900 dark:text-gray-100">
+              18 h 30 – 20 h 30
+            </span>
+          </div>
 
-    <img
-      src="/assets/personne-realisant-de-la-calligraphie-avec-un-pinceau-sur-du-papier.webp"
-      alt="Christophe Desmur en train de calligraphier"
-      style="width:100%; max-width:800px; height:auto;"
-    >
-
-    <p class="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-      Vous trouverez à <strong>Calligraphie chinoise Lyon</strong> un moyen privilégié d'expression de votre sensibilité et de votre créativité.
-    </p>
-
-    <h2 class="text-2xl font-semibold mt-8 mb-4">L'espace, les proportions et le geste</h2>
-    <p class="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-      Le travail sur l'horizontalité et la verticalité ainsi que sur les proportions et le rapport à l'espace vous permettront de mieux vous replacer dans l'univers que représente la feuille de papier.
-    </p>
-<!-- 4x4 Grid of Tiles -->
-<div class="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-  {gridItems.map((item) => {
-    let altText = "";
-    switch (item.title) {
-      case "Ateliers de groupe":
-        altText = "Participants à un atelier de calligraphie en groupe";
-        break;
-      case "Cours individuels à domicile":
-        altText = "Cours particulier de calligraphie à domicile";
-        break;
-      case "Cours de chinois":
-        altText = "Apprentissage des sinogrammes lors d’un cours de chinois";
-        break;
-      case "Galerie":
-        altText = "Calligraphie chinoise à l’encre de Chine";
-        break;
-      default:
-        altText = item.title;
-    }
-
-    return (
-      <a href={item.link} class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-        <img
-          src={item.image}
-          alt={altText}
-          class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
-        />
-        <div class="p-3 bg-white dark:bg-gray-700 text-center">
-          <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 group-hover:text-black dark:group-hover:text-white">
-            {item.title}
+          <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">
+            Dojo Zen de Lyon
           </h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
+            📍 11, rue Dumenge, 69004 Lyon (Plateau de la Croix-Rousse)
+          </p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            Métro C (Croix-Rousse ou Hénon) • Bus C13, 2, 33, 45
+          </p>
+
+          <p class="text-sm text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
+            Cours collectif hebdomadaire de 2 heures dans un lieu calme et propice à la posture et au silence. Groupe de 2 à 8 participants.
+          </p>
         </div>
-      </a>
-    );
-  })}
+
+        <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+          <span class="text-sm font-semibold text-indigo-700 dark:text-indigo-400">80 € / trimestre</span>
+          <a
+            href="/cours-collectifs"
+            class="px-4 py-2 text-xs font-medium rounded-lg bg-gray-900 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white transition">
+            Détails & inscription
+          </a>
+        </div>
+      </div>
+
+      <!-- Lieu 2 : Miroirs du Ciel -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-xs flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 dark:bg-indigo-950 text-indigo-800 dark:text-indigo-300">
+              Chaque mercredi matin
+            </span>
+            <span class="text-sm font-bold text-gray-900 dark:text-gray-100">
+              10 h 00 – 12 h 00
+            </span>
+          </div>
+
+          <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">
+            Boutique Miroirs du Ciel
+          </h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
+            📍 9, rue de Belfort, 69004 Lyon (Cœur de la Croix-Rousse)
+          </p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            Métro C (Croix-Rousse à 3 min à pied)
+          </p>
+
+          <p class="text-sm text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
+            Atelier matinal de calligraphie chinoise de 2 heures dans une ambiance intimiste au cœur des arts asiatiques.
+          </p>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+          <span class="text-sm font-semibold text-indigo-700 dark:text-indigo-400">80 € / trimestre</span>
+          <a
+            href="/cours-collectifs"
+            class="px-4 py-2 text-xs font-medium rounded-lg bg-gray-900 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white transition">
+            Détails & inscription
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Carte intégrée accessible -->
+    <div class="mt-8 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 h-64 sm:h-80">
+      <iframe
+        class="w-full h-full border-0"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2782.717423001606!2d4.831558576633833!3d45.7768530710809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eae2496297a7%3A0xcf33e8e7e6f48d44!2sZen%20Dojo!5e0!3m2!1sfr!2sfr!4v1756472471300!5m2!1sfr!2sfr"
+        allowfullscreen=""
+        loading="lazy"
+        title="Carte des lieux de cours de calligraphie chinoise à Lyon Croix-Rousse"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </section>
+
+  <!-- 2. Parcours Débutant : 4 étapes pour commencer sans appréhension -->
+  <section id="debuter" aria-labelledby="beginner-heading" class="max-w-5xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-indigo-600 dark:text-indigo-400 uppercase tracking-widest text-xs font-semibold">
+        Accessible à tous
+      </span>
+      <h2 id="beginner-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-2">
+        Débuter la calligraphie chinoise : vos questions essentielles
+      </h2>
+      <p class="text-gray-600 dark:text-gray-300 text-base mt-3 leading-relaxed">
+        Vous n'avez jamais tenu un pinceau chinois ? Vous ne parlez pas la langue ? C'est le cas de la grande majorité des débutants !
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-xs">
+        <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-lg mb-4">
+          1
+        </div>
+        <h3 class="font-bold text-gray-900 dark:text-gray-100 text-base mb-2">
+          Faut-il parler chinois ?
+        </h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          <strong>Non, absolument pas.</strong> La calligraphie est un art du geste et de l'espace. Vous apprendrez à déchiffrer et tracer les caractères de manière intuitive.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-xs">
+        <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-lg mb-4">
+          2
+        </div>
+        <h3 class="font-bold text-gray-900 dark:text-gray-100 text-base mb-2">
+          Quel matériel apporter ?
+        </h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          <strong>Rien à acheter !</strong> Tout le matériel professionnel (pinceaux en poils de chèvre ou de loup, encre de Chine, pierre, papier de riz) est fourni sur place.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-xs">
+        <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-lg mb-4">
+          3
+        </div>
+        <h3 class="font-bold text-gray-900 dark:text-gray-100 text-base mb-2">
+          Comment progresse-t-on ?
+        </h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          En commençant par la tenue du pinceau et les 8 traits de base (<em>Yong</em> 永), puis les styles régulier (<em>Kaishu</em>) et fluide (<em>Xingshu</em>).
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-xs">
+        <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-lg mb-4">
+          4
+        </div>
+        <h3 class="font-bold text-gray-900 dark:text-gray-100 text-base mb-2">
+          Comment essayer ?
+        </h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          Contactez simplement Christophe Desmur pour réserver votre première séance sans engagement le lundi soir ou le mercredi matin.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3. Un atelier pour chaque public (Audience pathways) -->
+  <section id="publics" aria-labelledby="audiences-heading">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-indigo-600 dark:text-indigo-400 uppercase tracking-widest text-xs font-semibold">
+        Offres sur mesure
+      </span>
+      <h2 id="audiences-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-2">
+        Un atelier pour chaque public
+      </h2>
+      <p class="text-gray-600 dark:text-gray-300 text-base mt-3 leading-relaxed">
+        Particuliers à Lyon, classes scolaires, universités, entreprises ou résidences seniors : choisissez la formule adaptée à vos besoins.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      {audiences.map((item) => (
+        <a
+          href={item.link}
+          class="group flex flex-col justify-between rounded-2xl overflow-hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-xs hover:shadow-lg transition">
+          <div>
+            <div class="relative h-44 overflow-hidden bg-gray-100 dark:bg-gray-700">
+              <img
+                src={item.image}
+                alt={item.alt}
+                width="400"
+                height="220"
+                loading="lazy"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-gray-900/90 text-gray-800 dark:text-gray-200 backdrop-blur-xs">
+                {item.tag}
+              </span>
+            </div>
+            
+            <div class="p-6">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+                {item.title}
+              </h3>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          </div>
+
+          <div class="px-6 pb-6 pt-2">
+            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              {item.linkText} &rarr;
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- 4. Philosophie & Enseignement (E-E-A-T Christophe Desmur) -->
+  <section class="bg-gray-50 dark:bg-gray-800/60 rounded-3xl p-6 sm:p-10 lg:p-12 border border-gray-200 dark:border-gray-700" aria-labelledby="about-preview-heading">
+    <div class="grid lg:grid-cols-12 gap-8 items-center max-w-5xl mx-auto">
+      
+      <div class="lg:col-span-4 text-center lg:text-left">
+        <img
+          src="/assets/christophe-desmur-calligraphie-chinoise.webp"
+          alt="Christophe Desmur en train d'écrire au pinceau de calligraphie"
+          width="400"
+          height="400"
+          loading="lazy"
+          class="w-48 h-48 sm:w-56 sm:h-56 lg:w-full lg:h-auto object-cover rounded-2xl shadow-md mx-auto"
+        />
+      </div>
+
+      <div class="lg:col-span-8">
+        <span class="text-indigo-600 dark:text-indigo-400 uppercase tracking-widest text-xs font-semibold">
+          L'enseignant & La démarche
+        </span>
+        <h2 id="about-preview-heading" class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mt-2">
+          Trente ans de pratique et de transmission à Lyon
+        </h2>
+        
+        <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 mt-4 leading-relaxed">
+          Titulaire d'une maîtrise de langue et civilisation chinoises et d'un master de traduction littéraire chinois-français, <strong>Christophe Desmur</strong> pratique la calligraphie depuis plus de trois décennies.
+        </p>
+        
+        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-3 leading-relaxed">
+          Son enseignement met l'accent sur l'attitude corporelle, la respiration apaisée et la justesse du geste. Loin d'une simple technique formelle, la calligraphie chinoise développe la concentration, la créativité et le sens des proportions au sein de la feuille de papier.
+        </p>
+
+        <div class="mt-6 flex flex-wrap gap-4 items-center">
+          <a
+            href="/le-calligraphe"
+            class="px-5 py-2.5 rounded-lg bg-gray-900 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white font-medium text-xs sm:text-sm transition">
+            Découvrir le parcours de Christophe Desmur
+          </a>
+          <a
+            href="/galerie"
+            class="text-xs sm:text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+            Voir les calligraphies originales &rarr;
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
 </div>
-
-
-    <p class="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-      <strong>Calligraphie chinoise Lyon</strong> vous accompagne dans le maniement du pinceau, la maîtrise du geste, le travail sur les proportions et l'équilibre, ainsi que dans la recherche d'harmonie entre force et délicatesse.
-    </p>
-
-    <h2 class="text-2xl font-semibold mt-8 mb-4">Bienfaits et apprentissage de l'écriture chinoise</h2>
-    <p class="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-      Correctement pratiquée, la calligraphie chinoise apporte calme, sérénité et équilibre intérieur. Elle développe la créativité artistique et l'expression de la sensibilité par le tracé de caractères, se rapprochant ainsi d'une pratique picturale.
-    </p>
-    
-    <p class="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-      Pratiquée en Chine par les grands comme par les petits, elle s'adresse aux enfants comme aux adultes et est associée au calme, à la concentration et à l'expression de ce qu'il y a de plus raffiné dans une personnalité humaine.
-    </p>
-    <p class="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-      Vous apprendrez progressivement un ensemble de caractères, les <em>sinogrammes</em>, en passant des pictogrammes aux idéogrammes, puis aux phonogrammes. Cet apprentissage vous permettra d'écrire spontanément et de découvrir la richesse de cette langue millénaire.
-    </p>
-
-  </div>
-</div>
-

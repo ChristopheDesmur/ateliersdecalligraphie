@@ -1,10 +1,10 @@
 ---
-title: "Lu Yin"
+title: "Étude de la vie et de l'œuvre de Lu Yin"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Étude sur la vie et l'œuvre littéraire de l'écrivaine chinoise Lu Yin (1899-1934), figure marquante du Mouvement du 4 mai 1919. Traduction par Christophe Desmur."
 image: {
-    src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie chinoise Lyon"
+    src: "/assets/lu-yin.webp",
+    alt: "Portrait et étude littéraire de l'auteure chinoise Lu Yin"
 }
 publishDate: "2022-11-07 15:39"
 category: "Littérature chinoise"

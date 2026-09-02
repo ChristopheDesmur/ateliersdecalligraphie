@@ -53,7 +53,7 @@
     { "source": "/decouvrez-art-energetique-millenaire/art-energetique-chinois-2/", "destination": "/", "permanent": true },
     { "source": "/decouvrez-art-energetique-millenaire/art-energetique-chinois-3/", "destination": "/", "permanent": true },
     { "source": "/decouvrez-art-energetique-millenaire/art-energetique-chinois/", "destination": "/", "permanent": true },
-    { "source": "/decouvrez-art-energetique-millenaire/art-energetique/", "destination": "", "permanent": true },
+    { "source": "/decouvrez-art-energetique-millenaire/art-energetique/", "destination": "/", "permanent": true },
     { "source": "/decouvrez-art-energetique-millenaire/calligraphie-chinoise-2/", "destination": "/calligraphie-chinoise/", "permanent": true },
     { "source": "/decouvrez-art-energetique-millenaire/calligraphie-zen/", "destination": "/calligraphie-zen/", "permanent": true },
     { "source": "/decouvrez-art-energetique-millenaire/calligraphie-zen/calligraphie-zen-2/", "destination": "/calligraphie-zen/", "permanent": true },
@@ -61,6 +61,9 @@
     { "source": "/decouvrez-art-energetique-millenaire/calligraphie-zen/calligraphie-zen-4/", "destination": "/calligraphie-zen-4/", "permanent": true },
     { "source": "/decouvrez-art-energetique-millenaire/fuku-bonheur/", "destination": "/fuku-bonheur/", "permanent": true },
     { "source": "/decouvrez-art-energetique-millenaire/shodo-voie-pinceau/", "destination": "/shodo-voie-pinceau/", "permanent": true },
-    { "source": "/decouvrez-art-energetique-millenaire/shodo-voie-pinceau/shodo-voie-pinceau-2/", "destination": "/shodo-voie-pinceau/", "permanent": true }
+    { "source": "/decouvrez-art-energetique-millenaire/shodo-voie-pinceau/shodo-voie-pinceau-2/", "destination": "/shodo-voie-pinceau/", "permanent": true },
+    { "source": "/pricing/", "destination": "/tarifs/", "permanent": true },
+    { "source": "/pricing", "destination": "/tarifs/", "permanent": true },
+    { "source": "/blog/:slug*", "destination": "/:slug*", "permanent": true }
   ]
 }

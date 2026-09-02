@@ -1,13 +1,13 @@
 ---
-title: "Le 5 octobre"
+title: "Le 5 octobre — Nouvelle Fuqin (Père) de Lu Yin"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Traduction du chapitre 'Le 5 octobre' de la nouvelle Fuqin (Père) de Lu Yin par Christophe Desmur : solitude, mélancolie et introspection de la jeunesse chinoise."
 image: {
-    src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie chinoise Lyon"
+    src: "/assets/lu-yin.webp",
+    alt: "Nouvelle Fuqin (Père) de Lu Yin, traduite par Christophe Desmur"
 }
 publishDate: "2022-11-07 15:39"
-category: "Réflexions personnelles"
+category: "Littérature chinoise"
 author: "Lu Yin - traduction Christophe Desmur"
 tags: ['amour', 'tristesse', 'chrysanthèmes', 'cuisine', 'musique', 'famille', 'devoirs', 'joie', 'solitude', 'introspection']
 ---

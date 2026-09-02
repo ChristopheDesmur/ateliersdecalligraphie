@@ -1,5 +1,177 @@
-<footer class="my-20">
-  <p class="text-center text-sm text-slate-500">
-    Copyright © {new Date().getFullYear()} Christophe Desmur. Tous droits réservés.
-  </p>
+---
+// Footer.astro - Pied de page avec NAP local complet, navigation thématique et mentions
+---
+
+<footer class="mt-20 border-t border-gray-200 dark:border-gray-800 bg-gray-50/60 dark:bg-gray-900/60 pt-14 pb-12 text-sm text-gray-600 dark:text-gray-400" aria-label="Pied de page">
+  <div class="mx-auto max-w-[1300px] px-4 sm:px-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      
+      <!-- Colonne 1 : Identité & Contact local Lyon -->
+      <div>
+        <h3 class="text-base font-bold text-gray-900 dark:text-gray-100 mb-3">
+          Calligraphie chinoise Lyon
+        </h3>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">
+          Christophe Desmur • Enseignement traditionnel au pinceau, encre de Chine et transmission culturelle.
+        </p>
+        
+        <div class="space-y-2 text-xs text-gray-700 dark:text-gray-300">
+          <p>
+            <strong class="text-gray-900 dark:text-gray-100">Dojo Zen de Lyon :</strong><br />
+            11, rue Dumenge, 69004 Lyon (Croix-Rousse)
+          </p>
+          <p>
+            <strong class="text-gray-900 dark:text-gray-100">Boutique Miroirs du Ciel :</strong><br />
+            9, rue de Belfort, 69004 Lyon
+          </p>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-gray-200 dark:border-gray-800 space-y-1.5 text-xs">
+          <p>
+            <a href="tel:+33472078861" class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition">
+              📞 04 72 07 88 61
+            </a>
+          </p>
+          <p>
+            <a href="tel:+33769941643" class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition">
+              📱 07 69 94 16 43
+            </a>
+          </p>
+          <p>
+            <a href="mailto:christophe.desmur@orange.fr" class="hover:text-indigo-600 dark:hover:text-indigo-400 underline transition">
+              christophe.desmur@orange.fr
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Colonne 2 : Cours & Tarifs -->
+      <div>
+        <h3 class="text-base font-bold text-gray-900 dark:text-gray-100 mb-3">
+          Cours & Formules
+        </h3>
+        <ul class="space-y-2 text-xs">
+          <li>
+            <a href="/cours-collectifs" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Cours collectifs hebdomadaires (Lyon 4e)
+            </a>
+          </li>
+          <li>
+            <a href="/cours-individuel-a-domicile" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Cours individuels à domicile (50 % crédit d'impôt)
+            </a>
+          </li>
+          <li>
+            <a href="/tarifs" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Grille tarifaire détaillée
+            </a>
+          </li>
+          <li>
+            <a href="/cours-collectifs#trial-heading" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Première séance d'essai
+            </a>
+          </li>
+          <li>
+            <a href="/cours-de-chinois" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Cours de langue chinoise & sinogrammes
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Colonne 3 : Établissements & Groupes -->
+      <div>
+        <h3 class="text-base font-bold text-gray-900 dark:text-gray-100 mb-3">
+          Pour les structures
+        </h3>
+        <ul class="space-y-2 text-xs">
+          <li>
+            <a href="/atelier-de-groupe" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Vue d'ensemble des ateliers de groupe
+            </a>
+          </li>
+          <li>
+            <a href="/ecoles-primaires" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Écoles primaires & enfants (Sumi-e)
+            </a>
+          </li>
+          <li>
+            <a href="/colleges" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Collèges (temps scolaire)
+            </a>
+          </li>
+          <li>
+            <a href="/formats-atelier-pour-les-lycees" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Lycées (pause méridienne & projets)
+            </a>
+          </li>
+          <li>
+            <a href="/universites-et-grandes-ecoles" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Universités & Grandes écoles
+            </a>
+          </li>
+          <li>
+            <a href="/comites-entreprise" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Comités d'entreprise (CSE) & cohésion
+            </a>
+          </li>
+          <li>
+            <a href="/maisons-de-retraite" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Maisons de retraite & résidences seniors (EHPAD)
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Colonne 4 : Découverte & Culture -->
+      <div>
+        <h3 class="text-base font-bold text-gray-900 dark:text-gray-100 mb-3">
+          Découvrir & Culture
+        </h3>
+        <ul class="space-y-2 text-xs">
+          <li>
+            <a href="/le-calligraphe" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Christophe Desmur (parcours & diplômes)
+            </a>
+          </li>
+          <li>
+            <a href="/galerie" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Galerie des calligraphies à l'encre
+            </a>
+          </li>
+          <li>
+            <a href="/shodo-voie-pinceau" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              La voie du pinceau (Shodo)
+            </a>
+          </li>
+          <li>
+            <a href="/calligraphie-zen" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Calligraphie zen & tradition
+            </a>
+          </li>
+          <li>
+            <a href="/traductions" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Traductions littéraires du chinois (Lu Yin, Zeng Jixin)
+            </a>
+          </li>
+          <li>
+            <a href="/blog" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+              Index de tous les articles et textes
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Mentions de bas de page -->
+    <div class="mt-12 pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+      <p>
+        © {new Date().getFullYear()} Christophe Desmur — Calligraphie chinoise à Lyon. Tous droits réservés.
+      </p>
+      <p class="text-center sm:text-right">
+        Services à domicile agréés Coop A Dom n° 2006-1-42.10 (CGI art. 199 sexdecies).
+      </p>
+    </div>
+  </div>
 </footer>

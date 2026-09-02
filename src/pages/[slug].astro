@@ -18,12 +18,49 @@ const { Content } = await post.render();
 ---
 
 <Layout title={post.data.title} description={post.data.snippet}>
-  <article class="prose dark:prose-invert mx-auto">
-    <Content />
-  </article>
-  {post.data.showRelated && (
-    <div class="max-w-prose mx-auto">
-      <RelatedPages current={`/${post.slug}`} />
-    </div>
-  )}
+  <div class="max-w-3xl mx-auto py-4">
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        {post.data.category === "Littérature chinoise" || post.data.category === "Journal intime" ? (
+          <>
+            <li><a href="/traductions" class="hover:underline">Traductions littéraires</a></li>
+            <li aria-hidden="true">/</li>
+          </>
+        ) : post.data.category === "Culture asiatique" || post.data.category === "Art zen" ? (
+          <>
+            <li><span class="text-gray-500">Découvrir</span></li>
+            <li aria-hidden="true">/</li>
+          </>
+        ) : (
+          <>
+            <li><a href="/atelier-de-groupe" class="hover:underline">Cours & Ateliers</a></li>
+            <li aria-hidden="true">/</li>
+          </>
+        )}
+        <li aria-current="page" class="text-gray-800 dark:text-gray-200 font-medium truncate max-w-xs">{post.data.title}</li>
+      </ol>
+    </nav>
+
+    <header class="mb-8 border-b border-gray-100 dark:border-gray-800 pb-4">
+      <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+        {post.data.category}
+      </span>
+      <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+        Par {post.data.author}
+      </p>
+    </header>
+
+    <article class="prose prose-lg dark:prose-invert max-w-none">
+      <Content />
+    </article>
+
+    {post.data.showRelated && (
+      <div class="mt-12">
+        <RelatedPages current={`/${post.slug}`} />
+      </div>
+    )}
+  </div>
 </Layout>

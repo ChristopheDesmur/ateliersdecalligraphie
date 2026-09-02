@@ -1,30 +1,103 @@
 ---
-import { Picture } from "astro:assets";
-import heroImage from "@/assets/hero.webp";
-import Link from "@/components/ui/link.astro";
-import { Icon } from "astro-icon/components";
+// Hero.astro - Section principale d'accueil répondant immédiatement aux questions clés
 ---
 
-<main
-   class="flex flex-col lg:flex-row gap-8 mx-auto max-w-6xl mt-16">
-  <div>
-    <h1
-      class="text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter">
-Découvrez l’art de l’écriture chinoise
-    </h1>
-    <p class="text-4xl lg:text-4xl font-bold text-gray-400">
-    Christophe Desmur vous invite à explorer la pratique énergétique et raffinée de la calligraphie chinoise à Lyon.
-    </p>
-    <div class="mt-8 flex flex-wrap gap-4">
-      <a
-        href="mailto:christophe.desmur@orange.fr"
-        class="px-6 py-3 bg-gray-900 text-white font-semibold rounded hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-gray-300 transition">
-        Essayer un cours
-      </a>
-      <a
-        href="tel:+33472078861"
-        class="px-6 py-3 border-2 border-gray-900 text-gray-900 font-semibold rounded hover:bg-gray-100 dark:border-gray-400 dark:text-gray-300 dark:hover:bg-gray-700 transition">
-        04 72 07 88 61
-      </a>
+<section class="py-8 sm:py-12 lg:py-16" aria-labelledby="hero-title">
+  <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+    
+    <!-- Colonne texte & actions -->
+    <div class="lg:col-span-7 flex flex-col">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800/60 text-xs font-semibold text-indigo-700 dark:text-indigo-300 w-fit mb-4">
+        <span>📍 Lyon 4e — Croix-Rousse</span>
+        <span>•</span>
+        <span>Enseignement par Christophe Desmur</span>
+      </div>
+
+      <h1
+        id="hero-title"
+        class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-950 dark:text-white leading-[1.15]">
+        Calligraphie chinoise à Lyon
+      </h1>
+
+      <p class="text-xl sm:text-2xl font-serif italic text-indigo-800 dark:text-indigo-300 mt-2">
+        L'art du pinceau, du souffle et de l'encre de Chine
+      </p>
+
+      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300 mt-5 leading-relaxed max-w-2xl">
+        Découvrez la pratique traditionnelle de la calligraphie chinoise avec <strong>Christophe Desmur</strong>, calligraphe depuis plus de 30 ans et diplômé en langue et traduction du chinois. Cours collectifs hebdomadaires à la Croix-Rousse, cours particuliers à domicile et ateliers pour écoles et entreprises.
+      </p>
+
+      <!-- Puces de réassurance débutants -->
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm text-gray-700 dark:text-gray-300 mt-6 font-medium">
+        <li class="flex items-center gap-2">
+          <span class="text-indigo-600 dark:text-indigo-400 font-bold text-base">✓</span>
+          <span><strong>Débutants bienvenus :</strong> pas besoin de parler chinois</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-indigo-600 dark:text-indigo-400 font-bold text-base">✓</span>
+          <span><strong>Matériel 100 % fourni :</strong> pinceaux, encre, pierres, papier</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-indigo-600 dark:text-indigo-400 font-bold text-base">✓</span>
+          <span><strong>Petits groupes :</strong> 2 à 8 élèves par séance</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-indigo-600 dark:text-indigo-400 font-bold text-base">✓</span>
+          <span><strong>Séance d'essai :</strong> premier cours sans engagement</span>
+        </li>
+      </ul>
+
+      <!-- Boutons d'action clairs -->
+      <div class="mt-8 flex flex-wrap gap-3 sm:gap-4 items-center">
+        <a
+          href="/cours-collectifs"
+          class="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl text-sm transition shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Voir les cours collectifs
+        </a>
+        <a
+          href="/cours-collectifs#trial-heading"
+          class="px-5 py-3.5 bg-gray-100 hover:bg-gray-200 text-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-200 font-medium rounded-xl text-sm transition border border-gray-200 dark:border-gray-700">
+          Première séance d'essai
+        </a>
+        <a
+          href="tel:+33472078861"
+          class="px-4 py-3.5 text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white font-semibold text-sm transition flex items-center gap-1.5"
+          aria-label="Appeler Christophe Desmur au 04 72 07 88 61">
+          <span aria-hidden="true">📞</span> 04 72 07 88 61
+        </a>
+      </div>
+
     </div>
-</main>
+
+    <!-- Colonne visuelle : Oeuvre & Pratique -->
+    <div class="lg:col-span-5 relative">
+      <div class="relative mx-auto max-w-md lg:max-w-none">
+        <!-- Cadre élégant avec ombre douce -->
+        <div class="overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 shadow-xl bg-white dark:bg-gray-800">
+          <img
+            src="/assets/personne-realisant-de-la-calligraphie-avec-un-pinceau-sur-du-papier.webp"
+            alt="Christophe Desmur enseignant le maniement du pinceau de calligraphie sur papier absorbant"
+            width="600"
+            height="420"
+            loading="eager"
+            class="w-full h-auto object-cover"
+          />
+          <div class="p-4 bg-gray-50/80 dark:bg-gray-800/90 text-xs text-gray-600 dark:text-gray-300 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
+            <span>Pratique au pinceau et à l'encre de Chine</span>
+            <a href="/galerie" class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">
+              Voir la galerie &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Encadré lieu & horaire superposé -->
+        <div class="mt-4 sm:mt-0 sm:absolute sm:-bottom-6 sm:-left-6 bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-gray-700 text-xs max-w-xs">
+          <p class="font-bold text-gray-900 dark:text-gray-100">Dojo Zen & Miroirs du Ciel</p>
+          <p class="text-gray-600 dark:text-gray-300 mt-0.5">Lundi soir 18h30 • Mercredi matin 10h</p>
+          <p class="text-indigo-600 dark:text-indigo-400 font-semibold mt-1">80 € / trimestre (matériel inclus)</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -12,8 +12,9 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  // Single redirect
+  // Redirects
   redirects: {
     "/traductions/zeng-jixin/": "/zeng-jixin/",
+    "/pricing": "/tarifs/",
   },
 });

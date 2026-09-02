@@ -6,55 +6,43 @@ import { Astronav, MenuItems } from "astro-navbar";
 
 const menuitems = [
   {
-    title: "Scolaires & professionnels",
+    title: "Calligraphie chinoise",
     path: "#",
     children: [
-      { title: "Un atelier pour chaque public", path: "/atelier-de-groupe" },
+      { title: "Cours collectifs à Lyon", path: "/cours-collectifs" },
+      { title: "Cours individuels à domicile", path: "/cours-individuel-a-domicile" },
+      { title: "Tarifs des cours et ateliers", path: "/tarifs" },
+    ],
+  },
+  {
+    title: "Pour les groupes",
+    path: "#",
+    children: [
+      { title: "Vue d'ensemble des ateliers", path: "/atelier-de-groupe" },
       { title: "Écoles primaires", path: "/ecoles-primaires" },
       { title: "Collèges", path: "/colleges" },
       { title: "Lycées", path: "/formats-atelier-pour-les-lycees" },
       { title: "Universités et grandes écoles", path: "/universites-et-grandes-ecoles" },
-      { title: "Comités d’entreprise", path: "/comites-entreprise" },
-      { title: "Maisons de retraite", path: "/maisons-de-retraite" },
-    ],
-  },
-  { title: "Cours individuels à domicile", path: "/cours-individuel-a-domicile" },
-  { title: "Cours de chinois", path: "/cours-de-chinois" },
-  { title: "Galerie", path: "/galerie" },
-  {
-    title: "Traductions",
-    path: "#",
-    children: [
-      {
-        title: "LU YIN",
-         path: "/etude-de-vie-de-lu-yin-de-oeuvre" },
-          { title: "Les influences littéraires étrangères…", path: "/influences-litteraires-etrangeres-loeuvre-de-lu-yin" },
-          { title: "Lu Yin dans le monde littéraire chinois…", path: "/lu-yin-monde-litteraire-chinois-annees-1920-1930" },
- 	  { title: "Père (nouvelle)", path: "/pere-nouvelle" },
-              { title: "Le 19 septembre", path: "/le-19-septembre" },
-              { title: "Le 20 septembre", path: "/le-20-septembre" },
-              { title: "Le 22 septembre", path: "/le-22-septembre" },
-              { title: "Le 28 septembre", path: "/le-28-septembre" },
-              { title: "Le 5 octobre", path: "/le-5-octobre" },
-              { title: "Le 6 octobre", path: "/le-6-octobre" },
-      {
-        title: "ZENG JIXIN",
-         path: "/zeng-jixin" },
-          { title: "La guerre entre les rats et les hommes", path: "/zeng-jixin-la-guerre-entre-les-rats-et-les-hommes-nouvelle" },
-          { title: "L’instinct animal", path: "/instinct-animal" },
-          { title: "Mes premiers souvenirs", path: "/217-2" },
-          { title: "Un repaire pour les rats et les serpents", path: "/un-repaire-pour-les-rats-et-les-serpents" },
-          { title: "L’engeance de rat se déchaîne", path: "/lengeance-de-rat-se-dechaine" },
-          { title: "Les mânes des morts", path: "/les-manes-des-morts" },
+      { title: "Comités d’entreprise (CSE)", path: "/comites-entreprise" },
+      { title: "Maisons de retraite & EHPAD", path: "/maisons-de-retraite" },
     ],
   },
   {
-    title: "Qui sommes-nous",
+    title: "Découvrir",
     path: "#",
     children: [
-      { title: "Le calligraphe", path: "/le-calligraphe" },
-      { title: "La voie du pinceau", path: "/shodo-voie-pinceau" },
+      { title: "Christophe Desmur (le calligraphe)", path: "/le-calligraphe" },
+      { title: "Galerie des œuvres", path: "/galerie" },
+      { title: "La voie du pinceau (Shodo)", path: "/shodo-voie-pinceau" },
       { title: "Calligraphie zen", path: "/calligraphie-zen" },
+    ],
+  },
+  {
+    title: "Culture & Chinois",
+    path: "#",
+    children: [
+      { title: "Cours de langue chinoise", path: "/cours-de-chinois" },
+      { title: "Traductions littéraires", path: "/traductions" },
     ],
   },
 ];
@@ -114,9 +102,9 @@ const menuitems = [
         </ul>
         <div class="lg:ml-4 mt-3 lg:mt-0 flex items-center gap-2">
           <a
-            href="mailto:christophe.desmur@orange.fr"
-            class="px-4 py-2 rounded bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-gray-300 transition whitespace-nowrap">
-            Contactez-nous
+            href="/cours-collectifs"
+            class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition whitespace-nowrap shadow-xs">
+            Essayer un cours
           </a>
           <button
             id="theme-toggle"

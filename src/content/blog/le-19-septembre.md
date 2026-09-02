@@ -1,10 +1,10 @@
 ---
-title: "Le 19 septembre"
+title: "Le 19 septembre — Nouvelle Fuqin (Père) de Lu Yin"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Traduction du chapitre 'Le 19 septembre' de la nouvelle Fuqin (Père) de Lu Yin par Christophe Desmur : tourments familiaux et déchirement intime."
 image: {
-    src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie chinoise Lyon"
+    src: "/assets/lu-yin.webp",
+    alt: "Nouvelle Fuqin (Père) de Lu Yin, traduite par Christophe Desmur"
 }
 publishDate: "2022-11-07 15:39"
 category: "Journal intime"

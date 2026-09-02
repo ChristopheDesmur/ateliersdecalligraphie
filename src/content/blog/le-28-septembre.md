@@ -1,13 +1,13 @@
 ---
-title: "Le 28 septembre"
+title: "Le 28 septembre — Nouvelle Fuqin (Père) de Lu Yin"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Traduction du chapitre 'Le 28 septembre' de la nouvelle Fuqin (Père) de Lu Yin par Christophe Desmur : liens familiaux, musique et déchirements affectifs."
 image: {
-    src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie chinoise Lyon"
+    src: "/assets/lu-yin.webp",
+    alt: "Nouvelle Fuqin (Père) de Lu Yin, traduite par Christophe Desmur"
 }
 publishDate: "2022-11-07 15:39"
-category: ""
+category: "Littérature chinoise"
 author: "Lu Yin - traduction Christophe Desmur"
 tags: ['calligraphie chinoise', 'maison', 'déménagement', 'famille', 'relation mère-fils', 'musique', 'orgue', 'amour interdit', 'mort', 'psychologie']
 ---

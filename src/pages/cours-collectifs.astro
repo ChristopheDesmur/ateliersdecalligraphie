@@ -1,0 +1,336 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Cta from "@/components/cta.astro";
+
+const locations = [
+  {
+    name: "Dojo Zen de Lyon",
+    address: "11, rue Dumenge, 69004 Lyon",
+    district: "Lyon 4e — Plateau de la Croix-Rousse",
+    day: "Lundi soir",
+    time: "18 h 30 – 20 h 30",
+    duration: "2 heures",
+    access: "Métro C (stations Croix-Rousse ou Hénon) • Bus C13, 2, 33, 45",
+    atmosphere: "Cadre sobre, silencieux et traditionnel, propice au calme et à la concentration.",
+    mapQuery: "Zen+Dojo+11+rue+Dumenge+Lyon",
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2782.717423001606!2d4.831558576633833!3d45.7768530710809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eae2496297a7%3A0xcf33e8e7e6f48d44!2sZen%20Dojo!5e0!3m2!1sfr!2sfr!4v1756472471300!5m2!1sfr!2sfr",
+  },
+  {
+    name: "Boutique Miroirs du Ciel",
+    address: "9, rue de Belfort, 69004 Lyon",
+    district: "Lyon 4e — Cœur de la Croix-Rousse",
+    day: "Mercredi matin",
+    time: "10 h 00 – 12 h 00",
+    duration: "2 heures",
+    access: "Métro C (station Croix-Rousse à 3 min à pied)",
+    atmosphere: "Atmosphère lumineuse et conviviale au sein d'une boutique dédiée aux arts d'Asie.",
+    mapQuery: "9+rue+de+Belfort+Lyon",
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2782.748123456789!2d4.8301!3d45.7762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eae26581b1b1%3A0x1234567890abcdef!2s9+Rue+de+Belfort%2C+69004+Lyon!5e0!3m2!1sfr!2sfr!4v1756472471301!5m2!1sfr!2sfr",
+  },
+];
+---
+
+<Layout
+  title="Cours collectifs de calligraphie chinoise à Lyon"
+  description="Cours hebdomadaires de calligraphie chinoise à Lyon (Croix-Rousse). Dojo Zen (lundi soir) et Miroirs du Ciel (mercredi matin). Débutants bienvenus, matériel fourni. 80 €/trimestre.">
+
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Cours collectifs de calligraphie chinoise à Lyon",
+    "description": "Cours réguliers hebdomadaires de calligraphie chinoise au Dojo Zen de Lyon et à la boutique Miroirs du Ciel. Apprentissage du maniement du pinceau, des sinogrammes, de la posture et des styles traditionnels.",
+    "url": "https://ateliersdecalligraphie.com/cours-collectifs",
+    "provider": {
+      "@type": "Person",
+      "name": "Christophe Desmur",
+      "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+    },
+    "educationalLevel": "Tous niveaux (débutant à confirmé)",
+    "inLanguage": "fr",
+    "offers": {
+      "@type": "Offer",
+      "price": "80",
+      "priceCurrency": "EUR",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "80",
+        "priceCurrency": "EUR",
+        "unitText": "trimestre"
+      }
+    },
+    "hasCourseInstance": [
+      {
+        "@type": "CourseInstance",
+        "courseMode": "ONSITE",
+        "location": {
+          "@type": "Place",
+          "name": "Dojo Zen de Lyon",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "11, rue Dumenge",
+            "postalCode": "69004",
+            "addressLocality": "Lyon",
+            "addressCountry": "FR"
+          }
+        }
+      },
+      {
+        "@type": "CourseInstance",
+        "courseMode": "ONSITE",
+        "location": {
+          "@type": "Place",
+          "name": "Boutique Miroirs du Ciel",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "9, rue de Belfort",
+            "postalCode": "69004",
+            "addressLocality": "Lyon",
+            "addressCountry": "FR"
+          }
+        }
+      }
+    ]
+  })} />
+
+  <Container>
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span class="text-gray-500">Calligraphie chinoise</span></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-800 dark:text-gray-200 font-medium">Cours collectifs à Lyon</li>
+      </ol>
+    </nav>
+
+    <!-- En-tête de page -->
+    <header class="max-w-3xl">
+      <span class="text-indigo-600 dark:text-indigo-400 uppercase tracking-widest text-xs font-semibold">
+        Pratique hebdomadaire à Lyon 4e
+      </span>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mt-2 text-gray-900 dark:text-gray-100 leading-tight">
+        Cours collectifs de calligraphie chinoise à Lyon
+      </h1>
+      <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
+        Chaque semaine à la Croix-Rousse, Christophe Desmur vous guide dans l'apprentissage du pinceau, du souffle et du tracé des caractères chinois traditionnels. Un atelier à taille humaine, ouvert à tous.
+      </p>
+    </header>
+
+    <!-- Tableau récapitulatif scannable -->
+    <section class="mt-12" aria-labelledby="schedule-heading">
+      <h2 id="schedule-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+        Lieux et horaires des séances
+      </h2>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {locations.map((loc) => (
+          <article class="bg-gray-50 dark:bg-gray-800/80 rounded-2xl p-6 sm:p-7 border border-gray-200 dark:border-gray-700 shadow-xs flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 dark:bg-indigo-900/60 text-indigo-800 dark:text-indigo-300">
+                  {loc.day}
+                </span>
+                <span class="text-sm font-bold text-gray-900 dark:text-gray-100">
+                  {loc.time}
+                </span>
+              </div>
+
+              <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mt-3">
+                {loc.name}
+              </h3>
+              <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">
+                {loc.address}
+              </p>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                {loc.district}
+              </p>
+
+              <p class="text-sm text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
+                {loc.atmosphere}
+              </p>
+
+              <div class="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400">
+                <strong class="text-gray-700 dark:text-gray-300">Accès TCL :</strong> {loc.access}
+              </div>
+            </div>
+
+            <div class="mt-6">
+              <div class="w-full h-44 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 mb-4">
+                <iframe
+                  class="w-full h-full border-0"
+                  src={loc.mapEmbed}
+                  loading="lazy"
+                  title={`Plan d'accès Google Maps pour ${loc.name}`}
+                  referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+              <a
+                href="mailto:christophe.desmur@orange.fr?subject=Demande%20d'inscription%20cours%20collectif"
+                class="block w-full text-center py-2.5 px-4 bg-gray-900 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white rounded-lg font-medium text-sm transition">
+                Réserver une séance ({loc.day.toLowerCase()})
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Détails pratiques en grille -->
+    <section class="mt-16 bg-white dark:bg-gray-800/40 rounded-2xl p-6 sm:p-10 border border-gray-200 dark:border-gray-700" aria-labelledby="practical-heading">
+      <h2 id="practical-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-8">
+        Informations pratiques & Modalités
+      </h2>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+        <div class="border-l-2 border-indigo-600 pl-4">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100 mb-1">Tarif</h3>
+          <p class="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400">80 €</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Par trimestre après réduction d'impôts (cours régulier hebdomadaire).</p>
+        </div>
+
+        <div class="border-l-2 border-indigo-600 pl-4">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100 mb-1">Effectif</h3>
+          <p class="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400">2 à 8</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Participants par séance pour préserver la qualité de l'accompagnement individuel.</p>
+        </div>
+
+        <div class="border-l-2 border-indigo-600 pl-4">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100 mb-1">Matériel</h3>
+          <p class="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400">100 % fourni</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pinceaux, bâtons d'encre de Chine, pierres à encre et papiers chinois mis à disposition.</p>
+        </div>
+
+        <div class="border-l-2 border-indigo-600 pl-4">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100 mb-1">Niveau requis</h3>
+          <p class="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400">Tous niveaux</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Aucune notion de langue chinoise ni de pratique artistique préalable n'est nécessaire.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Déroulement d'un cours -->
+    <section class="mt-16 max-w-4xl" aria-labelledby="session-heading">
+      <h2 id="session-heading" class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+        Comment se déroule une séance de calligraphie ?
+      </h2>
+      <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
+        La calligraphie chinoise traditionnelle n'est pas un simple exercice d'écriture : c'est un art du geste, de la posture et du souffle. Chaque séance est rythmée de manière progressive pour vous permettre de vous détendre et de canaliser votre attention.
+      </p>
+
+      <div class="space-y-6">
+        <div class="flex gap-4 items-start">
+          <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
+            1
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              La posture corporelle et la concentration
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1 leading-relaxed">
+              Une assise équilibrée favorise l'ouverture de la cage thoracique et la détente des épaules. L'immobilité attentive précède l'élan créatif.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start">
+          <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
+            2
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              La préparation de l'encre de Chine
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1 leading-relaxed">
+              Frotter le bâton d'encre sur la pierre avec un peu d'eau est un rituel d'intériorisation. On observe la texture et la profondeur du noir qui naît sous nos yeux.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start">
+          <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
+            3
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Le maniement du pinceau et les traits fondamentaux
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1 leading-relaxed">
+              Tenue verticale du pinceau, pression, levée, terminaison : vous apprenez les 8 traits fondamentaux (le caractère <em>Yong</em> 永) qui composent l'ensemble de l'écriture chinoise.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start">
+          <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
+            4
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              L'exploration des styles classiques
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1 leading-relaxed">
+              Du style régulier (<em>Kaishu</em>, clair et structuré) au style courant (<em>Xingshu</em>, fluide et expressif) puis cursif (<em>Caoshu</em>), chacun avance selon sa sensibilité.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Première séance d'essai -->
+    <section class="mt-16 p-8 bg-indigo-50/70 dark:bg-gray-800 rounded-2xl border border-indigo-200 dark:border-indigo-900/60 max-w-4xl" aria-labelledby="trial-heading">
+      <h2 id="trial-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+        Comment se passe votre première séance ?
+      </h2>
+      <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-4">
+        Il est tout à fait possible de venir participer à un premier cours sans engagement pour faire l'expérience du maniement du pinceau et rencontrer Christophe Desmur.
+      </p>
+      <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300 mb-6">
+        <li class="flex items-center gap-2">
+          <span class="text-indigo-600 dark:text-indigo-400 font-bold">✓</span> Venez simplement dans une tenue confortable.
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-indigo-600 dark:text-indigo-400 font-bold">✓</span> Tout le matériel est prêt sur votre table à votre arrivée.
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-indigo-600 dark:text-indigo-400 font-bold">✓</span> Christophe adapte ses explications dès vos premiers coups de pinceau.
+        </li>
+      </ul>
+
+      <div class="flex flex-wrap gap-4 items-center">
+        <a
+          href="mailto:christophe.desmur@orange.fr?subject=Demande%20de%20première%20séance%20d'essai"
+          class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg text-sm transition">
+          Prendre contact pour une séance d'essai
+        </a>
+        <a
+          href="tel:+33472078861"
+          class="px-5 py-3 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg text-sm hover:bg-white dark:hover:bg-gray-700 transition">
+          📞 04 72 07 88 61
+        </a>
+      </div>
+    </section>
+
+    <!-- Liens connexes -->
+    <div class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <p class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400 mb-4">Autres formules d'apprentissage</p>
+      <div class="flex flex-wrap gap-3 text-sm">
+        <a href="/cours-individuel-a-domicile" class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">
+          Cours individuels à domicile
+        </a>
+        <a href="/tarifs" class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">
+          Tous les tarifs
+        </a>
+        <a href="/le-calligraphe" class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">
+          Découvrir le professeur Christophe Desmur
+        </a>
+        <a href="/galerie" class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">
+          Galerie des œuvres
+        </a>
+      </div>
+    </div>
+
+    <Cta />
+  </Container>
+</Layout>

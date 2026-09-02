@@ -87,31 +87,44 @@ const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Numbe
       { "@type": "EducationalOccupationalCredential", "name": "DEUG de langue et civilisation coréennes" }
     ]
   })} />
-  <main class="mx-auto max-w-[735px] mt-14">
-    <h1 class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">
+  <div class="mx-auto max-w-[800px] mt-6">
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span class="text-gray-500">Découvrir</span></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-800 dark:text-gray-200 font-medium">Christophe Desmur</li>
+      </ol>
+    </nav>
+
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight text-gray-900 dark:text-gray-100">
       Christophe Desmur, calligraphe et traducteur littéraire du chinois
     </h1>
-    <p class="text-lg mt-4 text-gray-600">
+    <p class="text-lg mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
       Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques.
     </p>
 
-    <p>
-      Christophe Desmur, lyonnais de naissance, calligraphe, passionné par les langues et cultures du monde, je suis titulaire :
+    <p class="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+      Lyonnais de naissance, calligraphe passionné par les cultures du monde et la transmission, je suis titulaire :
     </p>
-    <ul class="list-disc pl-5">
-      <li>d’un diplôme d’étude universitaire générale en langue et civilisation coréennes&nbsp;;</li>
+    <ul class="list-disc pl-5 my-3 space-y-1 text-gray-700 dark:text-gray-300">
+      <li>d’un diplôme d’étude universitaire générale (DEUG) en langue et civilisation coréennes&nbsp;;</li>
       <li>d’une maîtrise de langue et civilisation chinoises&nbsp;;</li>
       <li>d’un master de traduction littéraire du chinois vers le français.</li>
     </ul>
 
     <img
       src="/assets/christophe-desmur-calligraphie-chinoise.webp"
-      alt="Christophe Desmur en train de calligraphier"
-      class="w-full max-w-[800px] h-auto"
-    >
+      alt="Christophe Desmur en train de calligraphier au pinceau"
+      width="800"
+      height="533"
+      loading="eager"
+      class="w-full max-w-[800px] h-auto rounded-xl shadow-md my-6"
+    />
 
-    <p>
-      Je donne des cours de calligraphie et des cours de chinois individuels ou en groupe, aux enfants comme aux adultes, et j’anime également des stages (10 élèves maximum).
+    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+      J'enseigne la calligraphie chinoise traditionnelle à Lyon sous plusieurs formes : en <a href="/cours-collectifs" class="text-indigo-600 dark:text-indigo-400 underline font-medium">cours collectifs hebdomadaires</a> au Dojo Zen et à la boutique Miroirs du Ciel (Croix-Rousse), en <a href="/cours-individuel-a-domicile" class="text-indigo-600 dark:text-indigo-400 underline font-medium">cours particuliers à domicile</a>, ainsi que lors d'<a href="/ecoles-primaires" class="text-indigo-600 dark:text-indigo-400 underline font-medium">ateliers scolaires</a> et d'interventions en entreprise. Je réalise également des <a href="/galerie" class="text-indigo-600 dark:text-indigo-400 underline font-medium">œuvres originales à l'encre de Chine</a> sur commande.
     </p>
 
     <h2 class="text-4xl lg:text-3xl font-bold text-gray-600 mt-10">Ateliers & interventions</h2>
@@ -162,7 +175,7 @@ const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Numbe
         </ul>
       </section>
     ))}
-  </main>
+  </div>
 
   <script>
     const yearButtons = document.querySelectorAll(".year-btn");

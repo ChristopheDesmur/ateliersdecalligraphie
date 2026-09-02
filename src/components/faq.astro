@@ -1,56 +1,134 @@
 ---
-const faqs = [
+// Faq.astro - FAQ catégorisée et balisée Schema.org pour l'optimisation locale et la clarté utilisateur
+
+interface FaqItem {
+  question: string;
+  answer: string;
+  links?: { text: string; href: string }[];
+}
+
+interface FaqCategory {
+  category: string;
+  items: FaqItem[];
+}
+
+const faqCategories: FaqCategory[] = [
   {
-    question: "Faut-il avoir des notions de chinois pour pratiquer la calligraphie ?",
-    answer: "Non, aucune connaissance préalable du chinois n'est requise. La calligraphie chinoise est avant tout un art gestuel et visuel. Vous apprendrez progressivement à reconnaître et tracer des caractères, des pictogrammes aux idéogrammes, sans avoir besoin de parler la langue.",
+    category: "Débuter la calligraphie",
+    items: [
+      {
+        question: "Faut-il parler ou comprendre le chinois pour pratiquer la calligraphie ?",
+        answer: "Non, aucune connaissance préalable du chinois n'est nécessaire. La calligraphie chinoise est avant tout un art du geste, de la respiration et de l'espace. Vous apprendrez progressivement à reconnaître et tracer les sinogrammes, des pictogrammes archaïques aux caractères complets, sans avoir besoin de parler la langue.",
+      },
+      {
+        question: "Les cours collectifs hebdomadaires sont-ils ouverts aux grands débutants ?",
+        answer: "Absolument. Les cours accueillent tous les niveaux, des néophytes complets aux pratiquants confirmés. Chaque élève progresse à son propre rythme grâce à l'accompagnement individualisé de Christophe Desmur au sein du petit groupe (2 à 8 participants).",
+      },
+      {
+        question: "Quel matériel faut-il apporter lors des cours ?",
+        answer: "Tout le matériel est mis à votre disposition sur place : pinceaux en poils naturels, bâtons d'encre de Chine traditionnelle, pierres à encre et papiers chinois absorbants. Vous venez simplement dans une tenue confortable, sans aucun achat préalable.",
+      },
+      {
+        question: "Comment se déroule une première séance d'essai ?",
+        answer: "Vous pouvez réserver une séance d'essai sans engagement sur le créneau du lundi soir (Dojo Zen) ou du mercredi matin (Miroirs du Ciel). Vous découvrirez la tenue du pinceau, la préparation de l'encre à la pierre et le tracé de vos premiers traits fondamentaux.",
+      },
+    ],
   },
   {
-    question: "Quel matériel faut-il apporter aux cours ?",
-    answer: "Tout le matériel est fourni lors des ateliers collectifs et des interventions : pinceaux, encre de Chine, pierre à encre et papier chinois. Il vous suffit de venir avec l'envie d'apprendre.",
+    category: "Lieux, Horaires & Tarifs à Lyon",
+    items: [
+      {
+        question: "Où et quand ont lieu les cours réguliers de calligraphie à Lyon ?",
+        answer: "Les cours se déroulent dans le 4e arrondissement de Lyon (Croix-Rousse) sur deux créneaux : les lundis soirs de 18 h 30 à 20 h 30 au Dojo Zen de Lyon (11, rue Dumenge) et les mercredis matin de 10 h à 12 h à la boutique Miroirs du Ciel (9, rue de Belfort).",
+      },
+      {
+        question: "Quels sont les tarifs des cours collectifs et particuliers ?",
+        answer: "Les cours collectifs réguliers sont à 80 € par trimestre après réduction d'impôts. Les cours particuliers à domicile sont à 40 € TTC / heure et bénéficient de 50 % de crédit d'impôt (agrément Coop A Dom n° 2006-1-42.10), soit 20 € net de l'heure.",
+      },
+      {
+        question: "Proposez-vous des cours particuliers à domicile à Lyon ?",
+        answer: "Oui, Christophe Desmur se déplace à votre domicile sur Lyon et l'ensemble de la métropole lyonnaise avec tout le matériel. Les horaires et la fréquence sont entièrement flexibles selon vos disponibilités.",
+      },
+    ],
   },
   {
-    question: "À partir de quel âge peut-on pratiquer la calligraphie chinoise ?",
-    answer: "La calligraphie s'adresse à tous les âges. Des ateliers sont proposés pour les enfants dès l'école primaire (à partir de 6 ans), pour les adolescents en collège et lycée, pour les adultes de tous niveaux, et jusqu'aux seniors en maison de retraite et ÉPHAD.",
+    category: "Styles, Pratique & Culture",
+    items: [
+      {
+        question: "Quelle est la différence entre la calligraphie chinoise et le shodō japonais ?",
+        answer: "La calligraphie chinoise (shūfǎ 书法) est la tradition originelle, pratiquée depuis plus de 3 000 ans en Chine. Le shodō japonais en est directement issu et partage les mêmes outils (pinceau, encre de Chine, pierre, papier). À Lyon, Christophe Desmur enseigne la tradition classique chinoise et les styles majeurs des grandes dynasties Tang et Song.",
+      },
+      {
+        question: "Quels styles calligraphiques sont abordés au cours des séances ?",
+        answer: "L'apprentissage débute généralement par le style régulier (Kaishu 楷书), qui pose la structure géométrique et l'équilibre des traits. Les pratiquants explorent ensuite le style courant (Xingshu 行书, plus fluide et cursif) et le style cursif (Caoshu 草书), selon leur rythme et leurs affinités.",
+      },
+    ],
   },
   {
-    question: "Où ont lieu les cours collectifs à Lyon ?",
-    answer: "Les cours collectifs se tiennent à deux endroits : au dojo zen de Lyon, 11 rue Dumenge (les lundis soirs de 18 h 30 à 20 h 30), et à la boutique Miroirs du Ciel, 9 rue de Belfort (les mercredis matin de 10 h à 12 h).",
-  },
-  {
-    question: "Proposez-vous des cours particuliers à domicile ?",
-    answer: "Oui, des cours particuliers sont disponibles, y compris à domicile. Ces séances individuelles permettent un apprentissage entièrement adapté à votre rythme, à votre niveau et à vos objectifs personnels.",
-  },
-  {
-    question: "Quelle est la différence entre la calligraphie chinoise et le shodō japonais ?",
-    answer: "La calligraphie chinoise (书法, shūfǎ) est l'art originel, pratiqué depuis plus de 3 000 ans en Chine. Le shodō japonais en est directement issu et partage les mêmes outils (pinceau, encre de Chine). À Lyon, Christophe Desmur enseigne la calligraphie chinoise traditionnelle dans le style des grandes dynasties Tang et Song.",
-  },
-  {
-    question: "Les cours collectifs sont-ils ouverts aux débutants ?",
-    answer: "Absolument. Les cours collectifs accueillent tous les niveaux, des débutants complets aux pratiquants confirmés. Chaque participant progresse à son propre rythme grâce à un accompagnement personnalisé au sein du groupe.",
-  },
-  {
-    question: "Comment se déroule une intervention en école, entreprise ou maison de retraite ?",
-    answer: "Christophe Desmur se déplace directement dans vos locaux avec tout le matériel nécessaire. L'atelier dure de 1 à 3 heures selon le format choisi et peut accueillir de 6 à 30 participants. Une prise de contact préalable permet d'adapter le programme à votre public.",
+    category: "Interventions pour groupes & collectivités",
+    items: [
+      {
+        question: "À partir de quel âge peut-on pratiquer la calligraphie chinoise ?",
+        answer: "La calligraphie s'adresse à tous les âges : enfants dès l'école primaire (à partir de 6 ans, avec initiation au Sumi-e et aux pictogrammes), collégiens et lycéens, adultes de tous âges, et seniors en maisons de retraite et EHPAD.",
+      },
+      {
+        question: "Comment organiser un atelier en école, collège, lycée ou université ?",
+        answer: "Christophe Desmur se déplace directement dans votre établissement scolaire à Lyon et dans la région avec tout le matériel pour la classe. Le format varie de 1 h à 3 h par session (60 € HT/h). Une prise de contact préalable permet de caler le projet pédagogique.",
+      },
+      {
+        question: "Proposez-vous des ateliers pour les comités d'entreprise et les résidences seniors ?",
+        answer: "Oui. En entreprise, des ateliers d'1 h à 3 h (90 € HT/h) sont organisés sur la pause méridienne (12 h - 14 h) ou lors de séminaires. En maison de retraite et EHPAD (60 € HT/h), des ateliers calmes de 2 h stimulent la motricité fine et la créativité des résidents.",
+      },
+    ],
   },
 ];
+
+const allQuestions = faqCategories.flatMap((cat) => cat.items);
 ---
 
-<section class="mt-16 max-w-3xl mx-auto">
-  <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-8">Questions fréquentes</h2>
-  <dl class="space-y-6">
-    {faqs.map((faq) => (
-      <div class="border-b border-gray-200 dark:border-gray-600 pb-6">
-        <dt class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{faq.question}</dt>
-        <dd class="text-gray-600 dark:text-gray-300 leading-relaxed">{faq.answer}</dd>
+<section class="mt-20 max-w-4xl mx-auto" aria-labelledby="faq-main-heading">
+  <div class="text-center mb-12">
+    <span class="text-indigo-600 dark:text-indigo-400 uppercase tracking-widest text-xs font-semibold">
+      Foire aux questions
+    </span>
+    <h2 id="faq-main-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-2">
+      Questions fréquentes sur les cours et ateliers
+    </h2>
+    <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base mt-2">
+      Retrouvez les réponses aux interrogations les plus fréquentes des futurs élèves et organisateurs.
+    </p>
+  </div>
+
+  <div class="space-y-10">
+    {faqCategories.map((group) => (
+      <div class="bg-gray-50/70 dark:bg-gray-800/40 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700">
+        <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
+          {group.category}
+        </h3>
+
+        <dl class="space-y-6">
+          {group.items.map((faq) => (
+            <div class="pb-5 last:pb-0 border-b border-gray-200/60 dark:border-gray-700/60 last:border-b-0">
+              <dt class="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                {faq.question}
+              </dt>
+              <dd class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
+                {faq.answer}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     ))}
-  </dl>
+  </div>
 </section>
 
+<!-- Données structurées FAQPage Schema.org -->
 <script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map((faq) => ({
+  "mainEntity": allQuestions.map((faq) => ({
     "@type": "Question",
     "name": faq.question,
     "acceptedAnswer": {

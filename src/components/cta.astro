@@ -1,28 +1,67 @@
 ---
+// Cta.astro - Section de contact direct et conversion sans intermédiaire
 ---
 
-<section class="mt-20 mb-8 rounded-2xl bg-gray-900 text-white px-8 py-14 text-center">
-  <h2 class="text-3xl lg:text-4xl font-bold mb-4">
-    Prêt à découvrir la calligraphie chinoise à Lyon ?
-  </h2>
-  <p class="text-gray-300 text-lg mb-8 max-w-xl mx-auto">
-    Premier contact sans engagement. Christophe Desmur répond personnellement à toutes les demandes.
-  </p>
-  <div class="flex flex-wrap justify-center gap-4">
-    <a
-      href="mailto:christophe.desmur@orange.fr"
-      class="px-7 py-3 bg-white text-gray-900 font-semibold rounded hover:bg-gray-100 transition">
-      Envoyer un e-mail
-    </a>
-    <a
-      href="tel:+33472078861"
-      class="px-7 py-3 border-2 border-white text-white font-semibold rounded hover:bg-white hover:text-gray-900 transition">
-      04 72 07 88 61
-    </a>
-    <a
-      href="tel:+33769941643"
-      class="px-7 py-3 border-2 border-white text-white font-semibold rounded hover:bg-white hover:text-gray-900 transition">
-      07 69 94 16 43
-    </a>
+<section class="mt-20 mb-12 rounded-3xl bg-gray-900 text-white p-8 sm:p-12 lg:p-14 border border-gray-800" aria-labelledby="cta-heading">
+  <div class="max-w-3xl mx-auto text-center">
+    <span class="text-indigo-400 uppercase tracking-widest text-xs font-semibold">
+      Contact direct & Bienveillant
+    </span>
+    <h2 id="cta-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold mt-2 text-white">
+      Prêt à découvrir la calligraphie chinoise à Lyon ?
+    </h2>
+    <p class="text-gray-300 text-base sm:text-lg mt-3 leading-relaxed">
+      Christophe Desmur répond personnellement à toutes vos demandes d'information ou de première séance d'essai.
+    </p>
+
+    <!-- Guide des informations utiles à préciser -->
+    <div class="mt-8 p-5 rounded-xl bg-gray-800/80 border border-gray-700/80 text-left text-xs sm:text-sm text-gray-300">
+      <p class="font-semibold text-white mb-2 flex items-center gap-1.5">
+        <span>ℹ️</span> Ce que vous pouvez préciser lors de votre message ou appel :
+      </p>
+      <ul class="grid sm:grid-cols-2 gap-2 text-gray-300">
+        <li class="flex items-start gap-2">
+          <span class="text-indigo-400">•</span>
+          <span><strong>Particulier :</strong> votre créneau préféré (lundi soir Dojo Zen, mercredi matin Miroirs du Ciel ou à domicile).</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-indigo-400">•</span>
+          <span><strong>Établissement / Groupe :</strong> école, collège, lycée, université, entreprise ou EHPAD.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-indigo-400">•</span>
+          <span><strong>Effectif estimé :</strong> nombre de personnes ou classes concernées.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-indigo-400">•</span>
+          <span><strong>Période ou date souhaitée :</strong> créneaux envisagés sur Lyon ou la région.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Actions de contact cliquables -->
+    <div class="mt-8 flex flex-wrap justify-center items-center gap-4">
+      <a
+        href="mailto:christophe.desmur@orange.fr?subject=Demande%20d'information%20cours%20de%20calligraphie"
+        class="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-xl text-sm transition shadow-sm flex items-center gap-2">
+        <span>✉️</span> Envoyer un e-mail à Christophe
+      </a>
+      
+      <a
+        href="tel:+33472078861"
+        class="px-5 py-3.5 bg-white/10 hover:bg-white/20 text-white font-medium rounded-xl text-sm transition border border-white/20 flex items-center gap-2">
+        <span>📞</span> 04 72 07 88 61
+      </a>
+      
+      <a
+        href="tel:+33769941643"
+        class="px-5 py-3.5 bg-white/10 hover:bg-white/20 text-white font-medium rounded-xl text-sm transition border border-white/20 flex items-center gap-2">
+        <span>📱</span> 07 69 94 16 43
+      </a>
+    </div>
+
+    <p class="text-xs text-gray-400 mt-5">
+      Adresse des cours réguliers : Dojo Zen (11, rue Dumenge, 69004 Lyon) & Miroirs du Ciel (9, rue de Belfort, 69004 Lyon).
+    </p>
   </div>
 </section>

@@ -1,50 +1,67 @@
-@---
-// InfoBox.astro
+---
+// InfoBox.astro - Encadré récapitulatif des cours réguliers à Lyon et contact
 ---
 
-<div class="bg-gray-100 dark:bg-gray-700 rounded-2xl p-6 sm:p-8 md:p-9 shadow-md max-w-full w-full md:w-80 mx-auto">
-  <div class="mt-4">
-    <h1 class="text-lg sm:text-xl font-semibold mb-2">
-      Cours collectif de calligraphie chinoise au dojo zen de Lyon
-    </h1>
-      <p>11, rue Dumenge, Lyon</p>
-      <p>Les lundis soirs de 18&nbsp;h&nbsp;30 à 20&nbsp;h&nbsp;30</p>
+<div class="bg-gray-50 dark:bg-gray-800/80 rounded-2xl p-6 sm:p-7 border border-gray-200 dark:border-gray-700 shadow-sm max-w-full w-full mx-auto text-sm">
+  <div>
+    <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
+      Cours collectifs hebdomadaires
+    </h2>
+    <p class="text-xs font-medium uppercase tracking-wider text-indigo-700 dark:text-indigo-400 mb-3">
+      Lyon 4e — Croix-Rousse
+    </p>
 
-    <div class="mt-2">
+    <div class="space-y-4">
+      <div class="border-l-2 border-indigo-600 dark:border-indigo-400 pl-3">
+        <h3 class="font-semibold text-gray-900 dark:text-gray-100">Dojo Zen de Lyon</h3>
+        <p class="text-gray-600 dark:text-gray-300">11, rue Dumenge, 69004 Lyon</p>
+        <p class="text-gray-800 dark:text-gray-200 font-medium mt-1">Lundis de 18&nbsp;h&nbsp;30 à 20&nbsp;h&nbsp;30</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Métro C — Arrêt Croix-Rousse ou Hénon</p>
+      </div>
 
-      <div class="w-full h-48 md:h-64 mt-2">
+      <div class="w-full h-44 mt-2 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         <iframe
-          class="w-full h-full border-0 rounded-lg"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2782.717423001606!2d4.831558576633833!3d45.7768530710809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eae2496297a7%3A0xcf33e8e7e6f48d44!2sZen%20Dojo!5e0!3m2!1sen!2sus!4v1756472471300!5m2!1sen!2sus"
+          class="w-full h-full border-0"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2782.717423001606!2d4.831558576633833!3d45.7768530710809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eae2496297a7%3A0xcf33e8e7e6f48d44!2sZen%20Dojo!5e0!3m2!1sfr!2sfr!4v1756472471300!5m2!1sfr!2sfr"
           allowfullscreen=""
           loading="lazy"
+          title="Plan d'accès Google Maps au Dojo Zen de Lyon, 11 rue Dumenge"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
+
+      <hr class="my-4 border-gray-200 dark:border-gray-700" />
+
+      <div class="border-l-2 border-indigo-600 dark:border-indigo-400 pl-3">
+        <h3 class="font-semibold text-gray-900 dark:text-gray-100">Boutique Miroirs du Ciel</h3>
+        <p class="text-gray-600 dark:text-gray-300">9, rue de Belfort, 69004 Lyon</p>
+        <p class="text-gray-800 dark:text-gray-200 font-medium mt-1">Mercredis de 10&nbsp;h à 12&nbsp;h</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">Plateau de la Croix-Rousse</p>
+      </div>
     </div>
 
-  <hr class="my-6 dark:border-gray-500" />
+    <hr class="my-5 border-gray-200 dark:border-gray-700" />
 
-    <h1 class="text-lg sm:text-xl font-semibold mb-2">
-      Atelier de calligraphie chinoise à la boutique Miroirs du Ciel
-    </h1>
-    <p>9, rue de Belfort, Lyon</p>
-    <p>Les mercredis matin de 10 à 12&nbsp;h</p>
+    <h2 class="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">Contacter Christophe Desmur</h2>
+    <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">Réponse directe pour toute question ou pour essayer un cours.</p>
 
-    <hr class="my-6 dark:border-gray-500" />
-
-    <h1 class="text-lg sm:text-xl font-semibold mb-3">Contact</h1>
     <a
       href="mailto:christophe.desmur@orange.fr"
-      class="block w-full text-center px-4 py-2 bg-gray-900 text-white font-semibold rounded hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-gray-300 transition mb-3">
+      class="block w-full text-center px-4 py-2.5 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white transition mb-3">
       Envoyer un e-mail
     </a>
-    <a href="tel:+33472078861" class="block text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white py-1">
-      04 72 07 88 61
-    </a>
-    <a href="tel:+33769941643" class="block text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white py-1">
-      07 69 94 16 43
-    </a>
 
+    <div class="space-y-1.5 pt-1">
+      <a href="tel:+33472078861" class="flex items-center gap-2 text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 py-1 transition font-medium">
+        <span aria-hidden="true">📞</span> 04 72 07 88 61
+      </a>
+      <a href="tel:+33769941643" class="flex items-center gap-2 text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 py-1 transition font-medium">
+        <span aria-hidden="true">📱</span> 07 69 94 16 43
+      </a>
     </div>
+
+    <div class="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400">
+      <p>Tous niveaux acceptés • Débutants bienvenus • Matériel complet fourni</p>
+    </div>
+  </div>
 </div>

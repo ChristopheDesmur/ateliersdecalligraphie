@@ -16,20 +16,28 @@ publishedBlogEntries.sort(function (a, b) {
 });
 ---
 
-<Layout title="Blog" description="Articles sur la calligraphie chinoise : histoire, techniques, traductions littéraires et actualités des ateliers de Christophe Desmur, calligraphe à Lyon.">
+<Layout title="Articles & Traductions littéraires" description="Articles sur la calligraphie chinoise : histoire, techniques, traductions littéraires et écrits de Christophe Desmur, calligraphe à Lyon.">
   <Container>
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-800 dark:text-gray-200 font-medium">Articles & Traductions</li>
+      </ol>
+    </nav>
+
     <Sectionhead>
-      <Fragment slot="title">Articles</Fragment>
+      <Fragment slot="title">Articles & Traductions</Fragment>
       <Fragment slot="desc">
-        Calligraphie chinoise, traductions littéraires et réflexions sur la culture asiatique par Christophe Desmur.
+        Calligraphie chinoise, philosophie du geste, traductions d'auteurs chinois (Lu Yin, Zeng Jixin) et écrits par Christophe Desmur.
       </Fragment>
     </Sectionhead>
-    <main class="mt-16">
+    <section class="mt-16">
       <ul class="grid gap-16 max-w-4xl mx-auto">
         {
           publishedBlogEntries.map((blogPostEntry, index) => (
             <li>
-              <a href={`/blog/${blogPostEntry.slug}`}>
+              <a href={`/${blogPostEntry.slug}`}>
                 <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
                   <Picture
                     src={blogPostEntry.data.image.src}
@@ -58,7 +66,7 @@ publishedBlogEntries.sort(function (a, b) {
                       <time
                         class="text-gray-400"
                         datetime={blogPostEntry.data.publishDate.toISOString()}>
-                        {blogPostEntry.data.publishDate.toDateString()}
+                        {blogPostEntry.data.publishDate.toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" })}
                       </time>
                     </div>
                   </div>
@@ -68,6 +76,6 @@ publishedBlogEntries.sort(function (a, b) {
           ))
         }
       </ul>
-    </main>
+    </section>
   </Container>
 </Layout>

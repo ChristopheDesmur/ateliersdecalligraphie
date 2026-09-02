@@ -100,14 +100,28 @@ const eventsByYear = Object.entries(
     "inLanguage": "fr",
     "offers": { "@type": "Offer", "price": "60", "priceCurrency": "EUR", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "60", "priceCurrency": "EUR", "unitText": "heure" } }
   })} />
-  <main class="mx-auto max-w-[735px] mt-14">
-    <h1 class="text-3xl font-bold mb-6">
-      Ateliers de calligraphie pour le bien-être des seniors
+  <div class="mx-auto max-w-[800px] mt-6">
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span class="text-gray-500">Pour les groupes</span></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-800 dark:text-gray-200 font-medium">Maisons de retraite & EHPAD</li>
+      </ol>
+    </nav>
+
+    <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+      Ateliers de calligraphie chinoise pour maisons de retraite et résidences seniors
     </h1>
 
-    <h2 class="text-2xl font-semibold mb-4">
-      Mes formats d'atelier pour les maisons de retraite et Éhpad
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
+      Mes formats d'atelier pour les maisons de retraite et EHPAD
     </h2>
+
+    <p class="mb-6 text-gray-600 dark:text-gray-300 leading-relaxed">
+      Christophe Desmur se déplace directement dans vos établissements à Lyon et dans le Rhône avec tout le matériel adapté. La pratique de la calligraphie au pinceau offre aux résidents une parenthèse apaisante, valorisante et conviviale, stimulant en douceur la motricité fine et la mémoire des formes.
+    </p>
 
     <div class="overflow-x-auto">
       <table class="min-w-full border border-gray-300 divide-y divide-gray-200 dark:border-gray-600 dark:divide-gray-600">
@@ -186,7 +200,7 @@ const eventsByYear = Object.entries(
     ))}
 
     <RelatedPages current="/maisons-de-retraite" />
-  </main>
+  </div>
 
   <script>
     const yearButtons = document.querySelectorAll(".year-btn");

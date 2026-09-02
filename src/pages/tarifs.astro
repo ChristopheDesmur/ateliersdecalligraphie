@@ -1,0 +1,259 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import Cta from "@/components/cta.astro";
+
+const rates = [
+  {
+    title: "Cours collectifs hebdomadaires",
+    subtitle: "Dojo Zen & Miroirs du Ciel — Lyon 4e",
+    badge: "Formule recommandée",
+    price: "80 €",
+    period: "par trimestre",
+    detail: "Après réduction d'impôts",
+    features: [
+      "Séances régulières de 1 h 30 à 2 h par semaine",
+      "Lundi soir (Dojo Zen) ou mercredi matin (Miroirs du Ciel)",
+      "Tout le matériel fourni (pinceaux, encre, papier, pierre)",
+      "Petit groupe de 2 à 8 participants pour un suivi personnalisé",
+      "Débutants bienvenus : aucun prérequis de chinois ou de dessin",
+      "Possibilité d'une séance d'essai sans engagement",
+    ],
+    ctaText: "Découvrir les cours collectifs",
+    ctaLink: "/cours-collectifs",
+    featured: true,
+  },
+  {
+    title: "Cours individuels à domicile",
+    subtitle: "Lyon et agglomération lyonnaise",
+    badge: "50 % de crédit d'impôt",
+    price: "40 €",
+    period: "TTC / heure",
+    detail: "Soit 20 € net après crédit d'impôt",
+    features: [
+      "Apprentissage entièrement personnalisé à votre rythme",
+      "Agrément Coop A Dom (n° 2006-1-42.10 — services à domicile)",
+      "50 % de réduction ou crédit d'impôt (art. 199 sexdecies du CGI)",
+      "Tout le matériel est apporté à votre domicile",
+      "Horaires et fréquence flexibles selon vos disponibilités",
+      "Possibilité de combiner calligraphie et initiation au chinois",
+    ],
+    ctaText: "En savoir plus sur les cours à domicile",
+    ctaLink: "/cours-individuel-a-domicile",
+    featured: false,
+  },
+  {
+    title: "Établissements scolaires & Universités",
+    subtitle: "Primaires, collèges, lycées, enseignement supérieur",
+    badge: "Sur site",
+    price: "60 €",
+    period: "HT / heure",
+    detail: "Tout le matériel de calligraphie fourni",
+    features: [
+      "Interventions sur le temps scolaire ou projets culturels",
+      "De 1 à 3 heures d'atelier par classe",
+      "De 6 à 30 participants selon le niveau scolaire",
+      "Découverte des pictogrammes, idéogrammes et tracé au pinceau",
+      "Atelier Sumi-e (dessin à l'encre) pour les plus jeunes",
+      "Christophe se déplace dans votre établissement à Lyon et région",
+    ],
+    ctaText: "Voir les formules scolaires",
+    ctaLink: "/ecoles-primaires",
+    featured: false,
+  },
+  {
+    title: "Comités d'entreprise & Séminaires",
+    subtitle: "CSE, entreprises et collectivités",
+    badge: "Cohésion & Bien-être",
+    price: "90 €",
+    period: "HT / heure",
+    detail: "Matériel complet inclus pour tous les salariés",
+    features: [
+      "Ateliers d'1 h à 3 h sur votre lieu de travail à Lyon",
+      "Format idéal sur la pause méridienne (12 h – 14 h) ou séminaire",
+      "Groupes de 6 à 12 collaborateurs par session",
+      "Déconnexion, concentration, détente et éveil artistique",
+      "Devis personnalisé selon le nombre de séances",
+    ],
+    ctaText: "Voir l'offre entreprise",
+    ctaLink: "/comites-entreprise",
+    featured: false,
+  },
+  {
+    title: "Résidences seniors & EHPAD",
+    subtitle: "Maisons de retraite et associations de retraités",
+    badge: "Activité apaisante",
+    price: "60 €",
+    period: "HT / heure",
+    detail: "Ateliers de 2 heures minimum",
+    features: [
+      "Activité valorisante adaptée au rythme de chacun",
+      "Stimulation de la motricité fine, du regard et de la mémoire",
+      "Moments de calme, d'échange et de convivialité",
+      "Groupes de 6 à 12 personnes",
+      "Matériel léger et sécurisant fourni intégralement",
+    ],
+    ctaText: "Voir l'offre maisons de retraite",
+    ctaLink: "/maisons-de-retraite",
+    featured: false,
+  },
+];
+---
+
+<Layout
+  title="Tarifs des cours et ateliers"
+  description="Tarifs transparents des cours de calligraphie chinoise à Lyon : cours collectifs (80 €/trimestre), cours particuliers avec crédit d'impôt 50 %, ateliers scolaires et entreprises.">
+
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify([
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "Cours collectif de calligraphie chinoise à Lyon",
+      "description": "Cours hebdomadaire de calligraphie chinoise au Dojo Zen et à la boutique Miroirs du Ciel à Lyon. Matériel fourni, tous niveaux.",
+      "url": "https://ateliersdecalligraphie.com/tarifs",
+      "provider": {
+        "@type": "Person",
+        "name": "Christophe Desmur",
+        "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+      },
+      "inLanguage": "fr",
+      "offers": {
+        "@type": "Offer",
+        "price": "80",
+        "priceCurrency": "EUR",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "80",
+          "priceCurrency": "EUR",
+          "unitText": "trimestre"
+        }
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "Cours particulier de calligraphie chinoise à domicile",
+      "description": "Cours individuel à domicile à Lyon, agréé service à la personne (50 % de crédit d'impôt).",
+      "url": "https://ateliersdecalligraphie.com/tarifs",
+      "provider": {
+        "@type": "Person",
+        "name": "Christophe Desmur",
+        "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+      },
+      "inLanguage": "fr",
+      "offers": {
+        "@type": "Offer",
+        "price": "40",
+        "priceCurrency": "EUR",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "40",
+          "priceCurrency": "EUR",
+          "unitText": "heure"
+        }
+      }
+    }
+  ])} />
+
+  <Container>
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-800 dark:text-gray-200 font-medium">Tarifs</li>
+      </ol>
+    </nav>
+
+    <div class="max-w-3xl mx-auto text-center">
+      <span class="text-indigo-600 dark:text-indigo-400 uppercase tracking-widest text-xs font-semibold">
+        Transparence & Simplicité
+      </span>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mt-2 text-gray-900 dark:text-gray-100">
+        Tarifs des cours et ateliers de calligraphie
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
+        Chaque formule est adaptée à votre public. Tout le matériel pédagogique (pinceaux en poils naturels, encre de Chine traditionnelle, pierres à encre et papier de riz) est systématiquement fourni par Christophe Desmur.
+      </p>
+    </div>
+
+    <!-- Grille des tarifs -->
+    <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {rates.map((rate) => (
+        <div
+          class={`flex flex-col justify-between rounded-2xl p-6 sm:p-8 transition border ${
+            rate.featured
+              ? "bg-indigo-50/50 dark:bg-gray-800 border-indigo-300 dark:border-indigo-500 shadow-md ring-2 ring-indigo-500/20"
+              : "bg-white dark:bg-gray-800/60 border-gray-200 dark:border-gray-700 shadow-xs hover:shadow-md"
+          }`}>
+          <div>
+            <div class="flex justify-between items-start gap-2 mb-2">
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                {rate.badge}
+              </span>
+            </div>
+
+            <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mt-2">
+              {rate.title}
+            </h2>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              {rate.subtitle}
+            </p>
+
+            <div class="mt-5 pb-5 border-b border-gray-200 dark:border-gray-700">
+              <div class="flex items-baseline gap-1.5">
+                <span class="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100">
+                  {rate.price}
+                </span>
+                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                  {rate.period}
+                </span>
+              </div>
+              <p class="text-xs text-indigo-700 dark:text-indigo-400 font-medium mt-1">
+                {rate.detail}
+              </p>
+            </div>
+
+            <ul class="mt-6 space-y-3 text-sm text-gray-700 dark:text-gray-300">
+              {rate.features.map((feature) => (
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-4 h-4 text-indigo-600 dark:text-indigo-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="mt-8 pt-4">
+            <a
+              href={rate.ctaLink}
+              class={`block w-full text-center py-2.5 px-4 rounded-lg font-medium text-sm transition ${
+                rate.featured
+                  ? "bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm"
+                  : "bg-gray-900 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white"
+              }`}>
+              {rate.ctaText}
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Note d'information fiscale et légale -->
+    <div class="max-w-4xl mx-auto mt-16 p-6 sm:p-8 bg-gray-50 dark:bg-gray-800/60 rounded-2xl border border-gray-200 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-300">
+      <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">
+        Conditions et déductions fiscales
+      </h3>
+      <p class="leading-relaxed mb-3">
+        <strong>Cours particuliers à domicile :</strong> Dispensés dans le cadre de la société coopérative de services à domicile <em>Coop A Dom</em> (agrément n° 2006-1-42.10). Conformément à l'article 199 sexdecies du Code Général des Impôts, vous bénéficiez d'une réduction ou d'un crédit d'impôt de 50 % sur les sommes versées pour les cours particuliers à domicile (hors soutien scolaire).
+      </p>
+      <p class="leading-relaxed">
+        <strong>Interventions pour structures et collectivités :</strong> Les tarifs s'entendent hors taxes. Tout le matériel spécifique (papiers spéciaux, encre, pinceaux chinois fins et larges, feutres sous-main) est fourni et transporté par l'intervenant.
+      </p>
+    </div>
+
+    <Cta />
+  </Container>
+</Layout>

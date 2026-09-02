@@ -21,19 +21,30 @@ L’amplitude horaire idéale pour un **atelier de groupe** de calligraphie est 
 
 ## Tarifs et conditions des cours
 
-Cours de 1 h 30 par semaine : 80 € par trimestre après réduction d’impôts.
+- **Cours collectifs réguliers pour particuliers à Lyon :** Séances hebdomadaires de 1 h 30 à 2 h au Dojo Zen et à la boutique Miroirs du Ciel (Croix-Rousse). **80 € par trimestre** après réduction d’impôts. [Découvrir les cours collectifs à Lyon &rarr;](/cours-collectifs)
+- **Interventions pour collectivités, associations, scolaires et entreprises :** De 60 € HT/h à 90 € HT/h selon la formule.
 
-Le coût horaire de la prestation est de 50 € HT pour les collectivités, associations et entreprises.
+---
 
+## Choisissez votre format d'atelier en groupe
 
-<div class="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+<div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
 
-  <!-- 1. Lien existant -->
-  <a href="ecoles-primaires" class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-    <img src="/assets/cours-calligraphie-ecoles-primaires.webp" alt="Atelier de calligraphie chinoise en groupe à Lyon, participants autour d’une table." class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+  <!-- 0. Cours collectifs réguliers -->
+  <a href="/cours-collectifs" class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition border border-indigo-200">
+    <img src="/assets/calligraphie-cours.webp" alt="Cours collectifs de calligraphie chinoise au Dojo Zen de Lyon" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
     <div class="p-3 bg-white text-center">
-      <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">Ateliers de calligraphie et culture chinoise pour enfants</h3>
-      <p class="text-sm text-gray-600 mt-1">Atelier de groupe de calligraphie chinoise pour 2 à 8 personnes.</p>
+      <h3 class="text-lg font-semibold text-gray-800 group-hover:text-indigo-600">Cours collectifs réguliers à Lyon (particuliers)</h3>
+      <p class="text-sm text-gray-600 mt-1">Lundi soir (Dojo Zen) ou mercredi matin (Miroirs du Ciel). Tous niveaux.</p>
+    </div>
+  </a>
+
+  <!-- 1. Écoles primaires -->
+  <a href="/ecoles-primaires" class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
+    <img src="/assets/cours-calligraphie-ecoles-primaires.webp" alt="Atelier de calligraphie chinoise pour enfants à Lyon" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+    <div class="p-3 bg-white text-center">
+      <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">Écoles primaires</h3>
+      <p class="text-sm text-gray-600 mt-1">Initiation aux pictogrammes et Sumi-e pour les enfants.</p>
     </div>
   </a>
 

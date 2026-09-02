@@ -110,18 +110,31 @@ const eventsByYear = Object.entries(grouped).sort(
     "inLanguage": "fr",
     "offers": { "@type": "Offer", "price": "60", "priceCurrency": "EUR", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "60", "priceCurrency": "EUR", "unitText": "heure" } }
   })} />
-  <main class="mx-auto max-w-[735px] mt-14">
-    <h1 class="text-3xl font-bold mb-6">
+  <div class="mx-auto max-w-[800px] mt-6">
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span class="text-gray-500">Pour les groupes</span></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-800 dark:text-gray-200 font-medium">Écoles primaires</li>
+      </ol>
+    </nav>
+
+    <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">
       Ateliers de calligraphie et culture chinoise pour enfants
     </h1>
 
-    <h2 class="text-2xl font-semibold mb-4">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
       Mes formats d'atelier pour les écoles primaires sur le temps scolaire
     </h2>
 
     <img
       src="/assets/cours-calligraphie-ecoles-primaires.webp"
       alt="Enfants pratiquant la calligraphie au pinceau en classe"
+      width="576"
+      height="384"
+      loading="lazy"
       class="w-full max-w-xl mb-6 rounded shadow"
     />
 
@@ -235,5 +248,5 @@ const eventsByYear = Object.entries(grouped).sort(
       });
     </script>
     <RelatedPages current="/ecoles-primaires" />
-  </main>
+  </div>
 </Base>

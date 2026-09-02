@@ -1,10 +1,10 @@
 ---
 title: "Calligraphie zen"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Découvrez la calligraphie zen et son histoire : quatorze siècles d'intimité entre l'art du pinceau et la pratique méditative du zen avec les maîtres traditionnels."
 image: {
-    src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie chinoise Lyon"
+    src: "/assets/calligraphie-zen.webp",
+    alt: "Calligraphie zen à l'encre de Chine sur papier de riz"
 }
 publishDate: "2022-11-07 15:39"
 category: "Art zen"

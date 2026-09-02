@@ -1,13 +1,13 @@
 ---
-title: "Présentation de l'auteur"
+title: "Présentation de Lu Yin (1899-1934)"
 draft: false
-snippet: "Cours individuels et privés de calligraphie chinoise et de chinois."
+snippet: "Biographie et engagement littéraire de l'écrivaine chinoise Lu Yin : émancipation féminine et mouvement du 4 mai 1919. Traduction et analyse par Christophe Desmur."
 image: {
-    src: "/assets/cours-calligraphie-ecoles-primaires.webp",
-    alt: "Calligraphie chinoise Lyon"
+    src: "/assets/lu-yin.webp",
+    alt: "Portrait de l'écrivaine chinoise Lu Yin"
 }
 publishDate: "2022-11-07 15:39"
-category: ""
+category: "Littérature chinoise"
 author: "Christophe Desmur"
 tags: ['calligraphie chinoise', 'Lu Yin', 'littérature chinoise', 'émancipation des femmes', 'mouvement du 4 mai', 'éducation en Chine', 'traditions familiales', 'révolution culturelle', 'patriotisme', 'Shanghai']
 ---

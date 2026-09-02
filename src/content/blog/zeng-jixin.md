@@ -11,8 +11,6 @@ category: "Littérature chinoise"
 author: "Christophe Desmur"
 tags: ['écrivain chinois', 'littérature chinoise', 'Zeng Jixin', 'Fujian', 'histoire', 'roman', 'culture chinoise', 'Amoy', 'écriture', 'mœurs']
 ---
-# Parcours littéraire et culturel de Zeng Jixin
-
 # Zeng Jixin : de paysan à écrivain reconnu
 
 Né en 1963 dans le district de Gong'an au Hubei, Zeng Jixin a mené successivement la vie de paysan, d'enseignant puis de cadre.
