@@ -63,19 +63,36 @@ rawAteliers.forEach(event => {
 // --- Sort years descending ---
 const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Number(a));
 
-// 1. Prochains ateliers (Saison 2026) : ateliers ponctuels programmés d'abord, puis cycles annuels
-const upcomingEvents = (ateliersByYear["2026"] || []).slice().sort((a, b) => {
-  const isAnnualCycleA = a.from.includes("-01-01") && (a.to || "").includes("-12-31");
-  const isAnnualCycleB = b.from.includes("-01-01") && (b.to || "").includes("-12-31");
-  if (isAnnualCycleA && !isAnnualCycleB) return 1;
-  if (!isAnnualCycleA && isAnnualCycleB) return -1;
-  return new Date(a.from) - new Date(b.from);
-});
+// Date de référence pour distinguer ateliers à venir et passés
+const now = new Date();
 
-// 2. Interventions récentes (Sélection de 6 événements représentatifs de 2025)
-const recentInterventions = (ateliersByYear["2025"] || [])
-  .filter(e => !e.multiYear)
-  .slice()
+// 1. Prochains ateliers & cycles en cours (to >= now)
+const upcomingEvents = rawAteliers
+  .filter(event => {
+    const to = event.to ? new Date(event.to) : new Date(event.from);
+    return to >= now;
+  })
+  .map(event => ({
+    ...event,
+    displayDate: formatDateFR(event.from, event.to),
+    isOngoingCycle: event.from.includes("-01-01") && (event.to || "").includes("-12-31")
+  }))
+  .sort((a, b) => {
+    if (!a.isOngoingCycle && b.isOngoingCycle) return -1;
+    if (a.isOngoingCycle && !b.isOngoingCycle) return 1;
+    return new Date(a.from) - new Date(b.from);
+  });
+
+// 2. Interventions récentes passées (to < now), triées par ordre antéchronologique (du plus récent au plus ancien)
+const recentInterventions = rawAteliers
+  .filter(event => {
+    const to = event.to ? new Date(event.to) : new Date(event.from);
+    return to < now;
+  })
+  .map(event => ({
+    ...event,
+    displayDate: formatDateFR(event.from, event.to)
+  }))
   .sort((a, b) => new Date(b.from) - new Date(a.from))
   .slice(0, 6);
 
@@ -418,50 +435,59 @@ const services = [
         <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-8">
           <div>
             <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-1">
-              Calendrier des ateliers
+              Calendrier & Formats
             </p>
             <h2 id="workshops-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100">
               Prochains ateliers
             </h2>
           </div>
           <span class="text-xs text-gray-500 dark:text-gray-400 font-medium">
-            Saison 2026 • Lyon et région
+            Saison {now.getFullYear()} • Lyon et région
           </span>
         </div>
 
         <!-- Clean chronological grid of upcoming events -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-          {upcomingEvents.map((event) => (
-            <div class="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between hover:border-gray-300 dark:hover:border-gray-600 transition">
-              <div>
-                <div class="flex items-center justify-between gap-2 mb-2">
-                  <time class="text-xs font-semibold uppercase tracking-wider text-indigo-800 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-md border border-indigo-100 dark:border-indigo-900/40" set:html={event.displayDate} />
-                  {event.multiYear && (
-                    <span class="text-[11px] text-gray-500 dark:text-gray-400 font-medium">Cycle annuel</span>
-                  )}
+        {upcomingEvents.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+            {upcomingEvents.map((event) => (
+              <div class="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between hover:border-gray-300 dark:hover:border-gray-600 transition">
+                <div>
+                  <div class="flex items-center justify-between gap-2 mb-2">
+                    <time class="text-xs font-semibold uppercase tracking-wider text-indigo-800 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-md border border-indigo-100 dark:border-indigo-900/40" set:html={event.displayDate} />
+                    {event.isOngoingCycle ? (
+                      <span class="text-[11px] text-indigo-700 dark:text-indigo-300 font-medium">Cycle annuel en cours</span>
+                    ) : (
+                      <span class="text-[11px] text-emerald-700 dark:text-emerald-400 font-medium">À venir</span>
+                    )}
+                  </div>
+                  <h3 class="font-serif text-lg font-medium text-gray-900 dark:text-gray-100 mt-2">
+                    {event.href ? (
+                      <a href={event.href} class="text-indigo-600 dark:text-indigo-400 hover:underline">
+                        {event.titre}
+                      </a>
+                    ) : (
+                      event.titre
+                    )}
+                  </h3>
+                  <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1.5 flex items-start gap-1.5">
+                    <span class="text-gray-400 dark:text-gray-500 shrink-0 mt-0.5" aria-hidden="true">📍</span>
+                    <span>{event.lieu}</span>
+                  </p>
                 </div>
-                <h3 class="font-serif text-lg font-medium text-gray-900 dark:text-gray-100 mt-2">
-                  {event.href ? (
-                    <a href={event.href} class="text-indigo-600 dark:text-indigo-400 hover:underline">
-                      {event.titre}
-                    </a>
-                  ) : (
-                    event.titre
-                  )}
-                </h3>
-                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1.5 flex items-start gap-1.5">
-                  <span class="text-gray-400 dark:text-gray-500 shrink-0 mt-0.5" aria-hidden="true">📍</span>
-                  <span>{event.lieu}</span>
-                </p>
+                {event.details && (
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-3 pt-2.5 border-t border-gray-100 dark:border-gray-700/50 italic">
+                    {event.details}
+                  </p>
+                )}
               </div>
-              {event.details && (
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-3 pt-2.5 border-t border-gray-100 dark:border-gray-700/50 italic">
-                  {event.details}
-                </p>
-              )}
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div class="p-6 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 text-center text-sm text-gray-600 dark:text-gray-400">
+            <p>De nouvelles dates d'ateliers et de stages sont programmées régulièrement.</p>
+            <p class="mt-2">Pour programmer une séance sur mesure ou vous initier lors d'un cours hebdomadaire, contactez directement Christophe Desmur.</p>
+          </div>
+        )}
       </div>
 
       <!-- 4.2 Interventions récentes -->
@@ -471,7 +497,7 @@ const services = [
             Interventions récentes
           </h2>
           <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Sélection d'interventions récentes auprès d'entreprises, écoles et structures d'accueil (2025) :
+            Sélection d'interventions passées récentes auprès d'entreprises, écoles et structures d'accueil :
           </p>
         </div>
 
