@@ -32,7 +32,7 @@ L’amplitude horaire idéale pour un **atelier de groupe** de calligraphie est 
 
   <!-- 0. Cours collectifs réguliers -->
   <a href="/cours-collectifs" class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition border border-indigo-200">
-    <img src="/assets/calligraphie-cours.webp" alt="Cours collectifs de calligraphie chinoise au Dojo Zen de Lyon" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+    <img src="/assets/cours-de-chinois.webp" alt="Cours collectifs de calligraphie chinoise avec Christophe Desmur à Lyon" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
     <div class="p-3 bg-white text-center">
       <h3 class="text-lg font-semibold text-gray-800 group-hover:text-indigo-600">Cours collectifs réguliers à Lyon (particuliers)</h3>
       <p class="text-sm text-gray-600 mt-1">Lundi soir (Dojo Zen) ou mercredi matin (Miroirs du Ciel). Tous niveaux.</p>
@@ -50,7 +50,7 @@ L’amplitude horaire idéale pour un **atelier de groupe** de calligraphie est 
 
   <!-- 2. Formats atelier collèges -->
   <a href="/colleges" class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-    <img src="/assets/colleges.webp" alt="Atelier de groupe de calligraphie chinoise à Lyon." class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+    <img src="/assets/colleges.webp" alt="Atelier de calligraphie chinoise pour collégiens à Lyon" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
     <div class="p-3 bg-white text-center">
       <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">Formats d’atelier pour les collèges</h3>
       <p class="text-sm text-gray-600 mt-1">Différentes formules adaptées aux classes et enseignants.</p>
@@ -59,7 +59,7 @@ L’amplitude horaire idéale pour un **atelier de groupe** de calligraphie est 
 
   <!-- 2. Formats atelier lycées -->
   <a href="/formats-atelier-pour-les-lycees" class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-    <img src="/assets/lycees.webp" alt="Atelier de groupe de calligraphie chinoise à Lyon." class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+    <img src="/assets/colleges.webp" alt="Atelier de calligraphie chinoise pour lycéens à Lyon" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
     <div class="p-3 bg-white text-center">
       <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">Formats d’atelier pour les lycées</h3>
       <p class="text-sm text-gray-600 mt-1">Différentes formules adaptées aux classes et enseignants.</p>
@@ -68,7 +68,7 @@ L’amplitude horaire idéale pour un **atelier de groupe** de calligraphie est 
 
   <!-- 3. Universités et grandes écoles -->
   <a href="/universites-et-grandes-ecoles" class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-    <img src="/assets/ecoles.webp" alt="Atelier de groupe de calligraphie chinoise à Lyon." class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+    <img src="/assets/pinceaux-encre-chine-christophe-desmur-calligraphie-chinoise.webp" alt="Matériel d'étude et pinceaux de calligraphie chinoise pour universités" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
     <div class="p-3 bg-white text-center">
       <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">Universités et grandes écoles</h3>
       <p class="text-sm text-gray-600 mt-1">Ateliers adaptés aux cursus universitaires et formations supérieures.</p>
@@ -77,7 +77,7 @@ L’amplitude horaire idéale pour un **atelier de groupe** de calligraphie est 
 
   <!-- 4. Comités d’entreprise -->
   <a href="/comites-entreprise" class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-    <img src="/assets/entreprises.webp" alt="Atelier de groupe de calligraphie chinoise à Lyon." class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+    <img src="/assets/cours-calligraphie-comites-entreprise.webp" alt="Calligraphie originale pour ateliers en entreprise" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
     <div class="p-3 bg-white text-center">
       <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">Comités d’entreprise</h3>
       <p class="text-sm text-gray-600 mt-1">Activités culturelles pour vos salariés et collaborateurs.</p>
@@ -86,7 +86,7 @@ L’amplitude horaire idéale pour un **atelier de groupe** de calligraphie est 
 
   <!-- 5. Maisons de retraite -->
   <a href="/maisons-de-retraite" class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-    <img src="/assets/ephad.webp" alt="Atelier de groupe de calligraphie chinoise à Lyon." class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+    <img src="/assets/christophe-desmur-calligraphie-dedicace.webp" alt="Christophe Desmur en séance de calligraphie traditionnelle" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
     <div class="p-3 bg-white text-center">
       <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">Maisons de retraite</h3>
       <p class="text-sm text-gray-600 mt-1">Moments créatifs et apaisants pour les résidents.</p>
