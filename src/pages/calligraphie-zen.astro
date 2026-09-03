@@ -1,0 +1,476 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d'information%20calligraphie%20zen";
+---
+
+<Layout
+  title="Calligraphie zen à Lyon : le geste, la concentration et l'harmonie | Christophe Desmur"
+  description="Découvrez la pratique de la calligraphie zen et chinoise à Lyon : travail de la posture, respiration, maîtrise du pinceau, équilibre du tracé et apprentissage progressif des sinogrammes.">
+
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Calligraphie chinoise : le geste, la concentration et l'harmonie",
+    "description": "Pratique physique, artistique et méditative de la calligraphie chinoise et zen à Lyon avec Christophe Desmur. Posture, respiration, maniement du pinceau et tracé des sinogrammes.",
+    "url": "https://ateliersdecalligraphie.com/calligraphie-zen",
+    "author": {
+      "@type": "Person",
+      "name": "Christophe Desmur",
+      "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Calligraphie chinoise Lyon",
+      "url": "https://ateliersdecalligraphie.com"
+    },
+    "mainEntityOfPage": "https://ateliersdecalligraphie.com/calligraphie-zen"
+  })} />
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4">
+
+    <!-- ================================================================= -->
+    <!-- FIL D'ARIANE                                                      -->
+    <!-- ================================================================= -->
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-8">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline hover:text-gray-900 dark:hover:text-gray-200 transition-colors">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span class="text-gray-500 dark:text-gray-400">Découvrir</span></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-900 dark:text-gray-100 font-medium">Calligraphie zen & pratique</li>
+      </ol>
+    </nav>
+
+    <!-- ================================================================= -->
+    <!-- 1. HERO SECTION (EDITORIAL & CONTEMPLATIVE)                       -->
+    <!-- ================================================================= -->
+    <header class="py-6 sm:py-10 border-b border-gray-100 dark:border-gray-800" aria-labelledby="hero-title">
+      <div class="max-w-3xl">
+        <!-- Eyebrow -->
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-3">
+          Calligraphie zen
+        </p>
+
+        <!-- H1 -->
+        <h1 id="hero-title" class="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-gray-950 dark:text-gray-100 leading-tight">
+          Calligraphie chinoise :<br class="hidden sm:inline" />
+          <span class="text-indigo-700 dark:text-indigo-400">le geste, la concentration et l'harmonie</span>
+        </h1>
+
+        <!-- Supporting text -->
+        <p class="mt-5 text-base sm:text-lg text-gray-700 dark:text-gray-300 font-serif leading-relaxed">
+          Dans la tradition ancestrale, la calligraphie chinoise s'accomplit avec tout son être, au-delà de la simple technique. L'attitude corporelle, la concentration sur la respiration et la recherche d'harmonie entre force et délicatesse font de cet art millénaire une pratique vivante du geste, de l'espace et de la sensibilité.
+        </p>
+
+        <!-- Restrained CTAs -->
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <a
+            href="/cours-collectifs"
+            class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs sm:text-sm transition shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+            Découvrir les cours &rarr;
+          </a>
+
+          <a
+            href={contactMailHref}
+            class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium text-xs sm:text-sm border border-gray-200 dark:border-gray-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+            Me contacter
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- 2. THE 4 PILLARS (SCANNABLE EDITORIAL SEQUENCE)                   -->
+    <!-- ================================================================= -->
+    <section class="py-10 sm:py-14 border-b border-gray-100 dark:border-gray-800" aria-label="Les quatre piliers de la pratique">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Pillar 1 : Attitude -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs">
+          <span class="text-[11px] font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400">
+            01 · Posture
+          </span>
+          <h3 class="font-serif font-medium text-base text-gray-950 dark:text-gray-100 mt-1 mb-1.5">
+            L'attitude corporelle
+          </h3>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+            Le corps ancré, le bassin basculé pour ouvrir la cage thoracique, la colonne droite et l'axe vertical aligné avec la feuille.
+          </p>
+        </div>
+
+        <!-- Pillar 2 : Concentration -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs">
+          <span class="text-[11px] font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400">
+            02 · Souffle
+          </span>
+          <h3 class="font-serif font-medium text-base text-gray-950 dark:text-gray-100 mt-1 mb-1.5">
+            La concentration
+          </h3>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+            L'attention portée sur la respiration abdominale, le calme intérieur et la présence à chaque instant du tracé sans dispersion.
+          </p>
+        </div>
+
+        <!-- Pillar 3 : Geste -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs">
+          <span class="text-[11px] font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400">
+            03 · Mouvement
+          </span>
+          <h3 class="font-serif font-medium text-base text-gray-950 dark:text-gray-100 mt-1 mb-1.5">
+            Le geste au pinceau
+          </h3>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+            Le maniement du pinceau tenu verticalement, la justesse de l'appui, l'élan continu et la fluidité de l'encre sur le papier.
+          </p>
+        </div>
+
+        <!-- Pillar 4 : Harmonie -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs">
+          <span class="text-[11px] font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400">
+            04 · Équilibre
+          </span>
+          <h3 class="font-serif font-medium text-base text-gray-950 dark:text-gray-100 mt-1 mb-1.5">
+            L'harmonie & l'espace
+          </h3>
+          <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+            L'équilibre entre force et délicatesse, la balance des proportions et le dialogue entre le noir d'encre et le blanc de la page.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 3. MAIN PRACTICE CONTENT & NARRATIVE HIERARCHY                    -->
+    <!-- ================================================================= -->
+    <div class="py-10 sm:py-14 max-w-3xl mx-auto space-y-12 sm:space-y-16 text-gray-800 dark:text-gray-200">
+
+      <!-- Section : L'attitude, la concentration et l'expression -->
+      <section aria-labelledby="attitude-heading" class="space-y-4">
+        <h2 id="attitude-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          L'attitude, la concentration et l'expression
+        </h2>
+
+        <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+          L'importance de l'attitude corporelle, la concentration sur la respiration et la recherche d'harmonie et d'équilibre font partie intégrante de l'art millénaire de la calligraphie chinoise. Vous y trouverez un moyen privilégié d'expression de votre sensibilité et de votre créativité.
+        </p>
+
+        <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+          Dans les traditions ancestrales chinoise et japonaise, une calligraphie s'accomplit avec tout son être, au-delà de la technique. Maître Taisen Deshimaru expliquait que la calligraphie ne consiste pas seulement à aligner des traits selon un procédé mécanique : on calligraphie avec l'esprit (<em>shin</em>), le corps et l'esprit unifiés. L'acte d'écrire imprime cette présence vivante sur le papier.
+        </p>
+
+        <!-- Historical note -->
+        <div class="p-4 rounded-xl bg-gray-50/80 dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/60 text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+          <strong class="text-gray-900 dark:text-gray-200">Une relation de quatorze siècles :</strong> La calligraphie a été intimement liée pendant des siècles à la pratique du zen — sept siècles en Chine puis sept siècles au Japon. La valeur des calligraphies des maîtres d'autrefois (comme maître Deshimaru ou maître Niwa Zenji) réside dans l'élan, la force d'éveil et l'énergie qui s'en dégagent.
+        </div>
+      </section>
+
+      <!-- Section : L'espace, les proportions et le geste -->
+      <section aria-labelledby="espace-heading" class="space-y-6">
+        <div class="space-y-4">
+          <h2 id="espace-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+            L'espace, les proportions et le geste
+          </h2>
+
+          <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            Le travail sur l'horizontalité et la verticalité ainsi que sur les proportions et le rapport à l'espace permet de mieux se situer : la feuille de papier sur laquelle vous vous exercez devient une représentation en miniature de l'univers.
+          </p>
+
+          <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            L'apprentissage passe par la maîtrise du maniement du pinceau, le contrôle du geste dans le tracé des caractères, le travail minutieux sur les proportions et l'équilibre, ainsi que la recherche constante d'harmonie entre force et délicatesse.
+          </p>
+        </div>
+
+        <!-- Image anchor: hand holding brush vertically -->
+        <div class="my-8 sm:my-10 grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+          <div class="sm:col-span-5">
+            <figure class="overflow-hidden rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm bg-gray-50 dark:bg-gray-800">
+              <img
+                src="/assets/calligraphie-zen.webp"
+                alt="Maniement du pinceau de calligraphie chinoise tenu verticalement sur papier"
+                width="400"
+                height="599"
+                loading="lazy"
+                class="w-full h-auto object-cover max-h-80 mx-auto"
+              />
+              <figcaption class="p-3 text-[11px] text-gray-500 dark:text-gray-400 italic text-center border-t border-gray-100 dark:border-gray-700/60">
+                La tenue verticale du pinceau et la justesse de l'appui d'encre.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="sm:col-span-7 space-y-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            <p>
+              <strong class="text-gray-900 dark:text-gray-100">Le souffle du trait :</strong> Contrairement au stylo ou à la plume occidentale, le pinceau traditionnel en poils souples réagit au moindre changement de pression et à l'inclinaison de la main.
+            </p>
+            <p>
+              Chaque trait est irréversible : l'encre pénètre instantanément le papier absorbant. C'est cette impossibilité de corriger qui exige une présence totale et engage l'esprit dans le moment présent.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section : Une pratique qui demande calme et concentration -->
+      <section aria-labelledby="calme-heading" class="space-y-4">
+        <h2 id="calme-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          Une pratique qui demande calme et concentration
+        </h2>
+
+        <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+          Correctement pratiquée, la calligraphie chinoise favorise le calme, la sérénité et l'équilibre intérieur. Elle développe la créativité artistique et l'expression de la sensibilité par le tracé de caractères chinois, se rapprochant ainsi d'une pratique picturale complète.
+        </p>
+
+        <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+          La pratique de la calligraphie est associée dans l'esprit traditionnel au calme, à la concentration ainsi qu'à l'expression de ce qu'il y a de plus posé et de plus raffiné dans une personnalité humaine.
+        </p>
+
+        <!-- Illustration photo Christophe Desmur avec sceau -->
+        <figure class="my-8 overflow-hidden rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-md bg-gray-50 dark:bg-gray-800">
+          <img
+            src="/assets/christophe-desmur-calligraphie-zen-sceau.webp"
+            alt="Christophe Desmur, calligraphe, apposant son sceau traditionnel à l'encre rouge"
+            width="1536"
+            height="1024"
+            loading="lazy"
+            class="w-full h-auto object-cover aspect-[3/2]"
+          />
+          <figcaption class="p-3.5 text-xs text-gray-500 dark:text-gray-400 italic text-center border-t border-gray-100 dark:border-gray-700/60">
+            Christophe Desmur, calligraphe, apposant son sceau traditionnel à l'encre rouge.
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- Section : Apprendre les caractères progressivement -->
+      <section aria-labelledby="progression-heading" class="space-y-6">
+        <div class="space-y-3">
+          <h2 id="progression-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+            Apprendre les caractères progressivement
+          </h2>
+          <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            Pour être pratiquée au mieux, vous vous approprierez un certain nombre de caractères que vous pourrez ensuite écrire spontanément au cours des séances. Cet apprentissage est un moment propice à la découverte d'une écriture millénaire à travers ses grandes étapes :
+          </p>
+        </div>
+
+        <!-- 4-step typographical sequence -->
+        <ol class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <li class="p-4 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs">
+            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Étape 01</span>
+            <h3 class="font-serif font-medium text-base text-gray-950 dark:text-gray-100 mt-0.5">Les pictogrammes</h3>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
+              Représentation picturale directe des éléments du monde naturel (soleil, lune, montagne, eau, arbre).
+            </p>
+          </li>
+
+          <li class="p-4 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs">
+            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Étape 02</span>
+            <h3 class="font-serif font-medium text-base text-gray-950 dark:text-gray-100 mt-0.5">Les idéogrammes</h3>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
+              Représentation d'idées, de relations ou de concepts abstraits (le haut, le bas, l'harmonie, le centre).
+            </p>
+          </li>
+
+          <li class="p-4 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs">
+            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Étape 03</span>
+            <h3 class="font-serif font-medium text-base text-gray-950 dark:text-gray-100 mt-0.5">Les phonogrammes</h3>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
+              Élaboration de caractères associant une clé sémantique (sens) et un composant phonétique (sonorité).
+            </p>
+          </li>
+
+          <li class="p-4 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs">
+            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Étape 04</span>
+            <h3 class="font-serif font-medium text-base text-gray-950 dark:text-gray-100 mt-0.5">L'écriture progressive</h3>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
+              Tracé fluide et spontané des sinogrammes complets, sans hésitation, dans le respect de l'ordre des traits.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Section : Pour qui ? & Faut-il connaître le chinois ? -->
+      <section aria-labelledby="public-heading" class="space-y-6 pt-4 border-t border-gray-100 dark:border-gray-800">
+        <h2 id="public-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          Une pratique accessible à tous
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <h3 class="font-serif font-medium text-lg text-gray-950 dark:text-gray-100">
+              Faut-il connaître le chinois ?
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              <strong>Non, aucune connaissance préalable n'est nécessaire.</strong> La calligraphie chinoise est avant tout un art du geste, de la respiration et de l'espace. Vous apprendrez progressivement à reconnaître et tracer les sinogrammes sans avoir besoin de parler ou lire le chinois.
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <h3 class="font-serif font-medium text-lg text-gray-950 dark:text-gray-100">
+              À qui s'adressent les ateliers ?
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              Pratiquée traditionnellement par les grands comme par les petits, elle accueille aussi bien les enfants (dès l'école primaire), les collégiens, les lycéens, que les adultes de tous âges et les seniors. Tous niveaux bienvenus.
+            </p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-gray-50/80 dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/60 text-xs text-gray-600 dark:text-gray-300 flex items-start gap-2.5">
+          <span class="text-indigo-600 dark:text-indigo-400 font-bold text-sm" aria-hidden="true">ℹ</span>
+          <span><strong>Matériel entièrement fourni :</strong> Pinceaux en poils naturels, bâtons d'encre de Chine, pierres à frotter et papiers absorbants sont mis à votre disposition lors de chaque séance.</span>
+        </div>
+      </section>
+
+      <!-- Section : Approfondir (Lien vers Shodo) -->
+      <section aria-labelledby="approfondir-heading" class="pt-4 border-t border-gray-100 dark:border-gray-800">
+        <div class="p-6 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              Histoire & Culture asiatique
+            </span>
+            <h3 id="approfondir-heading" class="font-serif font-medium text-lg text-gray-950 dark:text-gray-100 mt-1">
+              Shodō : La voie du pinceau
+            </h3>
+            <p class="text-xs text-gray-600 dark:text-gray-300 mt-1 max-w-lg">
+              Découvrez l'essai complet sur la transmission de l'écrit chinois sous les Tang au Japon, en Corée et au Viêtnam.
+            </p>
+          </div>
+          <a
+            href="/shodo-voie-pinceau"
+            class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-white dark:bg-gray-800 text-indigo-700 dark:text-indigo-300 border border-indigo-200/80 dark:border-indigo-800 font-medium text-xs hover:bg-indigo-50 dark:hover:bg-gray-700 transition whitespace-nowrap shadow-2xs">
+            Lire l'article &rarr;
+          </a>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- 4. PRATIQUER À LYON (LIEUX & CRÉNEAUX)                            -->
+    <!-- ================================================================= -->
+    <section class="py-12 sm:py-16 border-t border-gray-100 dark:border-gray-800" aria-labelledby="pratique-lyon-heading">
+      <div class="max-w-3xl mb-8">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
+          Cours hebdomadaires
+        </p>
+        <h2 id="pratique-lyon-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          Pratiquer à Lyon
+        </h2>
+        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
+          Deux cadres dédiés à l'apprentissage et à la concentration sur le plateau de la Croix-Rousse (Lyon 4<sup>e</sup>) :
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Lieu 1 : Dojo Zen -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              Lundi soir
+            </span>
+            <h3 class="font-serif font-medium text-xl text-gray-950 dark:text-gray-100 mt-1 mb-2">
+              Dojo Zen de Lyon
+            </h3>
+            <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+              11, rue Dumenge, 69004 Lyon (Croix-Rousse)<br />
+              <strong>Horaire :</strong> 18&nbsp;h&nbsp;30 à 20&nbsp;h&nbsp;30
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400 italic">
+              Cadre traditionnel, calme et sobre propice à l'attention et à la posture.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/60">
+            <a href="/cours-collectifs" class="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+              Découvrir les cours collectifs &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Lieu 2 : Miroirs du Ciel -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              Mercredi matin
+            </span>
+            <h3 class="font-serif font-medium text-xl text-gray-950 dark:text-gray-100 mt-1 mb-2">
+              Boutique Miroirs du Ciel
+            </h3>
+            <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+              9, rue de Belfort, 69004 Lyon (Croix-Rousse)<br />
+              <strong>Horaire :</strong> 10&nbsp;h&nbsp;00 à 12&nbsp;h&nbsp;00
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400 italic">
+              Atmosphère lumineuse au cœur d'une boutique dédiée aux arts d'Asie.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/60">
+            <a href="/cours-collectifs" class="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+              Découvrir les cours collectifs &rarr;
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Option cours individuel à domicile -->
+      <div class="mt-8 p-5 rounded-2xl bg-gray-50/80 dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h3 class="font-serif font-medium text-base text-gray-950 dark:text-gray-100">
+            Vous préférez un accompagnement individuel ?
+          </h3>
+          <p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
+            Cours particuliers à votre domicile à Lyon (40&nbsp;€ TTC/h • réduction d'impôt de 50&nbsp;% Coop A Dom).
+          </p>
+        </div>
+        <a
+          href="/cours-individuel-a-domicile"
+          class="inline-flex items-center text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline whitespace-nowrap">
+          Voir les cours à domicile &rarr;
+        </a>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 5. END CTA (QUIET & ACTIONABLE)                                   -->
+    <!-- ================================================================= -->
+    <section class="py-10 border-t border-gray-100 dark:border-gray-800" aria-labelledby="end-cta-heading">
+      <div class="rounded-3xl p-6 sm:p-10 bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div class="max-w-xl">
+          <h2 id="end-cta-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+            Envie d'essayer ?
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mt-2 leading-relaxed">
+            Venez faire l'expérience du tracé au pinceau lors d'une séance d'essai au Dojo Zen ou à Miroirs du Ciel, ou contactez directement Christophe Desmur pour toute question.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+          <a
+            href="/cours-collectifs"
+            class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs sm:text-sm transition shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 text-center whitespace-nowrap">
+            Essayer un cours &rarr;
+          </a>
+
+          <a
+            href={contactMailHref}
+            class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium text-xs sm:text-sm border border-gray-200 dark:border-gray-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 text-center whitespace-nowrap">
+            Me contacter
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact discret -->
+      <div class="mt-6 flex flex-wrap items-center justify-between gap-4 text-xs text-gray-500 dark:text-gray-400">
+        <span>Christophe Desmur • Calligraphe à Lyon</span>
+        <div class="flex items-center gap-4 font-medium">
+          <a href="tel:+33472078861" class="hover:text-indigo-600 dark:hover:text-indigo-400">📞 04 72 07 88 61</a>
+          <a href="tel:+33769941643" class="hover:text-indigo-600 dark:hover:text-indigo-400">📱 07 69 94 16 43</a>
+          <a href={contactMailHref} class="text-indigo-600 dark:text-indigo-400 underline">✉️ christophe.desmur@orange.fr</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</Layout>

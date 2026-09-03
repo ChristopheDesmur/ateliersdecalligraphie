@@ -14,6 +14,7 @@ export async function getStaticPaths() {
     "cours-de-chinois",
     "cours-individuel-a-domicile",
     "shodo-voie-pinceau",
+    "calligraphie-zen",
   ]);
   return posts
     .filter((post) => !dedicatedSlugs.has(post.slug.replace(/^blog\//, "")))
