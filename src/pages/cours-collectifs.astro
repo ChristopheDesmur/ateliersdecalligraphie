@@ -7,7 +7,7 @@ const locations = [
   {
     name: "Dojo Zen de Lyon",
     address: "11, rue Dumenge, 69004 Lyon",
-    district: "Lyon 4e — Plateau de la Croix-Rousse",
+    district: "Lyon 4<sup>e</sup> — Plateau de la Croix-Rousse",
     day: "Lundi soir",
     time: "18 h 30 – 20 h 30",
     duration: "2 heures",
@@ -19,7 +19,7 @@ const locations = [
   {
     name: "Boutique Miroirs du Ciel",
     address: "9, rue de Belfort, 69004 Lyon",
-    district: "Lyon 4e — Cœur de la Croix-Rousse",
+    district: "Lyon 4<sup>e</sup> — Cœur de la Croix-Rousse",
     day: "Mercredi matin",
     time: "10 h 00 – 12 h 00",
     duration: "2 heures",
@@ -108,7 +108,7 @@ const locations = [
     <!-- En-tête de page -->
     <header class="max-w-3xl">
       <span class="text-indigo-600 dark:text-indigo-400 uppercase tracking-widest text-xs font-semibold">
-        Pratique hebdomadaire à Lyon 4e
+        Pratique hebdomadaire à Lyon 4<sup>e</sup>
       </span>
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mt-2 text-gray-900 dark:text-gray-100 leading-tight">
         Cours collectifs de calligraphie chinoise à Lyon
@@ -143,9 +143,7 @@ const locations = [
               <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">
                 {loc.address}
               </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                {loc.district}
-              </p>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5" set:html={loc.district} />
 
               <p class="text-sm text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
                 {loc.atmosphere}

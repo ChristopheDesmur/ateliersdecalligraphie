@@ -40,6 +40,11 @@ function formatDateFR(fromStr, toStr) {
   }
 }
 
+function formatLieuFR(lieu) {
+  if (!lieu) return "";
+  return lieu.replace(/Lyon 4e\b/g, "Lyon 4<sup>e</sup>");
+}
+
 // --- Group ateliers by year ---
 const ateliersByYear = {};
 rawAteliers.forEach(event => {
@@ -54,7 +59,8 @@ rawAteliers.forEach(event => {
       ateliersByYear[y].push({
         ...event,
         multiYear,
-        displayDate: formatDateFR(event.from, event.to)
+        displayDate: formatDateFR(event.from, event.to),
+        lieu: formatLieuFR(event.lieu)
       });
     }
   }
@@ -75,6 +81,7 @@ const upcomingEvents = rawAteliers
   .map(event => ({
     ...event,
     displayDate: formatDateFR(event.from, event.to),
+    lieu: formatLieuFR(event.lieu),
     isOngoingCycle: event.from.includes("-01-01") && (event.to || "").includes("-12-31")
   }))
   .sort((a, b) => {
@@ -91,7 +98,8 @@ const recentInterventions = rawAteliers
   })
   .map(event => ({
     ...event,
-    displayDate: formatDateFR(event.from, event.to)
+    displayDate: formatDateFR(event.from, event.to),
+    lieu: formatLieuFR(event.lieu)
   }))
   .sort((a, b) => new Date(b.from) - new Date(a.from))
   .slice(0, 6);
@@ -102,7 +110,7 @@ const services = [
     title: "Cours collectifs hebdomadaires",
     href: "/cours-collectifs",
     description: "Pratique au Dojo Zen (lundi soir) et à la boutique Miroirs du Ciel (mercredi matin) à la Croix-Rousse. Petits groupes, tout matériel fourni.",
-    badge: "Lyon 4e • Tous niveaux"
+    badge: "Lyon 4<sup>e</sup> • Tous niveaux"
   },
   {
     title: "Cours particuliers à domicile",
@@ -345,7 +353,7 @@ const services = [
             </div>
             {service.badge && (
               <div class="mt-4 pt-3 border-t border-gray-200/60 dark:border-gray-700/40 flex items-center text-[11px] font-medium text-indigo-700 dark:text-indigo-400">
-                <span>{service.badge}</span>
+                <span set:html={service.badge} />
               </div>
             )}
           </a>
@@ -471,7 +479,7 @@ const services = [
                   </h3>
                   <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1.5 flex items-start gap-1.5">
                     <span class="text-gray-400 dark:text-gray-500 shrink-0 mt-0.5" aria-hidden="true">📍</span>
-                    <span>{event.lieu}</span>
+                    <span set:html={event.lieu} />
                   </p>
                 </div>
                 {event.details && (
@@ -519,7 +527,7 @@ const services = [
                 </h3>
                 <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1 flex items-start gap-1.5">
                   <span class="text-gray-400 dark:text-gray-500 shrink-0 mt-0.5" aria-hidden="true">📍</span>
-                  <span>{event.lieu}</span>
+                  <span set:html={event.lieu} />
                 </p>
               </div>
               {event.details && (
@@ -619,7 +627,7 @@ const services = [
                           )}
                         </div>
                         <div class="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                          <em>{event.lieu}</em>
+                          <em set:html={event.lieu} />
                         </div>
                         {event.details && (
                           <div class="text-xs text-gray-500 dark:text-gray-400 mt-1.5 pl-2.5 border-l-2 border-gray-200 dark:border-gray-700">

@@ -7,7 +7,7 @@ import Cta from "@/components/cta.astro";
 const rates = [
   {
     title: "Cours collectifs hebdomadaires",
-    subtitle: "Dojo Zen & Miroirs du Ciel — Lyon 4e",
+    subtitle: "Dojo Zen & Miroirs du Ciel — Lyon 4<sup>e</sup>",
     badge: "Formule recommandée",
     price: "80 €",
     period: "par trimestre",
@@ -196,9 +196,7 @@ const rates = [
             <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mt-2">
               {rate.title}
             </h2>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-              {rate.subtitle}
-            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1" set:html={rate.subtitle} />
 
             <div class="mt-5 pb-5 border-b border-gray-200 dark:border-gray-700">
               <div class="flex items-baseline gap-1.5">
