@@ -13,7 +13,7 @@ const rates = [
     period: "par trimestre",
     detail: "Après réduction d'impôts",
     features: [
-      "Séances régulières de 1 h 30 à 2 h par semaine",
+      "Séances régulières de 1&nbsp;h&nbsp;30 à 2&nbsp;h par semaine",
       "Lundi soir (Dojo Zen) ou mercredi matin (Miroirs du Ciel)",
       "Tout le matériel fourni (pinceaux, encre, papier, pierre)",
       "Petit groupe de 2 à 8 participants pour un suivi personnalisé",
@@ -70,8 +70,8 @@ const rates = [
     period: "HT / heure",
     detail: "Matériel complet inclus pour tous les salariés",
     features: [
-      "Ateliers d'1 h à 3 h sur votre lieu de travail à Lyon",
-      "Format idéal sur la pause méridienne (12 h – 14 h) ou séminaire",
+      "Ateliers d'1&nbsp;h à 3&nbsp;h sur votre lieu de travail à Lyon",
+      "Format idéal sur la pause méridienne (12&nbsp;h – 14&nbsp;h) ou séminaire",
       "Groupes de 6 à 12 collaborateurs par session",
       "Déconnexion, concentration, détente et éveil artistique",
       "Devis personnalisé selon le nombre de séances",
@@ -218,7 +218,7 @@ const rates = [
                   <svg class="w-4 h-4 text-indigo-600 dark:text-indigo-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>{feature}</span>
+                  <span set:html={feature} />
                 </li>
               ))}
             </ul>

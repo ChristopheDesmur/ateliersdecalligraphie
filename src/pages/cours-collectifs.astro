@@ -9,7 +9,7 @@ const locations = [
     address: "11, rue Dumenge, 69004 Lyon",
     district: "Lyon 4<sup>e</sup> — Plateau de la Croix-Rousse",
     day: "Lundi soir",
-    time: "18 h 30 – 20 h 30",
+    time: "18&nbsp;h&nbsp;30 – 20&nbsp;h&nbsp;30",
     duration: "2 heures",
     access: "Métro C (stations Croix-Rousse ou Hénon) • Bus C13, 2, 33, 45",
     atmosphere: "Cadre sobre, silencieux et traditionnel, propice au calme et à la concentration.",
@@ -21,7 +21,7 @@ const locations = [
     address: "9, rue de Belfort, 69004 Lyon",
     district: "Lyon 4<sup>e</sup> — Cœur de la Croix-Rousse",
     day: "Mercredi matin",
-    time: "10 h 00 – 12 h 00",
+    time: "10&nbsp;h&nbsp;00 – 12&nbsp;h&nbsp;00",
     duration: "2 heures",
     access: "Métro C (station Croix-Rousse à 3 min à pied)",
     atmosphere: "Atmosphère lumineuse et conviviale au sein d'une boutique dédiée aux arts d'Asie.",
@@ -132,9 +132,7 @@ const locations = [
                 <span class="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 dark:bg-indigo-900/60 text-indigo-800 dark:text-indigo-300">
                   {loc.day}
                 </span>
-                <span class="text-sm font-bold text-gray-900 dark:text-gray-100">
-                  {loc.time}
-                </span>
+                <span class="text-sm font-bold text-gray-900 dark:text-gray-100" set:html={loc.time} />
               </div>
 
               <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mt-3">

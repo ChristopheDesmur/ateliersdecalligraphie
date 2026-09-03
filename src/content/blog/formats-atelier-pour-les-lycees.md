@@ -23,11 +23,11 @@ L'apprentissage de la calligraphie chinoise en lycée offre aux élèves une ouv
 
 ## Formats et organisation en lycée
 
-Les formats sont pensés pour s'intégrer avec souplesse dans l'emploi du temps des lycéens, que ce soit sur la pause méridienne (entre 12 h et 14 h) ou dans le cadre de projets pédagogiques sur le temps scolaire.
+Les formats sont pensés pour s'intégrer avec souplesse dans l'emploi du temps des lycéens, que ce soit sur la pause méridienne (entre 12 h et 14 h) ou dans le cadre de projets pédagogiques sur le temps scolaire.
 
 | Caractéristique | Modalité en lycée |
 | :--- | :--- |
-| **Créneaux possibles** | Entre 12 h et 14 h (pause méridienne) ou temps scolaire |
+| **Créneaux possibles** | Entre 12 h et 14 h (pause méridienne) ou temps scolaire |
 | **Durée d'atelier** | 30 minutes, 45 minutes, 1 heure ou séances de 2 heures |
 | **Nombre d'élèves** | De 6 à 12 participants par groupe (pour un suivi précis) |
 | **Tarif d'intervention** | 60 euros HT par heure |

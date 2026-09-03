@@ -21,7 +21,7 @@ L’amplitude horaire idéale pour un **atelier de groupe** de calligraphie est 
 
 ## Tarifs et conditions des cours
 
-- **Cours collectifs réguliers pour particuliers à Lyon :** Séances hebdomadaires de 1 h 30 à 2 h au Dojo Zen et à la boutique Miroirs du Ciel (Croix-Rousse). **80 € par trimestre** après réduction d’impôts. [Découvrir les cours collectifs à Lyon &rarr;](/cours-collectifs)
+- **Cours collectifs réguliers pour particuliers à Lyon :** Séances hebdomadaires de 1 h 30 à 2 h au Dojo Zen et à la boutique Miroirs du Ciel (Croix-Rousse). **80 € par trimestre** après réduction d’impôts. [Découvrir les cours collectifs à Lyon &rarr;](/cours-collectifs)
 - **Interventions pour collectivités, associations, scolaires et entreprises :** De 60 € HT/h à 90 € HT/h selon la formule.
 
 ---
