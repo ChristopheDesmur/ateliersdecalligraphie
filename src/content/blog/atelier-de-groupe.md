@@ -68,7 +68,7 @@ L’amplitude horaire idéale pour un **atelier de groupe** de calligraphie est 
 
   <!-- 3. Universités et grandes écoles -->
   <a href="/universites-et-grandes-ecoles" class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-    <img src="/assets/pinceaux-encre-chine-christophe-desmur-calligraphie-chinoise.webp" alt="Matériel d'étude et pinceaux de calligraphie chinoise pour universités" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+    <img src="/assets/cours-calligraphie-universites-grandes-ecoles.webp" alt="Calligraphie chinoise pour universités et grandes écoles" class="w-full h-40 object-contain p-2 bg-gray-50 group-hover:scale-105 transition-transform duration-300" />
     <div class="p-3 bg-white text-center">
       <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">Universités et grandes écoles</h3>
       <p class="text-sm text-gray-600 mt-1">Ateliers adaptés aux cursus universitaires et formations supérieures.</p>

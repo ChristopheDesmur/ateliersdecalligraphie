@@ -1,0 +1,470 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Renseignement%20calligraphie%20shodo";
+---
+
+<Layout
+  title="Shodo, la voie du pinceau | Calligraphie zen & tradition à Lyon"
+  description="Découvrez le shodo, la voie du pinceau : histoire de la transmission de l'écrit chinois en Asie, dimension spirituelle du geste et pratique à Lyon avec Christophe Desmur.">
+
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "La calligraphie zen et son influence culturelle : Shodō, la voie du pinceau",
+    "description": "Exploration culturelle et philosophique du shodo, la voie du pinceau : de la transmission de l'écrit chinois sous les Tang aux dimensions gestuelle et spirituelle du zen.",
+    "url": "https://ateliersdecalligraphie.com/shodo-voie-pinceau",
+    "author": {
+      "@type": "Person",
+      "name": "Christophe Desmur",
+      "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Calligraphie chinoise Lyon",
+      "url": "https://ateliersdecalligraphie.com"
+    },
+    "mainEntityOfPage": "https://ateliersdecalligraphie.com/shodo-voie-pinceau",
+    "about": [
+      { "@type": "Thing", "name": "Shodō" },
+      { "@type": "Thing", "name": "Calligraphie chinoise" },
+      { "@type": "Thing", "name": "Zen" }
+    ]
+  })} />
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4">
+
+    <!-- ================================================================= -->
+    <!-- FIL D'ARIANE                                                      -->
+    <!-- ================================================================= -->
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-8">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline hover:text-gray-900 dark:hover:text-gray-200 transition-colors">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span class="text-gray-500 dark:text-gray-400">Découvrir</span></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-900 dark:text-gray-100 font-medium">Shodō, la voie du pinceau</li>
+      </ol>
+    </nav>
+
+    <!-- ================================================================= -->
+    <!-- 1. HERO SECTION (EDITORIAL & RESTRAINED)                          -->
+    <!-- ================================================================= -->
+    <header class="py-6 sm:py-10 border-b border-gray-100 dark:border-gray-800" aria-labelledby="article-title">
+      <div class="max-w-3xl">
+        <!-- Eyebrow -->
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-3">
+          Shodō · La voie du pinceau
+        </p>
+
+        <!-- H1 -->
+        <h1 id="article-title" class="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-gray-950 dark:text-gray-100 leading-tight">
+          La calligraphie zen<br class="hidden sm:inline" />
+          <span class="text-indigo-700 dark:text-indigo-400">et son influence culturelle</span>
+        </h1>
+
+        <!-- Intro Deck -->
+        <p class="mt-5 text-lg sm:text-xl text-gray-700 dark:text-gray-300 font-serif leading-relaxed italic">
+          «&nbsp;La Chine a profondément influencé la culture des pays voisins. Ensemble, ils ont créé le shodo, la voie du pinceau.&nbsp;»
+        </p>
+
+        <!-- Author / Editorial Metadata -->
+        <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+          <span class="font-medium text-gray-900 dark:text-gray-200">Christophe Desmur</span>
+          <span aria-hidden="true">•</span>
+          <span>Calligraphie chinoise & Culture asiatique</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- TOC COLLAPSIBLE SUR MOBILE                                        -->
+    <!-- ================================================================= -->
+    <div class="lg:hidden my-6">
+      <details class="group p-4 rounded-xl bg-gray-50/80 dark:bg-gray-800/50 border border-gray-200/70 dark:border-gray-700/60">
+        <summary class="font-medium text-sm text-gray-900 dark:text-gray-100 cursor-pointer list-none flex items-center justify-between">
+          <span class="flex items-center gap-2">
+            <span aria-hidden="true">📖</span>
+            <span>Sommaire de l'article</span>
+          </span>
+          <span class="text-xs text-indigo-600 dark:text-indigo-400 group-open:hidden">Afficher</span>
+          <span class="text-xs text-indigo-600 dark:text-indigo-400 hidden group-open:inline">Masquer</span>
+        </summary>
+        <nav aria-label="Sommaire mobile" class="mt-4 pt-3 border-t border-gray-200/60 dark:border-gray-700/50">
+          <ol class="space-y-2 text-xs text-gray-600 dark:text-gray-300">
+            <li><a href="#histoire-transmission" class="hover:text-indigo-600 dark:hover:text-indigo-400">01 · De la Chine au Japon, à la Corée et au Viêtnam</a></li>
+            <li><a href="#traditions-locales" class="hover:text-indigo-600 dark:hover:text-indigo-400">02 · Des traditions propres à chaque culture</a></li>
+            <li><a href="#voie-spirituelle" class="hover:text-indigo-600 dark:hover:text-indigo-400">03 · Plus qu'un art, une voie spirituelle</a></li>
+            <li><a href="#silence-geste" class="hover:text-indigo-600 dark:hover:text-indigo-400">04 · Du silence au geste</a></li>
+            <li><a href="#pratiquer-lyon" class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium text-indigo-600 dark:text-indigo-400">Pratiquer à Lyon →</a></li>
+          </ol>
+        </nav>
+      </details>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- CONTENU PRINCIPAL & TOC DESKTOP (GRILLE EDITORIALE)               -->
+    <!-- ================================================================= -->
+    <div class="py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+      
+      <!-- Article principal (8 colonnes) -->
+      <article class="lg:col-span-8 max-w-prose space-y-12 text-gray-800 dark:text-gray-200">
+
+        <!-- CONCEPT HIGHLIGHT : SHODŌ 書道 -->
+        <div class="p-6 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50">
+          <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-3">
+            <span class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400">Concept</span>
+            <span class="font-serif text-2xl sm:text-3xl text-gray-950 dark:text-gray-100 font-medium">SHODŌ · 書道</span>
+            <span class="text-sm text-gray-600 dark:text-gray-400 italic">«&nbsp;La voie du pinceau&nbsp;»</span>
+          </div>
+          <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mt-2.5 leading-relaxed">
+            Composé du caractère <em>sho</em> (書, l'écrit, le tracé) et de <em>dō</em> (道, la voie, la démarche d'éveil et de discipline), le shodo incarne la recherche d'harmonie entre le corps, le souffle et le trait d'encre.
+          </p>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- SECTION 1 : HISTOIRE & TRANSMISSION                           -->
+        <!-- ============================================================= -->
+        <section id="histoire-transmission" aria-labelledby="heading-transmission" class="space-y-4">
+          <h2 id="heading-transmission" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+            De la Chine au Japon, à la Corée et au Viêtnam
+          </h2>
+
+          <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            Étant donné le stade de civilisation qu'avait connu la Chine sous la dynastie des <a href="http://fr.wikipedia.org/wiki/Dynastie_Tang" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">Tang</a> aux septième, huitième et neuvième siècles, les pays alentour, comme le Japon, la Corée, le Viêtnam, étaient attirés par cette culture et cette civilisation et par la langue chinoise, les caractères chinois.
+          </p>
+
+          <!-- Subtle typographic sequence: Cultural transmission -->
+          <div class="my-6 p-4 rounded-xl bg-gray-50/80 dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/60">
+            <p class="text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2.5">
+              Diffusion de la culture de l'écrit en Asie orientale
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-700 dark:text-gray-300 text-center sm:text-left">
+              <span class="font-medium text-gray-900 dark:text-gray-100">Chine (dynastie Tang)</span>
+              <span class="text-gray-400 hidden sm:inline" aria-hidden="true">→</span>
+              <span class="text-gray-400 sm:hidden" aria-hidden="true">↓</span>
+              <span>Transmission des caractères</span>
+              <span class="text-gray-400 hidden sm:inline" aria-hidden="true">→</span>
+              <span class="text-gray-400 sm:hidden" aria-hidden="true">↓</span>
+              <span>Japon · Corée · Viêtnam</span>
+              <span class="text-gray-400 hidden sm:inline" aria-hidden="true">→</span>
+              <span class="text-gray-400 sm:hidden" aria-hidden="true">↓</span>
+              <span class="font-serif italic text-indigo-700 dark:text-indigo-300">Voies calligraphiques propres</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- SECTION 2 : TRADITIONS PROPRES                                -->
+        <!-- ============================================================= -->
+        <section id="traditions-locales" aria-labelledby="heading-traditions" class="space-y-4">
+          <h2 id="heading-traditions" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+            Des traditions de calligraphie propres à chaque culture
+          </h2>
+
+          <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            La civilisation de l'écrit chinois s'est donc répandue dans ces différents pays. Mais chacun l'a incorporée suivant son ressenti, sa propre langue, etc. Et chacun a développé une manière de calligraphier propre.
+          </p>
+
+          <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            Ils ont aussi fait entrer dans leur langue des syllabaires, des petits signes plus proches d'un alphabet, qu'ils ont mélangés aux caractères chinois. Tous emploient le pinceau, tracent des caractères chinois, mais utilisent aussi des systèmes syllabiques.
+          </p>
+
+          <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            Les Vietnamiens, qui ont subi plus tôt l'influence de la Chine, ont été encore plus loin, ils ont été encore plus créatifs et ils ont inventé eux-mêmes, en plus des caractères chinois, leur propre système idéographique et pictographique pour transcrire leur langue sur le modèle du chinois. Ils ont inventé des caractères propres à leur langue, sur le modèle du chinois, le <a href="http://fr.wikipedia.org/wiki/Ch%E1%BB%AF_n%C3%B4m" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">chu nom</a>.
+          </p>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- EDITORIAL PAUSE : GRANDE IMAGE SHODO                          -->
+        <!-- ============================================================= -->
+        <div class="my-10 sm:my-14 -mx-4 sm:mx-0">
+          <figure class="overflow-hidden rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-md bg-gray-50 dark:bg-gray-800">
+            <img
+              src="/assets/shodo-voie-pinceau.webp"
+              alt="Shodo, la voie du pinceau — tracé spontané de caractères à l'encre de Chine"
+              width="640"
+              height="427"
+              loading="lazy"
+              class="w-full h-auto object-cover aspect-[3/2]"
+            />
+            <figcaption class="p-4 text-xs text-gray-500 dark:text-gray-400 italic text-center leading-normal border-t border-gray-100 dark:border-gray-700/60">
+              Shodō (書道), la voie du pinceau — tracé à l'encre noire sur papier blanc, où l'élan naît de la justesse du geste.
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- SECTION 3 : UNE VOIE SPIRITUELLE                              -->
+        <!-- ============================================================= -->
+        <section id="voie-spirituelle" aria-labelledby="heading-spirituelle" class="space-y-4">
+          <h2 id="heading-spirituelle" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+            Plus qu'un art, une voie spirituelle
+          </h2>
+
+          <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            Les Asiatiques ont fait de la calligraphie un art non seulement pictural, mais également spirituel. C'est pour cela qu'on ne parle pas de la calligraphie comme d'une belle écriture, d'une belle forme, même si c'est aussi cela.
+          </p>
+
+          <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            Les Japonais, notamment, en parlent comme d'une <em>voie</em>, qui consiste à écrire des caractères au pinceau. Ils appellent ça le <strong>shodo</strong>. C'est une voie d'expression de son esprit à travers la calligraphie.
+          </p>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- SECTION 4 : DU SILENCE AU GESTE                               -->
+        <!-- ============================================================= -->
+        <section id="silence-geste" aria-labelledby="heading-geste" class="space-y-6">
+          <h2 id="heading-geste" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+            Du silence au geste
+          </h2>
+
+          <!-- Sub-moment: L'immobilité -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              L'immobilité et le silence
+            </h3>
+            <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+              On peut bien évidemment pratiquer la calligraphie sans pratiquer le zen, c'est tout à fait beau aussi. Mais, dans la manière de faire telle que je vous l'ai montrée, on part d'un élan qui naît de l'immobilité, qui naît du zen, du calme, du silence et également du fait de ne pas entretenir quoi que ce soit, de laisser passer les pensées, de ne pas être accaparé par quoi que ce soit, mais simplement d'être concentré dans une posture.
+            </p>
+          </div>
+
+          <!-- Sub-moment: La posture (Hokkai jo in) -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              La posture d'assise et le mudra (Hokkai jō-in)
+            </h3>
+            <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+              Les jambes croisées, sur un coussin qui permet de basculer le bassin vers l'avant et d'ouvrir toute la cage thoracique. Dans cette posture, on ramène les mains, ça permet d'unifier, de centrer. C'est la posture de méditation du zen, <em>hokkai jo in</em>.
+            </p>
+          </div>
+
+          <!-- Photo démonstration Christophe Desmur -->
+          <figure class="my-6 overflow-hidden rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm bg-gray-50 dark:bg-gray-800">
+            <img
+              src="/assets/christophe-desmur-calligraphie-dedicace.webp"
+              alt="Christophe Desmur, calligraphe, traçant des caractères traditionnels au pinceau"
+              width="1536"
+              height="1024"
+              loading="lazy"
+              class="w-full h-auto object-cover aspect-[3/2]"
+            />
+            <figcaption class="p-3.5 text-xs text-gray-500 dark:text-gray-400 italic text-center leading-normal border-t border-gray-100 dark:border-gray-700/60">
+              Christophe Desmur, calligraphe, traçant des caractères traditionnels au pinceau.
+            </figcaption>
+          </figure>
+
+          <!-- Sub-moment: L'élan et la surgie de la calligraphie -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              L'élan créateur
+            </h3>
+            <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+              C'est à partir de ça, et à partir de l'élan, de l'activité, que va surgir la calligraphie. Pas à partir de quelque chose de compliqué, de vouloir faire bien, ou même de vouloir faire beau ou quoi que ce soit. Simplement à partir de cet élan de vie, de cet élan du zen, de cette impulsion : le <strong>shodo</strong>, la voie du pinceau.
+            </p>
+          </div>
+        </section>
+
+      </article>
+
+      <!-- ============================================================= -->
+      <!-- SIDEBAR DESKTOP : SOMMAIRE & AUTEUR (STICKY)                  -->
+      <!-- ============================================================= -->
+      <aside class="hidden lg:block lg:col-span-4 sticky top-8 space-y-6" aria-label="Sommaire et repères">
+        
+        <!-- Boîte Sommaire -->
+        <div class="p-6 rounded-2xl bg-gray-50/90 dark:bg-gray-800/60 border border-gray-200/80 dark:border-gray-700/70 shadow-xs">
+          <p class="text-xs font-semibold tracking-wider uppercase text-gray-500 dark:text-gray-400 mb-4">
+            Sur cette page
+          </p>
+          <nav aria-label="Sommaire de l'article">
+            <ol class="space-y-3 text-xs leading-relaxed">
+              <li>
+                <a href="#histoire-transmission" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-baseline gap-2">
+                  <span class="font-mono text-gray-400 text-[11px]">01</span>
+                  <span>De la Chine aux pays voisins</span>
+                </a>
+              </li>
+              <li>
+                <a href="#traditions-locales" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-baseline gap-2">
+                  <span class="font-mono text-gray-400 text-[11px]">02</span>
+                  <span>Des traditions propres à chaque culture</span>
+                </a>
+              </li>
+              <li>
+                <a href="#voie-spirituelle" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-baseline gap-2">
+                  <span class="font-mono text-gray-400 text-[11px]">03</span>
+                  <span>Plus qu'un art, une voie spirituelle</span>
+                </a>
+              </li>
+              <li>
+                <a href="#silence-geste" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-baseline gap-2">
+                  <span class="font-mono text-gray-400 text-[11px]">04</span>
+                  <span>Du silence au geste</span>
+                </a>
+              </li>
+              <li class="pt-2 border-t border-gray-200/60 dark:border-gray-700/50">
+                <a href="#pratiquer-lyon" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline flex items-baseline gap-2">
+                  <span>Pratiquer à Lyon &rarr;</span>
+                </a>
+              </li>
+            </ol>
+          </nav>
+        </div>
+
+        <!-- Boîte Christophe Desmur & Pratique -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/70 shadow-xs text-xs space-y-3">
+          <p class="font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            L'enseignant
+          </p>
+          <p class="font-serif font-medium text-base text-gray-950 dark:text-gray-100">
+            Christophe Desmur
+          </p>
+          <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+            Calligraphe et traducteur littéraire, il transmet la calligraphie chinoise et la voie du pinceau à Lyon depuis plus de trente ans.
+          </p>
+          <div class="pt-2">
+            <a href="/le-calligraphe" class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline inline-flex items-center gap-1">
+              En savoir plus sur son parcours &rarr;
+            </a>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- 5. END-OF-ARTICLE CTA                                             -->
+    <!-- ================================================================= -->
+    <section class="mt-8 pt-10 border-t border-gray-100 dark:border-gray-800" aria-labelledby="cta-exploration">
+      <div class="rounded-3xl p-6 sm:p-10 bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60">
+        <div class="max-w-2xl">
+          <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
+            Transmission & Expérience
+          </p>
+          <h2 id="cta-exploration" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+            Envie d'explorer la calligraphie ?
+          </h2>
+          <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 mt-3 leading-relaxed">
+            Pour prolonger cette réflexion par l'expérience concrète de l'assise, de l'encre et du pinceau, Christophe Desmur propose des cours réguliers à Lyon adaptés à tous les niveaux.
+          </p>
+
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <a
+              href="/cours-collectifs"
+              class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs sm:text-sm transition shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+              Découvrir les cours collectifs &rarr;
+            </a>
+
+            <a
+              href={contactMailHref}
+              class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium text-xs sm:text-sm border border-gray-200 dark:border-gray-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+              Me contacter
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 6. PRATIQUER À LYON (LIEUX & CRÉNEAUX)                            -->
+    <!-- ================================================================= -->
+    <section id="pratiquer-lyon" class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="pratique-heading">
+      <div class="max-w-2xl mb-8">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
+          Ateliers réguliers
+        </p>
+        <h2 id="pratique-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          Pratiquer à Lyon
+        </h2>
+        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
+          Deux cadres propices au calme et à la concentration sur le plateau de la Croix-Rousse (Lyon 4<sup>e</sup>) :
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Lieu 1 : Dojo Zen -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              Lundi soir
+            </span>
+            <h3 class="font-serif font-medium text-xl text-gray-950 dark:text-gray-100 mt-1 mb-2">
+              Dojo Zen de Lyon
+            </h3>
+            <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+              11, rue Dumenge, 69004 Lyon (Croix-Rousse)<br />
+              <strong>Horaire :</strong> 18&nbsp;h&nbsp;30 à 20&nbsp;h&nbsp;30
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400 italic">
+              Cadre sobre, silencieux et traditionnel propice à l'immobilité et au centrage.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/60">
+            <a href="/cours-collectifs" class="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+              Modalités et inscriptions &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Lieu 2 : Miroirs du Ciel -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              Mercredi matin
+            </span>
+            <h3 class="font-serif font-medium text-xl text-gray-950 dark:text-gray-100 mt-1 mb-2">
+              Boutique Miroirs du Ciel
+            </h3>
+            <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+              9, rue de Belfort, 69004 Lyon (Croix-Rousse)<br />
+              <strong>Horaire :</strong> 10&nbsp;h&nbsp;00 à 12&nbsp;h&nbsp;00
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400 italic">
+              Atmosphère lumineuse et conviviale au cœur d'une boutique dédiée aux arts d'Asie.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/60">
+            <a href="/cours-collectifs" class="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+              Modalités et inscriptions &rarr;
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Contact discret -->
+      <div class="mt-6 p-4 rounded-xl bg-gray-50/80 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/50 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-600 dark:text-gray-300">
+        <span>Une question sur la pratique ou l'organisation ?</span>
+        <div class="flex items-center gap-4 font-medium">
+          <a href="tel:+33472078861" class="hover:text-indigo-600 dark:hover:text-indigo-400">📞 04 72 07 88 61</a>
+          <a href="tel:+33769941643" class="hover:text-indigo-600 dark:hover:text-indigo-400">📱 07 69 94 16 43</a>
+          <a href={contactMailHref} class="text-indigo-600 dark:text-indigo-400 underline">✉️ Écrire un e-mail</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 7. À DÉCOUVRIR ÉGALEMENT (RELATED CONTENT)                        -->
+    <!-- ================================================================= -->
+    <footer class="pt-8 pb-4" aria-label="À découvrir également">
+      <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-3">
+        À découvrir également
+      </p>
+      <div class="flex flex-wrap items-center gap-4 text-xs font-medium">
+        <a href="/calligraphie-zen" class="text-indigo-600 dark:text-indigo-400 hover:underline">Calligraphie zen</a>
+        <span class="text-gray-300 dark:text-gray-700">•</span>
+        <a href="/cours-individuel-a-domicile" class="text-indigo-600 dark:text-indigo-400 hover:underline">Cours particuliers à domicile</a>
+        <span class="text-gray-300 dark:text-gray-700">•</span>
+        <a href="/cours-de-chinois" class="text-indigo-600 dark:text-indigo-400 hover:underline">Cours de langue chinoise</a>
+        <span class="text-gray-300 dark:text-gray-700">•</span>
+        <a href="/galerie" class="text-indigo-600 dark:text-indigo-400 hover:underline">Galerie des œuvres</a>
+      </div>
+    </footer>
+
+  </div>
+</Layout>

@@ -13,6 +13,7 @@ export async function getStaticPaths() {
     "traductions",
     "cours-de-chinois",
     "cours-individuel-a-domicile",
+    "shodo-voie-pinceau",
   ]);
   return posts
     .filter((post) => !dedicatedSlugs.has(post.slug.replace(/^blog\//, "")))
