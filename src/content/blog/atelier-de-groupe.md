@@ -50,7 +50,7 @@ L’amplitude horaire idéale pour un **atelier de groupe** de calligraphie est 
 
   <!-- 2. Formats atelier collèges -->
   <a href="/colleges" class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-    <img src="/assets/colleges.webp" alt="Atelier de calligraphie chinoise pour collégiens à Lyon" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+    <img src="/assets/cours-calligraphie-colleges.webp" alt="Atelier de calligraphie chinoise pour collégiens à Lyon" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
     <div class="p-3 bg-white text-center">
       <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">Formats d’atelier pour les collèges</h3>
       <p class="text-sm text-gray-600 mt-1">Différentes formules adaptées aux classes et enseignants.</p>
@@ -59,7 +59,7 @@ L’amplitude horaire idéale pour un **atelier de groupe** de calligraphie est 
 
   <!-- 2. Formats atelier lycées -->
   <a href="/formats-atelier-pour-les-lycees" class="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-    <img src="/assets/colleges.webp" alt="Atelier de calligraphie chinoise pour lycéens à Lyon" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+    <img src="/assets/cours-calligraphie-lycees.webp" alt="Atelier de calligraphie chinoise pour lycéens à Lyon" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
     <div class="p-3 bg-white text-center">
       <h3 class="text-lg font-semibold text-gray-800 group-hover:text-black">Formats d’atelier pour les lycées</h3>
       <p class="text-sm text-gray-600 mt-1">Différentes formules adaptées aux classes et enseignants.</p>
