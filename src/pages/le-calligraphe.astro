@@ -62,140 +62,618 @@ rawAteliers.forEach(event => {
 
 // --- Sort years descending ---
 const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Number(a));
+
+// 1. Prochains ateliers (Saison 2026) : ateliers ponctuels programmés d'abord, puis cycles annuels
+const upcomingEvents = (ateliersByYear["2026"] || []).slice().sort((a, b) => {
+  const isAnnualCycleA = a.from.includes("-01-01") && (a.to || "").includes("-12-31");
+  const isAnnualCycleB = b.from.includes("-01-01") && (b.to || "").includes("-12-31");
+  if (isAnnualCycleA && !isAnnualCycleB) return 1;
+  if (!isAnnualCycleA && isAnnualCycleB) return -1;
+  return new Date(a.from) - new Date(b.from);
+});
+
+// 2. Interventions récentes (Sélection de 6 événements représentatifs de 2025)
+const recentInterventions = (ateliersByYear["2025"] || [])
+  .filter(e => !e.multiYear)
+  .slice()
+  .sort((a, b) => new Date(b.from) - new Date(a.from))
+  .slice(0, 6);
+
+// 3. Formules & Prestations existantes
+const services = [
+  {
+    title: "Cours collectifs hebdomadaires",
+    href: "/cours-collectifs",
+    description: "Pratique au Dojo Zen (lundi soir) et à la boutique Miroirs du Ciel (mercredi matin) à la Croix-Rousse. Petits groupes, tout matériel fourni.",
+    badge: "Lyon 4e • Tous niveaux"
+  },
+  {
+    title: "Cours particuliers à domicile",
+    href: "/cours-individuel-a-domicile",
+    description: "Enseignement personnalisé chez vous à Lyon et proche périphérie. Rythme sur mesure, éligible à 50 % de crédit d'impôt (service à la personne).",
+    badge: "50 % crédit d'impôt"
+  },
+  {
+    title: "Ateliers découverte & stages",
+    href: "/atelier-de-groupe",
+    description: "Séances d'initiation et de découverte de la voie du pinceau (Shodo) pour adultes, associations et curieux du geste traditionnel.",
+    badge: "Initiation & groupes"
+  },
+  {
+    title: "Interventions en milieu scolaire",
+    href: "/ecoles-primaires",
+    description: "Ateliers pédagogiques adaptés de la maternelle au lycée (primaires, collèges, lycées) pour ouvrir les élèves à l'art et aux caractères chinois.",
+    badge: "Écoles, collèges, lycées"
+  },
+  {
+    title: "Entreprises & Comités d'entreprise",
+    href: "/comites-entreprise",
+    description: "Animations culturelles, team building et ateliers de concentration et déconnexion au pinceau pour vos équipes et événements d'entreprise.",
+    badge: "CSE & Séminaires"
+  },
+  {
+    title: "Maisons de retraite & EHPAD",
+    href: "/maisons-de-retraite",
+    description: "Ateliers bienveillants stimulant la mémoire, la créativité et la motricité fine des résidents à travers le tracé de l'encre.",
+    badge: "Seniors & Résidences"
+  },
+  {
+    title: "Création d'œuvres originales",
+    href: "/galerie",
+    description: "Réalisation de calligraphies traditionnelles sur papier de riz ou support d'art, œuvres sur mesure et commandes personnalisées.",
+    badge: "Encre de Chine & Rouleaux"
+  },
+  {
+    title: "Cours de langue chinoise & culture",
+    href: "/cours-de-chinois",
+    description: "Apprentissage des sinogrammes, clés étymologiques et langue chinoise, complété par mon activité de traducteur littéraire.",
+    badge: "Langue & Traduction"
+  }
+];
 ---
 
-<Base title="Christophe Desmur, calligraphe et traducteur littéraire du chinois" description="Christophe Desmur, calligraphe et traducteur littéraire du chinois à Lyon. Trente ans de pratique et master de traduction littéraire chinois-français.">
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Christophe Desmur",
-    "jobTitle": "Calligraphe et traducteur littéraire du chinois",
-    "description": "Calligraphe et traducteur littéraire du chinois à Lyon, titulaire d'un master de traduction littéraire chinois-français.",
-    "url": "https://ateliersdecalligraphie.com/le-calligraphe",
-    "email": "christophe.desmur@orange.fr",
-    "telephone": ["+33472078861", "+33769941643"],
-    "image": "https://ateliersdecalligraphie.com/assets/christophe-desmur-calligraphie-chinoise.webp",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Lyon",
-      "addressCountry": "FR"
+<Base
+  title="Christophe Desmur, calligraphe chinois et traducteur littéraire à Lyon"
+  description="Christophe Desmur transmet la calligraphie chinoise traditionnelle depuis plus de 30 ans à Lyon : cours collectifs à la Croix-Rousse, cours à domicile et ateliers sur mesure.">
+
+  <!-- Schema.org Person & BreadcrumbList -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify([
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Christophe Desmur",
+      "jobTitle": "Calligraphe et traducteur littéraire du chinois",
+      "description": "Calligraphe et traducteur littéraire du chinois à Lyon, avec plus de 30 ans de pratique et titulaire d'un master de traduction littéraire chinois-français.",
+      "url": "https://ateliersdecalligraphie.com/le-calligraphe",
+      "email": "christophe.desmur@orange.fr",
+      "telephone": ["+33472078861", "+33769941643"],
+      "image": "https://ateliersdecalligraphie.com/assets/christophe-desmur-calligraphie-chinoise.webp",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Lyon",
+        "addressCountry": "FR"
+      },
+      "knowsAbout": [
+        "Calligraphie chinoise",
+        "Traduction littéraire du chinois",
+        "Langue et civilisation chinoises",
+        "Langue et civilisation coréennes"
+      ],
+      "hasCredential": [
+        { "@type": "EducationalOccupationalCredential", "name": "Master de traduction littéraire du chinois vers le français" },
+        { "@type": "EducationalOccupationalCredential", "name": "Maîtrise de langue et civilisation chinoises" },
+        { "@type": "EducationalOccupationalCredential", "name": "DEUG de langue et civilisation coréennes" }
+      ]
     },
-    "knowsAbout": ["Calligraphie chinoise", "Traduction littéraire du chinois", "Langue et civilisation chinoises", "Langue et civilisation coréennes"],
-    "hasCredential": [
-      { "@type": "EducationalOccupationalCredential", "name": "Master de traduction littéraire du chinois vers le français" },
-      { "@type": "EducationalOccupationalCredential", "name": "Maîtrise de langue et civilisation chinoises" },
-      { "@type": "EducationalOccupationalCredential", "name": "DEUG de langue et civilisation coréennes" }
-    ]
-  })} />
-  <div class="mx-auto max-w-[800px] mt-6">
-    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
-      <ol class="flex items-center gap-1.5 flex-wrap">
-        <li><a href="/" class="hover:underline">Accueil</a></li>
-        <li aria-hidden="true">/</li>
-        <li><span class="text-gray-500">Découvrir</span></li>
-        <li aria-hidden="true">/</li>
-        <li aria-current="page" class="text-gray-800 dark:text-gray-200 font-medium">Christophe Desmur</li>
-      </ol>
-    </nav>
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "https://ateliersdecalligraphie.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Découvrir",
+          "item": "https://ateliersdecalligraphie.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Christophe Desmur",
+          "item": "https://ateliersdecalligraphie.com/le-calligraphe"
+        }
+      ]
+    }
+  ])} />
 
-    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight text-gray-900 dark:text-gray-100">
-      Christophe Desmur, calligraphe et traducteur littéraire du chinois
-    </h1>
-    <p class="text-lg mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
-      Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques.
-    </p>
+  <div class="mx-auto max-w-5xl py-2">
 
-    <p class="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed">
-      Lyonnais de naissance, calligraphe passionné par les cultures du monde et la transmission, je suis titulaire :
-    </p>
-    <ul class="list-disc pl-5 my-3 space-y-1 text-gray-700 dark:text-gray-300">
-      <li>d’un diplôme d’étude universitaire générale (DEUG) en langue et civilisation coréennes&nbsp;;</li>
-      <li>d’une maîtrise de langue et civilisation chinoises&nbsp;;</li>
-      <li>d’un master de traduction littéraire du chinois vers le français.</li>
-    </ul>
+    <!-- ================================================================= -->
+    <!-- 1. REDESIGNED HERO SECTION                                        -->
+    <!-- ================================================================= -->
+    <header class="pb-12 sm:pb-16 border-b border-gray-100 dark:border-gray-800">
+      <!-- Breadcrumb -->
+      <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6 sm:mb-8">
+        <ol class="flex items-center gap-1.5 flex-wrap">
+          <li><a href="/" class="hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded">Accueil</a></li>
+          <li aria-hidden="true" class="text-gray-400">/</li>
+          <li><span class="text-gray-500">Découvrir</span></li>
+          <li aria-hidden="true" class="text-gray-400">/</li>
+          <li aria-current="page" class="text-gray-900 dark:text-gray-100 font-medium">Christophe Desmur</li>
+        </ol>
+      </nav>
 
-    <img
-      src="/assets/christophe-desmur-calligraphie-chinoise.webp"
-      alt="Christophe Desmur en train de calligraphier au pinceau"
-      width="800"
-      height="533"
-      loading="eager"
-      class="w-full max-w-[800px] h-auto rounded-xl shadow-md my-6"
-    />
+      <!-- Editorial 2-column layout on desktop, natural stack on mobile -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <!-- Left column: Text, Positioning & CTAs -->
+        <div class="lg:col-span-7 flex flex-col justify-center">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/60 text-xs font-semibold text-indigo-800 dark:text-indigo-300 w-fit mb-4">
+            <span aria-hidden="true">📍</span>
+            <span>Lyon (Croix-Rousse)</span>
+            <span class="text-indigo-300 dark:text-indigo-700" aria-hidden="true">•</span>
+            <span>Plus de 30 ans de pratique</span>
+          </div>
 
-    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-      J'enseigne la calligraphie chinoise traditionnelle à Lyon sous plusieurs formes : en <a href="/cours-collectifs" class="text-indigo-600 dark:text-indigo-400 underline font-medium">cours collectifs hebdomadaires</a> au Dojo Zen et à la boutique Miroirs du Ciel (Croix-Rousse), en <a href="/cours-individuel-a-domicile" class="text-indigo-600 dark:text-indigo-400 underline font-medium">cours particuliers à domicile</a>, ainsi que lors d'<a href="/ecoles-primaires" class="text-indigo-600 dark:text-indigo-400 underline font-medium">ateliers scolaires</a> et d'interventions en entreprise. Je réalise également des <a href="/galerie" class="text-indigo-600 dark:text-indigo-400 underline font-medium">œuvres originales à l'encre de Chine</a> sur commande.
-    </p>
+          <h1 class="text-4xl sm:text-5xl lg:text-[3.25rem] font-serif font-medium tracking-tight text-gray-950 dark:text-gray-50 leading-[1.12]">
+            Christophe Desmur
+          </h1>
 
-    <h2 class="text-4xl lg:text-3xl font-bold text-gray-600 mt-10">Ateliers & interventions</h2>
+          <p class="text-xl sm:text-2xl font-serif text-indigo-700 dark:text-indigo-300 mt-2 font-normal">
+            Calligraphe chinois à Lyon
+          </p>
 
-    <!-- Navigation années -->
-    <nav class="flex flex-wrap gap-4 mb-6">
-      {sortedYears.map((annee, idx) => (
-        <button
-          class={`year-btn px-4 py-2 rounded font-semibold transition-colors duration-300
-            ${idx === 0 ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'}`}
-          data-year={annee}
-        >
-          {annee}
-        </button>
-      ))}
-    </nav>
+          <p class="text-base sm:text-lg text-gray-700 dark:text-gray-300 mt-5 leading-relaxed">
+            Je transmets la calligraphie chinoise depuis plus de 30 ans, à travers des cours collectifs réguliers, des cours particuliers à domicile et des ateliers culturels sur mesure pour les écoles et les institutions.
+          </p>
 
-    <!-- Sections par année -->
-    {sortedYears.map((annee, idx) => (
-      <section
-        key={annee}
-        class={`year-section ${idx === 0 ? '' : 'hidden'} mt-6`}
-        data-year={annee}
-      >
-        <ul class="mt-4 space-y-2">
-          {ateliersByYear[annee].map((event, idxEvent) => (
-            <li
-              key={event.from + event.titre + event.lieu}
-              class={`
-                border-b pb-2
-                ${event.multiYear
-                  ? 'bg-indigo-100 text-indigo-900 font-semibold'
-                  : 'odd:bg-gray-100'}
-              `}
-            >
-              <strong set:html={event.displayDate}></strong>
-              {" — "}
-              {event.href ? (
-                <a href={event.href} class="text-indigo-600 hover:underline">{event.titre}</a>
-              ) : (
-                event.titre
-              )}
-              <br />
-              <em>{event.lieu}</em>
-              {event.details && (<><br />{event.details}</>)}
+          <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
+            Lyonnais de naissance et titulaire d'un master de traduction littéraire du chinois vers le français, je propose une transmission vivante et bienveillante reliant le geste du pinceau, le souffle et la compréhension intime de l'écriture.
+          </p>
+
+          <!-- Action buttons -->
+          <div class="mt-7 flex flex-wrap items-center gap-3.5">
+            <a
+              href="#services"
+              class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm transition shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500">
+              Découvrir les ateliers
+            </a>
+            <a
+              href="#contact"
+              class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-200 font-medium text-sm transition border border-gray-200 dark:border-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400">
+              Me contacter
+            </a>
+          </div>
+
+          <!-- Quick reassuring key points -->
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-7 pt-6 border-t border-gray-100 dark:border-gray-800/80 text-xs text-gray-600 dark:text-gray-400">
+            <li class="flex items-center gap-1.5">
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold">✓</span>
+              <span>Cours réguliers au Dojo Zen (Lyon 4<sup>e</sup>)</span>
             </li>
+            <li class="flex items-center gap-1.5">
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold">✓</span>
+              <span>Cours particuliers (50&nbsp;% crédit d'impôt)</span>
+            </li>
+            <li class="flex items-center gap-1.5">
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold">✓</span>
+              <span>Matériel traditionnel entièrement fourni</span>
+            </li>
+            <li class="flex items-center gap-1.5">
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold">✓</span>
+              <span>Accessible aux débutants sans prérequis</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Right column: Photograph with accessible caption -->
+        <div class="lg:col-span-5">
+          <figure class="relative mx-auto max-w-md lg:max-w-none">
+            <div class="overflow-hidden rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-md bg-gray-50 dark:bg-gray-800">
+              <img
+                src="/assets/christophe-desmur-calligraphie-chinoise.webp"
+                alt="Christophe Desmur en train de calligraphier au pinceau traditionnel et encre de Chine"
+                width="800"
+                height="533"
+                loading="eager"
+                class="w-full h-auto object-cover aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3]"
+              />
+            </div>
+            <figcaption class="mt-3 text-xs text-gray-500 dark:text-gray-400 italic text-center lg:text-left leading-normal">
+              Christophe Desmur en pleine pratique au pinceau — transmission de la calligraphie chinoise traditionnelle à Lyon.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- 2. "WHAT I OFFER" SECTION (SERVICES SCANNABLES)                    -->
+    <!-- ================================================================= -->
+    <section id="services" class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="services-title">
+      <div class="max-w-2xl mb-8 sm:mb-10">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
+          Formules & Prestations
+        </p>
+        <h2 id="services-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100">
+          Découvrez la calligraphie chinoise
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2 text-base leading-relaxed">
+          De l'initiation individuelle aux ateliers de groupe et créations sur mesure, découvrez les formules d'enseignement et d'intervention proposées à Lyon et en région :
+        </p>
+      </div>
+
+      <!-- Scannable editorial grid: not bulky cards, but elegant interactive items -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+        {services.map((service) => (
+          <a
+            href={service.href}
+            class="group p-5 sm:p-6 rounded-xl bg-gray-50/60 hover:bg-gray-100/80 dark:bg-gray-800/40 dark:hover:bg-gray-800/80 border border-gray-200/70 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-700/60 transition-all duration-200 flex flex-col justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+            <div>
+              <div class="flex items-baseline justify-between gap-3">
+                <h3 class="text-base sm:text-lg font-serif font-medium text-gray-900 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  {service.title}
+                </h3>
+                <span class="text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:translate-x-1 transition-transform text-sm shrink-0 font-sans" aria-hidden="true">
+                  →
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+                {service.description}
+              </p>
+            </div>
+            {service.badge && (
+              <div class="mt-4 pt-3 border-t border-gray-200/60 dark:border-gray-700/40 flex items-center text-[11px] font-medium text-indigo-700 dark:text-indigo-400">
+                <span>{service.badge}</span>
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 3. BIOGRAPHY / CREDENTIALS                                        -->
+    <!-- ================================================================= -->
+    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="bio-title">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+        
+        <!-- Biography column (7 cols) -->
+        <div class="lg:col-span-7">
+          <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
+            Parcours & Transmission
+          </p>
+          <h2 id="bio-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100 mb-6">
+            Une pratique entre calligraphie, langue et culture chinoises
+          </h2>
+
+          <div class="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed text-base sm:text-[17px]">
+            <p>
+              Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques. Lyonnais de naissance, calligraphe passionné par les cultures du monde et la transmission, je vis la calligraphie comme un dialogue vivant entre concentration, respiration et tracé de l'encre.
+            </p>
+            <p>
+              J'enseigne la calligraphie chinoise traditionnelle à Lyon sous plusieurs formes : en <a href="/cours-collectifs" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">cours collectifs hebdomadaires</a> au Dojo Zen et à la boutique Miroirs du Ciel (Croix-Rousse), en <a href="/cours-individuel-a-domicile" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">cours particuliers à domicile</a>, ainsi que lors d'<a href="/ecoles-primaires" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">ateliers scolaires</a> et d'interventions en entreprise. Je réalise également des <a href="/galerie" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">œuvres originales à l'encre de Chine</a> sur commande.
+            </p>
+            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 pt-1">
+              Mon parcours universitaire et ma pratique de la traduction littéraire du chinois vers le français — notamment avec la traduction de nouvelles d'auteurs modernes comme <a href="/pere-nouvelle" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">«&nbsp;Père&nbsp;» de Lu Yin</a> ou <a href="/zeng-jixin-la-guerre-entre-les-rats-et-les-hommes-nouvelle" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">«&nbsp;La Guerre des rats&nbsp;» de Zeng Jixin</a> (voir le <a href="/traductions" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">sommaire des traductions</a>) — nourrissent un enseignement qui éclaire à la fois la forme plastique des caractères et leur sens profond.
+            </p>
+          </div>
+        </div>
+
+        <!-- Qualifications column (5 cols) : structured accessible definition list -->
+        <div class="lg:col-span-5 bg-gray-50/90 dark:bg-gray-800/50 rounded-2xl p-6 sm:p-8 border border-gray-200/70 dark:border-gray-700/60">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-5">
+            Formation universitaire & diplômes
+          </h3>
+
+          <dl class="space-y-5">
+            <div class="pb-4 border-b border-gray-200 dark:border-gray-700/60">
+              <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+                Master
+              </dt>
+              <dd class="font-serif text-lg text-gray-950 dark:text-gray-100 font-medium mt-0.5">
+                Traduction littéraire du chinois vers le français
+              </dd>
+            </div>
+
+            <div class="pb-4 border-b border-gray-200 dark:border-gray-700/60">
+              <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+                Maîtrise
+              </dt>
+              <dd class="font-serif text-lg text-gray-950 dark:text-gray-100 font-medium mt-0.5">
+                Langue et civilisation chinoises
+              </dd>
+            </div>
+
+            <div>
+              <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+                DEUG
+              </dt>
+              <dd class="font-serif text-lg text-gray-950 dark:text-gray-100 font-medium mt-0.5">
+                Langue et civilisation coréennes
+              </dd>
+            </div>
+          </dl>
+
+          <div class="mt-6 pt-5 border-t border-gray-200 dark:border-gray-700/60 text-xs text-gray-500 dark:text-gray-400 leading-relaxed flex items-start gap-2">
+            <span class="text-indigo-600 dark:text-indigo-400 mt-0.5 font-bold" aria-hidden="true">ℹ</span>
+            <span>Une triple formation universitaire combinant étude des langues, précision littéraire et transmission vivante des arts du pinceau.</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 4. ATELIERS & INTERVENTIONS (UPCOMING, RECENT & ARCHIVE)           -->
+    <!-- ================================================================= -->
+    <section id="ateliers" class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="workshops-title">
+      
+      <!-- 4.1 Prochains ateliers -->
+      <div class="mb-12">
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-8">
+          <div>
+            <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-1">
+              Calendrier des ateliers
+            </p>
+            <h2 id="workshops-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100">
+              Prochains ateliers
+            </h2>
+          </div>
+          <span class="text-xs text-gray-500 dark:text-gray-400 font-medium">
+            Saison 2026 • Lyon et région
+          </span>
+        </div>
+
+        <!-- Clean chronological grid of upcoming events -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+          {upcomingEvents.map((event) => (
+            <div class="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between hover:border-gray-300 dark:hover:border-gray-600 transition">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <time class="text-xs font-semibold uppercase tracking-wider text-indigo-800 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-md border border-indigo-100 dark:border-indigo-900/40" set:html={event.displayDate} />
+                  {event.multiYear && (
+                    <span class="text-[11px] text-gray-500 dark:text-gray-400 font-medium">Cycle annuel</span>
+                  )}
+                </div>
+                <h3 class="font-serif text-lg font-medium text-gray-900 dark:text-gray-100 mt-2">
+                  {event.href ? (
+                    <a href={event.href} class="text-indigo-600 dark:text-indigo-400 hover:underline">
+                      {event.titre}
+                    </a>
+                  ) : (
+                    event.titre
+                  )}
+                </h3>
+                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1.5 flex items-start gap-1.5">
+                  <span class="text-gray-400 dark:text-gray-500 shrink-0 mt-0.5" aria-hidden="true">📍</span>
+                  <span>{event.lieu}</span>
+                </p>
+              </div>
+              {event.details && (
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-3 pt-2.5 border-t border-gray-100 dark:border-gray-700/50 italic">
+                  {event.details}
+                </p>
+              )}
+            </div>
           ))}
-        </ul>
-      </section>
-    ))}
+        </div>
+      </div>
+
+      <!-- 4.2 Interventions récentes -->
+      <div class="mt-14 pt-10 border-t border-gray-100 dark:border-gray-800">
+        <div class="mb-6">
+          <h2 class="text-2xl sm:text-3xl font-serif font-medium text-gray-900 dark:text-gray-100">
+            Interventions récentes
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
+            Sélection d'interventions récentes auprès d'entreprises, écoles et structures d'accueil (2025) :
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+          {recentInterventions.map((event) => (
+            <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60 flex flex-col justify-between">
+              <div>
+                <div class="mb-1.5">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400" set:html={event.displayDate} />
+                </div>
+                <h3 class="font-serif text-base sm:text-lg font-medium text-gray-900 dark:text-gray-100">
+                  {event.href ? (
+                    <a href={event.href} class="text-indigo-600 dark:text-indigo-400 hover:underline">
+                      {event.titre}
+                    </a>
+                  ) : (
+                    event.titre
+                  )}
+                </h3>
+                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1 flex items-start gap-1.5">
+                  <span class="text-gray-400 dark:text-gray-500 shrink-0 mt-0.5" aria-hidden="true">📍</span>
+                  <span>{event.lieu}</span>
+                </p>
+              </div>
+              {event.details && (
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-2.5 pt-2 border-t border-gray-200/50 dark:border-gray-700/40 italic">
+                  {event.details}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- 4.3 Progressive Disclosure : Archive complète avec sélecteur d'année -->
+      <div class="mt-12">
+        <details id="archive-details" class="group rounded-2xl border border-gray-200/80 dark:border-gray-700/80 bg-gray-50/50 dark:bg-gray-900/30 transition-all">
+          <summary class="cursor-pointer list-none flex items-center justify-between p-5 sm:p-6 font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-100/60 dark:hover:bg-gray-800/50 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 select-none">
+            <div class="flex items-center gap-3">
+              <span class="p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 shrink-0" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+              </span>
+              <div>
+                <p class="font-serif text-lg font-medium">Consulter l'historique complet des interventions</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 font-sans mt-0.5">
+                  Archives de 2007 à 2026 ({rawAteliers.length} ateliers et démonstrations répertoriés)
+                </p>
+              </div>
+            </div>
+            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 group-open:rotate-180 transition-transform pl-4" aria-hidden="true">
+              ▼
+            </span>
+          </summary>
+
+          <div class="px-5 sm:px-6 pb-6 pt-4 border-t border-gray-200/80 dark:border-gray-700/80">
+            <!-- Compact Year Filter Selector (Native <select> for keyboard & mobile UX) -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 bg-white dark:bg-gray-800/80 p-4 rounded-xl border border-gray-200/70 dark:border-gray-700/60">
+              <div>
+                <label for="archive-year-select" class="text-sm font-medium text-gray-800 dark:text-gray-200 block">
+                  Sélectionner une année dans l'archive :
+                </label>
+                <span class="text-xs text-gray-500 dark:text-gray-400">
+                  Parcourez l'historique des interventions depuis 2007
+                </span>
+              </div>
+              <div class="relative min-w-[200px]">
+                <select
+                  id="archive-year-select"
+                  class="w-full appearance-none bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg py-2.5 pl-3.5 pr-10 text-sm font-medium text-gray-900 dark:text-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 cursor-pointer shadow-xs"
+                  aria-label="Sélectionner l'année d'intervention">
+                  {sortedYears.map((annee) => (
+                    <option value={annee}>
+                      Année {annee} ({ateliersByYear[annee].length} {ateliersByYear[annee].length > 1 ? 'événements' : 'événement'})
+                    </option>
+                  ))}
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500" aria-hidden="true">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Year sections (all 19 years preserved!) -->
+            <div id="archive-content" aria-live="polite">
+              {sortedYears.map((annee, idx) => (
+                <div
+                  key={annee}
+                  class={`archive-year-section ${idx === 0 ? '' : 'hidden'}`}
+                  data-year={annee}>
+                  <div class="flex items-center justify-between mb-3">
+                    <h4 class="text-base font-serif font-medium text-gray-800 dark:text-gray-200">
+                      Interventions en {annee}
+                    </h4>
+                    <span class="text-xs text-gray-500 dark:text-gray-400">
+                      {ateliersByYear[annee].length} événement{ateliersByYear[annee].length > 1 ? 's' : ''}
+                    </span>
+                  </div>
+
+                  <ul class="space-y-2.5">
+                    {ateliersByYear[annee].map((event) => (
+                      <li class="p-4 rounded-lg bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/60 text-sm">
+                        <div class="flex flex-wrap items-center gap-2 mb-1">
+                          <strong class="font-semibold text-gray-900 dark:text-gray-100 text-xs tracking-wider" set:html={event.displayDate} />
+                          {event.multiYear && (
+                            <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-medium">Cycle régulier</span>
+                          )}
+                        </div>
+                        <div class="font-serif text-base text-gray-900 dark:text-gray-100">
+                          {event.href ? (
+                            <a href={event.href} class="text-indigo-600 dark:text-indigo-400 hover:underline">
+                              {event.titre}
+                            </a>
+                          ) : (
+                            event.titre
+                          )}
+                        </div>
+                        <div class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                          <em>{event.lieu}</em>
+                        </div>
+                        {event.details && (
+                          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1.5 pl-2.5 border-l-2 border-gray-200 dark:border-gray-700">
+                            {event.details}
+                          </div>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </details>
+      </div>
+
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 5. STRONG CONTACT CTA SECTION                                     -->
+    <!-- ================================================================= -->
+    <section id="contact" class="my-14 sm:my-20 rounded-2xl bg-gray-50/90 dark:bg-gray-800/60 border border-gray-200/80 dark:border-gray-700/80 p-8 sm:p-12 text-center" aria-labelledby="cta-contact-title">
+      <div class="max-w-2xl mx-auto">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
+          Contact & Inscription
+        </p>
+        <h2 id="cta-contact-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          Un projet d'atelier ou envie de découvrir la calligraphie ?
+        </h2>
+        <p class="text-gray-600 dark:text-gray-300 mt-4 text-base sm:text-[17px] leading-relaxed">
+          Que vous souhaitiez vous initier lors d'une première séance d'essai sans engagement, rejoindre un cours hebdomadaire à la Croix-Rousse ou organiser une intervention dans votre structure, Christophe Desmur est à votre écoute.
+        </p>
+
+        <!-- CTA buttons -->
+        <div class="mt-8 flex flex-wrap justify-center items-center gap-3.5">
+          <a
+            href="/cours-collectifs#trial-heading"
+            class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm transition shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500">
+            Essayer un cours
+          </a>
+          <a
+            href="mailto:christophe.desmur@orange.fr?subject=Demande%20d'information%20calligraphie"
+            class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 font-medium text-sm transition border border-gray-200 dark:border-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400">
+            Me contacter
+          </a>
+        </div>
+
+        <!-- Direct coordinates & venues -->
+        <div class="mt-8 pt-6 border-t border-gray-200/80 dark:border-gray-700/60 flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+          <a href="tel:+33472078861" class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition inline-flex items-center gap-1.5 py-1">
+            <span aria-hidden="true">📞</span> 04 72 07 88 61
+          </a>
+          <span class="text-gray-300 dark:text-gray-700 hidden sm:inline" aria-hidden="true">•</span>
+          <a href="tel:+33769941643" class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition inline-flex items-center gap-1.5 py-1">
+            <span aria-hidden="true">📱</span> 07 69 94 16 43
+          </a>
+          <span class="text-gray-300 dark:text-gray-700 hidden sm:inline" aria-hidden="true">•</span>
+          <span class="inline-flex items-center gap-1.5 py-1">
+            <span aria-hidden="true">📍</span> Lyon 4<sup>e</sup> (Dojo Zen & Miroirs du Ciel)
+          </span>
+        </div>
+      </div>
+    </section>
+
   </div>
 
+  <!-- Client-side script for year filter interactivity inside archive -->
   <script>
-    const yearButtons = document.querySelectorAll(".year-btn");
+    const yearSelect = document.getElementById("archive-year-select");
+    const yearSections = document.querySelectorAll(".archive-year-section");
 
-    yearButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const year = btn.dataset.year;
-        document.querySelectorAll(".year-section").forEach(sec => {
-          sec.classList.toggle("hidden", sec.dataset.year !== year);
+    if (yearSelect) {
+      yearSelect.addEventListener("change", (e) => {
+        const target = e.target;
+        const selectedYear = target ? target.value : "";
+        yearSections.forEach((sec) => {
+          sec.classList.toggle("hidden", sec.dataset.year !== selectedYear);
         });
-        yearButtons.forEach(b => {
-          b.classList.remove("bg-indigo-600", "text-white");
-          b.classList.add("bg-gray-200", "text-gray-800");
-        });
-        btn.classList.add("bg-indigo-600", "text-white");
-        btn.classList.remove("bg-gray-200", "text-gray-800");
-
-        const section = document.querySelector(`.year-section[data-year='${year}']`);
-        if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
-    });
+    }
   </script>
 </Base>
