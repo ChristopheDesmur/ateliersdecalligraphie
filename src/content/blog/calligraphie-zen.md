@@ -20,7 +20,7 @@ Dans les traditions ancestrales chinoise et japonaise, une **calligraphie zen** 
 
 La calligraphie chinoise ou japonaise que je pratique a été intimement liée pendant des siècles à la pratique du zen. C'est un fait historique. Ça s'est réalisé en Chine pendant sept siècles, puis au Japon pendant sept siècles également. La calligraphie chinoise a particulièrement été appréciée par les gens qui pratiquaient le zen parce que c'était un moyen d'exprimer l'essence, l'élan, la beauté du zen.
 
-![Un pinceau repose a cote d un texte calligraphie sur du papier blanc.](/assets/un-pinceau-repose-a-cote-d-un-texte-calligraphie-sur-du-papier-blanc.webp)
+![Christophe Desmur, calligraphe et moine zen, apposant son sceau traditionnel à l'encre rouge](/assets/christophe-desmur-calligraphie-zen-sceau.webp)
 
 Il n'est pas toujours facile de parler du zen, de l'exprimer, de le manifester. À travers la calligraphie, à travers _une_ calligraphie, on pouvait percevoir l'esprit d'une personne. Et par exemple, l'esprit d'une personne qui pratiquait le zen, qui pratiquait la posture d'éveil.
 
