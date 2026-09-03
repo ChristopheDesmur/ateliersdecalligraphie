@@ -39,7 +39,7 @@ const faqCategories: FaqCategory[] = [
     items: [
       {
         question: "Où et quand ont lieu les cours réguliers de calligraphie à Lyon ?",
-        answer: "Les cours se déroulent dans le 4e arrondissement de Lyon (Croix-Rousse) sur deux créneaux : les lundis soirs de 18 h 30 à 20 h 30 au Dojo Zen de Lyon (11, rue Dumenge) et les mercredis matin de 10 h à 12 h à la boutique Miroirs du Ciel (9, rue de Belfort).",
+        answer: "Les cours se déroulent dans le 4<sup>e</sup> arrondissement de Lyon (Croix-Rousse) sur deux créneaux : les lundis soirs de 18 h 30 à 20 h 30 au Dojo Zen de Lyon (11, rue Dumenge) et les mercredis matin de 10 h à 12 h à la boutique Miroirs du Ciel (9, rue de Belfort).",
       },
       {
         question: "Quels sont les tarifs des cours collectifs et particuliers ?",
@@ -113,9 +113,7 @@ const allQuestions = faqCategories.flatMap((cat) => cat.items);
               <dt class="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">
                 {faq.question}
               </dt>
-              <dd class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
-                {faq.answer}
-              </dd>
+              <dd class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm" set:html={faq.answer} />
             </div>
           ))}
         </dl>
@@ -133,7 +131,7 @@ const allQuestions = faqCategories.flatMap((cat) => cat.items);
     "name": faq.question,
     "acceptedAnswer": {
       "@type": "Answer",
-      "text": faq.answer,
+      "text": faq.answer.replace(/<[^>]+>/g, ""),
     },
   })),
 })} />

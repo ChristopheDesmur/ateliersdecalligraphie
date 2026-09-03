@@ -38,7 +38,7 @@
   - from: "2026-01-01 00:00"
     to: "2026-12-31 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "École primaire Aveyron, Lyon 4e"
+    lieu: "École primaire Aveyron, Lyon 4<sup>e</sup>"
     href: "/ecoles-primaires"
     details: ""
 
@@ -352,7 +352,7 @@
   - from: "2018-07-11 00:00"
     to: "2018-07-28 23:59"
     titre: "Exposition de calligraphies"
-    lieu: "Boutique Miroirs du Ciel, Lyon 4e"
+    lieu: "Boutique Miroirs du Ciel, Lyon 4<sup>e</sup>"
     details: "Dans le cadre de l’exposition Huit à Lyon, autour du Japon."
   - from: "2018-09-28 00:00"
     to: "2018-10-01 23:59"
@@ -484,21 +484,21 @@
     titre: "Ateliers de sensibilisation à la langue et l’écriture chinoises"
     lieu: "Collège Gabriel Rosset, Lyon 7"
     href: "/colleges"
-    details: "Pour classes de 6e, 5e et 4e lors de la fête des langues."
+    details: "Pour classes de 6<sup>e</sup>, 5<sup>e</sup> et 4<sup>e</sup> lors de la fête des langues."
 
   - from: "2021-05-18 00:00"
     to: "2021-05-18 23:59"
     titre: "Ateliers de sensibilisation à la langue et l’écriture chinoises"
     lieu: "Collège Gabriel Rosset, Lyon 7"
     href: "/colleges"
-    details: "Pour classes de 6e, 5e et 4e lors de la fête des langues."
+    details: "Pour classes de 6<sup>e</sup>, 5<sup>e</sup> et 4<sup>e</sup> lors de la fête des langues."
 
   - from: "2021-05-20 00:00"
     to: "2021-05-20 23:59"
     titre: "Ateliers de sensibilisation à la langue et l’écriture chinoises"
     lieu: "Collège Gabriel Rosset, Lyon 7"
     href: "/colleges"
-    details: "Pour classes de 6e, 5e et 4e lors de la fête des langues."
+    details: "Pour classes de 6<sup>e</sup>, 5<sup>e</sup> et 4<sup>e</sup> lors de la fête des langues."
 
   - from: "2021-05-19 00:00"
     to: "2021-05-19 23:59"
@@ -672,7 +672,7 @@
     titre: "Ateliers de calligraphie et sensibilisation aux écritures chinoise, coréenne et japonaise"
     lieu: "Collège Gabriel Rosset, Lyon 7"
     href: "/colleges"
-    details: "Pour classes de 5e et 4e."
+    details: "Pour classes de 5<sup>e</sup> et 4<sup>e</sup>."
 
 "2024":
   - from: "2024-01-01 00:00"
