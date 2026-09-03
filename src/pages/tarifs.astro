@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import Cta from "@/components/cta.astro";
+import RelatedPages from "@/components/related-pages.astro";
 
 const rates = [
   {
@@ -251,6 +252,8 @@ const rates = [
         <strong>Interventions pour structures et collectivités :</strong> Les tarifs s'entendent hors taxes. Tout le matériel spécifique (papiers spéciaux, encre, pinceaux chinois fins et larges, feutres sous-main) est fourni et transporté par l'intervenant.
       </p>
     </div>
+
+    <RelatedPages current="/tarifs" />
 
     <Cta />
   </Container>

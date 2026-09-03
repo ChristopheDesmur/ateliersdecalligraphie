@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Cta from "@/components/cta.astro";
+import RelatedPages from "@/components/related-pages.astro";
 
 const artworks = [
   {
@@ -276,6 +277,8 @@ const allGallery = [...artworks, ...workshopPhotos];
         })}
       </div>
     </section>
+
+    <RelatedPages current="/galerie" />
 
     <Cta />
   </Container>

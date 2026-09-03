@@ -5,11 +5,11 @@ export interface Props {
 const { current } = Astro.props;
 
 const audienceLinks = [
-  { href: "/ecoles-primaires", label: "Écoles primaires" },
+  { href: "/ecoles-primaires", label: "Écoles primaires & enfants" },
   { href: "/colleges", label: "Collèges" },
   { href: "/formats-atelier-pour-les-lycees", label: "Lycées" },
-  { href: "/universites-et-grandes-ecoles", label: "Universités et grandes écoles" },
-  { href: "/comites-entreprise", label: "Comités d’entreprise (CSE)" },
+  { href: "/universites-et-grandes-ecoles", label: "Universités & grandes écoles" },
+  { href: "/comites-entreprise", label: "Comités d'entreprise (CSE)" },
   { href: "/maisons-de-retraite", label: "Maisons de retraite & EHPAD" },
 ].filter((p) => p.href !== current);
 
@@ -17,8 +17,16 @@ const generalLinks = [
   { href: "/", label: "Accueil" },
   { href: "/cours-collectifs", label: "Cours collectifs à Lyon" },
   { href: "/cours-individuel-a-domicile", label: "Cours individuels à domicile" },
-  { href: "/tarifs", label: "Tarifs des cours et ateliers" },
-  { href: "/atelier-de-groupe", label: "Un atelier pour chaque public" },
+  { href: "/tarifs", label: "Grille tarifaire" },
+  { href: "/atelier-de-groupe", label: "Vue d'ensemble des ateliers" },
+].filter((p) => p.href !== current);
+
+const editorialLinks = [
+  { href: "/calligraphie-zen", label: "Calligraphie zen & concentration" },
+  { href: "/shodo-voie-pinceau", label: "Shodō : la voie du pinceau" },
+  { href: "/galerie", label: "Galerie des œuvres à l'encre" },
+  { href: "/le-calligraphe", label: "Christophe Desmur, calligraphe" },
+  { href: "/cours-de-chinois", label: "Cours de sinogrammes" },
 ].filter((p) => p.href !== current);
 ---
 
@@ -27,7 +35,7 @@ const generalLinks = [
     Voir aussi
   </h2>
 
-  <div class="grid sm:grid-cols-2 gap-8 text-sm">
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 text-sm">
     <!-- Groupe 1 : Autres publics -->
     <div>
       <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3 text-sm">
@@ -54,6 +62,25 @@ const generalLinks = [
       </h3>
       <ul class="space-y-2">
         {generalLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition flex items-center gap-1.5">
+              <span class="text-gray-400 select-none">&rarr;</span>
+              <span>{link.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Groupe 3 : Culture & Découverte -->
+    <div>
+      <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3 text-sm">
+        Culture & Découverte
+      </h3>
+      <ul class="space-y-2">
+        {editorialLinks.map((link) => (
           <li>
             <a
               href={link.href}

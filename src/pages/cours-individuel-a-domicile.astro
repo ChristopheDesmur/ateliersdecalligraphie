@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import RelatedPages from "@/components/related-pages.astro";
 
 const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d'information%20cours%20individuel%20%C3%A0%20domicile";
 ---
@@ -545,6 +546,8 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d'
         </div>
       </div>
     </footer>
+
+    <RelatedPages current="/cours-individuel-a-domicile" />
 
   </div>
 </Layout>
