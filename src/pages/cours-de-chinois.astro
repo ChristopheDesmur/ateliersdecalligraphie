@@ -1,0 +1,645 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d'information%20cours%20de%20chinois";
+---
+
+<Layout
+  title="Cours de chinois et calligraphie chinoise à Lyon | Christophe Desmur"
+  description="Cours de chinois à Lyon alliant apprentissage de la langue, tracé des idéogrammes au pinceau et découverte des textes classiques (Daodejing, Liezi, poèmes Tang et Song).">
+
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Cours de chinois et calligraphie traditionnelle",
+    "description": "Apprentissage progressif de la langue et de l'écriture chinoise par le tracé des idéogrammes au pinceau, l'étude des styles régulier, courant et cursif, et la découverte des textes classiques.",
+    "url": "https://ateliersdecalligraphie.com/cours-de-chinois",
+    "provider": {
+      "@type": "Person",
+      "name": "Christophe Desmur",
+      "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+    },
+    "educationalCredentialAwarded": "Initiation et perfectionnement",
+    "inLanguage": "fr",
+    "hasCourseInstance": [
+      {
+        "@type": "CourseInstance",
+        "courseMode": "onsite",
+        "location": {
+          "@type": "Place",
+          "name": "Dojo Zen de Lyon",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "11, rue Dumenge",
+            "postalCode": "69004",
+            "addressLocality": "Lyon",
+            "addressCountry": "FR"
+          }
+        }
+      },
+      {
+        "@type": "CourseInstance",
+        "courseMode": "onsite",
+        "location": {
+          "@type": "Place",
+          "name": "Boutique Miroirs du Ciel",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "9, rue de Belfort",
+            "postalCode": "69004",
+            "addressLocality": "Lyon",
+            "addressCountry": "FR"
+          }
+        }
+      }
+    ]
+  })} />
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4">
+
+    <!-- ================================================================= -->
+    <!-- FIL D'ARIANE                                                      -->
+    <!-- ================================================================= -->
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-8">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline hover:text-gray-900 dark:hover:text-gray-200 transition-colors">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span class="text-gray-500 dark:text-gray-400">Culture & Chinois</span></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-900 dark:text-gray-100 font-medium">Cours de chinois</li>
+      </ol>
+    </nav>
+
+    <!-- ================================================================= -->
+    <!-- 1. HERO SECTION                                                   -->
+    <!-- ================================================================= -->
+    <header class="py-6 sm:py-10 border-b border-gray-100 dark:border-gray-800" aria-labelledby="hero-title">
+      <div class="max-w-3xl">
+        <!-- Eyebrow -->
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-3">
+          Cours de chinois à Lyon
+        </p>
+
+        <!-- H1 -->
+        <h1
+          id="hero-title"
+          class="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-gray-950 dark:text-gray-100 tracking-tight leading-[1.15]">
+          Apprentissage de la calligraphie<br class="hidden sm:inline" /> et de la culture chinoise
+        </h1>
+
+        <!-- Introduction -->
+        <p class="text-base sm:text-lg text-gray-700 dark:text-gray-300 mt-5 leading-relaxed">
+          Prenez des <strong>cours de chinois</strong> progressivement, en apprenant à tracer les idéogrammes au pinceau et à l’encre de Chine. Une méthode vivante qui relie la langue parlée, la mémoire du geste, la beauté des caractères et l’accès direct aux textes de la tradition.
+        </p>
+
+        <!-- Dual CTAs -->
+        <div class="mt-8 flex flex-wrap items-center gap-3.5">
+          <a
+            href="#approche"
+            class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm transition shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500">
+            Découvrir les cours
+          </a>
+          <a
+            href="#contact"
+            class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 font-medium text-sm transition border border-gray-200 dark:border-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400">
+            Me contacter
+          </a>
+        </div>
+
+        <!-- Reassurance list -->
+        <ul class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800/80 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-gray-600 dark:text-gray-400 font-medium">
+          <li class="flex items-center gap-1.5">
+            <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+            <span>Initiation & soutien sur demande</span>
+          </li>
+          <li class="flex items-center gap-1.5">
+            <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+            <span>Dojo Zen & Miroirs du Ciel (Lyon 4<sup>e</sup>)</span>
+          </li>
+          <li class="flex items-center gap-1.5">
+            <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+            <span>Enseigné par Christophe Desmur</span>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- 2. DEUX FAÇONS D'ABORDER LE CHINOIS (TWO LEARNING DIMENSIONS)     -->
+    <!-- ================================================================= -->
+    <section id="approche" class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="dimensions-title">
+      <div class="max-w-2xl mb-8 sm:mb-10">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-1">
+          Parcours pédagogiques
+        </p>
+        <h2 id="dimensions-title" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          Deux façons d'aborder le chinois
+        </h2>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+          Selon vos attentes, vos besoins scolaires ou votre curiosité culturelle, l'enseignement s'organise autour de deux démarches complémentaires.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Dimension 1 : Apprendre le chinois -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-gray-50/70 dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/60 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-md border border-indigo-100 dark:border-indigo-900/40">
+                Langue & Accompagnement
+              </span>
+            </div>
+            <h3 class="text-xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
+              Apprendre le chinois
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-3 leading-relaxed">
+              Des cours d'<strong>initiation-découverte</strong> ou d'<strong>accompagnement et de soutien</strong> à la langue chinoise peuvent être organisés sur demande pour les particuliers, les élèves et les étudiants.
+            </p>
+            <ul class="mt-5 space-y-2 text-xs text-gray-600 dark:text-gray-400">
+              <li class="flex items-start gap-2">
+                <span class="text-indigo-600 dark:text-indigo-400 font-bold shrink-0" aria-hidden="true">•</span>
+                <span>Initiation progressive à la prononciation, au pinyin et à la grammaire</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-indigo-600 dark:text-indigo-400 font-bold shrink-0" aria-hidden="true">•</span>
+                <span>Soutien scolaire et universitaire adapté à votre programme</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-indigo-600 dark:text-indigo-400 font-bold shrink-0" aria-hidden="true">•</span>
+                <span>Rythme personnalisé et organisation sur mesure</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-4 border-t border-gray-200/60 dark:border-gray-700/50">
+            <a href="#contact" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1">
+              <span>Demander un accompagnement linguistique</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Dimension 2 : Découvrir le chinois par le pinceau -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-gray-50/70 dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/60 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-md border border-indigo-100 dark:border-indigo-900/40">
+                Pinceau & Idéogrammes
+              </span>
+            </div>
+            <h3 class="text-xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
+              Découvrir le chinois par le pinceau
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-3 leading-relaxed">
+              Une approche sensible et visuelle : apprenez à tracer les <strong>idéogrammes au pinceau et à l’encre de Chine</strong>, en découvrant l'ordre des traits et les différents styles d'écriture traditionnelle.
+            </p>
+            <ul class="mt-5 space-y-2 text-xs text-gray-600 dark:text-gray-400">
+              <li class="flex items-start gap-2">
+                <span class="text-indigo-600 dark:text-indigo-400 font-bold shrink-0" aria-hidden="true">•</span>
+                <span>Tracé des caractères fondamentaux au pinceau et papier de riz</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-indigo-600 dark:text-indigo-400 font-bold shrink-0" aria-hidden="true">•</span>
+                <span>Pratique des 3 écritures : régulière (kaishu), courante (xingshu), cursive (caoshu)</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-indigo-600 dark:text-indigo-400 font-bold shrink-0" aria-hidden="true">•</span>
+                <span>Mémorisation naturelle des sinogrammes par la mémoire du geste</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-4 border-t border-gray-200/60 dark:border-gray-700/50">
+            <a href="#lieux" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1">
+              <span>Voir les créneaux hebdomadaires</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 3. APPRENDRE EN ÉCRIVANT (PEDAGOGICAL APPROACH + IMAGE)           -->
+    <!-- ================================================================= -->
+    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="approach-title">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <!-- Colonne texte (7 colonnes) -->
+        <div class="lg:col-span-7">
+          <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-1">
+            Démarche pédagogique
+          </p>
+          <h2 id="approach-title" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+            Apprendre en écrivant
+          </h2>
+          <div class="mt-5 space-y-4 text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+            <p>
+              Dans la culture chinoise, la langue, l’écriture et la pensée ne sont jamais dissociées. Contrairement à un système alphabétique, chaque caractère chinois (sinogramme) associe un son, une structure visuelle et une charge sémantique construite au fil des millénaires.
+            </p>
+            <p>
+              En apprenant à manier le pinceau, le geste physique vient soutenir l'assimilation intellectuelle. Le respect de l’ordre des traits, la tension de l'encre et l’équilibre des pleins et des déliés permettent d'ancrer durablement la forme des idéogrammes.
+            </p>
+            <p>
+              Cette pratique permet ainsi d'aborder la langue chinoise non pas comme une contrainte abstraite de mémorisation, mais comme un art du souffle, de la précision et de la clarté.
+            </p>
+          </div>
+
+          <div class="mt-6 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200/70 dark:border-gray-700/60 flex items-start gap-3">
+            <span class="text-base text-indigo-600 dark:text-indigo-400 mt-0.5" aria-hidden="true">💡</span>
+            <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+              <strong class="text-gray-900 dark:text-gray-100 font-semibold">Une transmission adaptée à chacun :</strong> que vous partiez de zéro ou que vous ayez déjà des notions de chinois, l'apprentissage au pinceau s'ajuste à votre rythme personnel.
+            </p>
+          </div>
+        </div>
+
+        <!-- Colonne image (5 colonnes) -->
+        <div class="lg:col-span-5">
+          <figure class="rounded-2xl overflow-hidden border border-gray-200/80 dark:border-gray-700/80 bg-gray-100 dark:bg-gray-800 shadow-sm">
+            <img
+              src="/assets/cours-de-chinois.webp"
+              alt="Cours de chinois et calligraphie traditionnelle à Lyon avec Christophe Desmur"
+              class="w-full h-auto object-cover aspect-[4/3]"
+              width="636"
+              height="451"
+              loading="lazy"
+            />
+            <figcaption class="p-3.5 bg-white/90 dark:bg-gray-900/90 text-xs text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-800">
+              Pratique du tracé des sinogrammes au pinceau et à l'encre de Chine lors d'un atelier à Lyon.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 4. LIRE LES GRANDS TEXTES CHINOIS (CLASSICAL TEXTS)               -->
+    <!-- ================================================================= -->
+    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="classics-title">
+      <div class="max-w-3xl mb-10">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-1">
+          Immersion littéraire & philosophique
+        </p>
+        <h2 id="classics-title" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          Lire les grands textes chinois
+        </h2>
+        <p class="text-base text-gray-700 dark:text-gray-300 mt-3 leading-relaxed">
+          Les cours de <a href="/shodo-voie-pinceau" class="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-700">calligraphie</a> peuvent aussi être l'occasion de découvrir des textes classiques les plus connus à partir du texte original en chinois.
+        </p>
+      </div>
+
+      <!-- Séquence en 3 étapes : Déchiffrer / Comprendre / Calligraphier -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-serif font-bold text-sm mb-3">
+            1
+          </span>
+          <h3 class="font-serif text-lg font-medium text-gray-950 dark:text-gray-100">
+            Déchiffrer
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+            Déchiffrage des textes originaux en caractères chinois : reconnaissance des clés, des racines sémantiques et de la structure des phrases.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-serif font-bold text-sm mb-3">
+            2
+          </span>
+          <h3 class="font-serif text-lg font-medium text-gray-950 dark:text-gray-100">
+            Comprendre
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+            Mise en contexte culturel, poétique et philosophique des sentences taoïstes, bouddhiques ou confucéennes étudiées.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-serif font-bold text-sm mb-3">
+            3
+          </span>
+          <h3 class="font-serif text-lg font-medium text-gray-950 dark:text-gray-100">
+            Calligraphier
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+            Travail au pinceau d’extraits des textes en écritures régulière (<em>kaishu</em>), courante (<em>xingshu</em>) et cursive (<em>caoshu</em>).
+          </p>
+        </div>
+      </div>
+
+      <!-- Textes proposés / étudiés -->
+      <div class="mt-10 pt-8 border-t border-gray-100 dark:border-gray-800">
+        <h3 class="text-xl sm:text-2xl font-serif font-medium text-gray-950 dark:text-gray-100 mb-6">
+          Textes étudiés
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+          <!-- Daodejing -->
+          <div class="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                Philosophie taoïste
+              </span>
+              <h4 class="font-serif text-lg font-medium text-gray-950 dark:text-gray-100 mt-1">
+                Le <em><a href="https://fr.wikipedia.org/wiki/Tao_T%C3%B6_King" target="_blank" rel="noopener noreferrer" class="hover:underline text-indigo-600 dark:text-indigo-400">Daodejing</a></em>
+              </h4>
+              <p class="text-xs font-serif italic text-gray-500 dark:text-gray-400 mt-0.5">
+                Traité de la Voie et de la Vertu — Lao Tseu
+              </p>
+              <p class="text-xs text-gray-600 dark:text-gray-300 mt-3 leading-relaxed">
+                Le grand classique de la sagesse chinoise, composé de 81 brefs chapitres dont les sentences poétiques et paradoxales offrent une base d'étude privilégiée pour le pinceau.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/50 text-[11px] text-gray-500 dark:text-gray-400 flex items-center justify-between">
+              <span>Textes originaux en caractères</span>
+              <span class="text-indigo-600 dark:text-indigo-400 font-medium">Laozi (老子)</span>
+            </div>
+          </div>
+
+          <!-- Liezi -->
+          <div class="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                Apologues & Sagesse
+              </span>
+              <h4 class="font-serif text-lg font-medium text-gray-950 dark:text-gray-100 mt-1">
+                Le <em><a href="https://fr.wikipedia.org/wiki/Lie_Zi" target="_blank" rel="noopener noreferrer" class="hover:underline text-indigo-600 dark:text-indigo-400">Liezi</a></em>
+              </h4>
+              <p class="text-xs font-serif italic text-gray-500 dark:text-gray-400 mt-0.5">
+                Vrai classique du vide parfait — Lie Zi
+              </p>
+              <p class="text-xs text-gray-600 dark:text-gray-300 mt-3 leading-relaxed">
+                Recueil de fables et d'allégories taoïstes illustrant la liberté d'esprit, le non-agir et l'harmonie avec les transformations naturelles.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/50 text-[11px] text-gray-500 dark:text-gray-400 flex items-center justify-between">
+              <span>Textes originaux en caractères</span>
+              <span class="text-indigo-600 dark:text-indigo-400 font-medium">Liezi (列子)</span>
+            </div>
+          </div>
+
+          <!-- Xinjing -->
+          <div class="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                Tradition bouddhique
+              </span>
+              <h4 class="font-serif text-lg font-medium text-gray-950 dark:text-gray-100 mt-1">
+                Le <em>Xinjing</em> (Sutra du Cœur)
+              </h4>
+              <p class="text-xs font-serif italic text-gray-500 dark:text-gray-400 mt-0.5">
+                Sutra de l'esprit • Maka Hannya Haramita Shingyo
+              </p>
+              <p class="text-xs text-gray-600 dark:text-gray-300 mt-3 leading-relaxed">
+                Le texte le plus célèbre du bouddhisme Mahayana et Chan/Zen. Composé de 260 caractères, il est traditionnellement calligraphié comme support de méditation et d'apaisement intérieur.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/50 text-[11px] text-gray-500 dark:text-gray-400 flex items-center justify-between">
+              <span>Texte intégral en sinogrammes</span>
+              <span class="text-indigo-600 dark:text-indigo-400 font-medium">Xinjing (心经)</span>
+            </div>
+          </div>
+
+          <!-- Poésie des dynasties Tang et Song -->
+          <div class="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                Poésie classique
+              </span>
+              <h4 class="font-serif text-lg font-medium text-gray-950 dark:text-gray-100 mt-1">
+                Poèmes des dynasties Tang et Song
+              </h4>
+              <p class="text-xs font-serif italic text-gray-500 dark:text-gray-400 mt-0.5">
+                L'âge d'or de la poésie lettrée chinoise
+              </p>
+              <p class="text-xs text-gray-600 dark:text-gray-300 mt-3 leading-relaxed">
+                Un grand choix de quatrains et poèmes réguliers (Li Bai, Wang Wei, Du Fu, Su Dongpo...), où chaque vers condensé conjugue musicalité, émotion et puissance visuelle des sinogrammes.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/50 text-[11px] text-gray-500 dark:text-gray-400 flex items-center justify-between">
+              <span>Anthologie poétique</span>
+              <span class="text-indigo-600 dark:text-indigo-400 font-medium">Tangshi & Songci (唐诗宋词)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 5. POUR QUI ? (AUDIENCE GUIDANCE)                                 -->
+    <!-- ================================================================= -->
+    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="audience-title">
+      <div class="max-w-2xl mb-8">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-1">
+          Publics & Profils
+        </p>
+        <h2 id="audience-title" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          À qui s'adressent ces cours ?
+        </h2>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+          Aucun prérequis n'est nécessaire. L'apprentissage s'adapte à vos motivations :
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
+          <span class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+            Débutants
+          </span>
+          <h3 class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-1">
+            Curieux de la langue
+          </h3>
+          <p class="text-xs text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+            Pour découvrir les caractères chinois sans appréhension, par une pratique concrète et sensorielle de l'écriture au pinceau.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
+          <span class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+            Apprenants
+          </span>
+          <h3 class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-1">
+            Soutien & approfondissement
+          </h3>
+          <p class="text-xs text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+            Pour les élèves, lycéens ou étudiants qui apprennent le chinois et veulent débloquer la mémorisation des caractères grâce au geste.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
+          <span class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+            Calligraphes
+          </span>
+          <h3 class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-1">
+            Pratiquants du pinceau
+          </h3>
+          <p class="text-xs text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+            Pour aller au-delà du tracé esthétique et comprendre le sens exact, l'étymologie et la poésie des textes calligraphiés.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
+          <span class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+            Culture & Zen
+          </span>
+          <h3 class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-1">
+            Amateurs de textes
+          </h3>
+          <p class="text-xs text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+            Pour aborder la sagesse taoïste et bouddhiste directement à sa source, dans la langue d'origine de ses maîtres.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 6. OÙ SUIVRE LES COURS ? (LOCATIONS & SCHEDULES)                  -->
+    <!-- ================================================================= -->
+    <section id="lieux" class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="locations-title">
+      <div class="max-w-2xl mb-8 sm:mb-10">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-1">
+          Lieux & Horaires
+        </p>
+        <h2 id="locations-title" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          Où suivre les cours ?
+        </h2>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+          Les séances régulières se déroulent chaque semaine dans le 4<sup>e</sup> arrondissement de Lyon (Croix-Rousse). Des cours d'accompagnement individuel ou de soutien peuvent également être organisés sur demande.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Lieu 1 : Dojo Zen de Lyon -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-800 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-md border border-indigo-100 dark:border-indigo-900/40">
+                Lundi soir
+              </span>
+              <span class="text-xs font-semibold text-gray-900 dark:text-gray-100 font-mono">
+                18 h 30 – 20 h 30
+              </span>
+            </div>
+
+            <h3 class="text-xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
+              Dojo Zen de Lyon
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1 flex items-start gap-1.5">
+              <span class="text-gray-400 dark:text-gray-500 shrink-0 mt-0.5" aria-hidden="true">📍</span>
+              <span>11, rue Dumenge, 69004 Lyon (Croix-Rousse)</span>
+            </p>
+
+            <p class="text-xs text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
+              Cadre sobre, silencieux et traditionnel, idéal pour la concentration, la posture d'assise et la pratique méditative du pinceau.
+            </p>
+
+            <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/50 text-xs text-gray-500 dark:text-gray-400">
+              <strong class="text-gray-700 dark:text-gray-300">Accès :</strong> Métro C (stations Croix-Rousse ou Hénon) • Bus C13, 2, 33, 45
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-between">
+            <a href="/cours-collectifs" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1">
+              <span>Détails & tarifs des cours collectifs</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Lieu 2 : Boutique Miroirs du Ciel -->
+        <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-800 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-md border border-indigo-100 dark:border-indigo-900/40">
+                Mercredi matin
+              </span>
+              <span class="text-xs font-semibold text-gray-900 dark:text-gray-100 font-mono">
+                10 h 00 – 12 h 00
+              </span>
+            </div>
+
+            <h3 class="text-xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
+              Boutique Miroirs du Ciel
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1 flex items-start gap-1.5">
+              <span class="text-gray-400 dark:text-gray-500 shrink-0 mt-0.5" aria-hidden="true">📍</span>
+              <span>9, rue de Belfort, 69004 Lyon (Croix-Rousse)</span>
+            </p>
+
+            <p class="text-xs text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
+              Espace chaleureux et intimiste au cœur du plateau de la Croix-Rousse, entouré d'objets, livres et calligraphies d'Asie.
+            </p>
+
+            <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/50 text-xs text-gray-500 dark:text-gray-400">
+              <strong class="text-gray-700 dark:text-gray-300">Accès :</strong> Métro C (station Croix-Rousse)
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-between">
+            <a href="/cours-collectifs" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1">
+              <span>Détails & tarifs des cours collectifs</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Note sur le calendrier / pas de dates obsolètes -->
+      <div class="mt-8 p-4 sm:p-5 rounded-xl bg-gray-50/80 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60 text-xs sm:text-sm text-gray-600 dark:text-gray-400 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-start gap-2.5">
+          <span class="text-indigo-600 dark:text-indigo-400 text-sm mt-0.5 font-bold" aria-hidden="true">ℹ</span>
+          <span>
+            <strong class="text-gray-900 dark:text-gray-200 font-semibold">Rythme des cours :</strong> séances régulières tout au long de l'année scolaire (hors vacances). Il est possible de rejoindre un cours en cours d'année selon les places disponibles.
+          </span>
+        </div>
+        <a href="/cours-collectifs#trial-heading" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline shrink-0 sm:self-center">
+          Séance d'essai sans engagement &rarr;
+        </a>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 7. SECTION CONTACT & CTA                                          -->
+    <!-- ================================================================= -->
+    <section id="contact" class="my-14 sm:my-20 rounded-2xl bg-gray-50/90 dark:bg-gray-800/60 border border-gray-200/80 dark:border-gray-700/80 p-8 sm:p-12 text-center" aria-labelledby="cta-title">
+      <div class="max-w-2xl mx-auto">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
+          Renseignements & Inscriptions
+        </p>
+        <h2 id="cta-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          Envie de découvrir les cours ?
+        </h2>
+        <p class="text-gray-600 dark:text-gray-300 mt-4 text-base sm:text-[17px] leading-relaxed">
+          Que vous souhaitiez vous initier aux sinogrammes, bénéficier d'un accompagnement personnalisé en langue chinoise ou approfondir l'étude d'un texte classique, Christophe Desmur est à votre écoute.
+        </p>
+
+        <!-- CTA buttons -->
+        <div class="mt-8 flex flex-wrap justify-center items-center gap-3.5">
+          <a
+            href={contactMailHref}
+            class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm transition shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500">
+            Me contacter
+          </a>
+          <a
+            href="/cours-collectifs#trial-heading"
+            class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 font-medium text-sm transition border border-gray-200 dark:border-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400">
+            Essayer un cours
+          </a>
+        </div>
+
+        <!-- Coordinates -->
+        <div class="mt-8 pt-6 border-t border-gray-200/80 dark:border-gray-700/60 flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+          <a href="tel:+33472078861" class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition inline-flex items-center gap-1.5 py-1">
+            <span aria-hidden="true">📞</span> 04 72 07 88 61
+          </a>
+          <span class="text-gray-300 dark:text-gray-700 hidden sm:inline" aria-hidden="true">•</span>
+          <a href="tel:+33769941643" class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition inline-flex items-center gap-1.5 py-1">
+            <span aria-hidden="true">📱</span> 07 69 94 16 43
+          </a>
+          <span class="text-gray-300 dark:text-gray-700 hidden sm:inline" aria-hidden="true">•</span>
+          <span class="inline-flex items-center gap-1.5 py-1">
+            <span aria-hidden="true">📍</span> Lyon 4<sup>e</sup> (Croix-Rousse)
+          </span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</Layout>
