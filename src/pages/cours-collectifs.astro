@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Cta from "@/components/cta.astro";
+import RelatedPages from "@/components/related-pages.astro";
 
 const locations = [
   {
@@ -308,24 +309,7 @@ const locations = [
       </div>
     </section>
 
-    <!-- Liens connexes -->
-    <div class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
-      <p class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400 mb-4">Autres formules d'apprentissage</p>
-      <div class="flex flex-wrap gap-3 text-sm">
-        <a href="/cours-individuel-a-domicile" class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">
-          Cours individuels à domicile
-        </a>
-        <a href="/tarifs" class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">
-          Tous les tarifs
-        </a>
-        <a href="/le-calligraphe" class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">
-          Découvrir le professeur Christophe Desmur
-        </a>
-        <a href="/galerie" class="px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700 transition">
-          Galerie des œuvres
-        </a>
-      </div>
-    </div>
+    <RelatedPages current="/cours-collectifs" />
 
     <Cta />
   </Container>

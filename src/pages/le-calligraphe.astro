@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Layout.astro";
+import RelatedPages from "../components/related-pages.astro";
 import fs from 'fs';
 import yaml from 'js-yaml';
 
@@ -723,6 +724,8 @@ const services = [
         </div>
       </div>
     </section>
+
+    <RelatedPages current="/le-calligraphe" />
 
   </div>
 

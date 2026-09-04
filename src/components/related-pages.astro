@@ -6,33 +6,33 @@ const { current } = Astro.props;
 
 const audienceLinks = [
   { href: "/ecoles-primaires", label: "Écoles primaires & enfants" },
-  { href: "/colleges", label: "Collèges" },
-  { href: "/formats-atelier-pour-les-lycees", label: "Lycées" },
+  { href: "/colleges", label: "Collèges (temps scolaire)" },
+  { href: "/formats-atelier-pour-les-lycees", label: "Lycées (modules & pause méridienne)" },
   { href: "/universites-et-grandes-ecoles", label: "Universités & grandes écoles" },
-  { href: "/comites-entreprise", label: "Comités d'entreprise (CSE)" },
-  { href: "/maisons-de-retraite", label: "Maisons de retraite & EHPAD" },
+  { href: "/comites-entreprise", label: "Comités d'entreprise (CSE) & équipes" },
+  { href: "/maisons-de-retraite", label: "Maisons de retraite & résidences seniors" },
 ].filter((p) => p.href !== current);
 
 const generalLinks = [
-  { href: "/", label: "Accueil" },
-  { href: "/cours-collectifs", label: "Cours collectifs à Lyon" },
-  { href: "/cours-individuel-a-domicile", label: "Cours individuels à domicile" },
-  { href: "/tarifs", label: "Grille tarifaire" },
-  { href: "/atelier-de-groupe", label: "Vue d'ensemble des ateliers" },
+  { href: "/cours-collectifs", label: "Cours collectifs hebdomadaires à Lyon" },
+  { href: "/cours-individuel-a-domicile", label: "Cours individuels à domicile (Lyon)" },
+  { href: "/tarifs", label: "Tarifs des cours et ateliers" },
+  { href: "/atelier-de-groupe", label: "Ateliers de groupe pour structures" },
 ].filter((p) => p.href !== current);
 
 const editorialLinks = [
-  { href: "/calligraphie-zen", label: "Calligraphie zen & concentration" },
+  { href: "/calligraphie-zen", label: "Calligraphie zen : geste & respiration" },
   { href: "/shodo-voie-pinceau", label: "Shodō : la voie du pinceau" },
-  { href: "/galerie", label: "Galerie des œuvres à l'encre" },
-  { href: "/le-calligraphe", label: "Christophe Desmur, calligraphe" },
-  { href: "/cours-de-chinois", label: "Cours de sinogrammes" },
+  { href: "/cours-de-chinois", label: "Cours de chinois & calligraphie" },
+  { href: "/traductions", label: "Traductions littéraires du chinois" },
+  { href: "/galerie", label: "Galerie des calligraphies originales" },
+  { href: "/le-calligraphe", label: "Christophe Desmur (parcours & diplômes)" },
 ].filter((p) => p.href !== current);
 ---
 
-<nav class="mt-16 pt-10 border-t border-gray-200 dark:border-gray-800" aria-label="Pages complémentaires">
+<nav class="mt-16 pt-10 border-t border-gray-200 dark:border-gray-800" aria-label="Pour aller plus loin">
   <h2 class="text-xs uppercase tracking-widest font-semibold text-gray-500 dark:text-gray-400 mb-6">
-    Voir aussi
+    Pour aller plus loin
   </h2>
 
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 text-sm">
