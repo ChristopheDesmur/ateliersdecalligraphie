@@ -1,193 +1,76 @@
 ---
-// HomeHero.astro - Hero éditorial clarifiant les 3 propositions fondamentales
+// HomeHero.astro - Hero épuré, visuel et orienté conversion
 ---
 
-<section class="pt-2 sm:pt-6 pb-12 sm:pb-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="hero-title">
-  <!-- En-tête principal -->
+<section class="pt-4 sm:pt-8 pb-12 sm:pb-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="hero-title">
   <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
     
-    <div class="lg:col-span-7 flex flex-col">
-      <p class="text-xs uppercase tracking-widest font-semibold text-indigo-700 dark:text-indigo-400 mb-2.5">
-        Lyon 4<sup>e</sup> (Croix-Rousse) &bull; Christophe Desmur
+    <div class="lg:col-span-7 flex flex-col justify-center">
+      <!-- Eyebrow -->
+      <p class="text-xs uppercase tracking-widest font-semibold text-indigo-700 dark:text-indigo-400 mb-3">
+        Calligraphie chinoise · Lyon
       </p>
 
+      <!-- H1 -->
       <h1
         id="hero-title"
-        class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-gray-950 dark:text-white leading-[1.12]">
-        Calligraphie chinoise à Lyon
+        class="text-4xl sm:text-5xl lg:text-6xl font-serif font-medium tracking-tight text-gray-950 dark:text-white leading-[1.14]">
+        Découvrez l'art de la calligraphie chinoise
       </h1>
 
-      <p class="text-xl sm:text-2xl font-serif italic text-indigo-900 dark:text-indigo-300 mt-2">
-        L'art du pinceau, du souffle et de l'encre de Chine
+      <!-- Supporting copy -->
+      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300 font-serif mt-4 sm:mt-5 leading-relaxed max-w-xl">
+        Christophe Desmur vous accompagne dans la découverte du pinceau, du geste et des caractères chinois, à travers des ateliers collectifs et des cours individuels.
       </p>
 
-      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300 font-serif mt-4 leading-relaxed max-w-2xl">
-        Christophe Desmur pratique et transmet la calligraphie chinoise depuis plus de 30 ans, à travers des cours réguliers, des ateliers culturels et la création d'œuvres originales.
-      </p>
+      <!-- CTAs -->
+      <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+        <a
+          href="/cours-collectifs"
+          class="px-6 py-3.5 rounded-xl bg-gray-950 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-950 dark:hover:bg-white text-sm font-medium transition text-center shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+          Découvrir les cours
+        </a>
+        <a
+          href="/galerie"
+          class="px-6 py-3.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm font-medium transition text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+          Voir les calligraphies
+        </a>
+      </div>
 
-      <!-- Reassurance discrète -->
-      <div class="mt-4 flex items-center flex-wrap gap-x-3.5 gap-y-1.5 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 font-sans">
-        <span class="inline-flex items-center gap-1.5">
-          <span class="text-indigo-600 dark:text-indigo-400 text-xs font-bold" aria-hidden="true">✓</span>
-          <span>Transmission traditionnelle</span>
-        </span>
-        <span class="text-gray-300 dark:text-gray-600 hidden sm:inline" aria-hidden="true">•</span>
-        <span class="inline-flex items-center gap-1.5">
+      <!-- Trust line -->
+      <div class="mt-6 pt-5 border-t border-gray-100 dark:border-gray-800 flex items-center flex-wrap gap-x-2.5 gap-y-1 text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-sans">
+        <span class="inline-flex items-center gap-1.5 font-medium text-gray-700 dark:text-gray-300">
           <span class="text-indigo-600 dark:text-indigo-400 text-xs font-bold" aria-hidden="true">✓</span>
           <span>Débutants bienvenus</span>
         </span>
-        <span class="text-gray-300 dark:text-gray-600 hidden sm:inline" aria-hidden="true">•</span>
-        <span class="inline-flex items-center gap-1.5">
-          <span class="text-indigo-600 dark:text-indigo-400 text-xs font-bold" aria-hidden="true">✓</span>
-          <span>Pièces originales uniques</span>
-        </span>
+        <span class="text-gray-300 dark:text-gray-600" aria-hidden="true">•</span>
+        <span class="font-medium text-gray-700 dark:text-gray-300">Enfants & adultes</span>
+        <span class="text-gray-300 dark:text-gray-600" aria-hidden="true">•</span>
+        <span class="font-medium text-gray-700 dark:text-gray-300">Lyon</span>
       </div>
     </div>
 
-    <!-- Visuel d'ambiance : Le geste au pinceau -->
-    <div class="lg:col-span-5 relative mt-4 lg:mt-0">
-      <div class="relative mx-auto max-w-md lg:max-w-none">
-        <div class="overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 shadow-xs bg-white dark:bg-gray-800">
+    <!-- Image de Christophe en pratique réelle -->
+    <div class="lg:col-span-5 relative mt-2 lg:mt-0">
+      <div class="relative mx-auto max-w-lg lg:max-w-none">
+        <div class="overflow-hidden rounded-2xl sm:rounded-3xl border border-gray-200/90 dark:border-gray-800 shadow-sm bg-stone-50 dark:bg-gray-800">
           <img
-            src="/assets/personne-realisant-de-la-calligraphie-avec-un-pinceau-sur-du-papier.webp"
-            alt="Christophe Desmur pratiquant la calligraphie chinoise au pinceau sur papier de riz à Lyon"
-            width="600"
-            height="420"
+            src="/assets/christophe-desmur-calligraphie-dedicace.webp"
+            alt="Christophe Desmur traçant une calligraphie chinoise au pinceau et à l'encre de Chine à Lyon"
+            width="1536"
+            height="1024"
             loading="eager"
             fetchpriority="high"
             decoding="async"
-            class="w-full h-auto object-cover"
+            class="w-full h-auto aspect-4/3 object-cover"
           />
-          <div class="p-3 bg-stone-50/90 dark:bg-stone-900/90 text-xs text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-800 flex justify-between items-center font-serif">
+          <div class="py-2.5 px-4 bg-stone-50 dark:bg-stone-900 text-xs text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-800 flex justify-between items-center font-serif">
             <span>Le geste de l'encre & la tenue du pinceau</span>
-            <span class="text-stone-400 dark:text-stone-500">Lyon Croix-Rousse</span>
+            <span class="text-stone-500 dark:text-stone-400">Lyon Croix-Rousse</span>
           </div>
         </div>
       </div>
     </div>
 
-  </div>
-
-  <!-- ================================================================= -->
-  <!-- LES 3 VOIES D'ACCÈS PRINCIPALES (Apprendre, Expérimenter, Acquérir)-->
-  <!-- ================================================================= -->
-  <div class="mt-12 sm:mt-16">
-    <div class="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-      <span class="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
-        Trois approches de la voie du pinceau
-      </span>
-      <h2 class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-1">
-        Que souhaitez-vous explorer ?
-      </h2>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      <!-- 1. APPRENDRE -->
-      <div class="group bg-white dark:bg-gray-800/90 rounded-2xl p-6 sm:p-7 border border-gray-200/90 dark:border-gray-700/80 shadow-2xs hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-800 transition flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
-              Apprendre
-            </span>
-            <span class="text-xs text-gray-400 dark:text-gray-500">Particuliers</span>
-          </div>
-
-          <h3 class="text-2xl font-serif font-medium text-gray-950 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-            Cours de calligraphie
-          </h3>
-
-          <p class="text-sm text-gray-600 dark:text-gray-300 font-serif mt-2.5 leading-relaxed">
-            Cours collectifs hebdomadaires à Lyon 4<sup>e</sup> (Croix-Rousse) et cours individuels sur mesure à votre domicile.
-          </p>
-
-          <ul class="mt-4 space-y-1.5 text-xs text-gray-500 dark:text-gray-400 font-sans border-t border-gray-100 dark:border-gray-700/60 pt-3">
-            <li class="flex items-center gap-1.5">&bull; Petits groupes de 2 à 8 élèves</li>
-            <li class="flex items-center gap-1.5">&bull; Débutants bienvenus toute l'année</li>
-            <li class="flex items-center gap-1.5">&bull; Matériel fourni sur place</li>
-          </ul>
-        </div>
-
-        <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/70">
-          <a
-            href="#cours"
-            class="w-full py-2.5 px-4 rounded-xl bg-gray-950 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-950 dark:hover:bg-white text-xs sm:text-sm font-medium transition text-center inline-flex items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
-            <span>Découvrir les cours</span>
-            <span aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 2. EXPÉRIMENTER -->
-      <div class="group bg-white dark:bg-gray-800/90 rounded-2xl p-6 sm:p-7 border border-gray-200/90 dark:border-gray-700/80 shadow-2xs hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-800 transition flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
-              Expérimenter
-            </span>
-            <span class="text-xs text-gray-400 dark:text-gray-500">Structures & Groupes</span>
-          </div>
-
-          <h3 class="text-2xl font-serif font-medium text-gray-950 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-            Ateliers de calligraphie
-          </h3>
-
-          <p class="text-sm text-gray-600 dark:text-gray-300 font-serif mt-2.5 leading-relaxed">
-            Interventions culturelles et pédagogiques sur site pour les écoles, lycées, universités, entreprises (CSE) et EHPAD.
-          </p>
-
-          <ul class="mt-4 space-y-1.5 text-xs text-gray-500 dark:text-gray-400 font-sans border-t border-gray-100 dark:border-gray-700/60 pt-3">
-            <li class="flex items-center gap-1.5">&bull; Séances de 1 h à 3 h sur votre site</li>
-            <li class="flex items-center gap-1.5">&bull; Découverte de l'encre & du Sumi-e</li>
-            <li class="flex items-center gap-1.5">&bull; Tout le matériel transporté par le calligraphe</li>
-          </ul>
-        </div>
-
-        <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/70">
-          <a
-            href="#ateliers"
-            class="w-full py-2.5 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-stone-50 hover:bg-stone-100 dark:bg-gray-800/80 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 text-xs sm:text-sm font-medium transition text-center inline-flex items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
-            <span>Organiser un atelier</span>
-            <span aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 3. ACQUÉRIR / COLLECTIONNER -->
-      <div class="group bg-white dark:bg-gray-800/90 rounded-2xl p-6 sm:p-7 border border-gray-200/90 dark:border-gray-700/80 shadow-2xs hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-800 transition flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
-              Acquérir
-            </span>
-            <span class="text-xs text-gray-400 dark:text-gray-500">Galerie d'art</span>
-          </div>
-
-          <h3 class="text-2xl font-serif font-medium text-gray-950 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-            Calligraphies originales
-          </h3>
-
-          <p class="text-sm text-gray-600 dark:text-gray-300 font-serif mt-2.5 leading-relaxed">
-            Découvrez des pièces uniques à l'encre de Chine signées et scellées par Christophe Desmur, disponibles à l'acquisition directe.
-          </p>
-
-          <ul class="mt-4 space-y-1.5 text-xs text-gray-500 dark:text-gray-400 font-sans border-t border-gray-100 dark:border-gray-700/60 pt-3">
-            <li class="flex items-center gap-1.5">&bull; Pièces uniques sur papier de riz</li>
-            <li class="flex items-center gap-1.5">&bull; Contact direct avec le calligraphe</li>
-            <li class="flex items-center gap-1.5">&bull; Remise à Lyon ou expédition protégée</li>
-          </ul>
-        </div>
-
-        <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/70">
-          <a
-            href="#galerie-preview"
-            class="w-full py-2.5 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-stone-50 hover:bg-stone-100 dark:bg-gray-800/80 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 text-xs sm:text-sm font-medium transition text-center inline-flex items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
-            <span>Voir les œuvres</span>
-            <span aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
-      </div>
-
-    </div>
   </div>
 </section>

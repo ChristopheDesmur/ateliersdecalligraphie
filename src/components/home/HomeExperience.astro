@@ -1,0 +1,153 @@
+---
+// HomeExperience.astro - Section principale d'orientation et de conversion (4 cartes)
+---
+
+<section id="experiences" class="pt-12 sm:pt-16 pb-12 sm:pb-16 border-b border-gray-100 dark:border-gray-800 scroll-mt-10" aria-labelledby="experiences-heading">
+  <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+    <p class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-400">
+      Formules & Pratique
+    </p>
+    <h2 id="experiences-heading" class="text-3xl sm:text-4xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
+      Choisir votre expérience
+    </h2>
+    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-serif mt-2.5 leading-relaxed">
+      Quatre manières de découvrir ou d'approfondir la calligraphie chinoise à Lyon, adaptées à votre démarche.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    
+    <!-- 1. Ateliers collectifs -->
+    <article class="group bg-white dark:bg-gray-800/90 rounded-2xl p-6 sm:p-7 border border-gray-200/90 dark:border-gray-700/80 shadow-2xs hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 transition flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <span class="text-[11px] uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
+            En groupe
+          </span>
+          <span class="text-[11px] text-gray-400 dark:text-gray-500 font-serif">Lyon 4<sup>e</sup></span>
+        </div>
+
+        <h3 class="text-2xl font-serif font-medium text-gray-950 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+          Ateliers collectifs
+        </h3>
+
+        <p class="text-sm text-gray-600 dark:text-gray-300 font-serif mt-3 leading-relaxed">
+          Apprenez la calligraphie chinoise en groupe, dans une atmosphère conviviale.
+        </p>
+
+        <p class="mt-3 text-xs text-stone-500 dark:text-stone-400 font-serif italic">
+          Au Dojo Zen & chez Miroirs du Ciel
+        </p>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/60">
+        <a
+          href="/cours-collectifs"
+          class="w-full py-2.5 px-4 rounded-xl bg-gray-950 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-950 dark:hover:bg-white text-xs sm:text-sm font-medium transition text-center inline-flex items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+          <span>Voir les ateliers</span>
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- 2. Cours individuels -->
+    <article class="group bg-white dark:bg-gray-800/90 rounded-2xl p-6 sm:p-7 border border-gray-200/90 dark:border-gray-700/80 shadow-2xs hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 transition flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <span class="text-[11px] uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
+            Sur mesure
+          </span>
+          <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400">Crédit 50 %</span>
+        </div>
+
+        <h3 class="text-2xl font-serif font-medium text-gray-950 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+          Cours individuels
+        </h3>
+
+        <p class="text-sm text-gray-600 dark:text-gray-300 font-serif mt-3 leading-relaxed">
+          Un accompagnement personnalisé, adapté à votre niveau et à votre rythme.
+        </p>
+
+        <p class="mt-3 text-xs text-stone-500 dark:text-stone-400 font-serif italic">
+          À domicile sur toute la métropole lyonnaise
+        </p>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/60">
+        <a
+          href="/cours-individuel-a-domicile"
+          class="w-full py-2.5 px-4 rounded-xl border border-gray-300 dark:border-gray-700 bg-stone-50 hover:bg-stone-100 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 text-xs sm:text-sm font-medium transition text-center inline-flex items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+          <span>Découvrir les cours individuels</span>
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- 3. Interventions -->
+    <article class="group bg-white dark:bg-gray-800/90 rounded-2xl p-6 sm:p-7 border border-gray-200/90 dark:border-gray-700/80 shadow-2xs hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 transition flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <span class="text-[11px] uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
+            Structures
+          </span>
+          <span class="text-[11px] text-gray-400 dark:text-gray-500 font-serif">Sur site</span>
+        </div>
+
+        <h3 class="text-2xl font-serif font-medium text-gray-950 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+          Interventions
+        </h3>
+
+        <p class="text-sm text-gray-600 dark:text-gray-300 font-serif mt-3 leading-relaxed">
+          Écoles, entreprises, associations et maisons de retraite : des ateliers adaptés à votre public.
+        </p>
+
+        <p class="mt-3 text-xs text-stone-500 dark:text-stone-400 font-serif italic">
+          Matériel complet apporté sur votre site
+        </p>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/60">
+        <a
+          href="/atelier-de-groupe"
+          class="w-full py-2.5 px-4 rounded-xl border border-gray-300 dark:border-gray-700 bg-stone-50 hover:bg-stone-100 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 text-xs sm:text-sm font-medium transition text-center inline-flex items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+          <span>Organiser une intervention</span>
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- 4. Galerie -->
+    <article class="group bg-gradient-to-b from-stone-50 to-white dark:from-gray-800 dark:to-gray-800/90 rounded-2xl p-6 sm:p-7 border border-indigo-200/80 dark:border-indigo-900/60 shadow-2xs hover:shadow-md hover:border-indigo-400 dark:hover:border-indigo-600 transition flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <span class="text-[11px] uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
+            Œuvres originales
+          </span>
+          <span class="text-[11px] font-semibold text-amber-700 dark:text-amber-400">Pièces uniques</span>
+        </div>
+
+        <h3 class="text-2xl font-serif font-medium text-gray-950 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+          Galerie
+        </h3>
+
+        <p class="text-sm text-gray-600 dark:text-gray-300 font-serif mt-3 leading-relaxed">
+          Découvrez les calligraphies originales de Christophe Desmur.
+        </p>
+
+        <p class="mt-3 text-xs text-indigo-950 dark:text-indigo-300 font-serif font-medium">
+          Calligraphies originales disponibles sur demande.
+        </p>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-indigo-100 dark:border-indigo-900/40">
+        <a
+          href="/galerie"
+          class="w-full py-2.5 px-4 rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white text-xs sm:text-sm font-medium transition text-center inline-flex items-center justify-center gap-1.5 shadow-2xs focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+          <span>Découvrir les œuvres</span>
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </article>
+
+  </div>
+</section>

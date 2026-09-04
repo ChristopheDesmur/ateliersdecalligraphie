@@ -2,28 +2,41 @@
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import HomeHero from "@/components/home/HomeHero.astro";
-import HomeCourses from "@/components/home/HomeCourses.astro";
-import HomeGallery from "@/components/home/HomeGallery.astro";
+import HomeExperience from "@/components/home/HomeExperience.astro";
 import HomePractice from "@/components/home/HomePractice.astro";
 import HomeArtist from "@/components/home/HomeArtist.astro";
-import HomePersonalized from "@/components/home/HomePersonalized.astro";
-import HomeAteliers from "@/components/home/HomeAteliers.astro";
+import HomeGallery from "@/components/home/HomeGallery.astro";
 import HomeFAQ from "@/components/home/HomeFAQ.astro";
-import HomeFinalChoices from "@/components/home/HomeFinalChoices.astro";
+import HomeFinalCTA from "@/components/home/HomeFinalCTA.astro";
+import HomeLocations from "@/components/home/HomeLocations.astro";
 ---
 
 <Layout
-  title="Calligraphie chinoise à Lyon | Cours, ateliers & œuvres originales"
-  description="Découvrez la calligraphie chinoise à Lyon avec Christophe Desmur : cours collectifs et individuels, ateliers pour structures et calligraphies originales à l'encre de Chine.">
+  title="Calligraphie chinoise Lyon | Cours, ateliers & œuvres originales — Christophe Desmur"
+  description="Découvrez l'art de la calligraphie chinoise à Lyon avec Christophe Desmur : cours collectifs et individuels, ateliers d'initiation et calligraphies originales.">
   <Container>
+    <!-- 1. Hero -->
     <HomeHero />
-    <HomeCourses />
-    <HomeGallery />
+
+    <!-- 2. Choisir votre expérience -->
+    <HomeExperience />
+
+    <!-- 3. La pratique (geste, concentration, expression, équilibre, bienfaits, public) -->
     <HomePractice />
+
+    <!-- 4. Christophe / Approche pédagogique -->
     <HomeArtist />
-    <HomePersonalized />
-    <HomeAteliers />
+
+    <!-- 5. Galerie : vitrine commerciale d'œuvres originales -->
+    <HomeGallery />
+
+    <!-- 6. Teaser FAQ -->
     <HomeFAQ />
-    <HomeFinalChoices />
+
+    <!-- 7. Conversion finale -->
+    <HomeFinalCTA />
+
+    <!-- 8. Lieux d'ateliers à Lyon & contact direct -->
+    <HomeLocations />
   </Container>
 </Layout>

@@ -1,36 +1,28 @@
 ---
-// HomeFAQ.astro - Questions clés de la page d'accueil avec balisage Schema.org FAQPage
-const homeFaqs = [
+// HomeFAQ.astro - Teaser FAQ de 4 questions essentielles avec renvoi vers la page FAQ complète
+const teaserFaqs = [
   {
-    question: "Faut-il parler chinois pour apprendre la calligraphie ?",
-    answer: "Non, aucune connaissance de la langue chinoise n'est requise. La calligraphie est avant tout un art du geste, de la respiration et de l'harmonie des formes. L'apprentissage des sinogrammes se fait de manière visuelle et sensitive, du tracé des pictogrammes simples jusqu'aux caractères plus complexes.",
+    question: "Faut-il parler chinois pour commencer ?",
+    answer: "Non. Aucune connaissance préalable du chinois n'est nécessaire.",
   },
   {
-    question: "Les cours sont-ils accessibles aux débutants ?",
-    answer: "Absolument. Les cours hebdomadaires comme les cours particuliers accueillent tous les niveaux, y compris les grands débutants n'ayant jamais tenu de pinceau. Les petits groupes (2 à 8 élèves) permettent à Christophe Desmur d'apporter un accompagnement attentif et adapté au rythme de chacun.",
+    question: "Le matériel est-il fourni ?",
+    answer: "Oui, le matériel nécessaire est fourni pendant les ateliers.",
   },
   {
-    question: "Où et quand ont lieu les cours de calligraphie à Lyon ?",
-    answer: "Les cours collectifs se déroulent à Lyon 4e (Croix-Rousse) sur deux créneaux réguliers : les lundis soirs (18h30–20h30) au Dojo Zen de Lyon (11, rue Dumenge) et les mercredis matins (10h–12h) à la boutique Miroirs du Ciel (9, rue de Belfort). Des cours individuels sont également dispensés à votre domicile sur toute l'agglomération lyonnaise.",
+    question: "Les débutants sont-ils acceptés ?",
+    answer: "Oui, les ateliers accueillent les débutants comme les pratiquants plus expérimentés.",
   },
   {
-    question: "Quel matériel faut-il prévoir pour débuter ?",
-    answer: "Tout le matériel est intégralement fourni lors des séances : pinceaux traditionnels en poils naturels, bâtons d'encre de Chine solide, pierres à encre et papiers de riz absorbants. Vous venez simplement dans une tenue confortable, sans aucun achat préalable nécessaire.",
-  },
-  {
-    question: "Peut-on acquérir une calligraphie originale ?",
-    answer: "Oui. Les calligraphies originales présentées dans la galerie sont des pièces uniques disponibles à l'acquisition. L'acquisition se fait directement et personnellement auprès du calligraphe, sans intermédiaire ni paiement automatisé en ligne : il vous suffit de contacter Christophe Desmur pour échanger sur l'œuvre, convenir d'une remise en main propre à Lyon ou d'une expédition protégée.",
-  },
-  {
-    question: "Peut-on demander une calligraphie personnalisée sur mesure ?",
-    answer: "Tout à fait. Christophe Desmur réalise régulièrement des commandes personnalisées : caractère symbolique, prénom transcrit phonétiquement, poème chinois classique ou devise philosophique. Vous définissez ensemble le sinogramme, le style calligraphique et le format souhaité.",
+    question: "Où ont lieu les ateliers ?",
+    answer: "À Lyon, notamment au dojo zen de Lyon et à la boutique Miroirs du Ciel.",
   },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": homeFaqs.map((faq) => ({
+  "mainEntity": teaserFaqs.map((faq) => ({
     "@type": "Question",
     "name": faq.question,
     "acceptedAnswer": {
@@ -41,33 +33,41 @@ const faqSchema = {
 };
 ---
 
-<section class="mt-20 sm:mt-24 pt-12 border-t border-gray-100 dark:border-gray-800" aria-labelledby="home-faq-heading">
-  <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-    <span class="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
-      Foire aux questions
-    </span>
-    <h2 id="home-faq-heading" class="text-3xl sm:text-4xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
-      Questions fréquentes sur les cours, ateliers et œuvres
-    </h2>
-    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-serif mt-2.5 leading-relaxed">
-      Quelques repères essentiels pour préparer votre venue ou contacter le calligraphe.
+<section class="py-14 sm:py-20 border-b border-gray-100 dark:border-gray-800" aria-labelledby="home-faq-heading">
+  <div class="text-center max-w-2xl mx-auto mb-10">
+    <p class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-400">
+      Repères pratiques
     </p>
+    <h2 id="home-faq-heading" class="text-3xl sm:text-4xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
+      Questions fréquentes
+    </h2>
   </div>
 
-  <div class="space-y-4 max-w-3xl mx-auto">
-    {homeFaqs.map((faq) => (
-      <details class="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800/80 p-5 transition [&_svg]:open:-rotate-180">
-        <summary class="flex cursor-pointer items-center justify-between gap-4 font-serif text-lg font-medium text-gray-900 dark:text-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg">
+  <div class="space-y-3.5 max-w-3xl mx-auto">
+    {teaserFaqs.map((faq, index) => (
+      <details
+        open={index === 0}
+        class="group rounded-2xl border border-gray-200/90 dark:border-gray-800 bg-white dark:bg-gray-800/80 p-5 transition shadow-2xs hover:border-indigo-200 dark:hover:border-indigo-900 [&_svg]:open:-rotate-180">
+        <summary class="flex cursor-pointer items-center justify-between gap-4 font-serif text-base sm:text-lg font-medium text-gray-900 dark:text-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg select-none">
           <span>{faq.question}</span>
           <svg class="h-5 w-5 shrink-0 text-gray-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg>
         </summary>
-        <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-serif pt-2 border-t border-gray-100 dark:border-gray-700/60">
+        <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-serif pt-3 border-t border-gray-100 dark:border-gray-700/60">
           {faq.answer}
         </p>
       </details>
     ))}
+  </div>
+
+  <div class="mt-8 text-center">
+    <a
+      href="/faq"
+      class="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
+      <span>Voir toutes les questions fréquentes</span>
+      <span aria-hidden="true">&rarr;</span>
+    </a>
   </div>
 </section>
 

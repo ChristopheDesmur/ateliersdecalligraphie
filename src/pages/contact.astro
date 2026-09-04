@@ -1,0 +1,150 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const contactOptions = [
+  {
+    title: "Séance d'essai & Cours collectifs",
+    description: "Réservez une première séance le lundi soir au Dojo Zen ou le mercredi matin chez Miroirs du Ciel.",
+    subject: "Inscription séance d'essai cours collectifs",
+    cta: "Demander une séance d'essai",
+  },
+  {
+    title: "Cours individuels à domicile",
+    description: "Échangez sur un accompagnement personnalisé à votre domicile à Lyon (éligible au crédit d'impôt 50 %).",
+    subject: "Demande de cours individuels à domicile",
+    cta: "Demander un cours particulier",
+  },
+  {
+    title: "Intervention en structure",
+    description: "Écoles, collèges, lycées, universités, comités d'entreprise et EHPAD à Lyon et sa métropole.",
+    subject: "Demande d'atelier pour une structure",
+    cta: "Organiser un atelier",
+  },
+  {
+    title: "Acquisition d'une calligraphie",
+    description: "Renseignement sur la disponibilité d'une œuvre originale de la galerie ou commande personnalisée.",
+    subject: "Renseignement acquisition calligraphie originale",
+    cta: "Échanger sur une œuvre",
+  },
+];
+---
+
+<Layout
+  title="Contact | Christophe Desmur — Calligraphie chinoise Lyon"
+  description="Contactez Christophe Desmur pour toute question sur les cours de calligraphie chinoise à Lyon, les ateliers pour structures ou l'acquisition d'une œuvre originale.">
+  
+  <div class="max-w-4xl mx-auto py-4">
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-900 dark:text-gray-100 font-medium">Contact</li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <header class="py-6 sm:py-8 border-b border-gray-100 dark:border-gray-800 mb-10">
+      <p class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-400">
+        Contact direct
+      </p>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
+        Contacter Christophe Desmur
+      </h1>
+      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300 font-serif mt-3 leading-relaxed max-w-2xl">
+        Une question sur les cours, envie de réserver un premier atelier ou d'échanger sur une calligraphie originale ? Vous pouvez joindre directement Christophe par téléphone ou par message.
+      </p>
+    </header>
+
+    <!-- Coordonnées principales -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <!-- Téléphone -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-800/90 border border-gray-200/90 dark:border-gray-700/80 shadow-2xs">
+        <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
+          Téléphone
+        </span>
+        <h2 class="text-lg font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
+          Appel direct
+        </h2>
+        <div class="mt-3 space-y-1.5 text-sm font-medium">
+          <p>
+            <a href="tel:+33472078861" class="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+              📞 04 72 07 88 61
+            </a>
+          </p>
+          <p>
+            <a href="tel:+33769941643" class="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+              📱 07 69 94 16 43
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-800/90 border border-gray-200/90 dark:border-gray-700/80 shadow-2xs">
+        <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
+          Courriel
+        </span>
+        <h2 class="text-lg font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
+          Message écrit
+        </h2>
+        <div class="mt-3 text-sm">
+          <a
+            href="mailto:christophe.desmur@orange.fr"
+            class="text-indigo-700 dark:text-indigo-400 hover:underline break-all font-medium">
+            christophe.desmur@orange.fr
+          </a>
+          <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+            Réponse attentive sous 24 à 48 heures.
+          </p>
+        </div>
+      </div>
+
+      <!-- Lieux -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-gray-800/90 border border-gray-200/90 dark:border-gray-700/80 shadow-2xs">
+        <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
+          Lieux à Lyon
+        </span>
+        <h2 class="text-lg font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
+          Croix-Rousse (69004)
+        </h2>
+        <div class="mt-3 text-xs text-gray-600 dark:text-gray-300 space-y-1">
+          <p>• <strong>Dojo Zen</strong> : 11 rue Dumenge</p>
+          <p>• <strong>Miroirs du Ciel</strong> : 9 rue de Belfort</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Options d'envoi rapide par intention -->
+    <div>
+      <h2 class="text-xl sm:text-2xl font-serif font-medium text-gray-950 dark:text-gray-100 mb-6">
+        Que souhaitez-vous formuler ?
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {contactOptions.map((opt) => (
+          <div class="p-6 rounded-2xl bg-stone-50/90 dark:bg-gray-800/60 border border-stone-200/80 dark:border-gray-700/70 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-serif font-medium text-gray-950 dark:text-gray-100">
+                {opt.title}
+              </h3>
+              <p class="mt-2 text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-serif leading-relaxed">
+                {opt.description}
+              </p>
+            </div>
+
+            <div class="mt-5 pt-3 border-t border-stone-200 dark:border-gray-700/60">
+              <a
+                href={`mailto:christophe.desmur@orange.fr?subject=${encodeURIComponent(opt.subject)}`}
+                class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
+                <span>{opt.cta}</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</Layout>
