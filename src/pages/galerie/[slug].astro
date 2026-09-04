@@ -56,11 +56,9 @@ const visualArtworkSchema: Record<string, any> = {
   },
 };
 
-if (artwork.priceNumeric && artwork.availability === "Disponible") {
+if (artwork.availability === "Disponible") {
   visualArtworkSchema.offers = {
     "@type": "Offer",
-    "price": artwork.priceNumeric,
-    "priceCurrency": "EUR",
     "availability": "https://schema.org/InStock",
     "url": canonicalUrl,
     "seller": {

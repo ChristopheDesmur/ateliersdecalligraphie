@@ -13,7 +13,6 @@ export interface Artwork {
   description: string;
   extendedDescription?: string;
   price: string;
-  priceNumeric?: number;
   availability: "Disponible" | "Vendue";
   technique: string;
   medium: string;
@@ -35,8 +34,7 @@ export const artworks: Artwork[] = [
     alt: "Calligraphie chinoise 福, caractère signifiant bonheur et prospérité, réalisée à l'encre de Chine",
     description: "Tracé à l'encre de Chine dense sur papier absorbant. Caractère traditionnellement affiché pour attirer les auspices favorables et la plénitude du foyer.",
     extendedDescription: "Le caractère 福 (fú) est l'un des sinogrammes les plus emblématiques de la culture chinoise. Composé de la clé du culte ou de la manifestation céleste (示) et d'éléments évoquant un champ fertile et l'abondance (畐), il incarne la plénitude, la bonne fortune et la bénédiction reçue du ciel. Cette œuvre originale est tracée d'un geste assuré à l'encre noire profonde sur papier de riz traditionnel, avec l'apposition du sceau en cinabre rouge de l'artiste.",
-    price: "180 €",
-    priceNumeric: 180,
+    price: "Prix sur demande",
     availability: "Disponible",
     technique: "Encre de Chine au pinceau traditionnel",
     medium: "Papier de riz absorbant (xuan zhi)",
@@ -56,8 +54,7 @@ export const artworks: Artwork[] = [
     alt: "Calligraphie chinoise du caractère 心 (xīn), signifiant le cœur et l'esprit pensant, à l'encre de Chine",
     description: "Le caractère symbolise à la fois l'organe du cœur et l'esprit pensant, notion centrale dans les traditions chinoise et zen.",
     extendedDescription: "Dans la pensée chinoise classique et la tradition zen (chán), le caractère 心 (xīn) désigne à la fois le siège des émotions et celui de la conscience lucide. Les quatre traits évoquent le réceptacle et les battements du souffle intérieur. Tracé avec un geste fluide et ample, le trait d'encre capte l'instant présent sans hésitation ni repentir, alliant force d'ancrage et légèreté aérienne.",
-    price: "180 €",
-    priceNumeric: 180,
+    price: "Prix sur demande",
     availability: "Disponible",
     technique: "Encre de Chine au pinceau en poils souples",
     medium: "Papier de riz traditionnel (xuan zhi)",
@@ -97,8 +94,7 @@ export const artworks: Artwork[] = [
     alt: "Calligraphie chinoise du caractère 相 (Xiāng / Sō), représentant la posture juste et la forme",
     description: "Caractère traditionnel exprimant la posture juste, la forme extérieure et la présence unifiée du corps et de l'esprit.",
     extendedDescription: "Composé de l'arbre (木) et de l'œil (目), le sinogramme 相 (Xiāng) évoque l'observation mutuelle, la posture juste du corps assis ou debout, et la forme perceptible dans l'espace. La calligraphie explore l'aplomb vertical et l'équilibre des masses d'encre, traduisant la stabilité posturale indispensable à tout pratiquant de la voie du pinceau.",
-    price: "180 €",
-    priceNumeric: 180,
+    price: "Prix sur demande",
     availability: "Disponible",
     technique: "Encre de Chine dense sur papier de riz",
     medium: "Papier de riz absorbant",
@@ -118,8 +114,7 @@ export const artworks: Artwork[] = [
     alt: "Calligraphie chinoise du caractère 忍 (Rěn), symbole d'endurance, de patience et d'énergie intérieure",
     description: "Composé du couteau au-dessus du cœur : la maîtrise de soi, la force intérieure et la persévérance dans la pratique.",
     extendedDescription: "Le caractère 忍 (Rěn) superpose la lame tranchante (刃) au cœur (心). Il symbolise la capacité à contenir la douleur ou la colère sans faiblir, la patience persévérante et la force d'âme. Tracée avec une rigueur géométrique et un noir d'encre profond, cette pièce reflète la retenue du souffle et la maîtrise émotionnelle cultivée dans les arts martiaux et énergétiques traditionnels.",
-    price: "180 €",
-    priceNumeric: 180,
+    price: "Prix sur demande",
     availability: "Disponible",
     technique: "Encre de Chine traditionnelle au pinceau",
     medium: "Papier de riz épais",
@@ -199,8 +194,7 @@ export const artworks: Artwork[] = [
     alt: "Calligraphie poétique du caractère 芳 (Fāng) évoquant la pureté et le parfum subtil à l'encre de Chine",
     description: "Caractère poétique évoquant le parfum des fleurs et la pureté morale, tracé avec vigueur et souplesse.",
     extendedDescription: "Sous la clé de l'herbe (艹), le sinogramme 方 (fāng) confère au caractère 芳 une résonance poétique séculaire dans la littérature des Tang et des Song. Évoquant la fragrance discrète des plantes nobles et l'intégrité morale du lettré, cette calligraphie allie la rondeur accueillante du tracé supérieur à l'autorité affirmée du trait vertical central.",
-    price: "180 €",
-    priceNumeric: 180,
+    price: "Prix sur demande",
     availability: "Disponible",
     technique: "Encre de Chine au pinceau en poils de loup",
     medium: "Papier de riz traditionnel (xuan zhi)",
@@ -220,8 +214,7 @@ export const artworks: Artwork[] = [
     alt: "Calligraphie chinoise du caractère 平 (Píng) signifiant paix, calme et sérénité intérieure",
     description: "Tracé du caractère de la paix et de la stabilité, équilibrant l'axe vertical central et les traits horizontaux.",
     extendedDescription: "Le sinogramme 平 (píng) incarne l'équanimité, la justice paisible et le nivellement des agitations du monde. Construit autour d'un axe vertical rigoureux flanqué de points symétriques, il exige du calligraphe un sens aigu de la proportion pour que l'harmonie naisse naturellement de la tension entre les forces horizontales et verticales.",
-    price: "180 €",
-    priceNumeric: 180,
+    price: "Prix sur demande",
     availability: "Disponible",
     technique: "Encre de Chine dense au pinceau",
     medium: "Papier de riz traditionnel",
