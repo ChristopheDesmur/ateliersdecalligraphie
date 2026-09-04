@@ -33,7 +33,7 @@ export const artworks: Artwork[] = [
     height: 485,
     alt: "Calligraphie chinoise 福, caractère signifiant bonheur et prospérité, réalisée à l'encre de Chine",
     description: "Tracé à l'encre de Chine dense sur papier absorbant. Caractère traditionnellement affiché pour attirer les auspices favorables et la plénitude du foyer.",
-    extendedDescription: "Le caractère 福 (fú) est l'un des sinogrammes les plus emblématiques de la culture chinoise. Composé de la clé du culte ou de la manifestation céleste (示) et d'éléments évoquant un champ fertile et l'abondance (畐), il incarne la plénitude, la bonne fortune et la bénédiction reçue du ciel. Cette œuvre originale est tracée d'un geste assuré à l'encre noire profonde sur papier de riz traditionnel, avec l'apposition du sceau en cinabre rouge de l'artiste.",
+    extendedDescription: "Le caractère 福 (fú) est l'un des sinogrammes les plus emblématiques de la culture chinoise. Composé de la clé du culte ou de la manifestation céleste (示) et d'éléments évoquant un champ fertile et l'abondance (畐), il incarne la plénitude, la bonne fortune et la bénédiction reçue du ciel. Cette œuvre originale est tracée d'un geste assuré à l'encre noire profonde sur papier de riz traditionnel, avec l'apposition du sceau en cinabre rouge du calligraphe.",
     price: "Prix sur demande",
     availability: "Disponible",
     technique: "Encre de Chine au pinceau traditionnel",
