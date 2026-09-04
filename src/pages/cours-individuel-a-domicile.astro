@@ -9,39 +9,79 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d'
   title="Cours individuels de calligraphie chinoise à domicile | Lyon"
   description="Cours particulier de calligraphie chinoise à domicile à Lyon : accompagnement personnalisé à votre rythme, matériel fourni, agrément Coop A Dom (réduction ou crédit d'impôt de 50 %). 40 € TTC/h.">
 
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Cours particulier de calligraphie chinoise à domicile",
-    "description": "Cours individuel de calligraphie chinoise à domicile à Lyon et son agglomération, dispensé par Christophe Desmur. Accompagnement personnalisé à votre rythme, matériel fourni. Agrément Coop A Dom n° 2006-1-42.10 — éligible à la réduction ou au crédit d'impôt de 50 % (article 199 sexdecies du CGI, hors soutien scolaire).",
-    "url": "https://ateliersdecalligraphie.com/cours-individuel-a-domicile",
-    "provider": {
-      "@type": "Person",
-      "name": "Christophe Desmur",
-      "url": "https://ateliersdecalligraphie.com/le-calligraphe"
-    },
-    "areaServed": {
-      "@type": "City",
-      "name": "Lyon"
-    },
-    "serviceType": "Cours à domicile de calligraphie chinoise",
-    "offers": {
-      "@type": "Offer",
-      "price": "40",
-      "priceCurrency": "EUR",
-      "priceSpecification": {
-        "@type": "UnitPriceSpecification",
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify([
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Cours particulier de calligraphie chinoise à domicile",
+      "description": "Cours individuel de calligraphie chinoise à domicile à Lyon et son agglomération, dispensé par Christophe Desmur. Accompagnement personnalisé à votre rythme, matériel fourni. Agrément Coop A Dom n° 2006-1-42.10 — éligible à la réduction ou au crédit d'impôt de 50 % (article 199 sexdecies du CGI, hors soutien scolaire).",
+      "url": "https://ateliersdecalligraphie.com/cours-individuel-a-domicile",
+      "provider": {
+        "@type": "Person",
+        "name": "Christophe Desmur",
+        "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Lyon"
+      },
+      "serviceType": "Cours à domicile de calligraphie chinoise",
+      "offers": {
+        "@type": "Offer",
         "price": "40",
         "priceCurrency": "EUR",
-        "unitText": "heure"
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "40",
+          "priceCurrency": "EUR",
+          "unitText": "heure"
+        }
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Services à domicile agréés",
+        "description": "Agrément Coop A Dom n° 2006-1-42.10 — éligible à la réduction d'impôt de 50 % (article 199 sexdecies du CGI, hors soutien scolaire)"
       }
     },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Services à domicile agréés",
-      "description": "Agrément Coop A Dom n° 2006-1-42.10 — éligible à la réduction d'impôt de 50 % (article 199 sexdecies du CGI, hors soutien scolaire)"
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Dans quels secteurs et arrondissements de Lyon intervenez-vous ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Christophe Desmur intervient dans tous les arrondissements de Lyon (du 1er au 9e) ainsi que dans les communes limitrophes (Caluire-et-Cuire, Villeurbanne, Oullins, Écully, Tassin-la-Demi-Lune, etc.)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment fonctionne le crédit d'impôt de 50 % ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Via l'agrément Coop A Dom n° 2006-1-42.10 (services à la personne), vous bénéficiez de 50 % de réduction ou de crédit d'impôt sur le tarif horaire de 40 € TTC (soit 20 € net de l'heure). Une attestation fiscale annuelle officielle vous est délivrée."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quel matériel ou équipement dois-je prévoir chez moi ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Une simple table et une assise stable suffisent. Tout le matériel traditionnel (pinceaux, encre de Chine, pierres à frotter, feutre protecteur de table et papiers de riz) est apporté par l'intervenant."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quelle est la durée recommandée d'une séance ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Une durée de 1 h 30 à 2 h est idéale pour s'installer posément, broyer l'encre, travailler la posture et progresser sans fatigue."
+          }
+        }
+      ]
     }
-  })} />
+  ])} />
 
   <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4">
 
@@ -530,7 +570,73 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d'
     </section>
 
     <!-- ================================================================= -->
-    <!-- 7. LIENS UTILES ET FORMULES ASSOCIÉES                              -->
+    <!-- 7. FOIRE AUX QUESTIONS : COURS À DOMICILE                         -->
+    <!-- ================================================================= -->
+    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="faq-domicile-heading">
+      <div class="max-w-2xl mb-8">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
+          Questions fréquentes
+        </p>
+        <h2 id="faq-domicile-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          Tout savoir sur les cours particuliers à domicile
+        </h2>
+      </div>
+
+      <div class="space-y-4 max-w-4xl">
+        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-950 dark:text-gray-100 text-base list-none">
+            <span>Dans quels secteurs et arrondissements de Lyon intervenez-vous ?</span>
+            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            Christophe Desmur se déplace directement dans l'ensemble des arrondissements de Lyon (du 1<sup>er</sup> au 9<sup>e</sup>) ainsi que dans les communes limitrophes de la métropole lyonnaise (Caluire-et-Cuire, Villeurbanne, Oullins, Écully, Tassin-la-Demi-Lune, etc.). Pour d'autres communes du Rhône, une étude personnalisée est possible.
+          </p>
+        </details>
+
+        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-950 dark:text-gray-100 text-base list-none">
+            <span>Comment fonctionne le crédit d'impôt de 50 % ?</span>
+            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            Grâce à l'agrément accordé à la société coopérative de services à la personne <em>Coop A Dom</em> (agrément n° 2006-1-42.10), les cours dispensés à votre domicile vous ouvrent droit à une réduction ou à un crédit d'impôt de 50 % sur les sommes versées (conformément à l'art. 199 sexdecies du CGI, hors soutien scolaire). Une attestation fiscale annuelle officielle vous est automatiquement transmise pour votre déclaration de revenus.
+          </p>
+        </details>
+
+        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-950 dark:text-gray-100 text-base list-none">
+            <span>Quel équipement ou espace dois-je prévoir chez moi ?</span>
+            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            Une simple table bien éclairée et une chaise confortable suffisent. Christophe apporte l'intégralité du matériel traditionnel : feutre épais protecteur de table pour éviter toute tache d'encre, pinceaux chinois, bâton d'encre, pierre à frotter et papier de riz.
+          </p>
+        </details>
+
+        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-950 dark:text-gray-100 text-base list-none">
+            <span>Quelle est la durée recommandée pour une séance à domicile ?</span>
+            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            Une durée de 1&nbsp;h&nbsp;30 à 2&nbsp;h est idéale. Cela permet d'installer posément la posture, de préparer l'encre à la pierre dans le calme, d'apprendre la structure des traits et de réaliser plusieurs calligraphies complètes sans précipitation.
+          </p>
+        </details>
+
+        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-950 dark:text-gray-100 text-base list-none">
+            <span>Peut-on combiner calligraphie et apprentissage de la langue chinoise ?</span>
+            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            Oui, c'est l'un des grands avantages du cours particulier avec Christophe Desmur (Master de traduction littéraire chinois-français). Vous pouvez librement consacrer une partie de la séance au tracé au pinceau et une autre à la phonétique (pinyin), au vocabulaire ou à la lecture de textes classiques.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 8. LIENS UTILES ET FORMULES ASSOCIÉES                              -->
     <!-- ================================================================= -->
     <footer class="pt-8 pb-4" aria-label="Autres formules et informations">
       <div class="flex flex-wrap items-center justify-between gap-4 text-xs text-gray-500 dark:text-gray-400">

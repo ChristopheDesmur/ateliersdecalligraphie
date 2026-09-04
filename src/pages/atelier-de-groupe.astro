@@ -9,25 +9,57 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d'
   title="Ateliers de groupe de calligraphie chinoise à Lyon"
   description="Ateliers collectifs de calligraphie chinoise à Lyon : formules sur mesure pour écoles, collèges, lycées, universités, entreprises et résidences seniors. Matériel fourni.">
 
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Course",
-    "name": "Ateliers de groupe de calligraphie chinoise",
-    "description": "Ateliers collectifs et interventions sur mesure de calligraphie chinoise à Lyon pour écoles, collèges, lycées, universités, entreprises et maisons de retraite.",
-    "url": "https://ateliersdecalligraphie.com/atelier-de-groupe",
-    "provider": {
-      "@type": "Person",
-      "name": "Christophe Desmur",
-      "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify([
+    {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "Ateliers de groupe de calligraphie chinoise à Lyon",
+      "description": "Ateliers collectifs et interventions sur mesure de calligraphie chinoise à Lyon pour écoles, collèges, lycées, universités, entreprises et maisons de retraite.",
+      "url": "https://ateliersdecalligraphie.com/atelier-de-groupe",
+      "provider": {
+        "@type": "Person",
+        "name": "Christophe Desmur",
+        "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+      },
+      "inLanguage": "fr",
+      "offers": {
+        "@type": "AggregateOffer",
+        "lowPrice": "60",
+        "highPrice": "90",
+        "priceCurrency": "EUR"
+      }
     },
-    "inLanguage": "fr",
-    "offers": {
-      "@type": "AggregateOffer",
-      "lowPrice": "60",
-      "highPrice": "90",
-      "priceCurrency": "EUR"
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Fournissez-vous l'ensemble du matériel pour les participants ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, tout le matériel traditionnel (pinceaux, encre de Chine, pierres, papier absorbant et feutres de protection de table) est apporté sur place par Christophe Desmur."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quelles sont les conditions requises dans nos locaux ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Une salle calme et lumineuse avec tables et chaises adaptées au groupe, ainsi qu'un point d'eau à proximité pour le rinçage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quelles sont les modalités de facturation ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Devis personnalisé gratuit, facturation officielle avec n° SIRET, compatibilité avec les bons de commande administratifs et Chorus Pro."
+          }
+        }
+      ]
     }
-  })} />
+  ])} />
 
   <div class="max-w-5xl mx-auto">
     <!-- Fil d'Ariane -->
@@ -325,6 +357,70 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d'
             <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
           </div>
         </a>
+      </div>
+    </section>
+
+    <!-- Foire aux questions pour les établissements et entreprises -->
+    <section class="mt-16" aria-labelledby="faq-groupe-heading">
+      <div class="mb-8">
+        <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
+          Organisation & Logistique
+        </span>
+        <h2 id="faq-groupe-heading" class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mt-1">
+          Questions fréquentes sur les ateliers de groupe
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
+            <span>Fournissez-vous l'ensemble du matériel de calligraphie pour tous les participants ?</span>
+            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            Oui, Christophe Desmur arrive sur place avec tout le nécessaire pour l'ensemble des inscrits : pinceaux traditionnels en poils naturels, bâtons d'encre et encre fluide adaptée, pierres à encre, papiers absorbants et feutres de protection pour vos tables de travail. Vous n'avez rien à préparer en amont.
+          </p>
+        </details>
+
+        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
+            <span>Quelles sont les conditions matérielles nécessaires dans nos locaux ?</span>
+            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            Une salle calme et lumineuse équipée de tables et de chaises adaptées au nombre de participants, ainsi qu'un accès à un point d'eau à proximité (pour humidifier et rincer les pinceaux en fin de séance).
+          </p>
+        </details>
+
+        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
+            <span>Quelles sont les modalités administratives et de facturation (entreprises, établissements publics) ?</span>
+            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            Un devis clair et détaillé vous est transmis gratuitement avant toute intervention. Les prestations font l'objet d'une facture officielle avec numéro de SIRET. Nous acceptons les bons de commande administratifs et les règlements via Chorus Pro pour les établissements scolaires et publics.
+          </p>
+        </details>
+
+        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
+            <span>Dans quel périmètre géographique intervenez-vous ?</span>
+            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            Christophe Desmur se déplace dans l'ensemble de la métropole de Lyon et du département du Rhône. Pour des interventions dans l'Ain, l'Isère ou d'autres départements de la région Auvergne-Rhône-Alpes, des frais de déplacement calculés au plus juste sont convenus lors du devis.
+          </p>
+        </details>
+
+        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
+            <span>Peut-on adapter le contenu de l'atelier au projet pédagogique ou à un événement ?</span>
+            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            Tout à fait. Les ateliers peuvent s'articuler autour d'une thématique précise : découverte de la civilisation chinoise, Nouvel An lunaire, poésie des Tang, atelier zen et détente en entreprise, ou encore initiation au dessin à l'encre (Sumi-e) pour les enfants.
+          </p>
+        </details>
       </div>
     </section>
 

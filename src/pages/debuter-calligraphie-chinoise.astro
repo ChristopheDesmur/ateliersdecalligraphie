@@ -1,0 +1,397 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import RelatedPages from "@/components/related-pages.astro";
+
+const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Renseignement%20d%C3%A9buter%20la%20calligraphie";
+---
+
+<Layout
+  title="Comment débuter la calligraphie chinoise : matériel, posture et premiers traits | Lyon"
+  description="Guide essentiel pour débuter la calligraphie chinoise : les 4 trésors du lettré (pinceau, encre, papier, pierre), la tenue verticale, la posture et les 8 traits fondamentaux (永).">
+
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify([
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Comment débuter la calligraphie chinoise : matériel, posture et traits fondamentaux",
+      "description": "Guide complet pour s'initier à la calligraphie chinoise traditionnelle : choix des quatre trésors du lettré, tenue verticale du pinceau, posture d'assise et apprentissage des huit traits du caractère Yong.",
+      "url": "https://ateliersdecalligraphie.com/debuter-calligraphie-chinoise",
+      "author": {
+        "@type": "Person",
+        "name": "Christophe Desmur",
+        "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Calligraphie chinoise Lyon",
+        "url": "https://ateliersdecalligraphie.com"
+      },
+      "mainEntityOfPage": "https://ateliersdecalligraphie.com/debuter-calligraphie-chinoise",
+      "about": [
+        { "@type": "Thing", "name": "Calligraphie chinoise" },
+        { "@type": "Thing", "name": "Quatre trésors du lettré" },
+        { "@type": "Thing", "name": "Huit principes de Yong" }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Faut-il savoir parler ou lire le chinois pour débuter la calligraphie ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Non. La calligraphie chinoise est avant tout un art du geste, de l'équilibre et de l'espace. La grande majorité des élèves débutent sans aucune notion de langue chinoise."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quel matériel de base faut-il pour commencer chez soi ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Il vous faut les Quatre Trésors du lettré : un pinceau moyen en poils mixtes ou de chèvre, un bâton d'encre de suie et sa pierre à frotter (ou de l'encre liquide de bonne qualité), du papier de riz absorbant (xuanzhi) et un feutre de sous-main."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment tient-on correctement un pinceau chinois ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Le pinceau se tient rigoureusement à la verticale, sans toucher la table avec le poignet. Les doigts guident l'outil sans le crisper, et le mouvement est impulsé par l'avant-bras et l'épaule."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Pourquoi commence-t-on souvent par le caractère Yong (永) ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Le caractère Yong (éternité) contient en un seul idéogramme les huit traits fondamentaux qui composent l'ensemble de l'écriture régulière chinoise. Sa maîtrise pose les bases de toute calligraphie ultérieure."
+          }
+        }
+      ]
+    }
+  ])} />
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4">
+
+    <!-- Fil d'Ariane -->
+    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-8">
+      <ol class="flex items-center gap-1.5 flex-wrap">
+        <li><a href="/" class="hover:underline hover:text-gray-900 dark:hover:text-gray-200 transition-colors">Accueil</a></li>
+        <li aria-hidden="true">/</li>
+        <li><span class="text-gray-500 dark:text-gray-400">Découvrir</span></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-gray-900 dark:text-gray-100 font-medium">Débuter la calligraphie chinoise</li>
+      </ol>
+    </nav>
+
+    <!-- Header éditorial -->
+    <header class="py-6 sm:py-10 border-b border-gray-100 dark:border-gray-800" aria-labelledby="guide-title">
+      <div class="max-w-3xl">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-3">
+          Guide d'initiation · Christophe Desmur
+        </p>
+        <h1 id="guide-title" class="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-gray-950 dark:text-gray-100 leading-tight">
+          Comment débuter la calligraphie chinoise :<br class="hidden sm:inline" />
+          <span class="text-indigo-700 dark:text-indigo-400">le guide essentiel du geste et des outils</span>
+        </h1>
+        <p class="mt-5 text-base sm:text-lg text-gray-700 dark:text-gray-300 font-serif leading-relaxed">
+          Dans la tradition chinoise, la calligraphie (<em>shūfǎ</em> 書法) n'est ni un simple exercice d'écriture, ni un dessin figé. C'est l'art d'animer l'espace par le souffle, l'encre et le corps tout entier. Ce guide rassemble les repères fondamentaux pour franchir le pas sereinement.
+        </p>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a
+            href="#tresors"
+            class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs sm:text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+            1. Les 4 Trésors du lettré &darr;
+          </a>
+          <a
+            href="#posture"
+            class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs sm:text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+            2. Tenue & Posture &darr;
+          </a>
+          <a
+            href="#yong"
+            class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs sm:text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+            3. Les 8 traits (永) &darr;
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION 1 : LES 4 TRÉSORS DU LETTRÉ -->
+    <section id="tresors" class="py-12 border-b border-gray-100 dark:border-gray-800" aria-labelledby="heading-tresors">
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+          Les outils traditionnels
+        </span>
+        <h2 id="heading-tresors" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-1">
+          Les Quatre Trésors du lettré (Wénfáng Sìbǎo 文房四宝)
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+          Depuis l'antiquité chinoise, le calligraphe entretient un rapport intime et respectueux avec ses quatre compagnons d'étude. Chaque outil possède son tempérament et dialogue avec les autres.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        <!-- 1. Le Pinceau -->
+        <article class="p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">01 · L'outil</span>
+              <span class="text-xl font-serif font-bold text-gray-900 dark:text-gray-100">Bǐ 笔</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">Le pinceau chinois</h3>
+            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              Composé de poils d'animaux (chèvre, belette/loup, lièvre) montés sur une tige de bambou. Pour débuter, un pinceau à poils mixtes (<em>jianhao</em>, cœur ferme et extérieur souple) de taille moyenne offre le meilleur compromis de fermeté et de réserve d'encre.
+            </p>
+          </div>
+        </article>
+
+        <!-- 2. L'Encre -->
+        <article class="p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">02 · La matière</span>
+              <span class="text-xl font-serif font-bold text-gray-900 dark:text-gray-100">Mò 墨</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">L'encre de Chine</h3>
+            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              Traditionnellement présentée sous forme de bâton solide fabriqué à partir de suie de pin et de colle animale parfumée. Le broyage avec un peu d'eau claire sur la pierre est un moment d'apaisement sensoriel qui prépare le regard et le calme intérieur.
+            </p>
+          </div>
+        </article>
+
+        <!-- 3. La Pierre à encre -->
+        <article class="p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">03 · La matrice</span>
+              <span class="text-xl font-serif font-bold text-gray-900 dark:text-gray-100">Yàn 砚</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">La pierre à encre</h3>
+            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              Taillée dans un schiste ou une ardoise naturelle au grain très fin, elle permet de frotter le bâton sans le rayer et retient l'encre liquide dans son réservoir en légère pente. Les pierres de Duan ou de She sont les plus réputées.
+            </p>
+          </div>
+        </article>
+
+        <!-- 4. Le Papier Xuan -->
+        <article class="p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">04 · Le support</span>
+              <span class="text-xl font-serif font-bold text-gray-900 dark:text-gray-100">Xuānzhǐ 宣纸</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">Le papier de riz absorbant</h3>
+            <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              Fabriqué à base d'écorce de santal bleu et de paille de riz. Il réagit instantanément à l'eau : toute hésitation s'y imprime. Pour débuter, un papier demi-traité (<em>shuxuan</em> ou papier journal quadrillé) permet de s'exercer sans excès de diffusion.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <div class="mt-6 p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60 text-xs sm:text-sm text-gray-700 dark:text-gray-300 flex items-start gap-3">
+        <span class="text-indigo-600 dark:text-indigo-400 font-bold text-base" aria-hidden="true">💡</span>
+        <span>
+          <strong>Bon à savoir pour vos premiers pas :</strong> Lors de nos cours hebdomadaires et particuliers à Lyon, la totalité de ce matériel traditionnel authentique est mise à votre disposition. Vous n'avez pas besoin d'acheter de fournitures pour débuter.
+        </span>
+      </div>
+    </section>
+
+    <!-- SECTION 2 : POSTURE ET TENUE DU PINCEAU -->
+    <section id="posture" class="py-12 border-b border-gray-100 dark:border-gray-800" aria-labelledby="heading-posture">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+            Le corps et l'outil
+          </span>
+          <h2 id="heading-posture" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+            La tenue verticale du pinceau et la posture du corps
+          </h2>
+          <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+            Contrairement à un stylo ou un feutre occidental que l'on tient incliné, le pinceau chinois se tient <strong>rigoureusement à la verticale</strong> par rapport au papier (méthode de préhension à cinq doigts, <em>wǔzhǐ zhíbǐ fǎ</em>).
+          </p>
+
+          <ul class="space-y-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+            <li class="flex items-start gap-2.5">
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+              <span><strong>Le pouce et l'index</strong> pincent le manche à mi-hauteur pour lui donner sa verticalité.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+              <span><strong>Le majeur et l'annulaire</strong> soutiennent l'arrière de la tige pour stabiliser l'angle.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+              <span><strong>Le poignet est suspendu :</strong> il ne repose jamais sur la table. Le coude est dégagé, libérant l'épaule et tout le haut du corps.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+              <span><strong>L'assise :</strong> dos droit, bassin légèrement basculé vers l'avant, pieds ancrés à plat sur le sol et respiration ventrale libre.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-5">
+          <img
+            src="/assets/personne-realisant-de-la-calligraphie-avec-un-pinceau-sur-du-papier.webp"
+            alt="Tenue du pinceau et posture corporelle en calligraphie chinoise"
+            width="600"
+            height="400"
+            class="w-full h-auto rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm object-cover"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 : LES 8 TRAITS DU CARACTÈRE YONG -->
+    <section id="yong" class="py-12 border-b border-gray-100 dark:border-gray-800" aria-labelledby="heading-yong">
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+          La grammaire du tracé
+        </span>
+        <h2 id="heading-yong" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-1">
+          Les 8 traits fondamentaux : le principe du caractère Yong (永字八法)
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+          Dans la tradition calligraphique attribuée au grand maître Wang Xizhi (IV<sup>e</sup> siècle), le caractère <strong>Yong (永, « éternité »)</strong> concentre à lui seul les huit mouvements élémentaires qui permettent de calligraphier n'importe quel idéogramme du style régulier (<em>Kaishu</em>).
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        <div class="md:col-span-4 p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 text-center">
+          <img
+            src="/assets/yong.webp"
+            alt="Caractère chinois Yong 永 et les huit traits fondamentaux"
+            width="320"
+            height="320"
+            class="mx-auto w-48 h-48 object-contain mb-4 rounded-xl"
+          />
+          <span class="font-serif text-2xl font-bold text-gray-900 dark:text-gray-100">永 · Yǒng</span>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Éternité · La matrice universelle</p>
+        </div>
+
+        <div class="md:col-span-8">
+          <ol class="grid sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+              <strong class="text-indigo-700 dark:text-indigo-400">1. Ce (侧) · Le point (Diǎn 点) :</strong>
+              <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Poser le pinceau avec appui franc, semblable à une goutte suspendue.</span>
+            </li>
+            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+              <strong class="text-indigo-700 dark:text-indigo-400">2. Le (勒) · L'horizontal (Héng 横) :</strong>
+              <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Attaque dosée, progression tendue de gauche à droite, terminaison ronde.</span>
+            </li>
+            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+              <strong class="text-indigo-700 dark:text-indigo-400">3. Nu (努) · Le vertical (Shù 竖) :</strong>
+              <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Colonne vertébrale du caractère, descendant avec force et rectitude.</span>
+            </li>
+            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+              <strong class="text-indigo-700 dark:text-indigo-400">4. Di (趯) · Le crochet (Gōu 钩) :</strong>
+              <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Impulsion vive vers le haut et la gauche, comme un ressort relâché.</span>
+            </li>
+            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+              <strong class="text-indigo-700 dark:text-indigo-400">5. Ce (策) · Le trait montant (Tí 提) :</strong>
+              <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Élancement du bas-gauche vers le haut-droit avec pointe effilée.</span>
+            </li>
+            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+              <strong class="text-indigo-700 dark:text-indigo-400">6. Lüe (掠) · La courbe descendante gauche (Piě 撇) :</strong>
+              <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Balayage régulier et gracieux, aminci progressivement vers le bas.</span>
+            </li>
+            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+              <strong class="text-indigo-700 dark:text-indigo-400">7. Zhuo (啄) · Le trait court (Duǎnpiě 短撇) :</strong>
+              <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Coup de bec rapide et précis, vif comme l'éclair.</span>
+            </li>
+            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+              <strong class="text-indigo-700 dark:text-indigo-400">8. Zhe (磔) · L'appui descendant droit (Nà 捺) :</strong>
+              <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Descente progressive, écrasement au pied du trait puis sortie en pointe effilée.</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4 : FAUT-IL PARLER CHINOIS & SHODO -->
+    <section class="py-12 border-b border-gray-100 dark:border-gray-800" aria-labelledby="heading-questions">
+      <div class="grid sm:grid-cols-2 gap-8">
+        <div class="space-y-3">
+          <h3 id="heading-questions" class="text-xl font-serif font-medium text-gray-950 dark:text-gray-100">
+            Faut-il savoir parler chinois ?
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            C'est la question la plus fréquente que se posent les curieux. <strong>La réponse est clairement non.</strong>
+          </p>
+          <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            La calligraphie est un art visuel, spatial et corporel. On apprend à lire le sens, la symbolique et l'énergie du caractère au moment précis où on le trace. Pour ceux qui désirent approfondir la langue parlée en parallèle, Christophe Desmur propose également des <a href="/cours-de-chinois" class="text-indigo-600 dark:text-indigo-400 underline font-medium">cours de chinois et sinogrammes</a>.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-xl font-serif font-medium text-gray-950 dark:text-gray-100">
+            Calligraphie chinoise ou Shodō ?
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            Le Shodō japonais (書道, « la voie du pinceau ») trouve son origine directe dans la transmission de l'écriture chinoise (書法, <em>shūfǎ</em>).
+          </p>
+          <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            Les deux pratiques partagent les mêmes outils, la même posture et la même exigence de présence. Le Shodō insiste particulièrement sur la spontanéité du zen et intègre les kanas japonais, tandis que la calligraphie chinoise explore en profondeur la richesse des styles régulier, courant et cursif. Consultez notre essai sur le <a href="/shodo-voie-pinceau" class="text-indigo-600 dark:text-indigo-400 underline font-medium">Shodō et la voie du pinceau</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5 : PASSER À LA PRATIQUE À LYON -->
+    <section class="py-12 border-b border-gray-100 dark:border-gray-800" aria-labelledby="heading-pratique">
+      <div class="rounded-3xl p-6 sm:p-10 bg-indigo-50/70 dark:bg-gray-800/80 border border-indigo-100 dark:border-indigo-900/60">
+        <div class="max-w-2xl mb-8">
+          <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-300">
+            Passer de la théorie à la pratique
+          </span>
+          <h2 id="heading-pratique" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-1">
+            Rejoignez un atelier de calligraphie à Lyon
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mt-2 leading-relaxed">
+            Rien ne remplace le contact vivant avec l'encre et le regard bienveillant d'un enseignant diplômé. Deux formules s'offrent à vous selon votre rythme :
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-6">
+          <div class="p-6 rounded-2xl bg-white dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">En groupe</span>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1">Cours collectifs hebdomadaires</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+                Au Dojo Zen de Lyon (lundi soir) ou chez Miroirs du Ciel (mercredi matin) à la Croix-Rousse. 80&nbsp;€/trimestre, matériel fourni.
+              </p>
+            </div>
+            <a
+              href="/cours-collectifs#trial-heading"
+              class="mt-5 inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs transition">
+              Essayer un cours sans engagement &rarr;
+            </a>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-white dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">À domicile</span>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1">Cours particuliers sur mesure</h3>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+                Christophe se déplace chez vous à Lyon et son agglomération. 40&nbsp;€ TTC/h avec 50&nbsp;% de crédit d'impôt (Coop A Dom).
+              </p>
+            </div>
+            <a
+              href="/cours-individuel-a-domicile"
+              class="mt-5 inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white font-medium text-xs transition">
+              Découvrir les cours particuliers &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related pages -->
+    <RelatedPages current="/debuter-calligraphie-chinoise" />
+
+  </div>
+</Layout>
