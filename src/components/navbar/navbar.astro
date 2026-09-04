@@ -6,16 +6,20 @@ import { Astronav, MenuItems } from "astro-navbar";
 
 const menuitems = [
   {
-    title: "Cours & Ateliers",
+    title: "Cours",
     path: "#",
     children: [
-      { title: "Cours collectifs à Lyon", path: "/cours-collectifs" },
-      { title: "Cours individuels à domicile", path: "/cours-individuel-a-domicile" },
-      { title: "Tarifs des cours et ateliers", path: "/tarifs" },
+      { title: "Cours collectifs à Lyon (Croix-Rousse)", path: "/cours-collectifs" },
+      { title: "Séance d'essai sans engagement", path: "/cours-collectifs#trial-heading" },
+      { title: "Tarifs des cours", path: "/tarifs" },
     ],
   },
   {
-    title: "Pour les groupes",
+    title: "Cours individuels",
+    path: "/cours-individuel-a-domicile",
+  },
+  {
+    title: "Ateliers",
     path: "#",
     children: [
       { title: "Vue d'ensemble des ateliers", path: "/atelier-de-groupe" },
@@ -31,39 +35,42 @@ const menuitems = [
     title: "Découvrir",
     path: "#",
     children: [
-      { title: "Christophe Desmur (le calligraphe)", path: "/le-calligraphe" },
-      { title: "Galerie des œuvres", path: "/galerie" },
       { title: "La voie du pinceau (Shodo)", path: "/shodo-voie-pinceau" },
       { title: "Calligraphie zen", path: "/calligraphie-zen" },
+      { title: "Cours de langue chinoise", path: "/cours-de-chinois" },
+      { title: "Traductions littéraires", path: "/traductions" },
     ],
   },
   {
-    title: "Culture & Chinois",
-    path: "#",
-    children: [
-      { title: "Cours de langue chinoise", path: "/cours-de-chinois" },
-      { title: "Traductions littéraires (sommaire)", path: "/traductions" },
-      { title: "Nouvelle : Père (Lu Yin)", path: "/pere-nouvelle" },
-      { title: "Nouvelle : La Guerre des rats (Zeng Jixin)", path: "/zeng-jixin-la-guerre-entre-les-rats-et-les-hommes-nouvelle" },
-    ],
+    title: "Galerie",
+    path: "/galerie",
+  },
+  {
+    title: "À propos",
+    path: "/le-calligraphe",
   },
 ];
 ---
 
 <Container>
-  <header class="flex flex-col lg:flex-row justify-between items-center my-5 border-b border-gray-100 dark:border-gray-700 pb-4">
+  <header class="flex flex-col lg:flex-row justify-between items-center my-4 sm:my-5 border-b border-gray-100 dark:border-gray-800 pb-4">
     <Astronav>
       <div class="flex w-full lg:w-auto items-center justify-between">
-        <a href="/" class="text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded">
-          <span class="font-bold text-gray-800 dark:text-gray-100">Calligraphie </span>
+        <a href="/" class="text-base sm:text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded py-1">
+          <span class="font-bold text-gray-900 dark:text-gray-100">Calligraphie </span>
           <span class="text-gray-500 dark:text-gray-400">chinoise Lyon</span>
         </a>
-        <div class="block lg:hidden">
+        <div class="flex items-center gap-2 lg:hidden">
+          <a
+            href="/cours-collectifs#trial-heading"
+            class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-medium hover:bg-indigo-700 transition shadow-xs">
+            Essayer un cours
+          </a>
           <button
             class="astronav-toggle p-2 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition"
             aria-label="Ouvrir le menu"
             aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -71,8 +78,8 @@ const menuitems = [
           </button>
         </div>
       </div>
-      <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
-        <ul class="flex flex-col lg:flex-row lg:gap-3">
+      <MenuItems class="hidden w-full lg:w-auto mt-3 lg:flex lg:mt-0">
+        <ul class="flex flex-col lg:flex-row lg:items-center lg:gap-1 text-sm font-medium">
           {
             menuitems.map((item, index) => (
               <>
@@ -88,13 +95,8 @@ const menuitems = [
                   <li>
                     <a
                       href={item.path}
-                      class="flex lg:px-3 py-2 items-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg transition">
+                      class="flex lg:px-2.5 py-2 items-center text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg transition">
                       <span>{item.title}</span>
-                      {item.badge && (
-                        <span class="ml-1 px-2 py-0.5 text-[10px] animate-pulse font-semibold uppercase text-white bg-gray-600 rounded-full">
-                          New
-                        </span>
-                      )}
                     </a>
                   </li>
                 )}
@@ -102,10 +104,10 @@ const menuitems = [
             ))
           }
         </ul>
-        <div class="lg:ml-4 mt-3 lg:mt-0 flex items-center gap-2">
+        <div class="lg:ml-3 mt-3 lg:mt-0 flex items-center gap-2 pt-3 lg:pt-0 border-t lg:border-t-0 border-gray-100 dark:border-gray-800">
           <a
-            href="/cours-collectifs"
-            class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 transition whitespace-nowrap shadow-xs">
+            href="/cours-collectifs#trial-heading"
+            class="hidden lg:inline-flex px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 transition whitespace-nowrap shadow-xs">
             Essayer un cours
           </a>
           <button

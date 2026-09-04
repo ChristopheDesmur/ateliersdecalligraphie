@@ -1,5 +1,6 @@
 ---
 // Faq.astro - FAQ catégorisée et balisée Schema.org pour l'optimisation locale et la clarté utilisateur
+// Présentation en accordéons accessibles (details/summary) pour réduire la charge cognitive
 
 interface FaqItem {
   question: string;
@@ -87,42 +88,51 @@ const allQuestions = faqCategories.flatMap((cat) => cat.items);
 ---
 
 <section class="mt-20 max-w-4xl mx-auto" aria-labelledby="faq-main-heading">
-  <div class="text-center mb-12">
+  <div class="text-center mb-10 sm:mb-12">
     <span class="text-indigo-600 dark:text-indigo-400 uppercase tracking-widest text-xs font-semibold">
       Foire aux questions
     </span>
-    <h2 id="faq-main-heading" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-2">
+    <h2 id="faq-main-heading" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-gray-950 dark:text-gray-100 mt-2">
       Questions fréquentes sur les cours et ateliers
     </h2>
     <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base mt-2">
-      Retrouvez les réponses aux interrogations les plus fréquentes des futurs élèves et organisateurs.
+      Tout ce qu'il faut savoir avant de venir à votre premier cours ou d'organiser un atelier.
     </p>
   </div>
 
-  <div class="space-y-10">
-    {faqCategories.map((group) => (
-      <div class="bg-gray-50/70 dark:bg-gray-800/40 rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700">
-        <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-3">
-          <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
+  <div class="space-y-6 sm:space-y-8">
+    {faqCategories.map((group, groupIdx) => (
+      <div class="bg-gray-50/80 dark:bg-gray-800/40 rounded-2xl p-5 sm:p-7 border border-gray-200 dark:border-gray-700">
+        <h3 class="text-base sm:text-lg font-serif font-bold text-gray-950 dark:text-gray-100 mb-4 flex items-center gap-2 border-b border-gray-200 dark:border-gray-700 pb-3">
+          <span class="w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
           {group.category}
         </h3>
 
-        <dl class="space-y-6">
-          {group.items.map((faq) => (
-            <div class="pb-5 last:pb-0 border-b border-gray-200/60 dark:border-gray-700/60 last:border-b-0">
-              <dt class="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                {faq.question}
-              </dt>
-              <dd class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm" set:html={faq.answer} />
-            </div>
-          ))}
-        </dl>
+        <div class="space-y-3">
+          {group.items.map((faq, itemIdx) => {
+            // Ouvrir par défaut la toute première question de la première catégorie
+            const isOpen = groupIdx === 0 && itemIdx === 0;
+            return (
+              <details
+                open={isOpen}
+                class="group bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 transition">
+                <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-sm sm:text-base list-none select-none">
+                  <span>{faq.question}</span>
+                  <span class="ml-3 shrink-0 text-gray-400 group-open:rotate-180 transition-transform text-xs" aria-hidden="true">
+                    ▼
+                  </span>
+                </summary>
+                <div class="mt-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed pt-3 border-t border-gray-100 dark:border-gray-700/60" set:html={faq.answer} />
+              </details>
+            );
+          })}
+        </div>
       </div>
     ))}
   </div>
 </section>
 
-<!-- Données structurées FAQPage Schema.org -->
+<!-- Données structurées FAQPage Schema.org (100 % préservées) -->
 <script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": "FAQPage",
