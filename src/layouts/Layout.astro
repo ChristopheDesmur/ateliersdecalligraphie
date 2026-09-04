@@ -12,9 +12,10 @@ export interface Props {
   description?: string;
   showSidebar?: boolean;
   ogImage?: string;
+  noindex?: boolean;
 }
 
-const { title, description, showSidebar = false, ogImage } = Astro.props;
+const { title, description, showSidebar = false, ogImage, noindex = false } = Astro.props;
 const metaDescription = description ?? "Cours de calligraphie chinoise à Lyon avec Christophe Desmur. Ateliers collectifs au Dojo Zen et Miroirs du Ciel, cours particuliers et interventions en écoles et entreprises.";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
@@ -52,8 +53,14 @@ const makeTitle = !title
       title={makeTitle}
       description={metaDescription}
       canonical={canonicalURL}
+      noindex={noindex}
+      nofollow={noindex}
       twitter={{
         card: "summary_large_image",
+        title: makeTitle,
+        description: metaDescription,
+        image: resolvedImageWithDomain,
+        imageAlt: makeTitle,
       }}
       openGraph={{
         basic: {
@@ -73,22 +80,23 @@ const makeTitle = !title
       }}
     />
     <Analytics />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": ["LocalBusiness", "EducationalOrganization"],
-      "name": "Christophe Desmur — Calligraphie chinoise Lyon",
-      "alternateName": "Ateliers de calligraphie chinoise à Lyon",
-      "description": "Cours hebdomadaires de calligraphie chinoise, cours particuliers et ateliers sur mesure à Lyon avec Christophe Desmur. Pratique au pinceau, encre de Chine et philosophie.",
-      "url": "https://ateliersdecalligraphie.com",
-      "telephone": ["+33472078861", "+33769941643"],
-      "email": "christophe.desmur@orange.fr",
-      "image": "https://ateliersdecalligraphie.com/assets/opengraph.webp",
-      "priceRange": "€€",
-      "founder": {
-        "@type": "Person",
-        "name": "Christophe Desmur",
-        "url": "https://ateliersdecalligraphie.com/le-calligraphe"
-      },
+    {!noindex && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": ["LocalBusiness", "EducationalOrganization"],
+        "name": "Christophe Desmur — Calligraphie chinoise Lyon",
+        "alternateName": "Ateliers de calligraphie chinoise à Lyon",
+        "description": "Cours hebdomadaires de calligraphie chinoise, cours particuliers et ateliers sur mesure à Lyon avec Christophe Desmur. Pratique au pinceau, encre de Chine et philosophie.",
+        "url": "https://ateliersdecalligraphie.com",
+        "telephone": ["+33472078861", "+33769941643"],
+        "email": "christophe.desmur@orange.fr",
+        "image": "https://ateliersdecalligraphie.com/assets/opengraph.webp",
+        "priceRange": "€€",
+        "founder": {
+          "@type": "Person",
+          "name": "Christophe Desmur",
+          "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+        },
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "11, rue Dumenge",
@@ -146,6 +154,7 @@ const makeTitle = !title
         }
       ]
     })} />
+    )}
     <slot name="head" />
   </head>
   <body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col font-sans antialiased">
@@ -171,13 +180,6 @@ const makeTitle = !title
     )}
 
     <Footer />
-
-    <style is:global>
-      /* Improve page speed */
-      img {
-        content-visibility: auto;
-      }
-    </style>
 
     <script>
       function syncIcon() {

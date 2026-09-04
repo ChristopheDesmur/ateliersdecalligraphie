@@ -5,9 +5,21 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 
-// Filter blog entries with 'draft: false' & date before current date
-const publishedBlogEntries = await getCollection("blog", ({ data }) => {
-  return !data.draft && data.publishDate < new Date();
+const dedicatedSlugs = new Set([
+  "formats-atelier-pour-les-lycees",
+  "universites-et-grandes-ecoles",
+  "atelier-de-groupe",
+  "traductions",
+  "cours-de-chinois",
+  "cours-individuel-a-domicile",
+  "shodo-voie-pinceau",
+  "calligraphie-zen",
+]);
+
+// Filter blog entries with 'draft: false' & date before current date, excluding dedicated landing pages
+const publishedBlogEntries = await getCollection("blog", (entry) => {
+  const slug = entry.slug.replace(/^blog\//, "");
+  return !entry.data.draft && entry.data.publishDate < new Date() && !dedicatedSlugs.has(slug);
 });
 
 // Sort content entries by publication date
