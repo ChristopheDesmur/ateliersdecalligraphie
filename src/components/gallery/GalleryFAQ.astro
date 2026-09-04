@@ -1,0 +1,69 @@
+---
+const faqs = [
+  {
+    question: "Comment acheter une calligraphie chinoise dans cette galerie ?",
+    answer: "L'acquisition d'une œuvre s'effectue directement auprès de Christophe Desmur, sans intermédiaire ni système de paiement automatisé en ligne. Après avoir repéré une calligraphie, contactez directement l'artiste par courriel ou par téléphone. Vous convenez ensemble des modalités de remise en main propre à Lyon ou d'une expédition sécurisée, ainsi que du mode de règlement personnalisé.",
+  },
+  {
+    question: "Les calligraphies présentées sont-elles des pièces uniques ?",
+    answer: "Oui, chaque calligraphie originale proposée dans cette galerie est une pièce unique, tracée à la main sur papier de riz traditionnel (xuan zhi) avec des pinceaux en poils naturels et de l'encre de Chine indélébile. Chaque œuvre porte le sceau traditionnel gravé de Christophe Desmur apposé à la pâte de cinabre rouge (Yinni).",
+  },
+  {
+    question: "Comment connaître le prix d'une calligraphie originale ?",
+    answer: "Les prix sont affichés en toute transparence sur les fiches des œuvres (par exemple 180 € pour un sinogramme traditionnel monté). Pour certaines compositions particulières, diptyques ou études portant la mention « Prix sur demande », il vous suffit d'adresser une demande par courriel pour recevoir le tarif précis selon les options d'encadrement et de livraison.",
+  },
+  {
+    question: "Peut-on commander une calligraphie personnalisée sur mesure ?",
+    answer: "Oui, Christophe Desmur réalise régulièrement des œuvres sur mesure : sinogramme particulier, prénom transcrit phonétiquement, poème chinois classique, devise philosophique ou vœu de longévité et prospérité. Vous déterminez ensemble le style graphique (régulier Kaishu, semi-cursif Xingshu, cursif Caoshu) et les dimensions adaptées.",
+  },
+  {
+    question: "Comment sont réalisées et conservées les calligraphies ?",
+    answer: "Les calligraphies sont tracées à l'encre de Chine solide broyée à l'eau de source sur pierre à encre, appliquée sur papier absorbant selon les règles de la tradition séculaire. L'encre de Chine est inaltérable à la lumière. Pour préserver votre œuvre durablement, il est conseillé de l'encadrer sous verre (avec passe-partout pour éviter le contact direct du papier avec la vitre) et de la maintenir à l'abri de l'humidité excessive.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((faq) => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer,
+    },
+  })),
+};
+---
+
+<section class="mt-20 pt-12 border-t border-gray-100 dark:border-gray-800" aria-labelledby="faq-heading">
+  <div class="max-w-3xl mb-8">
+    <span class="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+      Questions fréquentes
+    </span>
+    <h2 id="faq-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
+      Tout savoir sur l'acquisition d'une œuvre
+    </h2>
+    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-serif mt-2 leading-relaxed">
+      Quelques repères pour vous accompagner dans la découverte et l'acquisition d'une calligraphie originale.
+    </p>
+  </div>
+
+  <div class="space-y-4 max-w-3xl">
+    {faqs.map((faq) => (
+      <details class="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800/80 p-5 transition [&_svg]:open:-rotate-180">
+        <summary class="flex cursor-pointer items-center justify-between gap-4 font-serif text-lg font-medium text-gray-900 dark:text-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg">
+          <span>{faq.question}</span>
+          <svg class="h-5 w-5 shrink-0 text-gray-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </summary>
+        <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-serif pt-2 border-t border-gray-100 dark:border-gray-700/60">
+          {faq.answer}
+        </p>
+      </details>
+    ))}
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

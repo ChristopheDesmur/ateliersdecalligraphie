@@ -1,0 +1,351 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Breadcrumbs from "@/components/gallery/Breadcrumbs.astro";
+import ArtworkMeta from "@/components/gallery/ArtworkMeta.astro";
+import AcquisitionSection from "@/components/gallery/AcquisitionSection.astro";
+import AcquisitionProcess from "@/components/gallery/AcquisitionProcess.astro";
+import PersonalizedCalligraphyCTA from "@/components/gallery/PersonalizedCalligraphyCTA.astro";
+import ArtworkCard from "@/components/gallery/ArtworkCard.astro";
+import RelatedPages from "@/components/related-pages.astro";
+import { getAllArtworks, type Artwork } from "@/data/artworks";
+
+export async function getStaticPaths() {
+  const artworks = getAllArtworks();
+  return artworks.map((artwork, index) => {
+    const prev = index > 0 ? artworks[index - 1] : artworks[artworks.length - 1];
+    const next = index < artworks.length - 1 ? artworks[index + 1] : artworks[0];
+    const otherArtworks = artworks.filter((a) => a.slug !== artwork.slug).slice(0, 3);
+    return {
+      params: { slug: artwork.slug },
+      props: { artwork, prev, next, otherArtworks },
+    };
+  });
+}
+
+export interface Props {
+  artwork: Artwork;
+  prev: Artwork;
+  next: Artwork;
+  otherArtworks: Artwork[];
+}
+
+const { artwork, prev, next, otherArtworks } = Astro.props;
+
+const pageTitle = `${artwork.title} — Calligraphie chinoise originale à Lyon`;
+const pageDescription = `Calligraphie originale ${artwork.character} (${artwork.frenchMeaning}) tracée à l'encre de Chine par Christophe Desmur. Pièce unique disponible à l'acquisition.`;
+
+const canonicalUrl = new URL(`/galerie/${artwork.slug}`, Astro.site || "https://ateliersdecalligraphie.com").toString();
+const absoluteImageUrl = new URL(artwork.src, Astro.site || "https://ateliersdecalligraphie.com").toString();
+
+// Schema.org VisualArtwork
+const visualArtworkSchema: Record<string, any> = {
+  "@context": "https://schema.org",
+  "@type": "VisualArtwork",
+  "name": artwork.title,
+  "alternateName": artwork.character,
+  "description": artwork.extendedDescription || artwork.description,
+  "image": absoluteImageUrl,
+  "artMedium": artwork.technique,
+  "artform": "Calligraphie chinoise",
+  "inLanguage": "zh-CN",
+  "creator": {
+    "@type": "Person",
+    "name": artwork.artist,
+    "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+  },
+};
+
+if (artwork.priceNumeric && artwork.availability === "Disponible") {
+  visualArtworkSchema.offers = {
+    "@type": "Offer",
+    "price": artwork.priceNumeric,
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/InStock",
+    "url": canonicalUrl,
+    "seller": {
+      "@type": "Person",
+      "name": artwork.artist
+    }
+  };
+} else if (artwork.availability === "Vendue") {
+  visualArtworkSchema.offers = {
+    "@type": "Offer",
+    "availability": "https://schema.org/SoldOut",
+    "url": canonicalUrl,
+    "seller": {
+      "@type": "Person",
+      "name": artwork.artist
+    }
+  };
+}
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  ogImage={artwork.src}>
+
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(visualArtworkSchema)} />
+
+  <Container>
+    <!-- Fil d'Ariane accessible : Accueil → Galerie → [Titre] -->
+    <Breadcrumbs
+      items={[
+        { label: "Accueil", href: "/" },
+        { label: "Galerie des œuvres", href: "/galerie" },
+        { label: artwork.title },
+      ]}
+    />
+
+    <!-- ================================================================= -->
+    <!-- PRÉSENTATION DE L'ŒUVRE (LAYOUT GALERIE EN 2 COLONNES)            -->
+    <!-- ================================================================= -->
+    <div class="mt-4 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      
+      <!-- Colonne de gauche : Image d'art grand format -->
+      <div class="lg:col-span-7">
+        <div class="rounded-3xl border border-gray-200/90 dark:border-gray-800 bg-stone-50 dark:bg-stone-900/50 p-6 sm:p-10 flex flex-col items-center justify-center relative overflow-hidden group">
+          
+          <button
+            type="button"
+            id="open-zoom"
+            class="w-full flex items-center justify-center cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-2xl"
+            aria-label={`Agrandir la calligraphie ${artwork.title}`}>
+            <img
+              src={artwork.src}
+              alt={artwork.alt}
+              width={artwork.width}
+              height={artwork.height}
+              loading="eager"
+              decoding="async"
+              class="max-h-[65vh] w-auto max-w-full object-contain drop-shadow-md group-hover:scale-101 transition-transform duration-500"
+            />
+          </button>
+
+          <!-- Bouton zoom discret -->
+          <div class="mt-4 flex items-center gap-1.5 text-xs text-stone-500 dark:text-stone-400 select-none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="11" y1="8" x2="11" y2="14"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+            <span>Cliquer pour examiner les détails du tracé</span>
+          </div>
+        </div>
+
+        <p class="text-xs text-stone-500 dark:text-stone-400 mt-3 text-center italic font-serif">
+          Œuvre originale réalisée à l'encre de Chine sur papier absorbant • Sceau gravé à la pâte de cinabre.
+        </p>
+      </div>
+
+      <!-- Colonne de droite : Cartel d'art, description, métadonnées & acquisition -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <div>
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+              {artwork.category}
+            </span>
+            <span class="text-xs text-gray-500 dark:text-gray-400">
+              Pièce unique
+            </span>
+          </div>
+
+          <h1 class="mt-2 text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-gray-950 dark:text-gray-100 leading-tight">
+            {artwork.title}
+          </h1>
+
+          <p class="mt-2 text-lg font-serif italic text-gray-600 dark:text-gray-300">
+            {artwork.frenchMeaning}
+          </p>
+
+          <!-- Prix & Disponibilité -->
+          <div class="mt-4 py-3 px-4 rounded-xl bg-stone-100/80 dark:bg-gray-800/80 border border-stone-200/80 dark:border-gray-700 flex items-center justify-between">
+            <div>
+              <span class="block text-[11px] uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                Tarif d'acquisition
+              </span>
+              <span class="text-xl font-bold font-serif text-gray-950 dark:text-gray-100">
+                {artwork.price}
+              </span>
+            </div>
+
+            <div>
+              {artwork.availability === "Disponible" ? (
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true"></span>
+                  Disponible
+                </span>
+              ) : (
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300">
+                  Vendue
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <!-- Description artistique & symbolisme -->
+        <div class="prose prose-stone dark:prose-invert text-sm font-serif leading-relaxed">
+          <p>
+            {artwork.extendedDescription || artwork.description}
+          </p>
+        </div>
+
+        <!-- Fiche technique & métadonnées structurées -->
+        <ArtworkMeta artwork={artwork} />
+
+        <!-- Section de contact et conversion acquisition -->
+        <AcquisitionSection artwork={artwork} />
+
+        <!-- Navigation interne vers la galerie et créations personnalisées -->
+        <div class="pt-4 border-t border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <a
+            href="/galerie"
+            class="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium inline-flex items-center gap-1.5 transition-colors">
+            <span aria-hidden="true">&larr;</span>
+            <span>Voir toutes les calligraphies originales</span>
+          </a>
+
+          <a
+            href="/galerie#calligraphie-personnalisee"
+            class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 transition-colors inline-flex items-center gap-1">
+            <span>Une calligraphie personnalisée ?</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+        <!-- Navigation Précédent / Suivant -->
+        <nav aria-label="Navigation entre œuvres" class="pt-2 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+          <a
+            href={`/galerie/${prev.slug}`}
+            class="hover:text-gray-900 dark:hover:text-gray-100 transition-colors flex items-center gap-1 py-1">
+            <span>&larr; {prev.character}</span>
+          </a>
+          <span class="text-gray-300 dark:text-gray-700">|</span>
+          <a
+            href={`/galerie/${next.slug}`}
+            class="hover:text-gray-900 dark:hover:text-gray-100 transition-colors flex items-center gap-1 py-1">
+            <span>{next.character} &rarr;</span>
+          </a>
+        </nav>
+      </div>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- DÉMARCHE D'ACQUISITION                                            -->
+    <!-- ================================================================= -->
+    <AcquisitionProcess />
+
+    <!-- ================================================================= -->
+    <!-- CONVERSION SUR MESURE                                             -->
+    <!-- ================================================================= -->
+    <PersonalizedCalligraphyCTA />
+
+    <!-- ================================================================= -->
+    <!-- AUTRES ŒUVRES DE LA COLLECTION                                    -->
+    <!-- ================================================================= -->
+    <section class="mt-20 pt-12 border-t border-gray-100 dark:border-gray-800" aria-labelledby="other-artworks-heading">
+      <div class="flex items-baseline justify-between mb-8">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+            Explorer la collection
+          </span>
+          <h2 id="other-artworks-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-1">
+            Autres calligraphies originales
+          </h2>
+        </div>
+
+        <a
+          href="/galerie"
+          class="text-xs font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 transition-colors hidden sm:inline-flex items-center gap-1">
+          <span>Toutes les œuvres</span>
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {otherArtworks.map((other) => (
+          <ArtworkCard artwork={other} />
+        ))}
+      </div>
+    </section>
+
+    <!-- Navigation transversale interne -->
+    <RelatedPages current="/galerie" />
+  </Container>
+
+  <!-- Dialog d'agrandissement accessible (Lightbox) -->
+  <dialog
+    id="zoom-dialog"
+    class="fixed inset-0 m-auto bg-transparent backdrop:bg-black/90 p-4 max-w-5xl w-full h-fit border-0 outline-none z-50">
+    <div class="relative bg-white dark:bg-stone-950 rounded-3xl p-6 sm:p-8 shadow-2xl border border-stone-300 dark:border-stone-800 flex flex-col items-center">
+      
+      <!-- Bouton Fermer -->
+      <button
+        id="close-zoom"
+        type="button"
+        class="absolute top-4 right-4 text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-white p-2 rounded-xl text-xl leading-none transition"
+        aria-label="Fermer la vue détaillée (Échap)">
+        ✕
+      </button>
+
+      <div class="w-full flex items-center justify-center max-h-[75vh] overflow-hidden my-4">
+        <img
+          src={artwork.src}
+          alt={artwork.alt}
+          class="max-h-[72vh] max-w-full object-contain rounded-lg"
+        />
+      </div>
+
+      <div class="text-center">
+        <h3 class="font-serif text-xl font-medium text-gray-950 dark:text-gray-100">
+          {artwork.title}
+        </h3>
+        <p class="text-xs font-serif italic text-gray-600 dark:text-gray-400 mt-1">
+          {artwork.frenchMeaning} • {artwork.technique}
+        </p>
+      </div>
+    </div>
+  </dialog>
+
+  <script is:inline>
+    (function() {
+      const openBtn = document.getElementById('open-zoom');
+      const dialog = document.getElementById('zoom-dialog');
+      const closeBtn = document.getElementById('close-zoom');
+
+      if (!openBtn || !dialog || !closeBtn) return;
+
+      openBtn.addEventListener('click', () => {
+        if (typeof dialog.showModal === 'function') {
+          dialog.showModal();
+        } else {
+          dialog.setAttribute('open', '');
+        }
+        closeBtn.focus();
+      });
+
+      closeBtn.addEventListener('click', () => {
+        if (typeof dialog.close === 'function') {
+          dialog.close();
+        } else {
+          dialog.removeAttribute('open');
+        }
+      });
+
+      dialog.addEventListener('click', (e) => {
+        if (e.target === dialog) {
+          if (typeof dialog.close === 'function') {
+            dialog.close();
+          } else {
+            dialog.removeAttribute('open');
+          }
+        }
+      });
+    })();
+  </script>
+</Layout>

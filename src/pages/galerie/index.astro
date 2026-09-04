@@ -1,0 +1,255 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import RelatedPages from "@/components/related-pages.astro";
+import Breadcrumbs from "@/components/gallery/Breadcrumbs.astro";
+import ArtworkCard from "@/components/gallery/ArtworkCard.astro";
+import AcquisitionProcess from "@/components/gallery/AcquisitionProcess.astro";
+import PersonalizedCalligraphyCTA from "@/components/gallery/PersonalizedCalligraphyCTA.astro";
+import GalleryFAQ from "@/components/gallery/GalleryFAQ.astro";
+import { getAllArtworks } from "@/data/artworks";
+
+const artworks = getAllArtworks();
+const availableCount = artworks.filter((a) => a.availability === "Disponible").length;
+const soldCount = artworks.filter((a) => a.availability === "Vendue").length;
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Calligraphies chinoises originales — Galerie d'art",
+  "description": "Sélection de calligraphies chinoises originales réalisées à l'encre de Chine par Christophe Desmur. Pièces uniques disponibles à l'acquisition et commandes personnalisées.",
+  "url": "https://ateliersdecalligraphie.com/galerie",
+  "creator": {
+    "@type": "Person",
+    "name": "Christophe Desmur",
+    "url": "https://ateliersdecalligraphie.com/le-calligraphe"
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": artworks.length,
+    "itemListElement": artworks.map((artwork, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": `https://ateliersdecalligraphie.com/galerie/${artwork.slug}`,
+      "name": `${artwork.character} — ${artwork.frenchMeaning}`
+    }))
+  }
+};
+---
+
+<Layout
+  title="Calligraphies chinoises originales à vendre | Ateliers de Calligraphie Lyon"
+  description="Découvrez des calligraphies chinoises originales réalisées à l'encre de Chine. Œuvres uniques disponibles à l'acquisition et calligraphies personnalisées.">
+
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
+
+  <Container>
+    <!-- Fil d'Ariane accessible avec microdonnées -->
+    <Breadcrumbs
+      items={[
+        { label: "Accueil", href: "/" },
+        { label: "Galerie des œuvres" },
+      ]}
+    />
+
+    <!-- ================================================================= -->
+    <!-- HERO ÉDITORIAL SOBRE ET HAUT DE GAMME                             -->
+    <!-- ================================================================= -->
+    <header class="py-6 sm:py-10 border-b border-gray-100 dark:border-gray-800" aria-labelledby="gallery-heading">
+      <div class="max-w-3xl">
+        <span class="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+          Œuvres uniques & Encre de Chine
+        </span>
+
+        <h1 id="gallery-heading" class="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2.5 leading-tight">
+          Calligraphies chinoises originales
+        </h1>
+
+        <p class="mt-4 text-base sm:text-lg text-gray-700 dark:text-gray-300 font-serif leading-relaxed">
+          Découvrez une sélection de calligraphies chinoises originales réalisées à l'encre de Chine par Christophe Desmur. Chaque œuvre est une pièce unique, tracée sur papier traditionnel selon l'art séculaire du souffle et du trait. Pour connaître les modalités d'acquisition d'une œuvre, contactez directement l'artiste.
+        </p>
+
+        <!-- Actions principales : Découverte & Création sur mesure -->
+        <div class="mt-7 flex flex-wrap items-center gap-3.5">
+          <a
+            href="#oeuvres"
+            class="px-6 py-3 bg-gray-950 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-950 dark:hover:bg-white text-sm font-medium rounded-xl transition shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+            Découvrir les œuvres
+          </a>
+
+          <a
+            href="#calligraphie-personnalisee"
+            class="px-5 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 text-sm font-medium rounded-xl transition border border-gray-200/80 dark:border-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+            Commander une calligraphie personnalisée
+          </a>
+        </div>
+
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-4 leading-relaxed">
+          📍 Œuvres visibles sur rendez-vous à Lyon (Croix-Rousse). Remise en main propre ou expédition soignée protégée.
+        </p>
+      </div>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- GRILLE D'ŒUVRES AVEC FILTRES DISCRETS                             -->
+    <!-- ================================================================= -->
+    <section id="oeuvres" class="mt-12 scroll-mt-6" aria-labelledby="collection-heading">
+      
+      <!-- Barre d'outils / Filtres d'accessibilité légers -->
+      <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 border-b border-gray-200 dark:border-gray-800 pb-4 mb-8">
+        <div>
+          <h2 id="collection-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+            Collection disponible & archives
+          </h2>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            Chaque calligraphie est une pièce originale unique scellée au cinabre.
+          </p>
+        </div>
+
+        <!-- Filtres par statut -->
+        <nav aria-label="Filtrer les œuvres" class="flex items-center gap-1.5 p-1 rounded-xl bg-gray-100/90 dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700 text-xs">
+          <button
+            type="button"
+            class="filter-btn px-3 py-1.5 rounded-lg font-medium transition bg-white dark:bg-gray-700 text-gray-950 dark:text-gray-100 shadow-2xs cursor-pointer"
+            data-filter="all"
+            aria-pressed="true">
+            Toutes ({artworks.length})
+          </button>
+          <button
+            type="button"
+            class="filter-btn px-3 py-1.5 rounded-lg font-medium transition text-gray-600 dark:text-gray-400 hover:text-gray-950 dark:hover:text-gray-100 cursor-pointer"
+            data-filter="Disponible"
+            aria-pressed="false">
+            Disponibles ({availableCount})
+          </button>
+          <button
+            type="button"
+            class="filter-btn px-3 py-1.5 rounded-lg font-medium transition text-gray-600 dark:text-gray-400 hover:text-gray-950 dark:hover:text-gray-100 cursor-pointer"
+            data-filter="Vendue"
+            aria-pressed="false">
+            Vendues ({soldCount})
+          </button>
+        </nav>
+      </div>
+
+      <!-- Grille d'œuvres -->
+      <div id="artworks-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {artworks.map((artwork, index) => (
+          <ArtworkCard artwork={artwork} priority={index < 3} />
+        ))}
+      </div>
+
+      <!-- Message si aucun résultat -->
+      <div id="no-results" class="hidden text-center py-16 text-gray-500 font-serif">
+        Aucune œuvre ne correspond au filtre sélectionné.
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- COMMENT ACQUÉRIR UNE CALLIGRAPHIE                                 -->
+    <!-- ================================================================= -->
+    <AcquisitionProcess />
+
+    <!-- ================================================================= -->
+    <!-- SECTION CALLIGRAPHIE PERSONNALISÉE                                -->
+    <!-- ================================================================= -->
+    <PersonalizedCalligraphyCTA />
+
+    <!-- ================================================================= -->
+    <!-- CONTEXTE ARTISTE : CHRISTOPHE DESMUR                              -->
+    <!-- ================================================================= -->
+    <section class="mt-20 pt-12 border-t border-gray-100 dark:border-gray-800" aria-labelledby="artist-context-heading">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <div class="md:col-span-4">
+          <figure class="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-stone-50 dark:bg-stone-900/50">
+            <img
+              src="/assets/christophe-desmur-calligraphie-chinoise.webp"
+              alt="Christophe Desmur calligraphe chinois et traducteur littéraire à Lyon"
+              width="800"
+              height="567"
+              loading="lazy"
+              decoding="async"
+              class="w-full h-auto object-cover"
+            />
+            <figcaption class="p-3 text-[11px] text-gray-500 dark:text-gray-400 italic text-center border-t border-gray-100 dark:border-gray-800">
+              Christophe Desmur au travail du pinceau à Lyon.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="md:col-span-8">
+          <span class="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+            L'artiste calligraphe
+          </span>
+          <h2 id="artist-context-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
+            Christophe Desmur, plus de 30 ans de pratique de l'encre
+          </h2>
+          <p class="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 font-serif leading-relaxed">
+            Formé à la pratique traditionnelle de l'encre de Chine et titulaire d'un master de traduction littéraire chinois-français, Christophe Desmur transmet la voie du pinceau à Lyon et réalise des pièces originales nourries par les textes classiques, la philosophie taoïste et la tradition du zen.
+          </p>
+          <p class="mt-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            Chaque calligraphie est le fruit d'une recherche d'équilibre entre le plein de l'encre noire et la respiration du blanc de la feuille de riz, signée et scellée selon le rituel traditionnel chinois.
+          </p>
+          <div class="mt-5">
+            <a
+              href="/le-calligraphe"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors">
+              <span>Découvrir le parcours et les diplômes de Christophe Desmur</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- FOIRE AUX QUESTIONS (SEO LONG-TRAÎNE & RÉASSURANCE)                -->
+    <!-- ================================================================= -->
+    <GalleryFAQ />
+
+    <!-- Navigation transversale interne -->
+    <RelatedPages current="/galerie" />
+  </Container>
+
+  <!-- Script interactif léger pour les filtres -->
+  <script is:inline>
+    (function() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.artwork-card');
+      const noResults = document.getElementById('no-results');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.getAttribute('data-filter');
+
+          // Mise à jour des styles de boutons
+          filterBtns.forEach(b => {
+            b.setAttribute('aria-pressed', 'false');
+            b.classList.remove('bg-white', 'dark:bg-gray-700', 'text-gray-950', 'dark:text-gray-100', 'shadow-2xs');
+            b.classList.add('text-gray-600', 'dark:text-gray-400');
+          });
+
+          btn.setAttribute('aria-pressed', 'true');
+          btn.classList.add('bg-white', 'dark:bg-gray-700', 'text-gray-950', 'dark:text-gray-100', 'shadow-2xs');
+          btn.classList.remove('text-gray-600', 'dark:text-gray-400');
+
+          // Filtrage des œuvres
+          let visibleCount = 0;
+          cards.forEach(card => {
+            const availability = card.getAttribute('data-availability');
+            if (filter === 'all' || availability === filter) {
+              card.style.display = '';
+              visibleCount++;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+
+          if (noResults) {
+            noResults.classList.toggle('hidden', visibleCount > 0);
+          }
+        });
+      });
+    })();
+  </script>
+</Layout>

@@ -1,0 +1,85 @@
+---
+import type { Artwork } from "@/data/artworks";
+
+export interface Props {
+  artwork: Artwork;
+}
+
+const { artwork } = Astro.props;
+---
+
+<div class="rounded-2xl border border-gray-200 dark:border-gray-800 bg-stone-50/50 dark:bg-gray-800/50 p-6">
+  <h2 class="text-xs font-semibold uppercase tracking-widest text-stone-500 dark:text-stone-400 mb-4">
+    Caractéristiques de l'œuvre
+  </h2>
+
+  <dl class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6 text-xs">
+    <div>
+      <dt class="text-gray-500 dark:text-gray-400">Sinogramme</dt>
+      <dd class="mt-0.5 text-sm font-medium text-gray-900 dark:text-gray-100 flex items-baseline gap-2">
+        <span class="text-xl font-serif">{artwork.character}</span>
+        {artwork.pinyin && <span class="text-xs text-gray-500 font-sans">({artwork.pinyin})</span>}
+      </dd>
+    </div>
+
+    <div>
+      <dt class="text-gray-500 dark:text-gray-400">Sens & Signification</dt>
+      <dd class="mt-0.5 text-sm font-serif italic text-gray-900 dark:text-gray-100">
+        {artwork.frenchMeaning}
+      </dd>
+    </div>
+
+    <div>
+      <dt class="text-gray-500 dark:text-gray-400">Technique</dt>
+      <dd class="mt-0.5 text-xs font-medium text-gray-900 dark:text-gray-100">
+        {artwork.technique}
+      </dd>
+    </div>
+
+    <div>
+      <dt class="text-gray-500 dark:text-gray-400">Support</dt>
+      <dd class="mt-0.5 text-xs font-medium text-gray-900 dark:text-gray-100">
+        {artwork.medium}
+      </dd>
+    </div>
+
+    {artwork.style && (
+      <div>
+        <dt class="text-gray-500 dark:text-gray-400">Style calligraphique</dt>
+        <dd class="mt-0.5 text-xs font-medium text-gray-900 dark:text-gray-100">
+          {artwork.style}
+        </dd>
+      </div>
+    )}
+
+    <div>
+      <dt class="text-gray-500 dark:text-gray-400">Statut de l'exemplaire</dt>
+      <dd class="mt-0.5 text-xs font-medium text-gray-900 dark:text-gray-100">
+        Pièce originale unique, signée et scellée au cinabre
+      </dd>
+    </div>
+
+    <div>
+      <dt class="text-gray-500 dark:text-gray-400">Disponibilité</dt>
+      <dd class="mt-0.5 text-xs font-medium">
+        {artwork.availability === "Disponible" ? (
+          <span class="inline-flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true"></span>
+            Disponible à l'acquisition
+          </span>
+        ) : (
+          <span class="text-stone-500 dark:text-stone-400">
+            Œuvre vendue / En collection privée
+          </span>
+        )}
+      </dd>
+    </div>
+
+    <div>
+      <dt class="text-gray-500 dark:text-gray-400">Acquisition</dt>
+      <dd class="mt-0.5 text-sm font-semibold text-gray-900 dark:text-gray-100">
+        {artwork.price}
+      </dd>
+    </div>
+  </dl>
+</div>

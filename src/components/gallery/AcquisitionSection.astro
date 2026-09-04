@@ -1,0 +1,88 @@
+---
+import type { Artwork } from "@/data/artworks";
+
+export interface Props {
+  artwork: Artwork;
+}
+
+const { artwork } = Astro.props;
+const isSold = artwork.availability === "Vendue";
+
+const mailSubject = `Demande d'information — ${artwork.character} · ${artwork.frenchMeaning}`;
+const mailBody = `Bonjour Christophe,
+
+Je souhaiterais avoir des informations concernant votre calligraphie originale :
+« ${artwork.character} — ${artwork.frenchMeaning} »
+
+(Modalités d'acquisition, options d'encadrement, remise en main propre à Lyon ou expédition).
+
+Dans l'attente de votre réponse,
+
+Bien cordialement,
+`;
+
+const mailHref = `mailto:christophe.desmur@orange.fr?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+
+const customMailSubject = `Demande de création personnalisée — Inspirée de ${artwork.character}`;
+const customMailHref = `mailto:christophe.desmur@orange.fr?subject=${encodeURIComponent(customMailSubject)}`;
+---
+
+<section
+  class="rounded-3xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800/90 p-6 sm:p-8 shadow-xs"
+  aria-labelledby="acquisition-heading">
+  
+  <div class="flex items-center gap-2 mb-2">
+    <span class="w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-400" aria-hidden="true"></span>
+    <span class="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+      {isSold ? "Œuvre en collection" : "Acquisition directe"}
+    </span>
+  </div>
+
+  <h2 id="acquisition-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+    {isSold ? "Cette œuvre vous inspire ?" : "Cette œuvre vous intéresse ?"}
+  </h2>
+
+  <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed font-serif">
+    {isSold ? (
+      "Cette pièce originale a déjà été acquise. Christophe Desmur peut réaliser pour vous une nouvelle calligraphie autour de ce sinogramme ou concevoir une pièce sur mesure adaptée à votre sensibilité."
+    ) : (
+      "Pour connaître les modalités d'acquisition de cette calligraphie originale, échanger sur l'encadrement ou organiser une remise en main propre à Lyon ou une expédition protégée, contactez directement l'artiste."
+    )}
+  </p>
+
+  <div class="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+    <a
+      href={isSold ? customMailHref : mailHref}
+      class="px-6 py-3.5 bg-gray-950 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white text-sm font-medium rounded-xl transition shadow-xs flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+      <span>✉️</span>
+      <span>{isSold ? "Commander une œuvre similaire" : "Demander des informations"}</span>
+    </a>
+
+    <div class="flex items-center gap-2">
+      <a
+        href="tel:+33472078861"
+        class="flex-1 sm:flex-none px-4 py-3 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700/60 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 text-xs font-medium rounded-xl transition border border-gray-200 dark:border-gray-700 flex items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+        aria-label="Appeler Christophe Desmur au 04 72 07 88 61">
+        <span>📞</span> 04 72 07 88 61
+      </a>
+
+      <a
+        href="tel:+33769941643"
+        class="flex-1 sm:flex-none px-4 py-3 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700/60 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 text-xs font-medium rounded-xl transition border border-gray-200 dark:border-gray-700 flex items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+        aria-label="Appeler Christophe Desmur au 07 69 94 16 43">
+        <span>📱</span> 07 69 94 16 43
+      </a>
+    </div>
+  </div>
+
+  <div class="mt-5 pt-4 border-t border-gray-100 dark:border-gray-700/60 text-xs text-gray-500 dark:text-gray-400 space-y-1">
+    <p class="flex items-center gap-1.5">
+      <span class="text-indigo-600 dark:text-indigo-400">✓</span>
+      <span>Échange direct et personnalisé avec l'artiste — aucun paiement automatisé en ligne.</span>
+    </p>
+    <p class="flex items-center gap-1.5">
+      <span class="text-indigo-600 dark:text-indigo-400">✓</span>
+      <span>Retrait possible à Lyon (Croix-Rousse) ou expédition soignée à plat entre cartons rigides.</span>
+    </p>
+  </div>
+</section>
