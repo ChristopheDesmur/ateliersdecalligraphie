@@ -62,5 +62,5 @@ Christophe Desmur apporte l'ensemble du matériel nécessaire (pinceaux en poils
 
 Pour construire un projet adapté à votre lycée ou demander un devis :
 
-- **Téléphone :** [04 72 07 88 61](tel:+33472078861) ou [07 69 94 16 43](tel:+33769941643)
+- **Téléphone :** [07 69 94 16 43](tel:+33769941643) ou [04 72 07 88 61](tel:+33472078861)
 - **E-mail :** [christophe.desmur@orange.fr](mailto:christophe.desmur@orange.fr?subject=Atelier%20calligraphie%20lycee)

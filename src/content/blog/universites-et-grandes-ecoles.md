@@ -61,5 +61,5 @@ Les ateliers sont modulés en fonction des cursus et des projets des établissem
 
 Christophe Desmur se déplace avec l'ensemble du matériel nécessaire. Pour discuter d'un projet pédagogique ou obtenir une convention d'intervention :
 
-- **Téléphone :** [04 72 07 88 61](tel:+33472078861) ou [07 69 94 16 43](tel:+33769941643)
+- **Téléphone :** [07 69 94 16 43](tel:+33769941643) ou [04 72 07 88 61](tel:+33472078861)
 - **E-mail :** [christophe.desmur@orange.fr](mailto:christophe.desmur@orange.fr?subject=Atelier%20calligraphie%20universite)
