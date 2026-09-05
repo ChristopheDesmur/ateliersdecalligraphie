@@ -4,7 +4,7 @@ import RelatedPages from "../components/related-pages.astro";
 import fs from "fs";
 import yaml from "js-yaml";
 
-// --- Load YAML and normalize ---
+// --- Single Source of Truth : Load YAML and normalize ---
 const rawData = yaml.load(fs.readFileSync("./src/content/ateliers.yaml", "utf8"));
 const rawAteliers = Array.isArray(rawData)
   ? rawData
@@ -13,21 +13,21 @@ const rawAteliers = Array.isArray(rawData)
   : [];
 
 // --- Date helpers ---
-function sameDay(d1, d2) {
+function sameDay(d1: Date, d2: Date) {
   return d1.getFullYear() === d2.getFullYear()
       && d1.getMonth() === d2.getMonth()
       && d1.getDate() === d2.getDate();
 }
 
-function formatDayFR(dayNum) {
+function formatDayFR(dayNum: number) {
   return dayNum === 1 ? "1<sup>er</sup>" : String(dayNum);
 }
 
-function formatDateFR(fromStr, toStr) {
+function formatDateFR(fromStr: string, toStr?: string) {
   const from = new Date(fromStr);
   const to = toStr ? new Date(toStr) : from;
 
-  const optionsMonthYear = { month: "long", year: "numeric" };
+  const optionsMonthYear: Intl.DateTimeFormatOptions = { month: "long", year: "numeric" };
 
   const frDayFrom = formatDayFR(from.getDate());
   const frDayTo = toStr ? formatDayFR(to.getDate()) : null;
@@ -41,23 +41,39 @@ function formatDateFR(fromStr, toStr) {
   }
 }
 
-function formatLieuFR(lieu) {
+function formatLieuFR(lieu?: string) {
   if (!lieu) return "";
   return lieu.replace(/Lyon 4e\b/g, "Lyon 4<sup>e</sup>");
 }
 
-// --- Group ateliers by year for the full archive ---
-const ateliersByYear = {};
-rawAteliers.forEach(event => {
+// 1. Interventions récentes représentatives (générées dynamiquement depuis rawAteliers)
+const now = new Date();
+const recentInterventions = rawAteliers
+  .filter((event: any) => {
+    const to = event.to ? new Date(event.to) : new Date(event.from);
+    return to < now;
+  })
+  .map((event: any) => ({
+    ...event,
+    displayDate: formatDateFR(event.from, event.to),
+    lieu: formatLieuFR(event.lieu)
+  }))
+  .sort((a: any, b: any) => new Date(b.from).getTime() - new Date(a.from).getTime())
+  .slice(0, 6);
+
+// 2. Archive complète groupée par année (générée depuis la même source de données)
+const ateliersByYear: Record<string, any[]> = {};
+rawAteliers.forEach((event: any) => {
   const from = new Date(event.from);
   const to = event.to ? new Date(event.to) : from;
   const multiYear = from.getFullYear() !== to.getFullYear();
 
   for (let y = from.getFullYear(); y <= to.getFullYear(); y++) {
-    if (!ateliersByYear[y]) ateliersByYear[y] = [];
+    const yStr = String(y);
+    if (!ateliersByYear[yStr]) ateliersByYear[yStr] = [];
     const key = event.from + event.titre + event.lieu;
-    if (!ateliersByYear[y].some(e => (e.from + e.titre + e.lieu) === key)) {
-      ateliersByYear[y].push({
+    if (!ateliersByYear[yStr].some((e: any) => (e.from + e.titre + e.lieu) === key)) {
+      ateliersByYear[yStr].push({
         ...event,
         multiYear,
         displayDate: formatDateFR(event.from, event.to),
@@ -69,122 +85,91 @@ rawAteliers.forEach(event => {
 
 const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Number(a));
 
-// --- Selected authentic references demonstrating longevity and diversity ---
-const references = [
-  {
-    institution: "Centre National de la Danse (CN D Lyon)",
-    category: "Institution culturelle nationale",
-    description: "Atelier croisé et dialogue entre danse contemporaine, physique et calligraphie traditionnelle lors des rencontres « Corps, Conscience, Cosmos » avec Vânia Vaneau et le CNRS.",
-    year: "2022",
-    href: "https://www.cnd.fr/fr/agenda/corps-conscience-et-cosmos"
-  },
-  {
-    institution: "Université Claude Bernard Lyon 1 (ISTIL)",
-    category: "Enseignement supérieur",
-    description: "Ateliers d'initiation pratique à la calligraphie chinoise et découverte de la culture asiatique pour les étudiants élèves-ingénieurs.",
-    year: "Enseignement supérieur",
-    href: null
-  },
-  {
-    institution: "Office Villeurbannais des Personnes Âgées et Retraités (OVPAR)",
-    category: "Action médico-sociale & seniors",
-    description: "Cycle hebdomadaire ininterrompu d'ateliers de calligraphie chaque vendredi matin depuis 2012, alliant motricité fine, mémoire et créativité.",
-    year: "Depuis 2012",
-    href: "https://ovpar.fr/wp-content/uploads/2024/08/Ateliers-annuels-0VPAR.pdf"
-  },
-  {
-    institution: "Écoles primaires de la Ville de Lyon",
-    category: "Milieu scolaire & éducation",
-    description: "Interventions pédagogiques régulières sur le temps scolaire (écoles Aveyron Lyon 4e, Jules Verne Lyon 3e...) pour éveiller les enfants à l'art du trait.",
-    year: "Régulier",
-    href: "/ecoles-primaires"
-  },
-  {
-    institution: "Dojo Zen de Lyon",
-    category: "Tradition martiale & méditation",
-    description: "Enseignement hebdomadaire continu de la voie du pinceau (Shodo) reliant posture assise, respiration et geste calligraphique à la Croix-Rousse.",
-    year: "Depuis 2010",
-    href: "https://arts-martiaux-lyon.fr/calligraphie/"
-  },
-  {
-    institution: "Destination Monts du Lyonnais Tourisme",
-    category: "Patrimoine & événementiel régional",
-    description: "Stages et ateliers d'initiation à la calligraphie tout public et intergénérationnels accueillis au Secret des Temps à Vaugneray.",
-    year: "2024–2026",
-    href: "https://www.montsdulyonnaistourisme.fr/content/uploads/2026/03/vacances_paques_VF.pdf"
-  },
-  {
-    institution: "SEES Champagnat (Centre pour jeunes sourds)",
-    category: "Accessibilité & public spécifique",
-    description: "Ateliers adaptés mettant l'accent sur la dimension purement visuelle, spatiale et corporelle du tracé de l'encre.",
-    year: "Public spécifique",
-    href: null
-  },
-  {
-    institution: "Biennale de l’Écriture & Les Mots Oiseaux",
-    category: "Rencontres artistiques & expositions",
-    description: "Participation à la Biennale de l'Écriture et aux expositions collectives réunissant calligraphes d'Orient et d'Occident (arabe, latine, tibétaine, chinoise).",
-    year: "Expositions",
-    href: "https://lesmotsoiseaux.jimdofree.com/calligraphes/"
-  }
-];
-
-// --- Authentic testimonials & endorsements ---
+// --- Section unifiée « Témoignages & références » ---
+// A. Témoignages authentiques attestés
 const testimonials = [
   {
     quote: "Depuis 2023, je me lance en calligraphie cursive avec Christophe Desmur pour pratiquer la danse du pinceau !",
     author: "Pascale France",
     role: "Artiste peintre et formatrice en lavis traditionnel et Sumi-e",
-    source: "Parcours artistique · Encre Paisible",
+    source: "Encre Paisible",
     href: "https://www.encrepaisible.com/parcours-artistique",
-    badge: "Retour d'artiste"
+    badge: "Artiste peintre"
   },
   {
-    quote: "Rencontres « Corps, Conscience, Cosmos » : un dialogue vivant et une recherche croisée entre danse contemporaine, physique fondamentale et geste calligraphique traditionnel.",
-    author: "Centre National de la Danse (CN D Lyon)",
-    role: "Institution culturelle nationale · Avec Vânia Vaneau & Laurent Chevillard (CNRS)",
-    source: "Programme officiel CN D",
-    href: "https://www.cnd.fr/fr/agenda/corps-conscience-et-cosmos",
-    badge: "Institution culturelle"
-  },
-  {
-    quote: "Christophe Desmur anime chaque vendredi matin l'atelier de calligraphie : un temps précieux d'attention, de motricité fine et de sérénité partagé avec nos adhérents seniors depuis plus de dix ans.",
+    quote: "Christophe Desmur anime chaque vendredi matin l’atelier de calligraphie : un temps précieux d’attention, de motricité fine et de sérénité partagé avec nos adhérents seniors depuis plus de dix ans.",
     author: "OVPAR Villeurbanne",
     role: "Office villeurbannais des personnes âgées et des retraités",
-    source: "Programme annuel des ateliers",
+    source: "Programme annuel",
     href: "https://ovpar.fr/wp-content/uploads/2024/08/Ateliers-annuels-0VPAR.pdf",
-    badge: "Partenaire régulier depuis 2012"
+    badge: "Partenaire depuis 2012"
   },
   {
-    quote: "Lissieu : Christophe Desmur a présenté l’art de la calligraphie. Une rencontre conviviale initiant le public à la rigueur et à la poésie de la voie du pinceau.",
-    author: "Le Progrès",
-    role: "Presse quotidienne régionale · Édition Ouest Lyonnais",
-    source: "Revue de presse",
-    href: "https://www.leprogres.fr/rhone/2010/11/21/lissieu-christophe-desmur-un-moine-zen-a-presente-l-art-de-la-calligraphie",
-    badge: "Dans la presse"
-  },
-  {
-    quote: "Une pratique attentive de la calligraphie guidée par la présence, la posture juste et la respiration, fidèle à l'esprit de la tradition martiale et méditative.",
+    quote: "Une pratique attentive de la calligraphie guidée par la présence, la posture juste et la respiration, fidèle à l’esprit de la tradition martiale et méditative.",
     author: "Dojo Zen de Lyon",
     role: "Espace de pratique traditionnelle · Lyon 4e (Croix-Rousse)",
-    source: "Cours réguliers du lundi soir",
+    source: "Cours réguliers",
     href: "https://arts-martiaux-lyon.fr/calligraphie/",
-    badge: "Transmission & dojo"
+    badge: "Cours hebdomadaires"
   },
   {
-    quote: "Participation aux rencontres de calligraphes d'Orient et d'Occident et aux expositions collectives réunissant les grandes traditions d'écriture du monde.",
-    author: "Collectif Les Mots Oiseaux",
-    role: "Biennale de l'Écriture & Festival des Arts du Récit",
-    source: "Galerie des calligraphes",
-    href: "https://lesmotsoiseaux.jimdofree.com/calligraphes/",
-    badge: "Expositions collectives"
+    quote: "Rencontres « Corps, Conscience, Cosmos » : un dialogue vivant et une recherche croisée entre danse contemporaine, physique fondamentale et geste calligraphique traditionnel avec Vânia Vaneau et le CNRS.",
+    author: "Centre National de la Danse (CN D Lyon)",
+    role: "Institution culturelle nationale · Lyon",
+    source: "Agenda CN D",
+    href: "https://www.cnd.fr/fr/agenda/corps-conscience-et-cosmos",
+    badge: "Institution culturelle"
+  }
+];
+
+// B. Échos presse & événements artistiques
+const pressAndEvents = [
+  {
+    title: "Lissieu : Christophe Desmur a présenté l’art de la calligraphie",
+    media: "Le Progrès · 2010",
+    description: "Initiation du public à la rigueur du tracé, au souffle et à l’esthétique des caractères chinois traditionnels lors d’une rencontre culturelle.",
+    href: "https://www.leprogres.fr/rhone/2010/11/21/lissieu-christophe-desmur-un-moine-zen-a-presente-l-art-de-la-calligraphie"
+  },
+  {
+    title: "Biennale de l’Écriture & Rencontres de calligraphes",
+    media: "Collectif Les Mots Oiseaux",
+    description: "Participation à l’exposition collective « Esperluette » réunissant calligraphes d’Orient et d’Occident (écritures arabe, latine, tibétaine et chinoise).",
+    href: "https://lesmotsoiseaux.jimdofree.com/calligraphes/"
+  }
+];
+
+// C. Collaborations institutionnelles & éducatives
+const institutionalReferences = [
+  {
+    institution: "Université Claude Bernard Lyon 1 (ISTIL)",
+    category: "Enseignement supérieur",
+    description: "Ateliers d’initiation pratique à la calligraphie chinoise et découverte de la culture écrite asiatique pour les élèves-ingénieurs.",
+    href: null
+  },
+  {
+    institution: "Écoles primaires de la Ville de Lyon",
+    category: "Milieu scolaire & éducation",
+    description: "Interventions pédagogiques régulières sur le temps scolaire (écoles Aveyron Lyon 4e, Jules Verne Lyon 3e...) pour éveiller les enfants au geste du pinceau.",
+    href: "/ecoles-primaires"
+  },
+  {
+    institution: "Destination Monts du Lyonnais Tourisme",
+    category: "Patrimoine & événementiel régional",
+    description: "Stages et ateliers d’initiation à la calligraphie tout public et intergénérationnels accueillis au Secret des Temps à Vaugneray.",
+    href: "https://www.montsdulyonnaistourisme.fr/content/uploads/2026/03/vacances_paques_VF.pdf"
+  },
+  {
+    institution: "SEES Champagnat (Centre pour jeunes sourds)",
+    category: "Accessibilité & public spécifique",
+    description: "Ateliers adaptés mettant l’accent sur la dimension visuelle, spatiale et corporelle du tracé de l’encre.",
+    href: null
   }
 ];
 ---
 
 <Base
-  title="Christophe Desmur, calligraphe à Lyon | Ateliers de calligraphie"
-  description="Découvrez Christophe Desmur, calligraphe à Lyon depuis plus de trente ans, enseignant et spécialiste des langues et cultures d’Asie.">
+  title="Christophe Desmur, calligraphe chinois à Lyon | Ateliers"
+  description="Découvrez Christophe Desmur, calligraphe chinois à Lyon depuis plus de trente ans : enseignement de la calligraphie traditionnelle, compréhension des caractères et transmission vivante.">
 
   <!-- Schema.org Person & BreadcrumbList -->
   <script slot="head" type="application/ld+json" set:html={JSON.stringify([
@@ -192,8 +177,8 @@ const testimonials = [
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Christophe Desmur",
-      "jobTitle": "Calligraphe, enseignant et spécialiste des écritures d’Asie",
-      "description": "Calligraphe à Lyon depuis plus de 30 ans, enseignant et traducteur littéraire du chinois, spécialiste des écritures asiatiques.",
+      "jobTitle": "Calligraphe chinois, enseignant et traducteur littéraire",
+      "description": "Calligraphe chinois à Lyon depuis plus de 30 ans, enseignant et traducteur littéraire du chinois vers le français.",
       "url": "https://ateliersdecalligraphie.com/le-calligraphe",
       "email": "christophe.desmur@orange.fr",
       "telephone": ["+33472078861", "+33769941643"],
@@ -248,7 +233,7 @@ const testimonials = [
   <div class="mx-auto max-w-5xl py-2">
 
     <!-- ================================================================= -->
-    <!-- 1. HERO : PERSONNE, PRÉSENCE & TRANSMISSION                        -->
+    <!-- 1. HERO : CHRISTOPHE DESMUR, CALLIGRAPHE CHINOIS À LYON           -->
     <!-- ================================================================= -->
     <header class="pb-12 sm:pb-16 border-b border-gray-100 dark:border-gray-800">
       <!-- Breadcrumb -->
@@ -263,33 +248,31 @@ const testimonials = [
       </nav>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        <!-- Colonne gauche : Présentation humaine et posture -->
+        <!-- Présentation concise et incarnée -->
         <div class="lg:col-span-7 flex flex-col justify-center">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/60 text-xs font-semibold text-indigo-800 dark:text-indigo-300 w-fit mb-4">
             <span aria-hidden="true">📍</span>
-            <span>Lyon · Plus de 30 ans de pratique</span>
+            <span>Lyon (Croix-Rousse)</span>
+            <span class="text-indigo-300 dark:text-indigo-700" aria-hidden="true">•</span>
+            <span>30+ ans de pratique</span>
           </div>
 
-          <h1 class="text-4xl sm:text-5xl lg:text-[3.25rem] font-serif font-medium tracking-tight text-gray-950 dark:text-gray-50 leading-[1.12]">
-            Christophe Desmur, calligraphe
+          <h1 class="text-4xl sm:text-5xl lg:text-[3.15rem] font-serif font-medium tracking-tight text-gray-950 dark:text-gray-50 leading-[1.14]">
+            Christophe Desmur, calligraphe chinois à Lyon
           </h1>
 
           <p class="text-lg sm:text-xl font-serif text-indigo-700 dark:text-indigo-300 mt-3 font-normal leading-snug">
-            Calligraphe, enseignant et spécialiste des cultures et écritures d’Asie
+            Calligraphe, enseignant et traducteur littéraire
           </p>
 
-          <div class="mt-6 space-y-4 text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed font-serif italic border-l-2 border-indigo-200 dark:border-indigo-800 pl-4">
+          <div class="mt-6 text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed font-serif italic border-l-2 border-indigo-200 dark:border-indigo-800 pl-4">
             <p>
-              « Je pratique et transmets la calligraphie depuis plus de trente ans à Lyon. Loin d’une simple technique formelle ou d’un exercice académique, l’art du pinceau est pour moi une voie vivante : un dialogue entre le corps, le souffle, le papier et l’encre, où chaque trait révèle la présence et l’intention de celui qui trace. »
+              « Je pratique et enseigne la calligraphie chinoise depuis plus de trente ans à Lyon. Mon travail relie l’exigence du geste traditionnel, la compréhension intime des caractères et la transmission vivante de la culture écrite asiatique. »
             </p>
           </div>
-
-          <p class="mt-4 text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
-            Formé aux langues et civilisations d’Asie et titulaire d'un master de traduction littéraire du chinois, Christophe Desmur consacre son activité à faire rayonner la calligraphie à travers des cours réguliers, des stages d’initiation et des ateliers auprès de publics variés.
-          </p>
         </div>
 
-        <!-- Colonne droite : Photographie en pleine pratique -->
+        <!-- Photographie en pratique -->
         <div class="lg:col-span-5">
           <figure class="relative mx-auto max-w-md lg:max-w-none">
             <div class="overflow-hidden rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-md bg-gray-50 dark:bg-gray-800">
@@ -303,7 +286,7 @@ const testimonials = [
                 decoding="async" />
             </div>
             <figcaption class="mt-3 text-xs text-gray-500 dark:text-gray-400 italic text-center lg:text-left leading-normal">
-              Christophe Desmur en pleine pratique au pinceau — transmission de la calligraphie traditionnelle à Lyon.
+              Christophe Desmur en atelier — transmission de la calligraphie traditionnelle à Lyon.
             </figcaption>
           </figure>
         </div>
@@ -311,32 +294,32 @@ const testimonials = [
     </header>
 
     <!-- ================================================================= -->
-    <!-- 2. NARRATION & BLOC DE CRÉDIBILITÉ (30+ ANS)                      -->
+    <!-- 2. UNE PRATIQUE DE PLUS DE 30 ANS                                 -->
     <!-- ================================================================= -->
     <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="experience-title">
       <div class="max-w-3xl">
         <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
-          Approche & Parcours
+          Parcours & Ancrage
         </p>
         <h2 id="experience-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100">
-          Une pratique de plus de trente ans
+          Une pratique de plus de 30 ans
         </h2>
         <p class="mt-4 text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-          Installé à Lyon, Christophe Desmur dédie son quotidien à l’étude, à la création et à la transmission des écritures traditionnelles d’Asie. De la rigueur géométrique du tracé régulier (<em>kaishu</em>) à la liberté expressive de l’écriture herbe (<em>caoshu</em>), son travail s’enracine dans une discipline constante et une fidélité aux maîtres classiques, tout en restant accessible à quiconque désire aborder le papier et l’encre.
+          Christophe Desmur pratique et enseigne la calligraphie chinoise depuis plus de trente ans. Sa formation en langue et civilisation chinoises, complétée par un master en traduction littéraire du chinois vers le français, nourrit une approche qui associe maîtrise du geste, compréhension des caractères et découverte de la culture écrite chinoise.
         </p>
       </div>
 
-      <!-- Evidence block : 3 piliers factuels incontestables -->
+      <!-- Bloc de crédibilité factuel -->
       <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
         <div class="p-6 rounded-2xl bg-gray-50/80 dark:bg-gray-800/50 border border-gray-200/70 dark:border-gray-700/60">
           <span class="text-2xl sm:text-3xl font-serif font-semibold text-indigo-700 dark:text-indigo-400 block mb-1">
             30+ ans
           </span>
           <h3 class="font-serif text-base font-medium text-gray-900 dark:text-gray-100 mb-1.5">
-            de pratique de la calligraphie
+            de pratique & transmission
           </h3>
           <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-            Trois décennies d’immersion ininterrompue dans l’art du trait, la maîtrise de l’encre et la recherche calligraphique.
+            Trois décennies d’expérience continue de l’encre, du papier de riz et de l’enseignement auprès de tous les publics.
           </p>
         </div>
 
@@ -348,7 +331,7 @@ const testimonials = [
             Chinois · japonais · coréen
           </h3>
           <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-            Une pratique approfondie des sinogrammes, des kanjis et des écritures asiatiques, reliant étymologie, sens et geste.
+            Une pratique ouverte aux grandes traditions graphiques d’Asie, reliant forme visuelle, clés étymologiques et tracé.
           </p>
         </div>
 
@@ -360,221 +343,35 @@ const testimonials = [
             Enfants · adultes · institutions
           </h3>
           <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-            Des ateliers menés dans les écoles primaires, universités, centres d’art, dojos, médiathèques et résidences seniors.
+            Des ateliers menés en milieu scolaire, en université, dans des centres d’art, dojos, médiathèques et résidences seniors.
           </p>
         </div>
       </div>
     </section>
 
     <!-- ================================================================= -->
-    <!-- 3. TÉMOIGNAGES & ÉCHOS D'EXPÉRIENCE (SECTION MAJEURE)             -->
+    <!-- 3. LE GESTE, LE CARACTÈRE, LE SENS (CŒUR CONCEPTUEL)             -->
     <!-- ================================================================= -->
-    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="testimonials-title">
-      <div class="max-w-2xl mb-8 sm:mb-10">
-        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
-          Retours & Échos
-        </p>
-        <h2 id="testimonials-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100">
-          Ils parlent de leur expérience
-        </h2>
-        <p class="text-gray-600 dark:text-gray-400 mt-2 text-base leading-relaxed">
-          Témoignages d’artistes, retours de partenaires culturels et échos institutionnels accompagnés au fil des années :
-        </p>
-      </div>
-
-      <!-- Grille éditoriale aérée de témoignages authentiques -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {testimonials.map((t) => (
-          <article class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/70 shadow-2xs flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-3">
-                <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 font-sans">
-                  {t.badge}
-                </span>
-                <span class="text-[11px] text-gray-400 dark:text-gray-500 font-sans">
-                  {t.source}
-                </span>
-              </div>
-
-              <blockquote class="font-serif text-base sm:text-lg text-gray-950 dark:text-gray-100 leading-snug italic">
-                « {t.quote} »
-              </blockquote>
-            </div>
-
-            <div class="mt-5 pt-4 border-t border-gray-100 dark:border-gray-700/60 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 text-xs">
-              <div>
-                <p class="font-medium text-gray-900 dark:text-gray-100">
-                  {t.author}
-                </p>
-                <p class="text-gray-500 dark:text-gray-400 text-[11px]">
-                  {t.role}
-                </p>
-              </div>
-              {t.href && (
-                <a
-                  href={t.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center gap-1 font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors shrink-0">
-                  <span>En savoir plus</span>
-                  <span aria-hidden="true">↗</span>
-                </a>
-              )}
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <!-- ================================================================= -->
-    <!-- 4. UNE PRATIQUE NOURRIE PAR LES LANGUES ET CULTURES D'ASIE        -->
-    <!-- ================================================================= -->
-    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="languages-title">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-        <div class="lg:col-span-7">
-          <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
-            Ancrage & Savoirs
-          </p>
-          <h2 id="languages-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100 mb-5">
-            Une pratique nourrie par les langues et les cultures d’Asie
-          </h2>
-
-          <div class="space-y-4 text-base sm:text-[17px] text-gray-700 dark:text-gray-300 leading-relaxed">
-            <p>
-              Sa pratique de la calligraphie s’accompagne d’un travail approfondi sur les langues et les civilisations d’Asie. Ses études en coréen et en chinois, ainsi que sa formation en traduction littéraire, nourrissent son approche de l’écriture, du sens et du geste.
-            </p>
-            <p>
-              Loin de dissocier la grâce graphique du caractère de sa portée philosophique, Christophe Desmur éclaire l’étymologie des sinogrammes, la symbolique des clés et l’histoire des textes classiques abordés en séance.
-            </p>
-            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-              Cette sensibilité aux subtilités de la langue s’exprime également dans son travail de traducteur d’œuvres littéraires modernes du chinois vers le français, telles que <a href="/pere-nouvelle" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800">« Père » de Lu Yin</a> ou <a href="/zeng-jixin-la-guerre-entre-les-rats-et-les-hommes-nouvelle" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800">« La Guerre des rats » de Zeng Jixin</a> (retrouvez l’ensemble sur le <a href="/traductions" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800">sommaire des traductions</a>).
-            </p>
-          </div>
-        </div>
-
-        <!-- Bloc synthétique des diplômes universitaires (compact, sobre, non-CV) -->
-        <div class="lg:col-span-5 bg-gray-50/90 dark:bg-gray-800/50 rounded-2xl p-6 sm:p-7 border border-gray-200/70 dark:border-gray-700/60">
-          <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-4">
-            Formation universitaire & diplômes
-          </h3>
-
-          <dl class="space-y-4">
-            <div class="pb-3 border-b border-gray-200 dark:border-gray-700/60">
-              <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
-                Master
-              </dt>
-              <dd class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-0.5">
-                <a href="/traductions" class="text-indigo-600 dark:text-indigo-400 hover:underline">Traduction littéraire</a> du chinois vers le français
-              </dd>
-            </div>
-
-            <div class="pb-3 border-b border-gray-200 dark:border-gray-700/60">
-              <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
-                Maîtrise
-              </dt>
-              <dd class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-0.5">
-                Langue et civilisation chinoises
-              </dd>
-            </div>
-
-            <div>
-              <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
-                DEUG
-              </dt>
-              <dd class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-0.5">
-                Langue et civilisation coréennes
-              </dd>
-            </div>
-          </dl>
-
-          <div class="mt-5 pt-4 border-t border-gray-200 dark:border-gray-700/60 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-            <span>Parcours universitaire à Lyon et Paris</span>
-            <a
-              href="https://viadeo.journaldunet.com/p/christophe-desmur-4204512"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1 font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
-              <span>Profil Viadeo</span>
-              <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================= -->
-    <!-- 5. QUELQUES RÉFÉRENCES (INSTITUTIONNELLES ET CULTURELLES)         -->
-    <!-- ================================================================= -->
-    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="references-title">
-      <div class="max-w-2xl mb-8 sm:mb-10">
-        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
-          Confiance & Reconnaissance
-        </p>
-        <h2 id="references-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100">
-          Quelques références
-        </h2>
-        <p class="text-gray-600 dark:text-gray-400 mt-2 text-base leading-relaxed">
-          Depuis plus de vingt ans, des institutions publiques, des universités, des associations et des structures d’accueil font confiance à Christophe Desmur :
-        </p>
-      </div>
-
-      <!-- 8 cartes de références représentatives -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-        {references.map((ref) => (
-          <div class="p-5 rounded-xl bg-gray-50/70 dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/60 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-2">
-                <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-400">
-                  {ref.category}
-                </span>
-                <span class="text-[11px] text-gray-500 dark:text-gray-400 font-sans">
-                  {ref.year}
-                </span>
-              </div>
-              <h3 class="font-serif text-base sm:text-lg font-medium text-gray-900 dark:text-gray-100">
-                {ref.institution}
-              </h3>
-              <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1.5 leading-relaxed">
-                {ref.description}
-              </p>
-            </div>
-            {ref.href && (
-              <div class="mt-3.5 pt-2.5 border-t border-gray-200/50 dark:border-gray-700/40">
-                <a
-                  href={ref.href}
-                  target={ref.href.startsWith("http") ? "_blank" : undefined}
-                  rel={ref.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  class="inline-flex items-center gap-1 text-xs font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
-                  <span>Consulter la référence</span>
-                  <span aria-hidden="true">{ref.href.startsWith("http") ? "↗" : "→"}</span>
-                </a>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- ================================================================= -->
-    <!-- 6. UNE PRATIQUE TOURNÉE VERS LA TRANSMISSION                     -->
-    <!-- ================================================================= -->
-    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="transmission-title">
+    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="approach-title">
       <div class="max-w-3xl mb-8">
         <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
-          Pédagogie & Éveil
+          Approche & Expertise distinctive
         </p>
-        <h2 id="transmission-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100">
-          Une pratique tournée vers la transmission
+        <h2 id="approach-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100">
+          Le geste, le caractère, le sens
         </h2>
         <div class="mt-4 space-y-4 text-base sm:text-[17px] text-gray-700 dark:text-gray-300 leading-relaxed">
           <p>
-            Pour Christophe Desmur, calligraphier n’est jamais une performance solitaire ou une imitation stérile. C’est une école de calme, d’attention et de disponibilité. L’apprentissage engage la personne dans sa globalité : la posture assise, la respiration ventrale, la tenue souple du manche de bambou, ainsi que le dosage subtil de l’eau et du noir d’encre sur le feutre.
+            Ce qui distingue la pratique et l’enseignement de Christophe Desmur, c’est l’articulation indissociable entre la maîtrise technique du pinceau, la compréhension structurelle des caractères et la profondeur culturelle des textes.
           </p>
           <p>
-            Cette démarche s’adresse à chacun, quel que soit son point de départ : enfants abordant l’écriture par le jeu et le visuel, débutants complets n’ayant jamais tracé au pinceau, pratiquants de méditation ou d’arts martiaux en quête d’un ancrage corporel, ou aînés entretenant leur motricité fine dans la sérénité.
+            Loin de réduire la calligraphie à une reproduction purement décorative, chaque trait est abordé à partir de sa logique interne : la tenue souple du manche de bambou, l’impulsion du corps et du souffle, l’équilibre des pleins et des vides, et l’énergie propre à chaque style — de la rigueur architecturale de l’écriture régulière (<em>kaishu</em>) au mouvement libre et condensé de l’écriture herbe (<em>caoshu</em>).
           </p>
-          <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-            L’enseignement s’organise principalement en <a href="/cours-collectifs" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800 font-medium">cours collectifs à Lyon 4<sup>e</sup></a> au Dojo Zen et chez Miroirs du Ciel, en <a href="/cours-individuel-a-domicile" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800 font-medium">cours particuliers à domicile</a>, ainsi qu’à travers l’acquisition d’<a href="/galerie" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800 font-medium">œuvres originales</a> calligraphiées sur papier artisanal. Pour approfondir les fondements philosophiques du tracé, découvrez également <a href="/la-voie-du-pinceau" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800 font-medium">la voie du pinceau</a> et l’esprit de la <a href="/calligraphie-zen" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800 font-medium">calligraphie zen</a>.
+          <p>
+            Sa maîtrise de la langue chinoise et son activité de traducteur littéraire lui permettent d’éclairer l’étymologie des sinogrammes, la composition des clés sémantiques et la portée poétique ou philosophique des sentences calligraphiées. L’élève n’apprend pas seulement à tracer un signe : il apprend à en lire la structure, à en comprendre l’histoire et à habiter son geste.
+          </p>
+          <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 pt-1">
+            Cette démarche se déploie à travers des <a href="/cours-collectifs" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800 font-medium">cours collectifs à Lyon 4<sup>e</sup></a> au Dojo Zen et chez Miroirs du Ciel, des <a href="/cours-individuel-a-domicile" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800 font-medium">cours particuliers à domicile</a>, ainsi que par la création d’<a href="/galerie" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800 font-medium">œuvres originales à vendre</a>. Pour approfondir les fondements philosophiques et méditatifs du tracé, découvrez également <a href="/la-voie-du-pinceau" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800 font-medium">la voie du pinceau</a> et l’esprit de la <a href="/calligraphie-zen" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800 font-medium">calligraphie zen</a>.
           </p>
         </div>
       </div>
@@ -584,7 +381,7 @@ const testimonials = [
         <figure class="rounded-2xl overflow-hidden border border-gray-200/80 dark:border-gray-800 bg-white dark:bg-gray-800/60 shadow-xs flex flex-col justify-between">
           <img
             src="/assets/christophe-desmur-calligraphie-dedicace.webp"
-            alt="Christophe Desmur, calligraphe, en plein tracé de caractères au pinceau"
+            alt="Christophe Desmur en plein tracé de caractères au pinceau traditionnel"
             width="1536"
             height="1024"
             loading="lazy"
@@ -598,7 +395,7 @@ const testimonials = [
         <figure class="rounded-2xl overflow-hidden border border-gray-200/80 dark:border-gray-800 bg-white dark:bg-gray-800/60 shadow-xs flex flex-col justify-between">
           <img
             src="/assets/christophe-desmur-apposition-sceau.webp"
-            alt="Christophe Desmur, calligraphe, apposant son sceau traditionnel sur un ouvrage calligraphié"
+            alt="Christophe Desmur apposant son sceau traditionnel sur un ouvrage calligraphié"
             width="1536"
             height="1024"
             loading="lazy"
@@ -612,18 +409,279 @@ const testimonials = [
     </section>
 
     <!-- ================================================================= -->
-    <!-- 7. PARCOURS ET INTERVENTIONS (HISTORIQUE ACCESSIBLE SOUS ACCORDÉON) -->
+    <!-- 4. TÉMOIGNAGES & RÉFÉRENCES (SECTION UNIQUE FUSIONNÉE)            -->
+    <!-- ================================================================= -->
+    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="credibility-title">
+      <div class="max-w-2xl mb-10">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
+          Reconnaissance & Confiance
+        </p>
+        <h2 id="credibility-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100">
+          Témoignages & références
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2 text-base leading-relaxed">
+          Artistes, institutions culturelles, universités et partenaires témoignent de la qualité de la transmission et de la rigueur de son travail :
+        </p>
+      </div>
+
+      <!-- 4.1 Témoignages & retours d'expérience -->
+      <div class="mb-12">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-6 flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400" aria-hidden="true"></span>
+          <span>Témoignages & retours d’expérience</span>
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {testimonials.map((t) => (
+            <article class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/70 shadow-2xs flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-3">
+                  <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 font-sans">
+                    {t.badge}
+                  </span>
+                  <span class="text-[11px] text-gray-400 dark:text-gray-500 font-sans">
+                    {t.source}
+                  </span>
+                </div>
+
+                <blockquote class="font-serif text-base sm:text-lg text-gray-950 dark:text-gray-100 leading-snug italic">
+                  « {t.quote} »
+                </blockquote>
+              </div>
+
+              <div class="mt-5 pt-4 border-t border-gray-100 dark:border-gray-700/60 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 text-xs">
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-gray-100">{t.author}</p>
+                  <p class="text-gray-500 dark:text-gray-400 text-[11px]">{t.role}</p>
+                </div>
+                {t.href && (
+                  <a
+                    href={t.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1 font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors shrink-0">
+                    <span>En savoir plus</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <!-- 4.2 Dans la presse & événements artistiques -->
+      <div class="mb-12">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-6 flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400" aria-hidden="true"></span>
+          <span>Dans la presse & événements artistiques</span>
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {pressAndEvents.map((item) => (
+            <article class="p-5 sm:p-6 rounded-xl bg-gray-50/70 dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/60 flex flex-col justify-between">
+              <div>
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 font-sans block mb-2">
+                  {item.media}
+                </span>
+                <h4 class="font-serif text-base font-medium text-gray-900 dark:text-gray-100">
+                  {item.title}
+                </h4>
+                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-gray-200/50 dark:border-gray-700/40">
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 text-xs font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
+                  <span>Consulter la publication</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <!-- 4.3 Collaborations institutionnelles & éducatives -->
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-6 flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400" aria-hidden="true"></span>
+          <span>Collaborations institutionnelles & éducatives</span>
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+          {institutionalReferences.map((ref) => (
+            <div class="p-5 rounded-xl bg-gray-50/70 dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/60 flex flex-col justify-between">
+              <div>
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 block mb-1">
+                  {ref.category}
+                </span>
+                <h4 class="font-serif text-base font-medium text-gray-900 dark:text-gray-100">
+                  {ref.institution}
+                </h4>
+                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1.5 leading-relaxed">
+                  {ref.description}
+                </p>
+              </div>
+              {ref.href && (
+                <div class="mt-3.5 pt-2.5 border-t border-gray-200/50 dark:border-gray-700/40">
+                  <a
+                    href={ref.href}
+                    target={ref.href.startsWith("http") ? "_blank" : undefined}
+                    rel={ref.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    class="inline-flex items-center gap-1 text-xs font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
+                    <span>Consulter</span>
+                    <span aria-hidden="true">{ref.href.startsWith("http") ? "↗" : "→"}</span>
+                  </a>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 5. FORMATION & PARCOURS                                           -->
+    <!-- ================================================================= -->
+    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="education-title">
+      <div class="max-w-3xl mb-8">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
+          Diplômes & Spécialisation
+        </p>
+        <h2 id="education-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100">
+          Formation & parcours
+        </h2>
+        <p class="mt-3 text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+          Une formation universitaire combinant étude linguistique, précision littéraire et maîtrise des cultures asiatiques :
+        </p>
+      </div>
+
+      <!-- Présentation compacte et sobre des qualifications -->
+      <div class="bg-gray-50/90 dark:bg-gray-800/50 rounded-2xl p-6 sm:p-8 border border-gray-200/70 dark:border-gray-700/60 max-w-3xl">
+        <dl class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div class="sm:border-r sm:border-gray-200 sm:dark:border-gray-700/60 sm:pr-6">
+            <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+              Master
+            </dt>
+            <dd class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-1">
+              Traduction littéraire
+            </dd>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              Du chinois vers le français
+            </p>
+          </div>
+
+          <div class="sm:border-r sm:border-gray-200 sm:dark:border-gray-700/60 sm:pr-6">
+            <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+              Maîtrise
+            </dt>
+            <dd class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-1">
+              Langue et civilisation
+            </dd>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              Études chinoises
+            </p>
+          </div>
+
+          <div>
+            <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+              DEUG
+            </dt>
+            <dd class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-1">
+              Langue et civilisation
+            </dd>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              Études coréennes
+            </p>
+          </div>
+        </dl>
+
+        <div class="mt-6 pt-5 border-t border-gray-200 dark:border-gray-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-gray-600 dark:text-gray-400">
+          <div>
+            Traducteur de nouvelles littéraires modernes : <a href="/pere-nouvelle" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800">« Père » de Lu Yin</a> et <a href="/zeng-jixin-la-guerre-entre-les-rats-et-les-hommes-nouvelle" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800">« La Guerre des rats » de Zeng Jixin</a> (voir le <a href="/traductions" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:text-indigo-800">sommaire</a>).
+          </div>
+          <a
+            href="https://viadeo.journaldunet.com/p/christophe-desmur-4204512"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="shrink-0 inline-flex items-center gap-1 font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
+            <span>Profil Viadeo</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 6. QUELQUES RÉFÉRENCES RÉCENTES (ISSUES DE LA MÊME SOURCE)       -->
+    <!-- ================================================================= -->
+    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="recent-title">
+      <div class="max-w-2xl mb-8 sm:mb-10">
+        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
+          Activité sur le terrain
+        </p>
+        <h2 id="recent-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100">
+          Quelques références récentes
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2 text-base leading-relaxed">
+          Aperçu de séances, cycles et démonstrations menés récemment dans la région lyonnaise :
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+        {recentInterventions.map((event: any) => (
+          <div class="p-5 rounded-xl bg-gray-50/70 dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/60 flex flex-col justify-between">
+            <div>
+              <div class="mb-2">
+                <span class="text-xs font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-400" set:html={event.displayDate} />
+              </div>
+              <h3 class="font-serif text-base sm:text-lg font-medium text-gray-900 dark:text-gray-100">
+                {event.href ? (
+                  <a
+                    href={event.href}
+                    target={event.href.startsWith("http") ? "_blank" : undefined}
+                    rel={event.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    class="text-indigo-600 dark:text-indigo-400 hover:underline">
+                    {event.titre}
+                    {event.href.startsWith("http") && <span class="text-xs ml-0.5" aria-hidden="true">↗</span>}
+                  </a>
+                ) : (
+                  event.titre
+                )}
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1.5 flex items-start gap-1.5">
+                <span class="text-gray-400 dark:text-gray-500 shrink-0 mt-0.5" aria-hidden="true">📍</span>
+                <span set:html={event.lieu} />
+              </p>
+            </div>
+            {event.details && (
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-3 pt-2.5 border-t border-gray-200/50 dark:border-gray-700/40 italic">
+                {event.details}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- 7. HISTORIQUE COMPLET DES INTERVENTIONS (ACCORDÉON INDEXABLE)    -->
     <!-- ================================================================= -->
     <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="history-title">
       <div class="max-w-3xl mb-8">
         <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
-          Archives & Trajectoire
+          Archives 2007–2026
         </p>
         <h2 id="history-title" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-gray-900 dark:text-gray-100">
-          Parcours et interventions
+          Historique complet des interventions
         </h2>
         <p class="mt-3 text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-          Avec plus de cent interventions répertoriées depuis 2007 (ateliers scolaires, démonstrations publiques, cycles annuels et stages associatifs), l’activité de Christophe Desmur s’inscrit dans une fidélité continue aux publics et aux structures de la région lyonnaise.
+          Retrouvez l’ensemble des ateliers, démonstrations et interventions menés depuis 2007 auprès des écoles, institutions et associations :
         </p>
       </div>
 
@@ -639,7 +697,7 @@ const testimonials = [
             <div>
               <p class="font-serif text-lg font-medium">Consulter l’historique complet des interventions</p>
               <p class="text-xs text-gray-500 dark:text-gray-400 font-sans mt-0.5">
-                Archives de 2007 à 2026 ({rawAteliers.length} ateliers, démonstrations et cycles répertoriés)
+                Archives de 2007 à 2026 ({rawAteliers.length} ateliers répertoriés)
               </p>
             </div>
           </div>
@@ -649,7 +707,7 @@ const testimonials = [
         </summary>
 
         <div class="px-5 sm:px-6 pb-6 pt-4 border-t border-gray-200/80 dark:border-gray-700/80">
-          <!-- Sélecteur d'année natif pour une navigation fluide clavier & mobile -->
+          <!-- Sélecteur d'année natif -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 bg-white dark:bg-gray-800/80 p-4 rounded-xl border border-gray-200/70 dark:border-gray-700/60">
             <div>
               <label for="archive-year-select" class="text-sm font-medium text-gray-800 dark:text-gray-200 block">
@@ -678,7 +736,7 @@ const testimonials = [
             </div>
           </div>
 
-          <!-- Rendu de toutes les années dans le DOM (indexation SEO intégrale) -->
+          <!-- Rendu de toutes les années dans le DOM pour SEO et accessibilité -->
           <div id="archive-content" aria-live="polite">
             {sortedYears.map((annee, idx) => (
               <div
@@ -695,7 +753,7 @@ const testimonials = [
                 </div>
 
                 <ul class="space-y-2.5">
-                  {ateliersByYear[annee].map((event) => (
+                  {ateliersByYear[annee].map((event: any) => (
                     <li class="p-4 rounded-lg bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/60 text-sm">
                       <div class="flex flex-wrap items-center gap-2 mb-1">
                         <strong class="font-semibold text-gray-900 dark:text-gray-100 text-xs tracking-wider" set:html={event.displayDate} />
@@ -737,7 +795,7 @@ const testimonials = [
     </section>
 
     <!-- ================================================================= -->
-    <!-- 8. CONTACT & CTA DISCRET ET CONTEXTUEL                            -->
+    <!-- 8. DÉCOUVRIR LES COURS & ATELIERS (CTA DISCRET ET CONTEXTUEL)     -->
     <!-- ================================================================= -->
     <section id="contact" class="my-14 sm:my-16 rounded-2xl bg-gray-50/90 dark:bg-gray-800/60 border border-gray-200/80 dark:border-gray-700/80 p-8 sm:p-10 text-center" aria-labelledby="cta-contact-title">
       <div class="max-w-2xl mx-auto">
@@ -745,10 +803,10 @@ const testimonials = [
           Contact & Échange
         </p>
         <h2 id="cta-contact-title" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
-          Découvrir les ateliers de calligraphie
+          Découvrir les cours & ateliers
         </h2>
         <p class="text-gray-600 dark:text-gray-300 mt-3 text-base leading-relaxed">
-          Pour vous initier lors d’un premier cours d’essai à la Croix-Rousse, organiser une intervention sur mesure ou échanger autour d’une acquisition :
+          Pour vous initier lors d’un cours d’essai à la Croix-Rousse, organiser une intervention sur mesure ou échanger autour d’une acquisition :
         </p>
 
         <!-- Liens contextuels sobres -->
@@ -756,7 +814,7 @@ const testimonials = [
           <a
             href="/cours-collectifs"
             class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white transition shadow-xs">
-            <span>Découvrir les ateliers collectifs</span>
+            <span>Découvrir les cours collectifs</span>
             <span aria-hidden="true">→</span>
           </a>
           <a
@@ -807,4 +865,4 @@ const testimonials = [
       });
     }
   </script>
-</Base>
+</Base>\n
