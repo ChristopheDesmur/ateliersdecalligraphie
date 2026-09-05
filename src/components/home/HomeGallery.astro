@@ -14,13 +14,13 @@ const featuredArtworks = previewSlugs
   <!-- En-tête -->
   <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
     <p class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-400">
-      Galerie d'art · Pièces originales
+      Œuvres originales · Pièces uniques
     </p>
     <h2 id="gallery-heading" class="text-3xl sm:text-4xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
-      Les calligraphies de Christophe
+      Calligraphies disponibles à l'acquisition
     </h2>
     <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-serif mt-2.5 leading-relaxed">
-      Découvrez une sélection de calligraphies originales réalisées par Christophe Desmur.
+      Découvrez une sélection de pièces uniques réalisées à l'encre de Chine par Christophe Desmur, proposées à l’acquisition sur demande.
     </p>
   </div>
 
@@ -65,7 +65,7 @@ const featuredArtworks = previewSlugs
           <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs">
             <span class="text-[11px] font-medium text-emerald-700 dark:text-emerald-400 inline-flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true"></span>
-              {artwork.availability}
+              {artwork.availability === "Disponible" ? "Disponible à l’acquisition" : "Vendue"}
             </span>
 
             <a
@@ -85,10 +85,10 @@ const featuredArtworks = previewSlugs
   <div class="mt-10 rounded-2xl border border-indigo-100 dark:border-indigo-900/60 bg-stone-50/80 dark:bg-stone-900/40 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
     <div class="max-w-2xl">
       <h3 class="text-lg sm:text-xl font-serif font-medium text-gray-950 dark:text-gray-100">
-        Acquisition d'une calligraphie originale
+        Acquérir une calligraphie originale
       </h3>
       <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-serif mt-2 leading-relaxed">
-        Les œuvres sont disponibles à l'acquisition sur demande. Pour connaître les disponibilités et les modalités, contactez directement Christophe.
+        Chaque œuvre est une pièce unique réalisée sur papier traditionnel à l'encre de Chine. Pour connaître les disponibilités, échanger sur le prix ou organiser la remise en main propre à Lyon ou l'expédition, contactez directement Christophe Desmur.
       </p>
     </div>
 
@@ -96,7 +96,7 @@ const featuredArtworks = previewSlugs
       <a
         href="/galerie"
         class="px-5 py-2.5 rounded-xl bg-gray-950 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-950 dark:hover:bg-white text-xs sm:text-sm font-medium transition text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
-        Voir la galerie
+        Voir les œuvres disponibles
       </a>
 
       <a

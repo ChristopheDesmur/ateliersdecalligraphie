@@ -32,10 +32,14 @@ const isSold = artwork.availability === "Vendue";
         class="max-h-full max-w-full object-contain group-hover:scale-103 transition-transform duration-500 ease-out drop-shadow-xs"
       />
 
-      <!-- Pastille de disponibilité discrète en coin -->
-      {isSold && (
+      <!-- Pastille de statut commercial en coin -->
+      {isSold ? (
         <span class="absolute top-3.5 right-3.5 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider rounded-md bg-stone-200/90 dark:bg-stone-800 text-stone-700 dark:text-stone-300">
           Vendue
+        </span>
+      ) : (
+        <span class="absolute top-3.5 right-3.5 px-2.5 py-1 text-[11px] font-medium tracking-wide rounded-md bg-emerald-50/95 dark:bg-emerald-950/85 text-emerald-800 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/80">
+          Disponible à l’acquisition
         </span>
       )}
     </div>
@@ -75,21 +79,21 @@ const isSold = artwork.availability === "Vendue";
     <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs">
       <div class="flex flex-col">
         <span class="text-[11px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-sans">
-          Acquisition
+          Tarif
         </span>
         <span class="text-sm font-semibold text-gray-900 dark:text-gray-100 mt-0.5">
-          {artwork.price}
+          {isSold ? "Vendue" : "Prix sur demande"}
         </span>
       </div>
 
       <div class="flex items-center gap-3">
         <span class="flex items-center gap-1.5 font-medium">
           {isSold ? (
-            <span class="text-stone-500 dark:text-stone-400">Non disponible</span>
+            <span class="text-stone-500 dark:text-stone-400">Vendue</span>
           ) : (
             <span class="text-emerald-700 dark:text-emerald-400 inline-flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true"></span>
-              Disponible
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true"></span>
+              Disponible à l’acquisition
             </span>
           )}
         </span>
@@ -97,8 +101,8 @@ const isSold = artwork.availability === "Vendue";
         <a
           href={`/galerie/${artwork.slug}`}
           class="inline-flex items-center gap-1 font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors group-hover:translate-x-0.5"
-          aria-label={`Voir l'œuvre ${artwork.character}`}>
-          <span>Voir l'œuvre</span>
+          aria-label={`Détails et acquisition de l'œuvre ${artwork.character}`}>
+          <span>Détails & acquisition</span>
           <span aria-hidden="true">&rarr;</span>
         </a>
       </div>

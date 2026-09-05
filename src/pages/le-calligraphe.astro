@@ -144,10 +144,10 @@ const services = [
     badge: "Seniors & Résidences"
   },
   {
-    title: "Création d'œuvres originales",
+    title: "Œuvres originales à vendre",
     href: "/galerie",
-    description: "Réalisation de calligraphies traditionnelles sur papier de riz ou support d'art, œuvres sur mesure et commandes personnalisées.",
-    badge: "Encre de Chine & Rouleaux"
+    description: "Calligraphies traditionnelles uniques sur papier de riz, pièces disponibles à l'acquisition sur demande et commandes sur mesure.",
+    badge: "Pièces uniques & Vente"
   },
   {
     title: "Cours de langue chinoise & culture",
@@ -189,6 +189,9 @@ const services = [
         { "@type": "EducationalOccupationalCredential", "name": "Master de traduction littéraire du chinois vers le français" },
         { "@type": "EducationalOccupationalCredential", "name": "Maîtrise de langue et civilisation chinoises" },
         { "@type": "EducationalOccupationalCredential", "name": "DEUG de langue et civilisation coréennes" }
+      ],
+      "sameAs": [
+        "https://viadeo.journaldunet.com/p/christophe-desmur-4204512"
       ]
     },
     {
@@ -382,7 +385,7 @@ const services = [
               Je suis calligraphe depuis plus de trente ans et m'intéresse particulièrement aux langues et civilisations asiatiques. Lyonnais de naissance, calligraphe passionné par les cultures du monde et la transmission, je vis la calligraphie comme un dialogue vivant entre concentration, respiration et tracé de l'encre.
             </p>
             <p>
-              J'enseigne la calligraphie chinoise traditionnelle à Lyon sous plusieurs formes : en <a href="/cours-collectifs" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">cours collectifs hebdomadaires</a> au Dojo Zen et à la boutique Miroirs du Ciel (Croix-Rousse), en <a href="/cours-individuel-a-domicile" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">cours particuliers à domicile</a>, ainsi que lors d'<a href="/ecoles-primaires" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">ateliers scolaires</a> et d'interventions en entreprise. Je réalise également des <a href="/galerie" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">œuvres originales à l'encre de Chine</a> sur commande.
+              J'enseigne la calligraphie chinoise traditionnelle à Lyon sous plusieurs formes : en <a href="/cours-collectifs" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">cours collectifs hebdomadaires</a> au Dojo Zen et à la boutique Miroirs du Ciel (Croix-Rousse), en <a href="/cours-individuel-a-domicile" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">cours particuliers à domicile</a>, ainsi que lors d'<a href="/ecoles-primaires" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">ateliers scolaires</a> et d'interventions en entreprise. Je propose également des <a href="/galerie" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2 font-medium hover:text-indigo-800">calligraphies originales disponibles à l'acquisition</a> ainsi que des créations sur commande.
             </p>
             <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 pt-1">
               Mon parcours universitaire et ma pratique de la traduction littéraire du chinois vers le français — notamment avec la traduction de nouvelles d'auteurs modernes comme <a href="/pere-nouvelle" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">«&nbsp;Père&nbsp;» de Lu Yin</a> ou <a href="/zeng-jixin-la-guerre-entre-les-rats-et-les-hommes-nouvelle" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">«&nbsp;La Guerre des rats&nbsp;» de Zeng Jixin</a> (voir le <a href="/traductions" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">sommaire des traductions</a>) — nourrissent un enseignement qui éclaire à la fois la forme plastique des caractères et leur sens profond.
@@ -457,9 +460,19 @@ const services = [
               </div>
             </dl>
 
-            <div class="mt-6 pt-5 border-t border-gray-200 dark:border-gray-700/60 text-xs text-gray-500 dark:text-gray-400 leading-relaxed flex items-start gap-2">
-              <span class="text-indigo-600 dark:text-indigo-400 mt-0.5 font-bold" aria-hidden="true">ℹ</span>
-              <span>Une triple formation universitaire combinant étude des langues, précision littéraire et transmission vivante des arts du pinceau.</span>
+            <div class="mt-6 pt-5 border-t border-gray-200 dark:border-gray-700/60 text-xs text-gray-500 dark:text-gray-400 leading-relaxed flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="flex items-start gap-2">
+                <span class="text-indigo-600 dark:text-indigo-400 mt-0.5 font-bold" aria-hidden="true">ℹ</span>
+                <span>Une triple formation universitaire combinant étude des langues, précision littéraire et transmission vivante des arts du pinceau.</span>
+              </div>
+              <a
+                href="https://viadeo.journaldunet.com/p/christophe-desmur-4204512"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="shrink-0 inline-flex items-center gap-1 font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
+                <span>Profil Viadeo</span>
+                <span aria-hidden="true">↗</span>
+              </a>
             </div>
           </div>
 
@@ -490,6 +503,70 @@ const services = [
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-1 font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
                 <span>Consulter l'article</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Expositions collectives & collectifs d'artistes -->
+          <article class="p-6 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/70 shadow-2xs">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 font-sans">
+                Expositions collectives
+              </span>
+              <span class="text-xs text-gray-500 dark:text-gray-400 font-sans">
+                Les Mots Oiseaux
+              </span>
+            </div>
+
+            <h3 class="font-serif text-lg font-medium text-gray-950 dark:text-gray-100 leading-snug">
+              Rencontres de calligraphes & écritures du monde
+            </h3>
+
+            <p class="mt-2.5 text-xs text-gray-600 dark:text-gray-300 leading-relaxed font-serif">
+              Participation à la Biennale de l’Écriture (Saint-Romain-le-Puy) et à l’exposition collective «&nbsp;Esperluette&nbsp;» (Festival des Arts du Récit en Isère) réunissant calligraphes d'orient et d'occident (arabe, tibétaine, latine, chinoise).
+            </p>
+
+            <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/60 flex items-center justify-between text-xs">
+              <span class="text-gray-500 dark:text-gray-400">Galerie & participants</span>
+              <a
+                href="https://lesmotsoiseaux.jimdofree.com/calligraphes/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
+                <span>Consulter la galerie</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Transmission & Écho d'artiste -->
+          <article class="p-6 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/70 shadow-2xs">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 font-sans">
+                Écho d'artiste & transmission
+              </span>
+              <span class="text-xs text-gray-500 dark:text-gray-400 font-sans">
+                Encre Paisible
+              </span>
+            </div>
+
+            <h3 class="font-serif text-lg font-medium text-gray-950 dark:text-gray-100 leading-snug">
+              « Depuis 2023, je me lance en calligraphie cursive avec Christophe Desmur pour pratiquer la danse du pinceau ! »
+            </h3>
+
+            <p class="mt-2.5 text-xs text-gray-600 dark:text-gray-300 leading-relaxed font-serif">
+              Témoignage de Pascale France, artiste peintre et enseignante en lavis traditionnel et Sumi-e, dans son parcours artistique.
+            </p>
+
+            <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/60 flex items-center justify-between text-xs">
+              <span class="text-gray-500 dark:text-gray-400">Pascale France · Artiste</span>
+              <a
+                href="https://www.encrepaisible.com/parcours-artistique"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
+                <span>Consulter son parcours</span>
                 <span aria-hidden="true">↗</span>
               </a>
             </div>

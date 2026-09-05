@@ -33,7 +33,8 @@
     to: "2026-04-07 18:00"
     titre: "Atelier de calligraphie chinoise"
     lieu: "Le Secret des Temps, Vaugneray (69670)"
-    details: "Public enfant et adulte."
+    href: "https://www.montsdulyonnaistourisme.fr/content/uploads/2026/03/vacances_paques_VF.pdf"
+    details: "Public enfant et adulte — Programme officiel Destination Monts du Lyonnais."
 
   - from: "2026-01-01 00:00"
     to: "2026-12-31 23:59"
@@ -45,7 +46,7 @@
   - from: "2026-01-01 00:00"
     to: "2026-12-31 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2024/08/Ateliers-annuels-0VPAR.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
 
@@ -187,7 +188,8 @@
     to: "2011-05-10 23:59"
     titre: "Intervention en calligraphie chinoise"
     lieu: "Saint-Romain-le-Puy (Loire)"
-    details: "3e Biennale de l’Écriture, ateliers pour adultes et enfants."
+    href: "https://lesmotsoiseaux.jimdofree.com/calligraphes/"
+    details: "3e Biennale de l’Écriture (Association Aldebertus & Les Mots Oiseaux), ateliers et démonstrations."
   - from: "2011-02-09 00:00"
     to: "2011-02-09 23:59"
     titre: "Ateliers de calligraphie"
@@ -205,13 +207,13 @@
   - from: "2012-10-01 00:00"
     to: "2025-06-30 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2022/07/Brochure_Animation_OVPAR2022_BQ.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
   - from: "2012-09-27 00:00"
     to: "2012-09-27 23:59"
     titre: "Conférence suivie d’un atelier d’initiation à la calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2022/07/Brochure_Animation_OVPAR2022_BQ.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
   - from: "2012-05-11 00:00"
@@ -237,7 +239,7 @@
   - from: "2012-10-01 00:00"
     to: "2025-06-30 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2022/07/Brochure_Animation_OVPAR2022_BQ.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
   - from: "2013-02-01 00:00"
@@ -246,6 +248,18 @@
     lieu: "École Doisneau, Lyon"
     href: "/ecoles-primaires"
     details: "Pour enfants."
+  - from: "2013-05-01 00:00"
+    to: "2013-05-31 23:59"
+    titre: "Exposition collective « Esperluette »"
+    lieu: "Virieu (Isère)"
+    href: "https://lesmotsoiseaux.jimdofree.com/calligraphes/"
+    details: "Exposition collective de calligraphies associée au Festival des Arts du Récit en Isère avec Les Mots Oiseaux."
+  - from: "2013-06-01 09:00"
+    to: "2013-06-01 18:30"
+    titre: "Journée « Zazen et calligraphie chinoise »"
+    lieu: "Dojo Zen de Lyon, Lyon 4<sup>e</sup>"
+    href: "https://www.leprogres.fr/loisirs/2013/05/26/zazen-et-calligraphie-chinoise"
+    details: "Journée animée par Christophe Ryurin Desmur (Le Progrès)."
   - from: "2013-06-09 00:00"
     to: "2013-06-09 23:59"
     titre: "Intervention en calligraphie chinoise"
@@ -267,7 +281,7 @@
   - from: "2012-10-01 00:00"
     to: "2025-06-30 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2022/07/Brochure_Animation_OVPAR2022_BQ.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
   - from: "2014-01-01 00:00"
@@ -293,7 +307,7 @@
   - from: "2012-10-01 00:00"
     to: "2025-06-30 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2022/07/Brochure_Animation_OVPAR2022_BQ.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
   - from: "2015-10-05 00:00"
@@ -313,7 +327,7 @@
   - from: "2012-10-01 00:00"
     to: "2025-06-30 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2022/07/Brochure_Animation_OVPAR2022_BQ.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
   - from: "2016-02-16 00:00"
@@ -342,7 +356,7 @@
   - from: "2012-10-01 00:00"
     to: "2025-06-30 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2022/07/Brochure_Animation_OVPAR2022_BQ.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
   - from: "2018-03-10 00:00"
@@ -382,7 +396,7 @@
   - from: "2012-10-01 00:00"
     to: "2025-06-30 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2022/07/Brochure_Animation_OVPAR2022_BQ.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
 
@@ -425,7 +439,7 @@
   - from: "2012-10-01 00:00"
     to: "2025-06-30 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2022/07/Brochure_Animation_OVPAR2022_BQ.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
 
@@ -440,7 +454,7 @@
   - from: "2012-10-01 00:00"
     to: "2025-06-30 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2022/07/Brochure_Animation_OVPAR2022_BQ.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
 
@@ -563,9 +577,14 @@
   - from: "2022-01-01 00:00"
     to: "2022-12-31 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2022/07/Brochure_Animation_OVPAR2022_BQ.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
+  - from: "2022-02-05 00:00"
+    to: "2022-02-05 23:59"
+    titre: 'Rencontres « Corps, Conscience, Cosmos »'
+    lieu: 'Centre National de la Danse (CN D), Lyon'
+    details: 'Rencontre et atelier pratique aux côtés de la chorégraphe Vânia Vaneau et du physicien-chercheur Laurent Chevillard (CNRS). <a href="https://arrangementprovisoire.org/atelier-des-idees/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">Programme Atelier des idées ↗</a>'
   - from: "2022-02-08 00:00"
     to: "2022-02-08 23:59"
     titre: "Intervention à la SEES Champagnat"
@@ -652,8 +671,14 @@
 "2023":
   - from: "2023-01-01 00:00"
     to: "2023-12-31 23:59"
+    titre: "Transmission en calligraphie cursive (Caoshu)"
+    lieu: "Lyon"
+    href: "https://www.encrepaisible.com/parcours-artistique"
+    details: "Accompagnement artistique auprès de Pascale France (Encre Paisible) autour de la « danse du pinceau »."
+  - from: "2023-01-01 00:00"
+    to: "2023-12-31 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2022/07/Brochure_Animation_OVPAR2022_BQ.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
   - from: "2023-02-21 00:00"
@@ -684,7 +709,7 @@
   - from: "2024-01-01 00:00"
     to: "2024-12-31 23:59"
     titre: "Ateliers de calligraphie"
-    lieu: "Office villeurbannais des personnes âgées et des retraités (OVPAR)"
+    lieu: 'Office villeurbannais des personnes âgées et des retraités (<a href="https://ovpar.fr/wp-content/uploads/2024/08/Ateliers-annuels-0VPAR.pdf" target="_blank" rel="noopener noreferrer" class="text-indigo-600 dark:text-indigo-400 hover:underline">OVPAR</a>)'
     href: "/maisons-de-retraite"
     details: ""
   - from: "2024-02-06 00:00"
