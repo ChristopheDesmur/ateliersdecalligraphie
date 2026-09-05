@@ -1,5 +1,5 @@
 ---
-title: "L'engeance de rat se déchaîne"
+title: "L’engeance de rat se déchaîne"
 draft: false
 snippet: "Les rats résistent aux pesticides, développant des capacités de survie inattendues."
 image: {

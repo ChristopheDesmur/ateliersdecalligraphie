@@ -1,5 +1,5 @@
 ---
-title: "L'instinct animal"
+title: "L’instinct animal"
 draft: false
 snippet: "L'évolution des rats et leur incroyable capacité d'adaptation face à l'humanité."
 image: {
