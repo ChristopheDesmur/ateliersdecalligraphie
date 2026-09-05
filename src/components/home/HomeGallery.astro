@@ -20,18 +20,18 @@ const featuredArtworks = previewSlugs
       Calligraphies disponibles à l’acquisition
     </h2>
     <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-serif mt-2.5 leading-relaxed">
-      Découvrez une sélection de pièces uniques réalisées à l'encre de Chine par Christophe Desmur, proposées à l’acquisition sur demande.
+      Découvrez une sélection de pièces uniques réalisées à l’encre de Chine par Christophe Desmur, proposées à l’acquisition sur demande.
     </p>
   </div>
 
-  <!-- Grille d'œuvres sélectionnées -->
+  <!-- Grille d’œuvres sélectionnées -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
     {featuredArtworks.map((artwork) => (
       <article class="group bg-white dark:bg-gray-800/90 rounded-2xl overflow-hidden border border-gray-200/90 dark:border-gray-800 shadow-2xs hover:shadow-md transition flex flex-col justify-between">
         <a
           href={`/galerie/${artwork.slug}`}
           class="block focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-t-2xl overflow-hidden"
-          aria-label={`Découvrir l'œuvre ${artwork.character} — ${artwork.frenchMeaning}`}>
+          aria-label={`Découvrir l’œuvre ${artwork.character} — ${artwork.frenchMeaning}`}>
           <div class="h-60 sm:h-64 bg-stone-50 dark:bg-stone-900/50 p-5 flex items-center justify-center border-b border-gray-100 dark:border-gray-800/80">
             <img
               src={artwork.src}
@@ -88,7 +88,7 @@ const featuredArtworks = previewSlugs
         Acquérir une calligraphie originale
       </h3>
       <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-serif mt-2 leading-relaxed">
-        Chaque œuvre est une pièce unique réalisée sur papier traditionnel à l'encre de Chine. Pour connaître les disponibilités, échanger sur le prix ou organiser la remise en main propre à Lyon ou l'expédition, contactez directement Christophe Desmur.
+        Chaque œuvre est une pièce unique réalisée sur papier traditionnel à l’encre de Chine. Pour connaître les disponibilités, échanger sur le prix ou organiser la remise en main propre à Lyon ou l’expédition, contactez directement Christophe Desmur.
       </p>
     </div>
 
@@ -100,7 +100,7 @@ const featuredArtworks = previewSlugs
       </a>
 
       <a
-        href="mailto:christophe.desmur@orange.fr?subject=Demande%20d'information%20calligraphie%20originale"
+        href="mailto:christophe.desmur@orange.fr?subject=Demande%20d’information%20calligraphie%20originale"
         class="px-5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 text-xs sm:text-sm font-medium transition text-center inline-flex items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
         <span>✉️</span>
         <span>Contacter Christophe</span>

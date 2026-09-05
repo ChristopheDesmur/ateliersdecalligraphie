@@ -17,7 +17,7 @@ const collectionSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "Calligraphies chinoises originales à vendre | Christophe Desmur",
-  "description": "Découvrez les calligraphies chinoises originales de Christophe Desmur. Pièces uniques à l'encre de Chine, disponibles à l'acquisition sur demande à Lyon.",
+  "description": "Découvrez les calligraphies chinoises originales de Christophe Desmur. Pièces uniques à l’encre de Chine, disponibles à l’acquisition sur demande à Lyon.",
   "url": "https://ateliersdecalligraphie.com/galerie",
   "creator": {
     "@type": "Person",
@@ -44,7 +44,7 @@ const collectionSchema = {
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
 
   <Container>
-    <!-- Fil d'Ariane accessible avec microdonnées -->
+    <!-- Fil d’Ariane accessible avec microdonnées -->
     <Breadcrumbs
       items={[
         { label: "Accueil", href: "/" },
@@ -84,7 +84,7 @@ const collectionSchema = {
           </a>
         </div>
 
-        <!-- Repères d'acquisition rapide -->
+        <!-- Repères d’acquisition rapide -->
         <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-serif">
           <div class="flex items-start gap-2.5">
             <span class="w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold flex items-center justify-center text-[11px] shrink-0">1</span>
@@ -96,7 +96,7 @@ const collectionSchema = {
           </div>
           <div class="flex items-start gap-2.5">
             <span class="w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold flex items-center justify-center text-[11px] shrink-0">3</span>
-            <p class="text-gray-600 dark:text-gray-400"><strong>Échangez sur le prix</strong>, l'encadrement, la remise à Lyon ou l'envoi.</p>
+            <p class="text-gray-600 dark:text-gray-400"><strong>Échangez sur le prix</strong>, l’encadrement, la remise à Lyon ou l’envoi.</p>
           </div>
         </div>
 
@@ -107,11 +107,11 @@ const collectionSchema = {
     </header>
 
     <!-- ================================================================= -->
-    <!-- GRILLE D'ŒUVRES AVEC FILTRES DISCRETS                             -->
+    <!-- GRILLE D’ŒUVRES AVEC FILTRES DISCRETS                             -->
     <!-- ================================================================= -->
     <section id="oeuvres" class="mt-12 scroll-mt-6" aria-labelledby="collection-heading">
       
-      <!-- Barre d'outils / Filtres d'accessibilité légers -->
+      <!-- Barre d’outils / Filtres d’accessibilité légers -->
       <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 border-b border-gray-200 dark:border-gray-800 pb-4 mb-8">
         <div>
           <h2 id="collection-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
@@ -148,7 +148,7 @@ const collectionSchema = {
         </nav>
       </div>
 
-      <!-- Grille d'œuvres -->
+      <!-- Grille d’œuvres -->
       <div id="artworks-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {artworks.map((artwork, index) => (
           <ArtworkCard artwork={artwork} priority={index < 3} />
@@ -201,10 +201,10 @@ const collectionSchema = {
             Christophe Desmur, plus de 30 ans de pratique de l’encre
           </h2>
           <p class="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 font-serif leading-relaxed">
-            Formé à la pratique traditionnelle de l'encre de Chine et titulaire d'un master de traduction littéraire chinois-français, Christophe Desmur transmet la voie du pinceau à Lyon et réalise des pièces originales nourries par les textes classiques, la philosophie taoïste et la tradition du zen.
+            Formé à la pratique traditionnelle de l’encre de Chine et titulaire d’un master de traduction littéraire chinois-français, Christophe Desmur transmet la voie du pinceau à Lyon et réalise des pièces originales nourries par les textes classiques, la philosophie taoïste et la tradition du zen.
           </p>
           <p class="mt-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-            Chaque calligraphie est le fruit d'une recherche d'équilibre entre le plein de l'encre noire et la respiration du blanc de la feuille de riz, signée et scellée selon le rituel traditionnel chinois.
+            Chaque calligraphie est le fruit d’une recherche d’équilibre entre le plein de l’encre noire et la respiration du blanc de la feuille de riz, signée et scellée selon le rituel traditionnel chinois.
           </p>
           <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
             <a

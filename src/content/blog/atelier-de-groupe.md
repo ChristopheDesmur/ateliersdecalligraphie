@@ -4,7 +4,7 @@ draft: false
 snippet: "Atelier collectif de calligraphie chinoise à Lyon : 2 à 8 personnes, matériel fourni, tous niveaux acceptés. Dojo zen et boutique Miroirs du Ciel."
 image:
   src: "/assets/cours-calligraphie-ecoles-primaires.webp"
-  alt: "Mes formats d'atelier pour les écoles primaires sur le temps scolaire"
+  alt: "Mes formats d’atelier pour les écoles primaires sur le temps scolaire"
 publishDate: "2022-11-07 15:39"
 category: "Calligraphie"
 author: "Christophe Desmur"
@@ -21,12 +21,12 @@ L’amplitude horaire idéale pour un **atelier de groupe** de calligraphie est 
 
 ## Tarifs et conditions des cours
 
-- **Cours collectifs réguliers pour particuliers à Lyon :** Séances hebdomadaires de 1 h 30 à 2 h au Dojo Zen et à la boutique Miroirs du Ciel (Croix-Rousse). **200 € par trimestre** pour 10 cours (matériel inclus, hors crédit d'impôt). [Découvrir les cours collectifs à Lyon &rarr;](/cours-collectifs)
+- **Cours collectifs réguliers pour particuliers à Lyon :** Séances hebdomadaires de 1 h 30 à 2 h au Dojo Zen et à la boutique Miroirs du Ciel (Croix-Rousse). **200 € par trimestre** pour 10 cours (matériel inclus, hors crédit d’impôt). [Découvrir les cours collectifs à Lyon &rarr;](/cours-collectifs)
 - **Interventions pour collectivités, associations, scolaires et entreprises :** De 60 € HT/h à 90 € HT/h selon la formule.
 
 ---
 
-## Choisissez votre format d'atelier en groupe
+## Choisissez votre format d’atelier en groupe
 
 <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
 

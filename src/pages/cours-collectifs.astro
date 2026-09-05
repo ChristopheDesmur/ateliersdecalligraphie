@@ -29,7 +29,7 @@ const locations = [
     time: "10&nbsp;h&nbsp;00 – 12&nbsp;h&nbsp;00",
     duration: "2 heures",
     access: "Métro C (station Croix-Rousse à 3 min à pied)",
-    atmosphere: "Atmosphère lumineuse et conviviale au sein d'une boutique dédiée aux arts d'Asie.",
+    atmosphere: "Atmosphère lumineuse et conviviale au sein d’une boutique dédiée aux arts d’Asie.",
     mapQuery: "9+rue+de+Belfort+Lyon",
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2782.748123456789!2d4.8301!3d45.7762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eae26581b1b1%3A0x1234567890abcdef!2s9+Rue+de+Belfort%2C+69004+Lyon!5e0!3m2!1sfr!2sfr!4v1756472471301!5m2!1sfr!2sfr",
     externalLink: {
@@ -111,15 +111,15 @@ const locations = [
           "name": "Faut-il savoir parler ou lire le chinois pour participer aux cours ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Non, aucun prérequis de langue ou de calligraphie n'est nécessaire. On apprend le geste, la respiration, la tenue verticale du pinceau et l'équilibre des traits directement lors des séances."
+            "text": "Non, aucun prérequis de langue ou de calligraphie n’est nécessaire. On apprend le geste, la respiration, la tenue verticale du pinceau et l’équilibre des traits directement lors des séances."
           }
         },
         {
           "@type": "Question",
-          "name": "Peut-on intégrer les cours en cours d'année ?",
+          "name": "Peut-on intégrer les cours en cours d’année ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui, les inscriptions restent ouvertes toute l'année selon les places disponibles. Les effectifs réduits (2 à 8 personnes) permettent un accompagnement personnalisé adapté à chacun."
+            "text": "Oui, les inscriptions restent ouvertes toute l’année selon les places disponibles. Les effectifs réduits (2 à 8 personnes) permettent un accompagnement personnalisé adapté à chacun."
           }
         },
         {
@@ -127,7 +127,7 @@ const locations = [
           "name": "Le matériel est-il réellement fourni lors des séances ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui, tout le matériel traditionnel est mis à disposition à chaque séance : pinceaux en poils naturels, bâtons d'encre de Chine, pierres à frotter et papier absorbant."
+            "text": "Oui, tout le matériel traditionnel est mis à disposition à chaque séance : pinceaux en poils naturels, bâtons d’encre de Chine, pierres à frotter et papier absorbant."
           }
         },
         {
@@ -143,7 +143,7 @@ const locations = [
           "name": "Comment fonctionne le tarif de 200 € par trimestre ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "La cotisation trimestrielle de 200 € couvre 10 cours hebdomadaires ainsi que le matériel mis à disposition. Ce tarif n'ouvre pas droit à un crédit d'impôt, celui-ci étant réservé aux cours particuliers à domicile."
+            "text": "La cotisation trimestrielle de 200 € couvre 10 cours hebdomadaires ainsi que le matériel mis à disposition. Ce tarif n’ouvre pas droit à un crédit d’impôt, celui-ci étant réservé aux cours particuliers à domicile."
           }
         }
       ]
@@ -151,8 +151,8 @@ const locations = [
   ])} />
 
   <Container>
-    <!-- Fil d'Ariane -->
-    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
+    <!-- Fil d’Ariane -->
+    <nav aria-label="Fil d’Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
       <ol class="flex items-center gap-1.5 flex-wrap">
         <li><a href="/" class="hover:underline">Accueil</a></li>
         <li aria-hidden="true">/</li>
@@ -171,13 +171,13 @@ const locations = [
         Cours collectifs de calligraphie chinoise à Lyon
       </h1>
       <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
-        Chaque semaine à la Croix-Rousse, Christophe Desmur vous guide dans l'apprentissage du pinceau, du souffle et du tracé des caractères chinois traditionnels. Un atelier à taille humaine, ouvert à tous.
+        Chaque semaine à la Croix-Rousse, Christophe Desmur vous guide dans l’apprentissage du pinceau, du souffle et du tracé des caractères chinois traditionnels. Un atelier à taille humaine, ouvert à tous.
       </p>
       <div class="mt-6 flex flex-wrap items-center gap-3">
         <a
           href="#trial-heading"
           class="px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm transition shadow-xs">
-          Séance d'essai sans engagement &darr;
+          Séance d’essai sans engagement &darr;
         </a>
         <a
           href="#schedule-heading"
@@ -239,12 +239,12 @@ const locations = [
                   class="w-full h-full border-0"
                   src={loc.mapEmbed}
                   loading="lazy"
-                  title={`Plan d'accès Google Maps pour ${loc.name}`}
+                  title={`Plan d’accès Google Maps pour ${loc.name}`}
                   referrerpolicy="no-referrer-when-downgrade"
                 ></iframe>
               </div>
               <a
-                href="mailto:christophe.desmur@orange.fr?subject=Demande%20d'inscription%20cours%20collectif"
+                href="mailto:christophe.desmur@orange.fr?subject=Demande%20d’inscription%20cours%20collectif"
                 class="block w-full text-center py-2.5 px-4 bg-gray-900 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white rounded-lg font-medium text-sm transition">
                 Réserver une séance ({loc.day.toLowerCase()})
               </a>
@@ -270,30 +270,30 @@ const locations = [
         <div class="border-l-2 border-indigo-600 pl-4">
           <h3 class="font-bold text-gray-900 dark:text-gray-100 mb-1">Effectif</h3>
           <p class="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400">2 à 8</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Participants par séance pour préserver la qualité de l'accompagnement individuel.</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Participants par séance pour préserver la qualité de l’accompagnement individuel.</p>
         </div>
 
         <div class="border-l-2 border-indigo-600 pl-4">
           <h3 class="font-bold text-gray-900 dark:text-gray-100 mb-1">Matériel</h3>
           <p class="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400">100 % fourni</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pinceaux, bâtons d'encre de Chine, pierres à encre et papiers chinois mis à disposition.</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pinceaux, bâtons d’encre de Chine, pierres à encre et papiers chinois mis à disposition.</p>
         </div>
 
         <div class="border-l-2 border-indigo-600 pl-4">
           <h3 class="font-bold text-gray-900 dark:text-gray-100 mb-1">Niveau requis</h3>
           <p class="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400">Tous niveaux</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Aucune notion de langue chinoise ni de pratique artistique préalable n'est nécessaire.</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Aucune notion de langue chinoise ni de pratique artistique préalable n’est nécessaire.</p>
         </div>
       </div>
     </section>
 
-    <!-- Déroulement d'un cours -->
+    <!-- Déroulement d’un cours -->
     <section class="mt-16 max-w-4xl" aria-labelledby="session-heading">
       <h2 id="session-heading" class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
         Comment se déroule une séance de calligraphie ?
       </h2>
       <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
-        La calligraphie chinoise traditionnelle n'est pas un simple exercice d'écriture : c'est un art du geste, de la posture et du souffle. Chaque séance est rythmée de manière progressive pour vous permettre de vous détendre et de canaliser votre attention.
+        La calligraphie chinoise traditionnelle n’est pas un simple exercice d’écriture : c’est un art du geste, de la posture et du souffle. Chaque séance est rythmée de manière progressive pour vous permettre de vous détendre et de canaliser votre attention.
       </p>
 
       <div class="space-y-6">
@@ -306,7 +306,7 @@ const locations = [
               La posture corporelle et la concentration
             </h3>
             <p class="text-gray-600 dark:text-gray-300 text-sm mt-1 leading-relaxed">
-              Une assise équilibrée favorise l'ouverture de la cage thoracique et la détente des épaules. L'immobilité attentive précède l'élan créatif.
+              Une assise équilibrée favorise l’ouverture de la cage thoracique et la détente des épaules. L’immobilité attentive précède l’élan créatif.
             </p>
           </div>
         </div>
@@ -320,7 +320,7 @@ const locations = [
               La préparation de l’encre de Chine
             </h3>
             <p class="text-gray-600 dark:text-gray-300 text-sm mt-1 leading-relaxed">
-              Frotter le bâton d'encre sur la pierre avec un peu d'eau est un rituel d'intériorisation. On observe la texture et la profondeur du noir qui naît sous nos yeux.
+              Frotter le bâton d’encre sur la pierre avec un peu d’eau est un rituel d’intériorisation. On observe la texture et la profondeur du noir qui naît sous nos yeux.
             </p>
           </div>
         </div>
@@ -334,7 +334,7 @@ const locations = [
               Le maniement du pinceau et les traits fondamentaux
             </h3>
             <p class="text-gray-600 dark:text-gray-300 text-sm mt-1 leading-relaxed">
-              Tenue verticale du pinceau, pression, levée, terminaison : vous apprenez les 8 traits fondamentaux (le caractère <em>Yong</em> 永) qui composent l'ensemble de l'écriture chinoise.
+              Tenue verticale du pinceau, pression, levée, terminaison : vous apprenez les 8 traits fondamentaux (le caractère <em>Yong</em> 永) qui composent l’ensemble de l’écriture chinoise.
             </p>
           </div>
         </div>
@@ -355,7 +355,7 @@ const locations = [
       </div>
     </section>
 
-    <!-- L'enseignant : Christophe Desmur -->
+    <!-- L’enseignant : Christophe Desmur -->
     <section class="mt-16 max-w-4xl p-6 sm:p-8 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
       <div class="flex flex-col sm:flex-row gap-6 items-start">
         <img
@@ -375,7 +375,7 @@ const locations = [
             Christophe Desmur
           </h2>
           <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
-            Diplômé en langue et civilisation chinoises et titulaire d'un Master de traduction littéraire chinois-français (Université Jean Moulin Lyon 3), Christophe Desmur enseigne la calligraphie chinoise et le Shodō à Lyon depuis plus de 25 ans. Sa pédagogie allie rigueur du geste traditionnel, bienveillance et attention individualisée.
+            Diplômé en langue et civilisation chinoises et titulaire d’un Master de traduction littéraire chinois-français (Université Jean Moulin Lyon 3), Christophe Desmur enseigne la calligraphie chinoise et le Shodō à Lyon depuis plus de 25 ans. Sa pédagogie allie rigueur du geste traditionnel, bienveillance et attention individualisée.
           </p>
           <a href="/le-calligraphe" class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
             <span>Découvrir son parcours complet, ses diplômes et ses expositions</span>
@@ -385,13 +385,13 @@ const locations = [
       </div>
     </section>
 
-    <!-- Première séance d'essai -->
+    <!-- Première séance d’essai -->
     <section class="mt-16 p-8 bg-indigo-50/70 dark:bg-gray-800 rounded-2xl border border-indigo-200 dark:border-indigo-900/60 max-w-4xl" aria-labelledby="trial-heading">
       <h2 id="trial-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
         Comment se passe votre première séance ?
       </h2>
       <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-4">
-        Il est tout à fait possible de venir participer à un premier cours sans engagement pour faire l'expérience du maniement du pinceau et rencontrer Christophe Desmur.
+        Il est tout à fait possible de venir participer à un premier cours sans engagement pour faire l’expérience du maniement du pinceau et rencontrer Christophe Desmur.
       </p>
       <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300 mb-6">
         <li class="flex items-center gap-2">
@@ -407,9 +407,9 @@ const locations = [
 
       <div class="flex flex-wrap gap-4 items-center">
         <a
-          href="mailto:christophe.desmur@orange.fr?subject=Demande%20de%20première%20séance%20d'essai"
+          href="mailto:christophe.desmur@orange.fr?subject=Demande%20de%20première%20séance%20d’essai"
           class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg text-sm transition">
-          Prendre contact pour une séance d'essai
+          Prendre contact pour une séance d’essai
         </a>
         <a
           href="tel:+33769941643"
@@ -437,17 +437,17 @@ const locations = [
             <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
           </summary>
           <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            Non, absolument aucun prérequis de langue ou d'écriture n'est nécessaire. La calligraphie chinoise est d'abord un art du geste, de la posture et du souffle. Le sens, l'histoire et l'ordre des traits de chaque caractère sont expliqués pas à pas au fur et à mesure de votre progression.
+            Non, absolument aucun prérequis de langue ou d’écriture n’est nécessaire. La calligraphie chinoise est d’abord un art du geste, de la posture et du souffle. Le sens, l’histoire et l’ordre des traits de chaque caractère sont expliqués pas à pas au fur et à mesure de votre progression.
           </p>
         </details>
 
         <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
           <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
-            <span>Peut-on intégrer les cours en cours d'année ?</span>
+            <span>Peut-on intégrer les cours en cours d’année ?</span>
             <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
           </summary>
           <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            Oui, les inscriptions sont possibles tout au long de l'année selon les places disponibles. Comme les groupes sont restreints (2 à 8 personnes), Christophe Desmur accompagne chaque participant selon son propre niveau, qu'il s'agisse d'une initiation complète ou d'un perfectionnement.
+            Oui, les inscriptions sont possibles tout au long de l’année selon les places disponibles. Comme les groupes sont restreints (2 à 8 personnes), Christophe Desmur accompagne chaque participant selon son propre niveau, qu’il s’agisse d’une initiation complète ou d’un perfectionnement.
           </p>
         </details>
 
@@ -457,7 +457,7 @@ const locations = [
             <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
           </summary>
           <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            Oui, vous n'avez aucun matériel à acheter pour débuter. Pinceaux traditionnels en poils naturels (loup, chèvre), bâtons d'encre de Chine, pierres à encre et papiers absorbants sont mis à votre disposition à chaque cours. Si vous souhaitez pratiquer chez vous, Christophe pourra vous conseiller sur le choix des outils.
+            Oui, vous n’avez aucun matériel à acheter pour débuter. Pinceaux traditionnels en poils naturels (loup, chèvre), bâtons d’encre de Chine, pierres à encre et papiers absorbants sont mis à votre disposition à chaque cours. Si vous souhaitez pratiquer chez vous, Christophe pourra vous conseiller sur le choix des outils.
           </p>
         </details>
 
@@ -467,7 +467,7 @@ const locations = [
             <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
           </summary>
           <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            Le créneau du lundi soir (18&nbsp;h&nbsp;30 – 20&nbsp;h&nbsp;30) au Dojo Zen de Lyon offre un cadre traditionnel, sobre et silencieux particulièrement propice à l'intériorisation après le travail. Le créneau du mercredi matin (10&nbsp;h&nbsp;00 – 12&nbsp;h&nbsp;00) à la boutique Miroirs du Ciel propose une atmosphère lumineuse et conviviale. Le programme et la qualité d'enseignement sont identiques.
+            Le créneau du lundi soir (18&nbsp;h&nbsp;30 – 20&nbsp;h&nbsp;30) au Dojo Zen de Lyon offre un cadre traditionnel, sobre et silencieux particulièrement propice à l’intériorisation après le travail. Le créneau du mercredi matin (10&nbsp;h&nbsp;00 – 12&nbsp;h&nbsp;00) à la boutique Miroirs du Ciel propose une atmosphère lumineuse et conviviale. Le programme et la qualité d’enseignement sont identiques.
           </p>
         </details>
 
@@ -477,17 +477,17 @@ const locations = [
             <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
           </summary>
           <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            La cotisation trimestrielle de 200 € couvre 10 cours hebdomadaires avec le matériel inclus. Ce tarif ne bénéficie pas de crédit d'impôt, celui-ci étant réservé aux cours particuliers dispensés à domicile via Coop A Dom. Un tarif adapté et accessible pour une pratique artistique et culturelle de qualité à Lyon.
+            La cotisation trimestrielle de 200 € couvre 10 cours hebdomadaires avec le matériel inclus. Ce tarif ne bénéficie pas de crédit d’impôt, celui-ci étant réservé aux cours particuliers dispensés à domicile via Coop A Dom. Un tarif adapté et accessible pour une pratique artistique et culturelle de qualité à Lyon.
           </p>
         </details>
 
         <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
           <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
-            <span>Quel est l'âge minimum pour participer aux cours collectifs ?</span>
+            <span>Quel est l’âge minimum pour participer aux cours collectifs ?</span>
             <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
           </summary>
           <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            Les cours hebdomadaires adultes accueillent les jeunes dès l'âge de 14 à 15 ans. Pour les enfants plus jeunes (écoles primaires et collèges), des ateliers spécifiques adaptés au rythme scolaire sont organisés tout au long de l'année.
+            Les cours hebdomadaires adultes accueillent les jeunes dès l’âge de 14 à 15 ans. Pour les enfants plus jeunes (écoles primaires et collèges), des ateliers spécifiques adaptés au rythme scolaire sont organisés tout au long de l’année.
           </p>
         </details>
       </div>

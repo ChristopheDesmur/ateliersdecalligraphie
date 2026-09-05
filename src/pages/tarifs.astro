@@ -12,14 +12,14 @@ const rates = [
     badge: "Formule recommandée",
     price: "200 €",
     period: "par trimestre",
-    detail: "10 cours, matériel inclus (hors crédit d'impôt)",
+    detail: "10 cours, matériel inclus (hors crédit d’impôt)",
     features: [
       "Séances régulières de 1&nbsp;h&nbsp;30 à 2&nbsp;h par semaine",
       "Lundi soir (Dojo Zen) ou mercredi matin (Miroirs du Ciel)",
       "Tout le matériel fourni (pinceaux, encre, papier, pierre)",
       "Petit groupe de 2 à 8 participants pour un suivi personnalisé",
       "Débutants bienvenus : aucun prérequis de chinois ou de dessin",
-      "Possibilité d'une séance d'essai sans engagement",
+      "Possibilité d’une séance d’essai sans engagement",
     ],
     ctaText: "Découvrir les cours collectifs",
     ctaLink: "/cours-collectifs",
@@ -28,14 +28,14 @@ const rates = [
   {
     title: "Cours individuels à domicile",
     subtitle: "Lyon et agglomération lyonnaise",
-    badge: "50 % de crédit d'impôt",
+    badge: "50 % de crédit d’impôt",
     price: "80 €",
     period: "TTC / heure",
-    detail: "Soit 40 € net après crédit d'impôt",
+    detail: "Soit 40 € net après crédit d’impôt",
     features: [
       "Apprentissage entièrement personnalisé à votre rythme",
       "Agrément Coop A Dom (n° 2006-1-42.10 — services à domicile)",
-      "50 % de réduction ou crédit d'impôt (art. 199 sexdecies du CGI)",
+      "50 % de réduction ou crédit d’impôt (art. 199 sexdecies du CGI)",
       "Tout le matériel est apporté à votre domicile",
       "Horaires et fréquence flexibles selon vos disponibilités",
       "Possibilité de combiner calligraphie et initiation au chinois",
@@ -53,10 +53,10 @@ const rates = [
     detail: "Tout le matériel de calligraphie fourni",
     features: [
       "Interventions sur le temps scolaire ou projets culturels",
-      "De 1 à 3 heures d'atelier par classe",
+      "De 1 à 3 heures d’atelier par classe",
       "De 6 à 30 participants selon le niveau scolaire",
       "Découverte des pictogrammes, idéogrammes et tracé au pinceau",
-      "Atelier Sumi-e (dessin à l'encre) pour les plus jeunes",
+      "Atelier Sumi-e (dessin à l’encre) pour les plus jeunes",
       "Christophe se déplace dans votre établissement à Lyon et région",
     ],
     ctaText: "Voir les formules scolaires",
@@ -64,7 +64,7 @@ const rates = [
     featured: false,
   },
   {
-    title: "Comités d'entreprise & Séminaires",
+    title: "Comités d’entreprise & Séminaires",
     subtitle: "CSE, entreprises et collectivités",
     badge: "Cohésion & Bien-être",
     price: "90 €",
@@ -77,7 +77,7 @@ const rates = [
       "Déconnexion, concentration, détente et éveil artistique",
       "Devis personnalisé selon le nombre de séances",
     ],
-    ctaText: "Voir l'offre entreprise",
+    ctaText: "Voir l’offre entreprise",
     ctaLink: "/comites-entreprise",
     featured: false,
   },
@@ -91,11 +91,11 @@ const rates = [
     features: [
       "Activité valorisante adaptée au rythme de chacun",
       "Stimulation de la motricité fine, du regard et de la mémoire",
-      "Moments de calme, d'échange et de convivialité",
+      "Moments de calme, d’échange et de convivialité",
       "Groupes de 6 à 12 personnes",
       "Matériel léger et sécurisant fourni intégralement",
     ],
-    ctaText: "Voir l'offre maisons de retraite",
+    ctaText: "Voir l’offre maisons de retraite",
     ctaLink: "/maisons-de-retraite",
     featured: false,
   },
@@ -104,7 +104,7 @@ const rates = [
 
 <Layout
   title="Tarifs des cours et ateliers"
-  description="Tarifs transparents des cours de calligraphie chinoise à Lyon : cours collectifs (200 €/trimestre, 10 cours), cours particuliers avec crédit d'impôt 50 %, ateliers scolaires et entreprises.">
+  description="Tarifs transparents des cours de calligraphie chinoise à Lyon : cours collectifs (200 €/trimestre, 10 cours), cours particuliers avec crédit d’impôt 50 %, ateliers scolaires et entreprises.">
 
   <script slot="head" type="application/ld+json" set:html={JSON.stringify([
     {
@@ -135,7 +135,7 @@ const rates = [
       "@context": "https://schema.org",
       "@type": "Course",
       "name": "Cours particulier de calligraphie chinoise à domicile",
-      "description": "Cours individuel à domicile à Lyon, agréé service à la personne (50 % de crédit d'impôt).",
+      "description": "Cours individuel à domicile à Lyon, agréé service à la personne (50 % de crédit d’impôt).",
       "url": "https://ateliersdecalligraphie.com/tarifs",
       "provider": {
         "@type": "Person",
@@ -158,7 +158,7 @@ const rates = [
   ])} />
 
   <Container>
-    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
+    <nav aria-label="Fil d’Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
       <ol class="flex items-center gap-1.5 flex-wrap">
         <li><a href="/" class="hover:underline">Accueil</a></li>
         <li aria-hidden="true">/</li>
@@ -240,19 +240,19 @@ const rates = [
       ))}
     </div>
 
-    <!-- Note d'information fiscale et légale -->
+    <!-- Note d’information fiscale et légale -->
     <div class="max-w-4xl mx-auto mt-16 p-6 sm:p-8 bg-gray-50 dark:bg-gray-800/60 rounded-2xl border border-gray-200 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-300">
       <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">
         Conditions et déductions fiscales
       </h3>
       <p class="leading-relaxed mb-3">
-        <strong>Cours particuliers à domicile :</strong> Dispensés dans le cadre de la société coopérative de services à domicile <em>Coop A Dom</em> (agrément n° 2006-1-42.10). Conformément à l'article 199 sexdecies du Code Général des Impôts, vous bénéficiez d'une réduction ou d'un crédit d'impôt de 50 % sur les sommes versées pour les cours particuliers à domicile (hors soutien scolaire).
+        <strong>Cours particuliers à domicile :</strong> Dispensés dans le cadre de la société coopérative de services à domicile <em>Coop A Dom</em> (agrément n° 2006-1-42.10). Conformément à l’article 199 sexdecies du Code Général des Impôts, vous bénéficiez d’une réduction ou d’un crédit d’impôt de 50 % sur les sommes versées pour les cours particuliers à domicile (hors soutien scolaire).
       </p>
       <p class="leading-relaxed mb-3">
-        <strong>Cours collectifs :</strong> Cette réduction fiscale s'applique uniquement aux cours particuliers à domicile. Les cours collectifs hebdomadaires (Dojo Zen, Miroirs du Ciel) n'ouvrent pas droit à un crédit d'impôt.
+        <strong>Cours collectifs :</strong> Cette réduction fiscale s’applique uniquement aux cours particuliers à domicile. Les cours collectifs hebdomadaires (Dojo Zen, Miroirs du Ciel) n’ouvrent pas droit à un crédit d’impôt.
       </p>
       <p class="leading-relaxed">
-        <strong>Interventions pour structures et collectivités :</strong> Les tarifs s'entendent hors taxes. Tout le matériel spécifique (papiers spéciaux, encre, pinceaux chinois fins et larges, feutres sous-main) est fourni et transporté par l'intervenant.
+        <strong>Interventions pour structures et collectivités :</strong> Les tarifs s’entendent hors taxes. Tout le matériel spécifique (papiers spéciaux, encre, pinceaux chinois fins et larges, feutres sous-main) est fourni et transporté par l’intervenant.
       </p>
     </div>
 

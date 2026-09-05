@@ -17,7 +17,7 @@ tags: ['littérature chinoise', 'Lu Yin', 'littérature classique', 'modernisme'
 
 
 
-### L'influence des classiques et la mission de la littérature
+### L’influence des classiques et la mission de la littérature
 
 
 
@@ -29,7 +29,7 @@ Voilà ce qu’elle écrit sur ce qui la pousse à écrire dans un essai intitul
 
 
 
-### L'écrivain comme réformateur et initiateur d'idées
+### L’écrivain comme réformateur et initiateur d’idées
 
 
 

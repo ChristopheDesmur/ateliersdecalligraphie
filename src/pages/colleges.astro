@@ -111,7 +111,7 @@ const eventsByYear = Object.entries(grouped).sort(
 const recentYears = eventsByYear.slice(0, 5);
 const olderYears = eventsByYear.slice(5);
 
-const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation%20d'un%20atelier%20calligraphie%20en%20coll%C3%A8ge";
+const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation%20d’un%20atelier%20calligraphie%20en%20coll%C3%A8ge";
 ---
 
 <Base
@@ -148,8 +148,8 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation
   })} />
 
   <div class="max-w-5xl mx-auto">
-    <!-- Fil d'Ariane -->
-    <nav aria-label="Fil d'Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6 sm:mb-8">
+    <!-- Fil d’Ariane -->
+    <nav aria-label="Fil d’Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6 sm:mb-8">
       <ol class="flex items-center gap-1.5 flex-wrap">
         <li><a href="/" class="hover:underline">Accueil</a></li>
         <li aria-hidden="true">/</li>
@@ -171,14 +171,14 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation
         </h1>
 
         <p class="text-lg sm:text-xl font-serif italic text-indigo-800 dark:text-indigo-300 mt-3">
-          Mes formats d'atelier pour les collèges sur le temps scolaire
+          Mes formats d’atelier pour les collèges sur le temps scolaire
         </p>
 
         <!-- Image mobile uniquement (sous le sous-titre) -->
         <div class="mt-6 lg:hidden">
           <img
             src="/assets/cours-calligraphie-colleges.webp"
-            alt="Calligraphie chinoise au pinceau et à l'encre pour ateliers en collège"
+            alt="Calligraphie chinoise au pinceau et à l’encre pour ateliers en collège"
             width="640"
             height="357"
             loading="eager"
@@ -187,7 +187,7 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation
         </div>
 
         <p class="text-base text-gray-600 dark:text-gray-300 mt-5 leading-relaxed">
-          Christophe Desmur intervient directement au sein des collèges de Lyon et de sa région pour initier les collégiens au tracé des caractères chinois, à la gestuelle du pinceau et aux repères culturels de l'Asie orientale.
+          Christophe Desmur intervient directement au sein des collèges de Lyon et de sa région pour initier les collégiens au tracé des caractères chinois, à la gestuelle du pinceau et aux repères culturels de l’Asie orientale.
         </p>
 
         <!-- CTA Principal (visible sur desktop) -->
@@ -210,7 +210,7 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation
       <div class="hidden lg:block lg:col-span-6">
         <img
           src="/assets/cours-calligraphie-colleges.webp"
-          alt="Calligraphie chinoise au pinceau et à l'encre pour ateliers en collège"
+          alt="Calligraphie chinoise au pinceau et à l’encre pour ateliers en collège"
           width="640"
           height="357"
           loading="eager"
@@ -275,7 +275,7 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation
       </div>
     </section>
 
-    <!-- Programme de l'atelier -->
+    <!-- Programme de l’atelier -->
     <section class="mt-12 sm:mt-16" aria-labelledby="programme-heading">
       <h2 id="programme-heading" class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
         Au programme
@@ -296,7 +296,7 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation
             02
           </span>
           <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
-            Maniement du pinceau, préparation de l'encre de Chine et posture
+            Maniement du pinceau, préparation de l’encre de Chine et posture
           </p>
         </li>
 
@@ -305,7 +305,7 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation
             03
           </span>
           <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
-            Sensibilisation à l'écriture, à la langue et à la culture asiatique
+            Sensibilisation à l’écriture, à la langue et à la culture asiatique
           </p>
         </li>
       </ol>
@@ -323,7 +323,7 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation
       </div>
 
       <!-- Navigation compacte des années avec divulgation progressive -->
-      <nav aria-label="Sélection de l'année scolaire" class="mb-8">
+      <nav aria-label="Sélection de l’année scolaire" class="mb-8">
         <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
           {recentYears.map(([year], idx) => (
             <button
@@ -423,7 +423,7 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation
           sec.classList.toggle("hidden", !isMatch);
         });
 
-        // Mise à jour de l'apparence des boutons et de aria-pressed
+        // Mise à jour de l’apparence des boutons et de aria-pressed
         yearButtons.forEach((b) => {
           const isSelected = b.getAttribute("data-year") === year;
           b.setAttribute("aria-pressed", isSelected ? "true" : "false");

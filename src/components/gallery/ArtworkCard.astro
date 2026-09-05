@@ -20,7 +20,7 @@ const isSold = artwork.availability === "Vendue";
     class="block focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 rounded-t-2xl overflow-hidden"
     aria-label={`Découvrir la calligraphie ${artwork.character} — ${artwork.frenchMeaning}`}>
     
-    <!-- Zone image avec fond sobre préservant le format d'origine sans recadrage -->
+    <!-- Zone image avec fond sobre préservant le format d’origine sans recadrage -->
     <div class="h-72 sm:h-80 bg-stone-50 dark:bg-stone-900/50 p-6 flex items-center justify-center border-b border-gray-100 dark:border-gray-800/80 relative">
       <img
         src={artwork.src}
@@ -45,7 +45,7 @@ const isSold = artwork.availability === "Vendue";
     </div>
   </a>
 
-  <!-- Informations sur l'œuvre -->
+  <!-- Informations sur l’œuvre -->
   <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
     <div>
       <div class="flex items-center justify-between gap-2">
@@ -101,7 +101,7 @@ const isSold = artwork.availability === "Vendue";
         <a
           href={`/galerie/${artwork.slug}`}
           class="inline-flex items-center gap-1 font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors group-hover:translate-x-0.5"
-          aria-label={`Détails et acquisition de l'œuvre ${artwork.character}`}>
+          aria-label={`Détails et acquisition de l’œuvre ${artwork.character}`}>
           <span>Détails & acquisition</span>
           <span aria-hidden="true">&rarr;</span>
         </a>

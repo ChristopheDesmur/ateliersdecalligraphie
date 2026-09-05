@@ -8,15 +8,15 @@ export interface Props {
 const { artwork } = Astro.props;
 const isSold = artwork.availability === "Vendue";
 
-const mailSubject = `Demande d'information — ${artwork.character} · ${artwork.frenchMeaning}`;
+const mailSubject = `Demande d’information — ${artwork.character} · ${artwork.frenchMeaning}`;
 const mailBody = `Bonjour Christophe,
 
 Je souhaiterais avoir des informations concernant votre calligraphie originale :
 « ${artwork.character} — ${artwork.frenchMeaning} »
 
-(Modalités d'acquisition, options d'encadrement, remise en main propre à Lyon ou expédition).
+(Modalités d’acquisition, options d’encadrement, remise en main propre à Lyon ou expédition).
 
-Dans l'attente de votre réponse,
+Dans l’attente de votre réponse,
 
 Bien cordialement,
 `;
@@ -46,7 +46,7 @@ const customMailHref = `mailto:christophe.desmur@orange.fr?subject=${encodeURICo
     {isSold ? (
       "Cette pièce originale a déjà été acquise. Christophe Desmur peut réaliser pour vous une nouvelle calligraphie autour de ce sinogramme ou concevoir une pièce sur mesure adaptée à votre sensibilité."
     ) : (
-      "Pour connaître les modalités d'acquisition de cette calligraphie originale, échanger sur l'encadrement ou organiser une remise en main propre à Lyon ou une expédition protégée, contactez directement le calligraphe."
+      "Pour connaître les modalités d’acquisition de cette calligraphie originale, échanger sur l’encadrement ou organiser une remise en main propre à Lyon ou une expédition protégée, contactez directement le calligraphe."
     )}
   </p>
 

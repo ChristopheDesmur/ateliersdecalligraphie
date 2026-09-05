@@ -13,11 +13,11 @@ tags: ['calligraphie chinoise', 'cours de chinois', 'idéogrammes', 'culture chi
 ---
 # Apprentissage de la calligraphie et de la culture chinoise
 
-## Prenez des **cours de chinois** progressivement, en apprenant à tracer les idéogrammes au pinceau et à l'encre de Chine.
+## Prenez des **cours de chinois** progressivement, en apprenant à tracer les idéogrammes au pinceau et à l’encre de Chine.
 
 
 
-Des cours d'initiation-découverte ou d'accompagnement et de soutien à la langue chinoise peuvent être également organisés sur demande.
+Des cours d’initiation-découverte ou d’accompagnement et de soutien à la langue chinoise peuvent être également organisés sur demande.
 
 
 
@@ -25,13 +25,13 @@ Des cours d'initiation-découverte ou d'accompagnement et de soutien à la langu
 
 
 
-Les cours de [calligraphie](/shodo-voie-pinceau) peuvent aussi être l'occasion de découvrir des textes classiques les plus connus à partir du texte original en chinois.
+Les cours de [calligraphie](/shodo-voie-pinceau) peuvent aussi être l’occasion de découvrir des textes classiques les plus connus à partir du texte original en chinois.
 
 
 
 - Déchiffrage des textes originaux
 
-- Travail au pinceau d'extraits des textes en écritures régulière (kaishu), courante (xingshu) et cursive (caoshu).
+- Travail au pinceau d’extraits des textes en écritures régulière (kaishu), courante (xingshu) et cursive (caoshu).
 
 
 
@@ -47,6 +47,6 @@ Les cours de [calligraphie](/shodo-voie-pinceau) peuvent aussi être l'occasion 
 
 - Le _[Liezi](https://fr.wikipedia.org/wiki/Lie_Zi)_, ou _Vrai classique du vide parfait_, de Lie Zi.
 
-- Le _Xinjing_ : _Sutra de l'esprit_ (en japonais : Maka Hannya Haramita Shingyo).
+- Le _Xinjing_ : _Sutra de l’esprit_ (en japonais : Maka Hannya Haramita Shingyo).
 
 - Un grand choix de poèmes des dynasties Tang et Song.
