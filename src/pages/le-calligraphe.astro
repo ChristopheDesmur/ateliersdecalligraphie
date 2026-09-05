@@ -421,45 +421,79 @@ const services = [
           </div>
         </div>
 
-        <!-- Qualifications column (5 cols) : structured accessible definition list -->
-        <div class="lg:col-span-5 bg-gray-50/90 dark:bg-gray-800/50 rounded-2xl p-6 sm:p-8 border border-gray-200/70 dark:border-gray-700/60">
-          <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-5">
-            Formation universitaire & diplômes
-          </h3>
+        <!-- Qualifications & Presse column (5 cols) -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+          <div class="bg-gray-50/90 dark:bg-gray-800/50 rounded-2xl p-6 sm:p-8 border border-gray-200/70 dark:border-gray-700/60">
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-5">
+              Formation universitaire & diplômes
+            </h3>
 
-          <dl class="space-y-5">
-            <div class="pb-4 border-b border-gray-200 dark:border-gray-700/60">
-              <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
-                Master
-              </dt>
-              <dd class="font-serif text-lg text-gray-950 dark:text-gray-100 font-medium mt-0.5">
-                <a href="/traductions" class="text-indigo-600 dark:text-indigo-400 hover:underline">Traduction littéraire</a> du chinois vers le français
-              </dd>
+            <dl class="space-y-5">
+              <div class="pb-4 border-b border-gray-200 dark:border-gray-700/60">
+                <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+                  Master
+                </dt>
+                <dd class="font-serif text-lg text-gray-950 dark:text-gray-100 font-medium mt-0.5">
+                  <a href="/traductions" class="text-indigo-600 dark:text-indigo-400 hover:underline">Traduction littéraire</a> du chinois vers le français
+                </dd>
+              </div>
+
+              <div class="pb-4 border-b border-gray-200 dark:border-gray-700/60">
+                <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+                  Maîtrise
+                </dt>
+                <dd class="font-serif text-lg text-gray-950 dark:text-gray-100 font-medium mt-0.5">
+                  Langue et civilisation chinoises
+                </dd>
+              </div>
+
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+                  DEUG
+                </dt>
+                <dd class="font-serif text-lg text-gray-950 dark:text-gray-100 font-medium mt-0.5">
+                  Langue et civilisation coréennes
+                </dd>
+              </div>
+            </dl>
+
+            <div class="mt-6 pt-5 border-t border-gray-200 dark:border-gray-700/60 text-xs text-gray-500 dark:text-gray-400 leading-relaxed flex items-start gap-2">
+              <span class="text-indigo-600 dark:text-indigo-400 mt-0.5 font-bold" aria-hidden="true">ℹ</span>
+              <span>Une triple formation universitaire combinant étude des langues, précision littéraire et transmission vivante des arts du pinceau.</span>
             </div>
-
-            <div class="pb-4 border-b border-gray-200 dark:border-gray-700/60">
-              <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
-                Maîtrise
-              </dt>
-              <dd class="font-serif text-lg text-gray-950 dark:text-gray-100 font-medium mt-0.5">
-                Langue et civilisation chinoises
-              </dd>
-            </div>
-
-            <div>
-              <dt class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
-                DEUG
-              </dt>
-              <dd class="font-serif text-lg text-gray-950 dark:text-gray-100 font-medium mt-0.5">
-                Langue et civilisation coréennes
-              </dd>
-            </div>
-          </dl>
-
-          <div class="mt-6 pt-5 border-t border-gray-200 dark:border-gray-700/60 text-xs text-gray-500 dark:text-gray-400 leading-relaxed flex items-start gap-2">
-            <span class="text-indigo-600 dark:text-indigo-400 mt-0.5 font-bold" aria-hidden="true">ℹ</span>
-            <span>Une triple formation universitaire combinant étude des langues, précision littéraire et transmission vivante des arts du pinceau.</span>
           </div>
+
+          <!-- Coupure de presse / Revue de presse -->
+          <article class="p-6 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/70 shadow-2xs">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 font-sans">
+                Dans la presse
+              </span>
+              <span class="text-xs text-gray-500 dark:text-gray-400 font-sans">
+                Le Progrès · 2010
+              </span>
+            </div>
+
+            <h3 class="font-serif text-lg font-medium text-gray-950 dark:text-gray-100 leading-snug">
+              « Lissieu : Christophe Desmur, un moine zen, a présenté l’art de la calligraphie »
+            </h3>
+
+            <p class="mt-2.5 text-xs text-gray-600 dark:text-gray-300 leading-relaxed font-serif">
+              Rencontre et initiation du public à l'art de l'écrit chinois et à la voie du pinceau, organisées par la commission Culture de Lissieu.
+            </p>
+
+            <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700/60 flex items-center justify-between text-xs">
+              <span class="text-gray-500 dark:text-gray-400">Édition Ouest Lyonnais</span>
+              <a
+                href="https://www.leprogres.fr/rhone/2010/11/21/lissieu-christophe-desmur-un-moine-zen-a-presente-l-art-de-la-calligraphie"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
+                <span>Consulter l'article</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </article>
         </div>
 
       </div>
@@ -651,8 +685,13 @@ const services = [
                         </div>
                         <div class="font-serif text-base text-gray-900 dark:text-gray-100">
                           {event.href ? (
-                            <a href={event.href} class="text-indigo-600 dark:text-indigo-400 hover:underline">
+                            <a
+                              href={event.href}
+                              target={event.href.startsWith("http") ? "_blank" : undefined}
+                              rel={event.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                              class="text-indigo-600 dark:text-indigo-400 hover:underline">
                               {event.titre}
+                              {event.href.startsWith("http") && <span class="text-xs ml-0.5" aria-hidden="true">↗</span>}
                             </a>
                           ) : (
                             event.titre
