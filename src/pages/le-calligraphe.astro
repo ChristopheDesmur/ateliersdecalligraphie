@@ -94,7 +94,8 @@ const testimonials = [
     role: "Artiste peintre et formatrice en lavis traditionnel et Sumi-e",
     source: "Encre Paisible",
     href: "https://www.encrepaisible.com/parcours-artistique",
-    badge: "Artiste peintre"
+    badge: "Artiste peintre",
+    linkText: "Voir le parcours"
   },
   {
     quote: "Christophe Desmur anime chaque vendredi matin l’atelier de calligraphie : un temps précieux d’attention, de motricité fine et de sérénité partagé avec nos adhérents seniors depuis plus de dix ans.",
@@ -102,7 +103,8 @@ const testimonials = [
     role: "Office villeurbannais des personnes âgées et des retraités",
     source: "Programme annuel",
     href: "https://ovpar.fr/wp-content/uploads/2024/08/Ateliers-annuels-0VPAR.pdf",
-    badge: "Partenaire depuis 2012"
+    badge: "Partenaire depuis 2012",
+    linkText: "Voir la publication"
   },
   {
     quote: "Une pratique attentive de la calligraphie guidée par la présence, la posture juste et la respiration, fidèle à l’esprit de la tradition martiale et méditative.",
@@ -110,7 +112,8 @@ const testimonials = [
     role: "Espace de pratique traditionnelle · Lyon 4e (Croix-Rousse)",
     source: "Cours réguliers",
     href: "https://arts-martiaux-lyon.fr/calligraphie/",
-    badge: "Cours hebdomadaires"
+    badge: "Cours hebdomadaires",
+    linkText: "Voir la publication"
   },
   {
     quote: "Rencontres « Corps, Conscience, Cosmos » : un dialogue vivant et une recherche croisée entre danse contemporaine, physique fondamentale et geste calligraphique traditionnel avec Vânia Vaneau et le CNRS.",
@@ -118,7 +121,8 @@ const testimonials = [
     role: "Institution culturelle nationale · Lyon",
     source: "Agenda CN D",
     href: "https://www.cnd.fr/fr/agenda/corps-conscience-et-cosmos",
-    badge: "Institution culturelle"
+    badge: "Institution culturelle",
+    linkText: "Voir la publication"
   }
 ];
 
@@ -128,13 +132,15 @@ const pressAndEvents = [
     title: "Lissieu : Christophe Desmur a présenté l’art de la calligraphie",
     media: "Le Progrès · 2010",
     description: "Initiation du public à la rigueur du tracé, au souffle et à l’esthétique des caractères chinois traditionnels lors d’une rencontre culturelle.",
-    href: "https://www.leprogres.fr/rhone/2010/11/21/lissieu-christophe-desmur-un-moine-zen-a-presente-l-art-de-la-calligraphie"
+    href: "https://www.leprogres.fr/rhone/2010/11/21/lissieu-christophe-desmur-un-moine-zen-a-presente-l-art-de-la-calligraphie",
+    linkText: "Lire l'article"
   },
   {
     title: "Biennale de l’Écriture & Rencontres de calligraphes",
     media: "Collectif Les Mots Oiseaux",
     description: "Participation à l’exposition collective « Esperluette » réunissant calligraphes d’Orient et d’Occident (écritures arabe, latine, tibétaine et chinoise).",
-    href: "https://lesmotsoiseaux.jimdofree.com/calligraphes/"
+    href: "https://lesmotsoiseaux.jimdofree.com/calligraphes/",
+    linkText: "Voir la galerie"
   }
 ];
 
@@ -144,25 +150,29 @@ const institutionalReferences = [
     institution: "Université Claude Bernard Lyon 1 (ISTIL)",
     category: "Enseignement supérieur",
     description: "Ateliers d’initiation pratique à la calligraphie chinoise et découverte de la culture écrite asiatique pour les élèves-ingénieurs.",
-    href: null
+    href: null,
+    linkText: null
   },
   {
     institution: "Écoles primaires de la Ville de Lyon",
     category: "Milieu scolaire & éducation",
     description: "Interventions pédagogiques régulières sur le temps scolaire (écoles Aveyron Lyon 4e, Jules Verne Lyon 3e...) pour éveiller les enfants au geste du pinceau.",
-    href: "/ecoles-primaires"
+    href: "/ecoles-primaires",
+    linkText: "Voir les ateliers scolaires"
   },
   {
     institution: "Destination Monts du Lyonnais Tourisme",
     category: "Patrimoine & événementiel régional",
     description: "Stages et ateliers d’initiation à la calligraphie tout public et intergénérationnels accueillis au Secret des Temps à Vaugneray.",
-    href: "https://www.montsdulyonnaistourisme.fr/content/uploads/2026/03/vacances_paques_VF.pdf"
+    href: "https://www.montsdulyonnaistourisme.fr/content/uploads/2026/03/vacances_paques_VF.pdf",
+    linkText: "Voir la publication"
   },
   {
     institution: "SEES Champagnat (Centre pour jeunes sourds)",
     category: "Accessibilité & public spécifique",
     description: "Ateliers adaptés mettant l’accent sur la dimension visuelle, spatiale et corporelle du tracé de l’encre.",
-    href: null
+    href: null,
+    linkText: null
   }
 ];
 ---
@@ -460,7 +470,7 @@ const institutionalReferences = [
                     target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex items-center gap-1 font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors shrink-0">
-                    <span>En savoir plus</span>
+                    <span>{t.linkText}</span>
                     <span aria-hidden="true">↗</span>
                   </a>
                 )}
@@ -497,7 +507,7 @@ const institutionalReferences = [
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center gap-1 text-xs font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
-                  <span>Consulter la publication</span>
+                  <span>{item.linkText}</span>
                   <span aria-hidden="true">↗</span>
                 </a>
               </div>
@@ -534,7 +544,7 @@ const institutionalReferences = [
                     target={ref.href.startsWith("http") ? "_blank" : undefined}
                     rel={ref.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     class="inline-flex items-center gap-1 text-xs font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
-                    <span>Consulter</span>
+                    <span>{ref.linkText}</span>
                     <span aria-hidden="true">{ref.href.startsWith("http") ? "↗" : "→"}</span>
                   </a>
                 </div>
@@ -610,7 +620,7 @@ const institutionalReferences = [
             target="_blank"
             rel="noopener noreferrer"
             class="shrink-0 inline-flex items-center gap-1 font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
-            <span>Profil Viadeo</span>
+            <span>Voir le profil</span>
             <span aria-hidden="true">↗</span>
           </a>
         </div>
@@ -695,7 +705,7 @@ const institutionalReferences = [
               </svg>
             </span>
             <div>
-              <p class="font-serif text-lg font-medium">Consulter l’historique complet des interventions</p>
+              <p class="font-serif text-lg font-medium">Voir l’historique complet des interventions</p>
               <p class="text-xs text-gray-500 dark:text-gray-400 font-sans mt-0.5">
                 Archives de 2007 à 2026 ({rawAteliers.length} ateliers répertoriés)
               </p>
