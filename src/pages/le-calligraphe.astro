@@ -2,6 +2,7 @@
 import Base from "../layouts/Layout.astro";
 import RelatedPages from "../components/related-pages.astro";
 import { contact, telHref } from "../data/contact";
+import { institutions, resolveLieu } from "../data/institutions";
 import fs from "fs";
 import yaml from "js-yaml";
 
@@ -44,7 +45,7 @@ function formatDateFR(fromStr: string, toStr?: string) {
 
 function formatLieuFR(lieu?: string) {
   if (!lieu) return "";
-  return lieu.replace(/Lyon 4e\b/g, "Lyon 4<sup>e</sup>");
+  return resolveLieu(lieu).replace(/Lyon 4e\b/g, "Lyon 4<sup>e</sup>");
 }
 
 // 1. Interventions récentes représentatives (générées dynamiquement depuis rawAteliers)
@@ -101,9 +102,9 @@ const testimonials = [
   {
     quote: "Christophe Desmur anime chaque vendredi matin l’atelier de calligraphie : un temps précieux d’attention, de motricité fine et de sérénité partagé avec nos adhérents seniors depuis plus de dix ans.",
     author: "OVPAR Villeurbanne",
-    role: "Office villeurbannais des personnes âgées et des retraités",
+    role: institutions.ovpar.name,
     source: "Programme annuel",
-    href: "https://ovpar.fr/wp-content/uploads/2024/08/Ateliers-annuels-0VPAR.pdf",
+    href: institutions.ovpar.documents!.ateliers_2024,
     badge: "Partenaire depuis 2012",
     linkText: "Voir la publication"
   },

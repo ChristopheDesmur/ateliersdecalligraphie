@@ -1,0 +1,10 @@
+# Institutions partenaires référencées depuis plusieurs pages et depuis
+# content/ateliers.yaml (via une référence "@institution:<id>[:<document>]"
+# dans le champ lieu). Une seule source pour le nom et les liens de chaque
+# institution, pour éviter que le nom ou une URL ne dérive entre les pages.
+ovpar:
+  name: "Office villeurbannais des personnes âgées et des retraités"
+  short_name: "OVPAR"
+  documents:
+    ateliers_2024: "https://ovpar.fr/wp-content/uploads/2024/08/Ateliers-annuels-0VPAR.pdf"
+    animation_2022: "https://ovpar.fr/wp-content/uploads/2022/07/Brochure_Animation_OVPAR2022_BQ.pdf"

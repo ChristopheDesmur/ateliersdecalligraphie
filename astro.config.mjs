@@ -20,6 +20,7 @@ export default defineConfig({
       "./src/data/prices.yaml",
       "./src/data/products.yaml",
       "./src/data/contact.yaml",
+      "./src/data/institutions.yaml",
       "./src/content/ateliers.yaml",
     ],
   }),
