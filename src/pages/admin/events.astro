@@ -197,12 +197,17 @@ const { session } = authenticateRequest(Astro.request);
         : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
   }
 
+  function parseEventDate(dateStr: string): number {
+    const parsed = new Date(String(dateStr).trim().replace(" ", "T"));
+    return Number.isNaN(parsed.getTime()) ? 0 : parsed.getTime();
+  }
+
   // Un événement dont la date de fin est dépassée devient un registre
   // historique : lecture seule, quelle que soit son année — cf. la même
   // règle appliquée côté serveur.
   function isLockedPastEvent(ev: any): boolean {
-    const parsed = new Date(String(ev.to).trim().replace(" ", "T"));
-    return !Number.isNaN(parsed.getTime()) && parsed.getTime() < Date.now();
+    const to = parseEventDate(ev.to);
+    return to !== 0 && to < Date.now();
   }
 
   function eventRow(year: string, i: number, ev: any): string {
@@ -249,7 +254,7 @@ const { session } = authenticateRequest(Astro.request);
           const ev = years[year][i];
           return normalize(ev.titre).includes(query) || normalize(resolveLieuDisplay(ev.lieu)).includes(query);
         })
-        .sort((a, b) => String(years[year][b].from).localeCompare(String(years[year][a].from)));
+        .sort((a, b) => parseEventDate(years[year][b].from) - parseEventDate(years[year][a].from));
       if (indices.length) matches[year] = indices;
       totalMatches += indices.length;
     }
@@ -259,7 +264,13 @@ const { session } = authenticateRequest(Astro.request);
       return;
     }
 
-    listEl.innerHTML = Object.keys(matches)
+    // Object.keys(matches) ne peut pas être utilisé ici : des clés qui
+    // ressemblent à des indices de tableau (toute année, "2007".."2026")
+    // sont TOUJOURS énumérées par ordre numérique croissant par le moteur
+    // JS, quel que soit l'ordre d'insertion — cela écraserait silencieusement
+    // le tri décroissant déjà calculé dans sortedYears.
+    listEl.innerHTML = sortedYears
+      .filter((year) => matches[year])
       .map((year) => {
         const indices = matches[year];
         const rows = indices.map((i) => eventRow(year, i, years[year][i])).join("");
