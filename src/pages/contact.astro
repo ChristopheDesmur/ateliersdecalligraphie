@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { contact, telHref } from "@/data/contact";
 
 const contactOptions = [
   {
@@ -68,13 +69,13 @@ const contactOptions = [
         </h2>
         <div class="mt-3 space-y-1.5 text-sm font-medium">
           <p>
-            <a href="tel:+33769941643" class="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-              📱 07 69 94 16 43
+            <a href={`tel:${telHref(contact.mobile)}`} class="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+              📱 {contact.mobile}
             </a>
           </p>
           <p>
-            <a href="tel:+33472078861" class="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-              📞 04 72 07 88 61
+            <a href={`tel:${telHref(contact.landline)}`} class="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+              📞 {contact.landline}
             </a>
           </p>
         </div>
@@ -90,9 +91,9 @@ const contactOptions = [
         </h2>
         <div class="mt-3 text-sm">
           <a
-            href="mailto:christophe.desmur@orange.fr"
+            href={`mailto:${contact.email}`}
             class="text-indigo-700 dark:text-indigo-400 hover:underline break-all font-medium">
-            christophe.desmur@orange.fr
+            {contact.email}
           </a>
           <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
             Réponse attentive sous 24 à 48 heures.
@@ -135,7 +136,7 @@ const contactOptions = [
 
             <div class="mt-5 pt-3 border-t border-stone-200 dark:border-gray-700/60">
               <a
-                href={`mailto:christophe.desmur@orange.fr?subject=${encodeURIComponent(opt.subject)}`}
+                href={`mailto:${contact.email}?subject=${encodeURIComponent(opt.subject)}`}
                 class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
                 <span>{opt.cta}</span>
                 <span aria-hidden="true">&rarr;</span>

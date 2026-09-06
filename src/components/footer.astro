@@ -1,5 +1,6 @@
 ---
 // Footer.astro - Pied de page avec NAP local complet, navigation thématique et mentions
+import { contact, telHref } from "@/data/contact";
 ---
 
 <footer class="mt-20 border-t border-gray-200 dark:border-gray-800 bg-gray-50/60 dark:bg-gray-900/60 pt-14 pb-12 text-sm text-gray-600 dark:text-gray-400" aria-label="Pied de page">
@@ -33,18 +34,18 @@
 
         <div class="pt-3 border-t border-gray-200 dark:border-gray-800 space-y-2 text-xs">
           <p>
-            <a href="tel:+33769941643" class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition inline-flex items-center gap-1.5 py-1">
-              <span aria-hidden="true">📱</span> 07 69 94 16 43
+            <a href={`tel:${telHref(contact.mobile)}`} class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition inline-flex items-center gap-1.5 py-1">
+              <span aria-hidden="true">📱</span> {contact.mobile}
             </a>
           </p>
           <p>
-            <a href="tel:+33472078861" class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition inline-flex items-center gap-1.5 py-1">
-              <span aria-hidden="true">📞</span> 04 72 07 88 61
+            <a href={`tel:${telHref(contact.landline)}`} class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition inline-flex items-center gap-1.5 py-1">
+              <span aria-hidden="true">📞</span> {contact.landline}
             </a>
           </p>
           <p>
-            <a href="mailto:christophe.desmur@orange.fr" class="hover:text-indigo-600 dark:hover:text-indigo-400 underline transition inline-flex items-center gap-1.5 py-1">
-              <span aria-hidden="true">✉️</span> christophe.desmur@orange.fr
+            <a href={`mailto:${contact.email}`} class="hover:text-indigo-600 dark:hover:text-indigo-400 underline transition inline-flex items-center gap-1.5 py-1">
+              <span aria-hidden="true">✉️</span> {contact.email}
             </a>
           </p>
         </div>
@@ -200,7 +201,7 @@
         © {new Date().getFullYear()} Christophe Desmur — Calligraphie chinoise à Lyon. Tous droits réservés.
       </p>
       <p class="text-center sm:text-right text-[11px]">
-        Services à domicile agréés Coop A Dom n° 2006-1-42.10 (CGI art. 199 sexdecies).
+        Services à domicile agréés Coop A Dom n° {contact.coop_a_dom_agrement} (CGI art. 199 sexdecies).
       </p>
     </div>
   </div>
