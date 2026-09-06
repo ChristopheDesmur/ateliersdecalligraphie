@@ -8,77 +8,87 @@ import { authenticateRequest } from "@/lib/admin/auth";
 
 const { session } = authenticateRequest(Astro.request);
 ---
-<Layout title="Administration" noindex={true}>
-  <div class="max-w-4xl mx-auto">
+<Layout title="Tableau de bord — Administration" noindex={true}>
+  <div class="max-w-5xl">
     {session ? (
       <div>
         <AdminNav active="dashboard" />
-        <h1 class="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-1.5">Tableau de bord</h1>
-        <p class="text-sm text-gray-600 dark:text-gray-400 mb-8">
-          Gérez les tarifs, la galerie, les événements et les coordonnées affichés sur le site. Chaque enregistrement publie directement une mise à jour du site.
-        </p>
+        <div class="mb-6">
+          <h1 class="text-2xl font-serif font-bold text-gray-900 dark:text-white">Tableau de bord</h1>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
+            Bienvenue dans l'espace d'administration. Sélectionnez un module ci-dessous ou dans la barre latérale pour modifier le contenu du site.
+          </p>
+        </div>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          <a href="/admin/prices" class="group block p-6 rounded-2xl border border-gray-200/90 dark:border-gray-700/80 bg-white dark:bg-gray-800/80 hover:border-indigo-400 dark:hover:border-indigo-500 shadow-2xs hover:shadow-xs transition">
-            <div class="flex items-center justify-between mb-1.5">
-              <h2 class="font-serif font-bold text-lg text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Tarifs</h2>
-              <span class="text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 transition font-mono text-sm" aria-hidden="true">→</span>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <a href="/admin/prices" class="group block p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="font-serif font-bold text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Tarifs</h2>
+              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Cours collectifs, cours à domicile, interventions.</p>
           </a>
-          <a href="/admin/products" class="group block p-6 rounded-2xl border border-gray-200/90 dark:border-gray-700/80 bg-white dark:bg-gray-800/80 hover:border-indigo-400 dark:hover:border-indigo-500 shadow-2xs hover:shadow-xs transition">
-            <div class="flex items-center justify-between mb-1.5">
-              <h2 class="font-serif font-bold text-lg text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Galerie</h2>
-              <span class="text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 transition font-mono text-sm" aria-hidden="true">→</span>
+
+          <a href="/admin/products" class="group block p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="font-serif font-bold text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Galerie</h2>
+              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Ajouter, modifier ou retirer une calligraphie.</p>
           </a>
-          <a href="/admin/events" class="group block p-6 rounded-2xl border border-gray-200/90 dark:border-gray-700/80 bg-white dark:bg-gray-800/80 hover:border-indigo-400 dark:hover:border-indigo-500 shadow-2xs hover:shadow-xs transition">
-            <div class="flex items-center justify-between mb-1.5">
-              <h2 class="font-serif font-bold text-lg text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Événements</h2>
-              <span class="text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 transition font-mono text-sm" aria-hidden="true">→</span>
+
+          <a href="/admin/events" class="group block p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="font-serif font-bold text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Événements</h2>
+              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Cours et interventions à venir.</p>
           </a>
-          <a href="/admin/institutions" class="group block p-6 rounded-2xl border border-gray-200/90 dark:border-gray-700/80 bg-white dark:bg-gray-800/80 hover:border-indigo-400 dark:hover:border-indigo-500 shadow-2xs hover:shadow-xs transition">
-            <div class="flex items-center justify-between mb-1.5">
-              <h2 class="font-serif font-bold text-lg text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Institutions</h2>
-              <span class="text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 transition font-mono text-sm" aria-hidden="true">→</span>
+
+          <a href="/admin/institutions" class="group block p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="font-serif font-bold text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Institutions</h2>
+              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Organismes partenaires référencés dans les événements.</p>
           </a>
-          <a href="/admin/interventions" class="group block p-6 rounded-2xl border border-gray-200/90 dark:border-gray-700/80 bg-white dark:bg-gray-800/80 hover:border-indigo-400 dark:hover:border-indigo-500 shadow-2xs hover:shadow-xs transition">
-            <div class="flex items-center justify-between mb-1.5">
-              <h2 class="font-serif font-bold text-lg text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Formats d'ateliers</h2>
-              <span class="text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 transition font-mono text-sm" aria-hidden="true">→</span>
+
+          <a href="/admin/interventions" class="group block p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="font-serif font-bold text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Formats d'ateliers</h2>
+              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Cartes publics visées sur la page « Ateliers de groupe ».</p>
           </a>
-          <a href="/admin/testimonials" class="group block p-6 rounded-2xl border border-gray-200/90 dark:border-gray-700/80 bg-white dark:bg-gray-800/80 hover:border-indigo-400 dark:hover:border-indigo-500 shadow-2xs hover:shadow-xs transition">
-            <div class="flex items-center justify-between mb-1.5">
-              <h2 class="font-serif font-bold text-lg text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Témoignages</h2>
-              <span class="text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 transition font-mono text-sm" aria-hidden="true">→</span>
+
+          <a href="/admin/testimonials" class="group block p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="font-serif font-bold text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Témoignages</h2>
+              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Retours d'expérience affichés sur « Le calligraphe ».</p>
           </a>
-          <a href="/admin/venues" class="group block p-6 rounded-2xl border border-gray-200/90 dark:border-gray-700/80 bg-white dark:bg-gray-800/80 hover:border-indigo-400 dark:hover:border-indigo-500 shadow-2xs hover:shadow-xs transition">
-            <div class="flex items-center justify-between mb-1.5">
-              <h2 class="font-serif font-bold text-lg text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Lieux</h2>
-              <span class="text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 transition font-mono text-sm" aria-hidden="true">→</span>
+
+          <a href="/admin/venues" class="group block p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="font-serif font-bold text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Lieux</h2>
+              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Adresse et créneau des cours collectifs.</p>
           </a>
-          <a href="/admin/contact" class="group block p-6 rounded-2xl border border-gray-200/90 dark:border-gray-700/80 bg-white dark:bg-gray-800/80 hover:border-indigo-400 dark:hover:border-indigo-500 shadow-2xs hover:shadow-xs transition">
-            <div class="flex items-center justify-between mb-1.5">
-              <h2 class="font-serif font-bold text-lg text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Contact</h2>
-              <span class="text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 transition font-mono text-sm" aria-hidden="true">→</span>
+
+          <a href="/admin/contact" class="group block p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="font-serif font-bold text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Contact</h2>
+              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Téléphones, e-mail, agrément Coop A Dom.</p>
           </a>
-          <a href="/admin/faq" class="group block p-6 rounded-2xl border border-gray-200/90 dark:border-gray-700/80 bg-white dark:bg-gray-800/80 hover:border-indigo-400 dark:hover:border-indigo-500 shadow-2xs hover:shadow-xs transition">
-            <div class="flex items-center justify-between mb-1.5">
-              <h2 class="font-serif font-bold text-lg text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">FAQ</h2>
-              <span class="text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 transition font-mono text-sm" aria-hidden="true">→</span>
+
+          <a href="/admin/faq" class="group block p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="font-serif font-bold text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">FAQ</h2>
+              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Questions fréquentes affichées sur /faq et la page d'accueil.</p>
           </a>

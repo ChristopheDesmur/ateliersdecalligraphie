@@ -42,3 +42,55 @@
   scrollbar-width: none;
 }
 
+/* WordPress-inspired back-office styling */
+.admin-shell {
+  --wp-admin-bg: #f0f0f1;
+  --wp-sidebar-bg: #1d2327;
+  --wp-sidebar-text: #c3c4c7;
+  --wp-border: #dcdcde;
+}
+
+:where(.admin-shell) {
+  .field-input {
+    width: 100%;
+    padding: 0.4rem 0.65rem;
+    border-radius: 0.375rem;
+    border: 1px solid #c3c4c7;
+    background-color: #ffffff;
+    color: #2c3338;
+    font-size: 0.875rem;
+    line-height: 1.35;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  .field-input:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 1px #4f46e5;
+  }
+  .field-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #50575e;
+    margin-bottom: 0.25rem;
+  }
+}
+
+:where(.dark .admin-shell, .admin-shell.dark) {
+  .field-input {
+    background-color: #1a1d21;
+    border-color: #3f444e;
+    color: #f0f0f1;
+  }
+  .field-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 1px #6366f1;
+  }
+  .field-label {
+    color: #9ca3af;
+  }
+}
+
+

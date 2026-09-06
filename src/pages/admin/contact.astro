@@ -9,18 +9,18 @@ import { authenticateRequest } from "@/lib/admin/auth";
 const { session } = authenticateRequest(Astro.request);
 ---
 <Layout title="Administration — Contact" noindex={true}>
-  <div class="max-w-xl mx-auto">
+  <div class="max-w-2xl">
     {session ? (
       <div>
         <AdminNav active="contact" />
-        <h1 class="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-2">Contact</h1>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Contact</h1>
         <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">
           Ces coordonnées sont affichées sur l'ensemble du site (menus de contact, pied de page, mentions légales).
         </p>
 
-        <div id="contact-error" class="hidden mb-4 p-3 rounded-xl text-xs font-medium bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800" role="alert"></div>
+        <div id="contact-error" class="hidden mb-4 p-3 rounded-md text-xs font-medium bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800" role="alert"></div>
 
-        <form id="contact-form" class="bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-2xl p-5 sm:p-6">
+        <form id="contact-form" class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-5 sm:p-6 shadow-xs">
           <div id="contact-fields" class="space-y-4">
             <p class="text-sm text-gray-400">Chargement…</p>
           </div>
@@ -30,7 +30,7 @@ const { session } = authenticateRequest(Astro.request);
               type="submit"
               id="contact-save-btn"
               disabled
-              class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-600"
+              class="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-600"
             >
               Enregistrer
             </button>
@@ -38,7 +38,7 @@ const { session } = authenticateRequest(Astro.request);
               type="button"
               id="contact-cancel-btn"
               disabled
-              class="px-5 py-2 rounded-xl text-gray-600 dark:text-gray-300 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+              class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
             >
               Annuler
             </button>
@@ -51,34 +51,6 @@ const { session } = authenticateRequest(Astro.request);
     )}
   </div>
 </Layout>
-
-<style>
-  :global(.field-label) {
-    display: block;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: rgb(75 85 99);
-    margin-bottom: 0.35rem;
-  }
-  :global(.dark .field-label) { color: rgb(209 213 219); }
-  :global(.field-input) {
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.6rem;
-    border: 1px solid rgb(209 213 219);
-    background: white;
-    color: rgb(17 24 39);
-    font-size: 0.875rem;
-  }
-  :global(.dark .field-input) { border-color: rgb(75 85 99); background: rgb(55 65 81); color: white; }
-  :global(.field-input:focus) {
-    outline: none;
-    box-shadow: 0 0 0 2px rgb(99 102 241 / 0.5);
-    border-color: rgb(79 70 229);
-  }
-</style>
 
 <script>
   const fieldsContainer = document.getElementById("contact-fields");

@@ -181,7 +181,7 @@ const makeTitle = !title
     <slot name="head" />
   </head>
   <body class={isAdmin
-    ? "bg-stone-100/70 text-gray-900 dark:bg-[#0c0d12] dark:text-gray-100 min-h-screen flex flex-col font-sans antialiased"
+    ? "bg-[#f0f0f1] text-gray-900 dark:bg-[#0c0d10] dark:text-gray-100 min-h-screen flex flex-col font-sans antialiased"
     : "bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col font-sans antialiased"
   }>
     <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-gray-900 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none">
@@ -189,43 +189,63 @@ const makeTitle = !title
     </a>
 
     {isAdmin ? (
-      <header class="sticky top-0 z-40 w-full border-b border-gray-200/90 dark:border-gray-800/90 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-2xs">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3 sm:gap-4">
-          <!-- Marque & Identité ADMINISTRATION -->
-          <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            <a href="/admin" class="font-serif text-lg sm:text-xl font-bold text-gray-900 dark:text-white tracking-tight hover:text-indigo-600 dark:hover:text-indigo-400 transition truncate focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-md">
-              Ateliers de calligraphie
+      <div class="admin-shell min-h-screen flex flex-col flex-1">
+        <header class="sticky top-0 z-40 h-10 w-full bg-[#1d2327] dark:bg-[#111215] text-[#c3c4c7] border-b border-[#2c3338] dark:border-gray-800 px-3 sm:px-4 flex items-center justify-between text-xs select-none shadow-2xs">
+          <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+            {hasAdminSession && (
+              <button
+                type="button"
+                id="admin-mobile-toggle"
+                class="md:hidden p-1.5 -ml-1 text-[#c3c4c7] hover:text-white rounded hover:bg-[#2c3338] transition cursor-pointer"
+                aria-label="Afficher le menu d'administration"
+                aria-expanded="false"
+              >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+              </button>
+            )}
+
+            <a href="/admin" class="font-serif font-bold text-sm text-white tracking-tight hover:text-indigo-300 transition truncate flex items-center gap-1.5">
+              <span>Ateliers de calligraphie</span>
             </a>
-            <span class="h-4 w-px bg-gray-300 dark:bg-gray-700 shrink-0" aria-hidden="true"></span>
-            <span class="inline-flex items-center text-[10px] sm:text-[11px] font-semibold tracking-widest uppercase text-indigo-700 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded border border-indigo-100 dark:border-indigo-900/50 shrink-0 select-none">
-              Administration
-            </span>
+
+            <span class="text-[#50575e] hidden sm:inline select-none" aria-hidden="true">|</span>
+
+            <a
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hidden sm:inline-flex items-center gap-1 text-[11px] text-[#c3c4c7] hover:text-white transition"
+              title="Voir le site public (s'ouvre dans un nouvel onglet)"
+            >
+              <span>Voir le site</span>
+              <span class="font-mono text-[10px]" aria-hidden="true">↗</span>
+            </a>
           </div>
 
-          <!-- Actions secondaires persistantes -->
           <div class="flex items-center gap-2 sm:gap-3 shrink-0">
             <a
               href="/"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/80 border border-gray-200 dark:border-gray-700 shadow-2xs transition focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500"
-              title="Ouvrir le site public dans un nouvel onglet"
+              class="sm:hidden inline-flex items-center gap-1 text-[11px] text-[#c3c4c7] hover:text-white transition"
             >
-              <span>Voir le site public</span>
-              <span class="font-mono text-xs text-gray-400 dark:text-gray-500" aria-hidden="true">↗</span>
+              <span>Voir le site</span>
+              <span class="font-mono text-[10px]" aria-hidden="true">↗</span>
             </a>
 
             <button
               type="button"
               id="theme-toggle"
-              class="p-1.5 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-2xs transition cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500"
+              class="p-1 rounded text-[#c3c4c7] hover:text-white hover:bg-[#2c3338] transition cursor-pointer"
               aria-label="Basculer le mode sombre"
               title="Basculer le mode sombre"
             >
-              <svg id="icon-sun" class="w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <svg id="icon-sun" class="w-3.5 h-3.5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
-              <svg id="icon-moon" class="w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <svg id="icon-moon" class="w-3.5 h-3.5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
               </svg>
             </button>
@@ -234,56 +254,115 @@ const makeTitle = !title
               <button
                 id="admin-logout-btn"
                 type="button"
-                class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-gray-500 hover:text-rose-600 dark:text-gray-400 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-rose-500"
+                class="text-[11px] text-[#c3c4c7] hover:text-rose-400 px-2 py-0.5 rounded hover:bg-[#2c3338] transition cursor-pointer"
               >
                 Se déconnecter
               </button>
             )}
           </div>
-        </div>
-      </header>
+        </header>
+
+        {hasAdminSession ? (
+          <div class="flex-1 flex min-h-[calc(100vh-2.5rem)] relative">
+            <div
+              id="admin-sidebar-overlay"
+              class="fixed inset-0 bg-black/60 z-40 md:hidden hidden backdrop-blur-xs transition-opacity"
+              aria-hidden="true"
+            ></div>
+
+            <aside
+              id="admin-sidebar"
+              class="fixed inset-y-0 left-0 z-50 md:static w-56 bg-[#1d2327] dark:bg-[#111215] text-[#c3c4c7] border-r border-[#2c3338] dark:border-gray-800 flex flex-col shrink-0 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out md:min-h-[calc(100vh-2.5rem)] md:sticky md:top-10 md:self-start md:h-[calc(100vh-2.5rem)] overflow-y-auto select-none"
+              aria-label="Navigation de l'administration"
+            >
+              <div class="px-4 py-3.5 border-b border-[#2c3338] dark:border-gray-800 flex items-center justify-between">
+                <div>
+                  <div class="text-[10px] uppercase font-mono tracking-widest text-indigo-400 font-semibold">Administration</div>
+                  <div class="font-serif font-bold text-sm text-white tracking-tight leading-tight">Ateliers de calligraphie</div>
+                </div>
+                <button
+                  id="admin-sidebar-close"
+                  type="button"
+                  class="md:hidden text-gray-400 hover:text-white p-1 rounded cursor-pointer"
+                  aria-label="Fermer le menu"
+                >
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <nav class="flex-1 py-2">
+                <ul class="space-y-0.5 text-xs font-medium">
+                  {adminNavItems.map((item) => {
+                    const isActive = currentAdminTab === item.id;
+                    return (
+                      <li>
+                        <a
+                          href={item.href}
+                          aria-current={isActive ? "page" : undefined}
+                          class={isActive
+                            ? "flex items-center gap-2.5 px-3.5 py-2 bg-indigo-600 dark:bg-indigo-700 text-white font-semibold border-l-4 border-white dark:border-indigo-300 transition-colors"
+                            : "flex items-center gap-2.5 px-3.5 py-2 text-[#c3c4c7] hover:text-white hover:bg-[#2c3338] dark:hover:bg-gray-800 border-l-4 border-transparent transition-colors"
+                          }
+                        >
+                          <span class="shrink-0 text-current" set:html={item.svg} />
+                          <span class="truncate">{item.label}</span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
+
+              <div class="p-3 border-t border-[#2c3338] dark:border-gray-800 text-[11px] text-gray-500 font-mono text-center">
+                Ateliers de calligraphie · CMS
+              </div>
+            </aside>
+
+            <main id="main-content" class="flex-1 min-w-0 bg-[#f0f0f1] dark:bg-[#0c0d10] p-4 sm:p-6 lg:p-8 flex flex-col">
+              <div class="flex-1 min-w-0">
+                <slot />
+              </div>
+
+              <footer class="mt-12 pt-4 border-t border-gray-300 dark:border-gray-800 text-xs text-gray-500 dark:text-gray-400 flex flex-col sm:flex-row items-center justify-between gap-2">
+                <div>Merci de faire confiance à <strong class="font-medium text-gray-700 dark:text-gray-300">Ateliers de calligraphie</strong>.</div>
+                <div class="flex items-center gap-3">
+                  <span class="text-gray-400 dark:text-gray-600">Espace d'administration</span>
+                  <span class="text-gray-300 dark:text-gray-700 select-none">·</span>
+                  <a href="/" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Voir le site public ↗</a>
+                </div>
+              </footer>
+            </main>
+          </div>
+        ) : (
+          <main id="main-content" class="flex-1 flex items-center justify-center p-4 min-h-[calc(100vh-2.5rem)] bg-[#f0f0f1] dark:bg-[#0c0d10]">
+            <slot />
+          </main>
+        )}
+      </div>
     ) : (
       <Navbar />
     )}
 
-    {isAdmin ? (
-      <main id="main-content" class="flex-1 w-full px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <slot />
-      </main>
-    ) : showSidebar ? (
-      <main id="main-content" class="flex-1 mx-auto max-w-[1300px] w-full flex flex-col lg:flex-row gap-8 px-4 sm:px-6 py-8">
-        <div class="flex-1 min-w-0">
+    {!isAdmin && (
+      showSidebar ? (
+        <main id="main-content" class="flex-1 mx-auto max-w-[1300px] w-full flex flex-col lg:flex-row gap-8 px-4 sm:px-6 py-8">
+          <div class="flex-1 min-w-0">
+            <slot />
+          </div>
+          <aside class="lg:w-80 shrink-0">
+            <InfoBox />
+          </aside>
+        </main>
+      ) : (
+        <main id="main-content" class="flex-1 mx-auto max-w-[1300px] w-full px-4 sm:px-6 py-8">
           <slot />
-        </div>
-        <aside class="lg:w-80 shrink-0">
-          <InfoBox />
-        </aside>
-      </main>
-    ) : (
-      <main id="main-content" class="flex-1 mx-auto max-w-[1300px] w-full px-4 sm:px-6 py-8">
-        <slot />
-      </main>
+        </main>
+      )
     )}
 
-    {isAdmin ? (
-      <footer class="mt-auto border-t border-gray-200/90 dark:border-gray-800/90 py-4 px-4 sm:px-6 bg-white/40 dark:bg-gray-900/40 backdrop-blur-xs text-xs text-gray-500 dark:text-gray-400">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div class="flex items-center gap-2">
-            <span class="font-serif font-semibold text-gray-700 dark:text-gray-300">Ateliers de calligraphie</span>
-            <span class="text-gray-300 dark:text-gray-700 select-none" aria-hidden="true">·</span>
-            <span class="text-[10px] uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">Espace d'administration</span>
-          </div>
-          <div class="flex items-center gap-4">
-            <a href="/" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition flex items-center gap-1">
-              <span>Voir le site public</span>
-              <span class="font-mono text-xs" aria-hidden="true">↗</span>
-            </a>
-          </div>
-        </div>
-      </footer>
-    ) : (
-      <Footer />
-    )}
+    {!isAdmin && <Footer />}
 
     <script>
       function syncIcon() {
@@ -293,7 +372,6 @@ const makeTitle = !title
         if (sun) sun.classList.toggle('hidden', !isDark);
         if (moon) moon.classList.toggle('hidden', isDark);
       }
-
       syncIcon();
 
       document.getElementById('theme-toggle')?.addEventListener('click', () => {
@@ -306,6 +384,32 @@ const makeTitle = !title
         await fetch('/api/admin/auth', { method: 'DELETE' }).catch(() => {});
         window.location.href = '/admin';
       });
+
+      const mobileToggle = document.getElementById('admin-mobile-toggle');
+      const sidebar = document.getElementById('admin-sidebar');
+      const overlay = document.getElementById('admin-sidebar-overlay');
+      const sidebarClose = document.getElementById('admin-sidebar-close');
+
+      function openSidebar() {
+        sidebar?.classList.remove('-translate-x-full');
+        overlay?.classList.remove('hidden');
+        mobileToggle?.setAttribute('aria-expanded', 'true');
+      }
+
+      function closeSidebar() {
+        sidebar?.classList.add('-translate-x-full');
+        overlay?.classList.add('hidden');
+        mobileToggle?.setAttribute('aria-expanded', 'false');
+      }
+
+      mobileToggle?.addEventListener('click', () => {
+        const isClosed = sidebar?.classList.contains('-translate-x-full');
+        if (isClosed) openSidebar();
+        else closeSidebar();
+      });
+
+      overlay?.addEventListener('click', closeSidebar);
+      sidebarClose?.addEventListener('click', closeSidebar);
     </script>
   </body>
 </html>

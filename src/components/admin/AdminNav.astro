@@ -4,95 +4,30 @@ export interface Props {
 }
 const { active } = Astro.props;
 
-const tabs = [
-  { id: "dashboard", label: "Tableau de bord", href: "/admin" },
-  { id: "prices", label: "Tarifs", href: "/admin/prices" },
-  { id: "products", label: "Galerie", href: "/admin/products" },
-  { id: "events", label: "Événements", href: "/admin/events" },
-  { id: "institutions", label: "Institutions", href: "/admin/institutions" },
-  { id: "interventions", label: "Formats d'ateliers", href: "/admin/interventions" },
-  { id: "testimonials", label: "Témoignages", href: "/admin/testimonials" },
-  { id: "venues", label: "Lieux", href: "/admin/venues" },
-  { id: "contact", label: "Contact", href: "/admin/contact" },
-  { id: "faq", label: "FAQ", href: "/admin/faq" },
-] as const;
+const labels: Record<string, string> = {
+  dashboard: "Tableau de bord",
+  events: "Événements",
+  institutions: "Institutions",
+  interventions: "Formats d'ateliers",
+  prices: "Tarifs",
+  products: "Galerie",
+  testimonials: "Témoignages",
+  venues: "Lieux",
+  contact: "Contact",
+  faq: "FAQ",
+};
 
-const currentTab = tabs.find((t) => t.id === active) || tabs[0];
+const currentLabel = labels[active] || "Administration";
 ---
 
-<div class="mb-6 sm:mb-8">
-  <!-- Navigation administrative avec repères visuels clairs -->
-  <nav aria-label="Navigation de l'administration">
-    <div class="flex items-center justify-between gap-3 mb-2 px-1">
-      <div class="flex items-center gap-2">
-        <span class="text-[11px] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-          Administration
-        </span>
-        <span class="text-gray-300 dark:text-gray-700 text-xs select-none" aria-hidden="true">·</span>
-        <span class="text-xs font-semibold text-gray-800 dark:text-gray-200">
-          {currentTab.label}
-        </span>
-      </div>
-      <span class="text-[11px] text-gray-500 dark:text-gray-400 font-mono hidden sm:inline">
-        10 modules
-      </span>
-    </div>
-
-    <!-- Sélecteur rapide mobile (évite d'occuper trop d'espace vertical sur petit écran) -->
-    <div class="sm:hidden mb-2.5">
-      <label for="admin-mobile-nav" class="sr-only">Naviguer vers une section</label>
-      <select
-        id="admin-mobile-nav"
-        class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-xs font-semibold text-gray-900 dark:text-white shadow-2xs focus:ring-2 focus:ring-indigo-500"
-      >
-        {tabs.map((tab) => (
-          <option value={tab.href} selected={tab.id === active}>
-            {tab.label} {tab.id === active ? "— (Actif)" : ""}
-          </option>
-        ))}
-      </select>
-    </div>
-
-    <!-- Bande d'onglets au style pupitre d'administration -->
-    <div class="bg-white dark:bg-gray-800/90 rounded-2xl border border-gray-200/90 dark:border-gray-700/80 p-1.5 shadow-2xs">
-      <div class="flex items-center gap-1 sm:gap-1.5 flex-wrap">
-        {tabs.map((tab) => {
-          const isActive = active === tab.id;
-          return (
-            <a
-              href={tab.href}
-              aria-current={isActive ? "page" : undefined}
-              class={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-150 flex items-center gap-1.5 ${
-                isActive
-                  ? "bg-indigo-600 text-white font-semibold shadow-xs"
-                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/80 dark:hover:bg-gray-700/60"
-              }`}
-            >
-              <span>{tab.label}</span>
-            </a>
-          );
-        })}
-      </div>
-    </div>
+{active !== "dashboard" && (
+  <nav aria-label="Fil d'Ariane" class="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 mb-3 select-none">
+    <a href="/admin" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium">
+      Administration
+    </a>
+    <span class="text-gray-400 dark:text-gray-600" aria-hidden="true">/</span>
+    <span class="text-gray-800 dark:text-gray-200 font-semibold" aria-current="page">
+      {currentLabel}
+    </span>
   </nav>
-
-  <!-- Fil d'Ariane contextuel pour les pages profondes -->
-  {active !== "dashboard" && (
-    <nav aria-label="Fil d'Ariane" class="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 mt-3 px-1">
-      <a href="/admin" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium">
-        Administration
-      </a>
-      <span class="text-gray-300 dark:text-gray-700 select-none" aria-hidden="true">/</span>
-      <span class="text-gray-900 dark:text-gray-100 font-semibold" aria-current="page">
-        {currentTab.label}
-      </span>
-    </nav>
-  )}
-</div>
-
-<script>
-  document.getElementById("admin-mobile-nav")?.addEventListener("change", (e) => {
-    const target = e.target as HTMLSelectElement;
-    if (target?.value) window.location.href = target.value;
-  });
-</script>
+)}
