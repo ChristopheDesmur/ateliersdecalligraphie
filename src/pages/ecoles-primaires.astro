@@ -2,6 +2,7 @@
 import Base from "../layouts/Layout.astro";
 import RelatedPages from "../components/related-pages.astro";
 import { contact, telHref } from "../data/contact";
+import { resolveLieu } from "../data/institutions";
 import fs from "fs";
 import yaml from "js-yaml";
 
@@ -74,6 +75,7 @@ const ecolesPrimairesEvents = Object.values(ateliers)
 
     return {
       ...event,
+      lieu: resolveLieu(event.lieu),
       fromDate,
       toDate,
       formattedDate,
