@@ -9,6 +9,8 @@ export interface TestimonialEntry {
   href?: string;
   badge: string;
   linkText?: string;
+  /** Date réelle du témoignage/de l'événement (AAAA-MM-JJ), quand elle est connue avec certitude. */
+  date?: string;
 }
 
 export interface Testimonial extends TestimonialEntry {

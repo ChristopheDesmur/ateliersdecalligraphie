@@ -39,6 +39,11 @@ function sanitizeTestimonialData(input: any): Record<string, unknown> {
   if (href && !linkText) throw new Error('Le champ "Texte du lien" est obligatoire si un lien est renseigné.');
   if (linkText && !href) throw new Error('Le champ "Lien" est obligatoire si un texte de lien est renseigné.');
 
+  const date = String(input.date || "").trim();
+  if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    throw new Error('Le champ "Date" doit être au format AAAA-MM-JJ.');
+  }
+
   return {
     quote: required("quote", "Citation"),
     author: required("author", "Auteur"),
@@ -46,6 +51,7 @@ function sanitizeTestimonialData(input: any): Record<string, unknown> {
     source: required("source", "Source"),
     badge: required("badge", "Badge"),
     ...(href ? { href, linkText } : {}),
+    ...(date ? { date } : {}),
   };
 }
 

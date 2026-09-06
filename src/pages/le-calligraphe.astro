@@ -26,6 +26,10 @@ function formatDayFR(dayNum: number) {
   return dayNum === 1 ? "1<sup>er</sup>" : String(dayNum);
 }
 
+function formatTestimonialDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+}
+
 function formatDateFR(fromStr: string, toStr?: string) {
   const from = new Date(fromStr);
   const to = toStr ? new Date(toStr) : from;
@@ -415,7 +419,7 @@ const institutionalReferences = [
                     {t.badge}
                   </span>
                   <span class="text-[11px] text-gray-400 dark:text-gray-500 font-sans">
-                    {t.source}
+                    {t.source}{t.date && ` · ${formatTestimonialDate(t.date)}`}
                   </span>
                 </div>
 
