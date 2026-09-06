@@ -3,6 +3,7 @@ import Base from "../layouts/Layout.astro";
 import RelatedPages from "../components/related-pages.astro";
 import { contact, telHref } from "../data/contact";
 import { institutions, resolveLieu } from "../data/institutions";
+import { testimonials } from "../data/testimonials";
 import fs from "fs";
 import yaml from "js-yaml";
 
@@ -88,45 +89,7 @@ rawAteliers.forEach((event: any) => {
 const sortedYears = Object.keys(ateliersByYear).sort((a, b) => Number(b) - Number(a));
 
 // --- Section unifiée « Témoignages & références » ---
-// A. Témoignages authentiques attestés
-const testimonials = [
-  {
-    quote: "Depuis 2023, je me lance en calligraphie cursive avec Christophe Desmur pour pratiquer la danse du pinceau !",
-    author: "Pascale France",
-    role: "Artiste peintre et formatrice en lavis traditionnel et Sumi-e",
-    source: "Encre Paisible",
-    href: "https://www.encrepaisible.com/parcours-artistique",
-    badge: "Artiste peintre",
-    linkText: "Voir le parcours"
-  },
-  {
-    quote: "Christophe Desmur anime chaque vendredi matin l’atelier de calligraphie : un temps précieux d’attention, de motricité fine et de sérénité partagé avec nos adhérents seniors depuis plus de dix ans.",
-    author: "OVPAR Villeurbanne",
-    role: institutions.ovpar.name,
-    source: "Programme annuel",
-    href: institutions.ovpar.documents!.ateliers_2024,
-    badge: "Partenaire depuis 2012",
-    linkText: "Voir la publication"
-  },
-  {
-    quote: "Une pratique attentive de la calligraphie guidée par la présence, la posture juste et la respiration, fidèle à l’esprit de la tradition martiale et méditative.",
-    author: "Dojo Zen de Lyon",
-    role: "Espace de pratique traditionnelle · Lyon 4e (Croix-Rousse)",
-    source: "Cours réguliers",
-    href: "https://arts-martiaux-lyon.fr/calligraphie/",
-    badge: "Cours hebdomadaires",
-    linkText: "Voir la publication"
-  },
-  {
-    quote: "Rencontres « Corps, Conscience, Cosmos » : un dialogue vivant et une recherche croisée entre danse contemporaine, physique fondamentale et geste calligraphique traditionnel avec Vânia Vaneau et le CNRS.",
-    author: "Centre National de la Danse (CN D Lyon)",
-    role: "Institution culturelle nationale · Lyon",
-    source: "Agenda CN D",
-    href: "https://www.cnd.fr/fr/agenda/corps-conscience-et-cosmos",
-    badge: "Institution culturelle",
-    linkText: "Voir la publication"
-  }
-];
+// A. Témoignages authentiques attestés — voir src/data/testimonials.yaml
 
 // B. Échos presse & événements artistiques
 const pressAndEvents = [

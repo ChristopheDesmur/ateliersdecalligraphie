@@ -1,0 +1,254 @@
+---
+export const prerender = false;
+
+import Layout from "@/layouts/Layout.astro";
+import AdminNav from "@/components/admin/AdminNav.astro";
+import LoginGate from "@/components/admin/LoginGate.astro";
+import { authenticateRequest } from "@/lib/admin/auth";
+
+const { session } = authenticateRequest(Astro.request);
+---
+<Layout title="Administration — Témoignages" noindex={true}>
+  <div class="max-w-3xl mx-auto">
+    {session ? (
+      <div>
+        <AdminNav active="testimonials" />
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Témoignages</h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              Section « Témoignages & retours d'expérience » de /le-calligraphe.
+            </p>
+          </div>
+          <button
+            id="add-testimonial-btn"
+            type="button"
+            class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition cursor-pointer shrink-0"
+          >
+            + Ajouter
+          </button>
+        </div>
+
+        <div id="testimonials-status" class="hidden mb-4 p-3 rounded-xl text-xs font-medium"></div>
+
+        <div id="testimonials-list" class="space-y-3 mb-10">
+          <p class="text-sm text-gray-400">Chargement…</p>
+        </div>
+
+        <!-- Formulaire d'ajout / modification -->
+        <div id="testimonial-form-container" class="hidden bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-2xl p-6">
+          <h2 id="testimonial-form-title" class="font-bold text-gray-900 dark:text-white mb-4">Ajouter un témoignage</h2>
+          <form id="testimonial-form">
+            <input type="hidden" name="originalId" value="" />
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="sm:col-span-2">
+                <label class="field-label">Citation</label>
+                <textarea name="quote" required rows="3" class="field-input" placeholder="Christophe Desmur anime chaque vendredi matin l'atelier de calligraphie…"></textarea>
+              </div>
+              <div>
+                <label class="field-label">Auteur</label>
+                <input name="author" required class="field-input" placeholder="OVPAR Villeurbanne" />
+              </div>
+              <div>
+                <label class="field-label">Fonction / rôle</label>
+                <input name="role" required class="field-input" placeholder="Office villeurbannais des personnes âgées et des retraités" />
+              </div>
+              <div>
+                <label class="field-label">Badge affiché</label>
+                <input name="badge" required class="field-input" placeholder="Partenaire depuis 2012" />
+              </div>
+              <div>
+                <label class="field-label">Source</label>
+                <input name="source" required class="field-input" placeholder="Programme annuel" />
+              </div>
+              <div>
+                <label class="field-label">Lien (optionnel)</label>
+                <input name="href" class="field-input" placeholder="https://…" />
+              </div>
+              <div>
+                <label class="field-label">Texte du lien (optionnel)</label>
+                <input name="linkText" class="field-input" placeholder="Voir la publication" />
+              </div>
+            </div>
+
+            <div class="mt-6 pt-5 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3">
+              <button type="submit" id="testimonial-save-btn" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition cursor-pointer disabled:opacity-60">
+                Enregistrer
+              </button>
+              <button type="button" id="testimonial-cancel-btn" class="px-5 py-2.5 rounded-xl text-gray-600 dark:text-gray-300 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer">
+                Annuler
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    ) : (
+      <LoginGate />
+    )}
+  </div>
+</Layout>
+
+<style>
+  :global(.field-label) { display: block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(75 85 99); margin-bottom: 0.35rem; }
+  :global(.dark .field-label) { color: rgb(209 213 219); }
+  :global(.field-input) { width: 100%; padding: 0.5rem 0.9rem; border-radius: 0.75rem; border: 1px solid rgb(209 213 219); background: white; color: rgb(17 24 39); font-size: 0.875rem; }
+  :global(.dark .field-input) { border-color: rgb(75 85 99); background: rgb(55 65 81); color: white; }
+</style>
+
+<script>
+  let csrfToken = "";
+  let testimonials: Record<string, any> = {};
+
+  const listEl = document.getElementById("testimonials-list");
+  const statusEl = document.getElementById("testimonials-status");
+  const formContainer = document.getElementById("testimonial-form-container");
+  const form = document.getElementById("testimonial-form") as HTMLFormElement | null;
+  const formTitle = document.getElementById("testimonial-form-title");
+  const saveBtn = document.getElementById("testimonial-save-btn") as HTMLButtonElement | null;
+
+  function showStatus(message: string, kind: "success" | "error") {
+    if (!statusEl) return;
+    statusEl.textContent = message;
+    statusEl.classList.remove("hidden");
+    statusEl.className =
+      "mb-4 p-3 rounded-xl text-xs font-medium " +
+      (kind === "success"
+        ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
+        : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
+  }
+
+  function renderList() {
+    if (!listEl) return;
+    const ids = Object.keys(testimonials);
+    if (ids.length === 0) {
+      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucun témoignage.</p>`;
+      return;
+    }
+    listEl.innerHTML = ids
+      .map((id) => {
+        const t = testimonials[id];
+        return `
+      <div class="p-4 flex items-start justify-between gap-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800/60">
+        <div class="min-w-0">
+          <p class="text-sm text-gray-700 dark:text-gray-300 italic truncate">« ${t.quote} »</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1"><span class="font-semibold text-gray-700 dark:text-gray-300">${t.author}</span> · ${t.badge}</p>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <button data-edit="${id}" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer">Modifier</button>
+          <button data-delete="${id}" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer">Supprimer</button>
+        </div>
+      </div>`;
+      })
+      .join("");
+
+    listEl.querySelectorAll<HTMLButtonElement>("[data-edit]").forEach((btn) =>
+      btn.addEventListener("click", () => openForm(btn.dataset.edit!, testimonials[btn.dataset.edit!]))
+    );
+    listEl.querySelectorAll<HTMLButtonElement>("[data-delete]").forEach((btn) =>
+      btn.addEventListener("click", () => deleteTestimonial(btn.dataset.delete!, testimonials[btn.dataset.delete!]))
+    );
+  }
+
+  function openForm(id: string | null, t: any | null) {
+    if (!form || !formContainer || !formTitle) return;
+    form.reset();
+    (form.elements.namedItem("originalId") as HTMLInputElement).value = id ?? "";
+    formTitle.textContent = t ? `Modifier le témoignage de « ${t.author} »` : "Ajouter un témoignage";
+
+    if (t) {
+      const set = (name: string, value: any) => {
+        const el = form.elements.namedItem(name) as HTMLInputElement | null;
+        if (el) el.value = value ?? "";
+      };
+      set("quote", t.quote);
+      set("author", t.author);
+      set("role", t.role);
+      set("badge", t.badge);
+      set("source", t.source);
+      set("href", t.href);
+      set("linkText", t.linkText);
+    }
+
+    formContainer.classList.remove("hidden");
+    formContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function closeForm() {
+    formContainer?.classList.add("hidden");
+  }
+
+  async function deleteTestimonial(id: string, t: any) {
+    if (!confirm(`Supprimer définitivement le témoignage de « ${t.author} » ?`)) return;
+    try {
+      const res = await fetch("/api/admin/testimonials", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-csrf-token": csrfToken },
+        body: JSON.stringify({ action: "delete", id }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      showStatus("Témoignage supprimé et site republié.", "success");
+      await load();
+    } catch (err: any) {
+      showStatus(err.message, "error");
+    }
+  }
+
+  async function load() {
+    const [testimonialsRes, authRes] = await Promise.all([fetch("/api/admin/testimonials"), fetch("/api/admin/auth")]);
+    const data = await testimonialsRes.json();
+    const authData = await authRes.json();
+    csrfToken = authData.csrfToken || "";
+
+    if (!testimonialsRes.ok) {
+      if (listEl) listEl.innerHTML = `<p class="text-sm text-rose-500">${data.error}</p>`;
+      return;
+    }
+
+    testimonials = data.testimonials;
+    renderList();
+  }
+
+  document.getElementById("add-testimonial-btn")?.addEventListener("click", () => openForm(null, null));
+  document.getElementById("testimonial-cancel-btn")?.addEventListener("click", closeForm);
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!saveBtn || !form) return;
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Enregistrement…";
+
+    const fd = new FormData(form);
+    const originalId = String(fd.get("originalId") || "");
+    const testimonial = {
+      quote: fd.get("quote"),
+      author: fd.get("author"),
+      role: fd.get("role"),
+      badge: fd.get("badge"),
+      source: fd.get("source"),
+      href: fd.get("href"),
+      linkText: fd.get("linkText"),
+    };
+
+    try {
+      const res = await fetch("/api/admin/testimonials", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-csrf-token": csrfToken },
+        body: JSON.stringify(originalId ? { action: "update", originalId, testimonial } : { action: "create", testimonial }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      showStatus("Témoignage enregistré et site republié.", "success");
+      closeForm();
+      await load();
+    } catch (err: any) {
+      showStatus(err.message, "error");
+    } finally {
+      saveBtn.disabled = false;
+      saveBtn.textContent = "Enregistrer";
+    }
+  });
+
+  load();
+</script>

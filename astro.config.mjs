@@ -22,6 +22,7 @@ export default defineConfig({
       "./src/data/contact.yaml",
       "./src/data/institutions.yaml",
       "./src/data/interventions.yaml",
+      "./src/data/testimonials.yaml",
       "./src/content/ateliers.yaml",
     ],
   }),
