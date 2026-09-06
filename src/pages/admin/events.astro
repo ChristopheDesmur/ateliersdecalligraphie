@@ -51,7 +51,12 @@ const { session } = authenticateRequest(Astro.request);
             </div>
             <div class="sm:col-span-2">
               <label class="field-label">Lieu</label>
-              <input name="lieu" required class="field-input" placeholder="Centre social de l'Orangerie, Tassin-la-Demi-Lune (69160)" />
+              <select name="lieu" id="lieu-select" required class="field-input">
+                <option value="" disabled selected>— Sélectionner un lieu —</option>
+              </select>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                Lieu introuvable ? Ajoutez-le d'abord dans <a href="/admin/institutions" class="text-indigo-600 dark:text-indigo-400 hover:underline">Institutions</a>.
+              </p>
             </div>
             <div class="sm:col-span-2">
               <label class="field-label">Détails (optionnel)</label>
@@ -87,6 +92,8 @@ const { session } = authenticateRequest(Astro.request);
 </style>
 
 <script>
+  import { INSTITUTION_CATEGORIES, institutionCategoryFor } from "@/lib/admin/institution-categories";
+
   let csrfToken = "";
   let years: Record<string, any[]> = {};
 
@@ -96,6 +103,48 @@ const { session } = authenticateRequest(Astro.request);
   const form = document.getElementById("event-form") as HTMLFormElement | null;
   const formTitle = document.getElementById("event-form-title");
   const saveBtn = document.getElementById("event-save-btn") as HTMLButtonElement | null;
+  const lieuSelect = document.getElementById("lieu-select") as HTMLSelectElement | null;
+
+  // Une option par institution, plus une option par document quand elle en a
+  // (ex. OVPAR : une option "sans document" et une par brochure), regroupées
+  // par catégorie comme sur /admin/institutions.
+  function populateLieuSelect(institutions: Record<string, any>) {
+    if (!lieuSelect) return;
+    const byCategory = new Map<string, { value: string; label: string }[]>();
+    for (const id of Object.keys(institutions)) {
+      const inst = institutions[id];
+      const label = institutionCategoryFor(inst.name);
+      if (!byCategory.has(label)) byCategory.set(label, []);
+      const options = byCategory.get(label)!;
+      const documents = inst.documents ? Object.keys(inst.documents) : [];
+      const shortOrFull = inst.short_name ?? inst.name;
+      if (documents.length === 0) {
+        options.push({ value: `@institution:${id}`, label: inst.name });
+      } else {
+        options.push({ value: `@institution:${id}`, label: `${inst.name} (sans document)` });
+        for (const key of documents) {
+          options.push({ value: `@institution:${id}:${key}`, label: `${shortOrFull} — ${key}` });
+        }
+      }
+    }
+    for (const options of byCategory.values()) {
+      options.sort((a, b) => a.label.localeCompare(b.label, "fr"));
+    }
+
+    const placeholder = `<option value="" disabled selected>— Sélectionner un lieu —</option>`;
+    lieuSelect.innerHTML =
+      placeholder +
+      INSTITUTION_CATEGORIES.map((c) => c.label)
+        .filter((label) => byCategory.has(label))
+        .map((label) => {
+          const options = byCategory
+            .get(label)!
+            .map((o) => `<option value="${o.value}">${o.label}</option>`)
+            .join("");
+          return `<optgroup label="${label}">${options}</optgroup>`;
+        })
+        .join("");
+  }
 
   function showStatus(message: string, kind: "success" | "error") {
     if (!statusEl) return;
@@ -108,12 +157,10 @@ const { session } = authenticateRequest(Astro.request);
         : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
   }
 
-  // Seuls les événements de l'année en cours (ou d'une année future) passent
-  // en lecture seule une fois leur date de fin dépassée. Les archives des
-  // années précédentes restent toujours modifiables — cf. la même règle
-  // appliquée côté serveur.
-  function isLockedPastEvent(year: string, ev: any): boolean {
-    if (Number(year) < new Date().getFullYear()) return false;
+  // Un événement dont la date de fin est dépassée devient un registre
+  // historique : lecture seule, quelle que soit son année — cf. la même
+  // règle appliquée côté serveur.
+  function isLockedPastEvent(ev: any): boolean {
     const parsed = new Date(String(ev.to).trim().replace(" ", "T"));
     return !Number.isNaN(parsed.getTime()) && parsed.getTime() < Date.now();
   }
@@ -130,7 +177,7 @@ const { session } = authenticateRequest(Astro.request);
       .map((year) => {
         const rows = (years[year] || [])
           .map((ev, i) => {
-            const past = isLockedPastEvent(year, ev);
+            const past = isLockedPastEvent(ev);
             return `
           <div class="p-4 flex items-start justify-between gap-4 border-b border-gray-100 dark:border-gray-800 last:border-0 ${past ? "opacity-60" : ""}">
             <div class="min-w-0">
@@ -222,8 +269,13 @@ const { session } = authenticateRequest(Astro.request);
   }
 
   async function load() {
-    const [eventsRes, authRes] = await Promise.all([fetch("/api/admin/events"), fetch("/api/admin/auth")]);
+    const [eventsRes, institutionsRes, authRes] = await Promise.all([
+      fetch("/api/admin/events"),
+      fetch("/api/admin/institutions"),
+      fetch("/api/admin/auth"),
+    ]);
     const data = await eventsRes.json();
+    const institutionsData = await institutionsRes.json().catch(() => ({ institutions: {} }));
     const authData = await authRes.json();
     csrfToken = authData.csrfToken || "";
 
@@ -232,6 +284,7 @@ const { session } = authenticateRequest(Astro.request);
       return;
     }
 
+    populateLieuSelect(institutionsData.institutions || {});
     years = data.years;
     renderList();
   }
