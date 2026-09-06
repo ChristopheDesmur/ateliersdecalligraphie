@@ -31,7 +31,18 @@ const { session } = authenticateRequest(Astro.request);
 
         <div id="institutions-status" class="hidden mb-4 p-3 rounded-xl text-xs font-medium"></div>
 
-        <div id="institutions-list" class="space-y-3 mb-10">
+        <div class="mb-4">
+          <label for="institutions-search" class="sr-only">Rechercher une institution</label>
+          <input
+            type="search"
+            id="institutions-search"
+            class="field-input"
+            placeholder="Rechercher une institution…"
+            autocomplete="off"
+          />
+        </div>
+
+        <div id="institutions-list" class="space-y-2 mb-10">
           <p class="text-sm text-gray-400">Chargement…</p>
         </div>
 
@@ -93,11 +104,39 @@ const { session } = authenticateRequest(Astro.request);
 
   const listEl = document.getElementById("institutions-list");
   const statusEl = document.getElementById("institutions-status");
+  const searchInput = document.getElementById("institutions-search") as HTMLInputElement | null;
   const formContainer = document.getElementById("institution-form-container");
   const form = document.getElementById("institution-form") as HTMLFormElement | null;
   const formTitle = document.getElementById("institution-form-title");
   const saveBtn = document.getElementById("institution-save-btn") as HTMLButtonElement | null;
   const documentsRows = document.getElementById("documents-rows");
+
+  // Avec ~80 entrées, un tri alphabétique brut reste dominé par "Centre…" et
+  // "École…" (plus de 60 % des noms) : ces quatre catégories, dérivées du mot
+  // qui ouvre chaque nom, répartissent la liste de façon bien plus lisible.
+  const CATEGORIES: { label: string; test: (name: string) => boolean }[] = [
+    { label: "Écoles & collèges", test: (n) => /^(École|Écoles|Collège|ISTIL|SEES)/.test(n) },
+    { label: "Centres, salles & lieux culturels", test: (n) => /^(Centre|Bibliothèque|Médiathèque|Artothèque|MJC|Chapelle|Dojo|Maison du Tao|Boutique)/.test(n) },
+    { label: "Villes & lieux génériques", test: (n) => /^(Lyon|Rive-de-Gier|Chaponost|Neuville-sur-Saône|Saint-Genis-Laval|Saint-Romain-le-Puy|Virieu|Mercredis de Lyon)\b/.test(n) },
+    { label: "Autres organismes & événements", test: () => true },
+  ];
+
+  function categoryFor(name: string): string {
+    const plain = name.replace(/<[^>]+>/g, "");
+    return (CATEGORIES.find((c) => c.test(plain)) ?? CATEGORIES[CATEGORIES.length - 1]).label;
+  }
+
+  function normalize(s: string): string {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  }
+
+  const COLLAPSE_KEY_PREFIX = "admin-institutions-collapsed:";
+  function isCollapsed(label: string): boolean {
+    return sessionStorage.getItem(COLLAPSE_KEY_PREFIX + label) !== "open";
+  }
+  function setCollapsed(label: string, collapsed: boolean) {
+    sessionStorage.setItem(COLLAPSE_KEY_PREFIX + label, collapsed ? "closed" : "open");
+  }
 
   function showStatus(message: string, kind: "success" | "error") {
     if (!statusEl) return;
@@ -125,19 +164,11 @@ const { session } = authenticateRequest(Astro.request);
 
   document.getElementById("add-document-row-btn")?.addEventListener("click", () => addDocumentRow());
 
-  function renderList() {
-    if (!listEl) return;
-    const ids = Object.keys(institutions);
-    if (ids.length === 0) {
-      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucune institution.</p>`;
-      return;
-    }
-    listEl.innerHTML = ids
-      .map((id) => {
-        const inst = institutions[id];
-        const docCount = inst.documents ? Object.keys(inst.documents).length : 0;
-        return `
-      <div class="p-4 flex items-start justify-between gap-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800/60">
+  function institutionRow(id: string): string {
+    const inst = institutions[id];
+    const docCount = inst.documents ? Object.keys(inst.documents).length : 0;
+    return `
+      <div class="p-3.5 flex items-start justify-between gap-4 border-b border-gray-100 dark:border-gray-800 last:border-0">
         <div class="min-w-0">
           <p class="font-semibold text-sm text-gray-900 dark:text-white">${inst.name}${inst.short_name ? ` <span class="text-gray-400 dark:text-gray-500 font-normal">(${inst.short_name})</span>` : ""}</p>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">${docCount} document${docCount === 1 ? "" : "s"}</p>
@@ -147,9 +178,79 @@ const { session } = authenticateRequest(Astro.request);
           <button data-delete="${id}" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer">Supprimer</button>
         </div>
       </div>`;
+  }
+
+  function renderList() {
+    if (!listEl) return;
+    const query = normalize(searchInput?.value.trim() ?? "");
+    const ids = Object.keys(institutions).filter((id) => {
+      if (!query) return true;
+      const inst = institutions[id];
+      return normalize(inst.name).includes(query) || (inst.short_name && normalize(inst.short_name).includes(query));
+    });
+
+    if (Object.keys(institutions).length === 0) {
+      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucune institution.</p>`;
+      return;
+    }
+    if (ids.length === 0) {
+      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucun résultat pour « ${searchInput?.value ?? ""} ».</p>`;
+      return;
+    }
+
+    const byCategory = new Map<string, string[]>();
+    for (const id of ids) {
+      const label = categoryFor(institutions[id].name.replace(/<[^>]+>/g, ""));
+      if (!byCategory.has(label)) byCategory.set(label, []);
+      byCategory.get(label)!.push(id);
+    }
+    for (const groupIds of byCategory.values()) {
+      groupIds.sort((a, b) => institutions[a].name.localeCompare(institutions[b].name, "fr"));
+    }
+
+    // Pendant une recherche, les catégories qui contiennent un résultat
+    // s'ouvrent automatiquement (sans écraser la préférence mémorisée) pour
+    // que le résultat reste visible sans clic supplémentaire.
+    listEl.innerHTML = CATEGORIES.map((c) => c.label)
+      .filter((label) => byCategory.has(label))
+      .map((label) => {
+        const groupIds = byCategory.get(label)!;
+        const collapsed = query ? false : isCollapsed(label);
+        return `
+      <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800/60 overflow-hidden">
+        <button
+          type="button"
+          class="category-toggle w-full flex items-center justify-between gap-3 px-4 py-3 text-left cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+          data-category="${label}"
+          aria-expanded="${!collapsed}"
+          aria-controls="cat-${slug(label)}"
+        >
+          <span class="font-semibold text-sm text-gray-900 dark:text-white">${label}</span>
+          <span class="flex items-center gap-2 shrink-0">
+            <span class="text-xs text-gray-400 dark:text-gray-500">${groupIds.length}</span>
+            <span class="text-gray-400 dark:text-gray-500 text-xs" aria-hidden="true">${collapsed ? "▸" : "▾"}</span>
+          </span>
+        </button>
+        <div id="cat-${slug(label)}" ${collapsed ? "hidden" : ""}>
+          ${groupIds.map(institutionRow).join("")}
+        </div>
+      </div>`;
       })
       .join("");
 
+    listEl.querySelectorAll<HTMLButtonElement>(".category-toggle").forEach((btn) =>
+      btn.addEventListener("click", () => {
+        const label = btn.dataset.category!;
+        const content = document.getElementById(`cat-${slug(label)}`);
+        if (!content) return;
+        const nowCollapsed = !content.hasAttribute("hidden");
+        content.toggleAttribute("hidden", nowCollapsed);
+        btn.setAttribute("aria-expanded", String(!nowCollapsed));
+        const arrow = btn.querySelector('[aria-hidden="true"]');
+        if (arrow) arrow.textContent = nowCollapsed ? "▸" : "▾";
+        setCollapsed(label, nowCollapsed);
+      })
+    );
     listEl.querySelectorAll<HTMLButtonElement>("[data-edit]").forEach((btn) =>
       btn.addEventListener("click", () => openForm(btn.dataset.edit!, institutions[btn.dataset.edit!]))
     );
@@ -157,6 +258,12 @@ const { session } = authenticateRequest(Astro.request);
       btn.addEventListener("click", () => deleteInstitution(btn.dataset.delete!, institutions[btn.dataset.delete!]))
     );
   }
+
+  function slug(label: string): string {
+    return label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  }
+
+  searchInput?.addEventListener("input", renderList);
 
   function openForm(id: string | null, inst: any | null) {
     if (!form || !formContainer || !formTitle || !documentsRows) return;
