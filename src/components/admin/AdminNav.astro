@@ -1,6 +1,6 @@
 ---
 export interface Props {
-  active: "dashboard" | "prices" | "products" | "events" | "institutions" | "contact";
+  active: "dashboard" | "prices" | "products" | "events" | "institutions" | "interventions" | "contact";
 }
 const { active } = Astro.props;
 
@@ -10,6 +10,7 @@ const tabs = [
   { id: "products", label: "Galerie", href: "/admin/products" },
   { id: "events", label: "Événements", href: "/admin/events" },
   { id: "institutions", label: "Institutions", href: "/admin/institutions" },
+  { id: "interventions", label: "Formats d'ateliers", href: "/admin/interventions" },
   { id: "contact", label: "Contact", href: "/admin/contact" },
 ] as const;
 ---

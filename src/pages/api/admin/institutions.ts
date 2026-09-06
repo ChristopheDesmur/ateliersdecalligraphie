@@ -4,6 +4,7 @@ import type { APIRoute } from "astro";
 import { parseDocument } from "yaml";
 import { authenticateRequest, verifyCsrfToken } from "@/lib/admin/auth";
 import { loadTextFile, saveTextFile } from "@/lib/admin/store";
+import { slugify, uniqueSlug } from "@/lib/admin/slug";
 
 const INSTITUTIONS_PATH = "src/data/institutions.yaml";
 const EVENTS_PATH = "src/content/ateliers.yaml";
@@ -26,26 +27,6 @@ export const GET: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ error: err.message || "Erreur de lecture." }), { status: 500, headers: NO_CACHE_HEADERS });
   }
 };
-
-/** Translitère et met en forme un nom en identifiant url-safe ("École Truc, Lyon 7e" -> "ecole-truc-lyon-7e"). */
-function slugify(name: string): string {
-  return name
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase()
-    .replace(/<[^>]+>/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 60);
-}
-
-function uniqueSlug(base: string, existingIds: string[]): string {
-  const taken = new Set(existingIds);
-  if (!taken.has(base)) return base || "institution";
-  let i = 2;
-  while (taken.has(`${base}-${i}`)) i++;
-  return `${base}-${i}`;
-}
 
 function sanitizeInstitutionData(input: any): Record<string, unknown> {
   const name = String(input.name || "").trim();

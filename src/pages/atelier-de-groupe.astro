@@ -2,6 +2,7 @@
 import Base from "../layouts/Layout.astro";
 import RelatedPages from "../components/related-pages.astro";
 import { prices } from "../data/prices";
+import { interventions } from "../data/interventions";
 import { contact, telHref } from "../data/contact";
 
 const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’information%20atelier%20de%20groupe`;
@@ -234,131 +235,27 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
       </h2>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Écoles primaires -->
-        <a
-          href="/ecoles-primaires"
-          class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
-          <div>
-            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
-              Écoles élémentaires
-            </span>
-            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-              Écoles primaires
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
-              Initiation au pinceau, découverte des pictogrammes et dessin à l’encre (Sumi-e) pour les enfants.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-            <span>{prices.interventions.ht_heure_standard} € HT / h</span>
-            <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
-          </div>
-        </a>
-
-        <!-- Collèges -->
-        <a
-          href="/colleges"
-          class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
-          <div>
-            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
-              Secondaire
-            </span>
-            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-              Collèges
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
-              Formules de 2 à 3&nbsp;h sur temps scolaire, étymologie des sinogrammes et repères culturels asiatiques.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-            <span>{prices.interventions.ht_heure_standard} € HT / h</span>
-            <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
-          </div>
-        </a>
-
-        <!-- Lycées -->
-        <a
-          href="/formats-atelier-pour-les-lycees"
-          class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
-          <div>
-            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
-              Secondaire & Projets
-            </span>
-            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-              Lycées
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
-              Pause méridienne (12-14&nbsp;h) ou temps scolaire, soutien aux sections LV2/LV3 chinois et arts plastiques.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-            <span>{prices.interventions.ht_heure_standard} € HT / h</span>
-            <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
-          </div>
-        </a>
-
-        <!-- Universités & Grandes écoles -->
-        <a
-          href="/universites-et-grandes-ecoles"
-          class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
-          <div>
-            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
-              Enseignement supérieur
-            </span>
-            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-              Universités & Grandes écoles
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
-              Modules approfondis pour filières LEA/LLCER chinois, écoles d’ingénieurs et semaines culturelles.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-            <span>{prices.interventions.ht_heure_standard} € HT / h</span>
-            <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
-          </div>
-        </a>
-
-        <!-- Comités d’entreprise (CSE) -->
-        <a
-          href="/comites-entreprise"
-          class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
-          <div>
-            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
-              Entreprises & CSE
-            </span>
-            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-              Comités d’entreprise
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
-              Initiation conviviale, déconnexion mentale et cohésion d’équipe sur la pause déjeuner ou en séminaire.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-            <span>{prices.interventions.ht_heure_entreprises} € HT / h</span>
-            <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
-          </div>
-        </a>
-
-        <!-- Maisons de retraite & EHPAD -->
-        <a
-          href="/maisons-de-retraite"
-          class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
-          <div>
-            <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
-              Résidences seniors
-            </span>
-            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-              Maisons de retraite & EHPAD
-            </h3>
-            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
-              Parenthèse apaisante et valorisante, stimulation douce de la motricité fine et mémoire des formes.
-            </p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-            <span>{prices.interventions.ht_heure_standard} € HT / h</span>
-            <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
-          </div>
-        </a>
+        {interventions.map((item) => (
+          <a
+            href={item.href}
+            class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
+            <div>
+              <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
+                {item.eyebrow}
+              </span>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+                {item.title}
+              </h3>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+              <span>{item.rate} € HT / h</span>
+              <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
 

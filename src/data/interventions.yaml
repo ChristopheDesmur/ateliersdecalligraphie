@@ -1,0 +1,39 @@
+# Formats d’ateliers par public, affichés sur /atelier-de-groupe. price_ref
+# pointe vers src/data/prices.yaml (groupe "interventions"), comme le
+# price_ref des œuvres de la galerie pointe vers ses propres tarifs.
+ecoles-primaires:
+  eyebrow: "Écoles élémentaires"
+  title: "Écoles primaires"
+  description: "Initiation au pinceau, découverte des pictogrammes et dessin à l’encre (Sumi-e) pour les enfants."
+  href: "/ecoles-primaires"
+  price_ref: "interventions.ht_heure_standard"
+colleges:
+  eyebrow: "Secondaire"
+  title: "Collèges"
+  description: "Formules de 2 à 3 h sur temps scolaire, étymologie des sinogrammes et repères culturels asiatiques."
+  href: "/colleges"
+  price_ref: "interventions.ht_heure_standard"
+lycees:
+  eyebrow: "Secondaire & Projets"
+  title: "Lycées"
+  description: "Pause méridienne (12-14 h) ou temps scolaire, soutien aux sections LV2/LV3 chinois et arts plastiques."
+  href: "/formats-atelier-pour-les-lycees"
+  price_ref: "interventions.ht_heure_standard"
+universites-grandes-ecoles:
+  eyebrow: "Enseignement supérieur"
+  title: "Universités & Grandes écoles"
+  description: "Modules approfondis pour filières LEA/LLCER chinois, écoles d’ingénieurs et semaines culturelles."
+  href: "/universites-et-grandes-ecoles"
+  price_ref: "interventions.ht_heure_standard"
+comites-entreprise:
+  eyebrow: "Entreprises & CSE"
+  title: "Comités d’entreprise"
+  description: "Initiation conviviale, déconnexion mentale et cohésion d’équipe sur la pause déjeuner ou en séminaire."
+  href: "/comites-entreprise"
+  price_ref: "interventions.ht_heure_entreprises"
+maisons-de-retraite:
+  eyebrow: "Résidences seniors"
+  title: "Maisons de retraite & EHPAD"
+  description: "Parenthèse apaisante et valorisante, stimulation douce de la motricité fine et mémoire des formes."
+  href: "/maisons-de-retraite"
+  price_ref: "interventions.ht_heure_standard"
