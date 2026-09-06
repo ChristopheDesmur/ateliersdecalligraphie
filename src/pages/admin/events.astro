@@ -26,7 +26,18 @@ const { session } = authenticateRequest(Astro.request);
 
         <div id="events-status" class="hidden mb-4 p-3 rounded-xl text-xs font-medium"></div>
 
-        <div id="events-list" class="space-y-6 mb-10">
+        <div class="mb-4">
+          <label for="events-search" class="sr-only">Rechercher un événement</label>
+          <input
+            type="search"
+            id="events-search"
+            class="field-input"
+            placeholder="Rechercher un événement (titre ou lieu)…"
+            autocomplete="off"
+          />
+        </div>
+
+        <div id="events-list" class="space-y-2 mb-10">
           <p class="text-sm text-gray-400">Chargement…</p>
         </div>
 
@@ -96,14 +107,43 @@ const { session } = authenticateRequest(Astro.request);
 
   let csrfToken = "";
   let years: Record<string, any[]> = {};
+  let institutions: Record<string, any> = {};
 
   const listEl = document.getElementById("events-list");
   const statusEl = document.getElementById("events-status");
+  const searchInput = document.getElementById("events-search") as HTMLInputElement | null;
   const formContainer = document.getElementById("event-form-container");
   const form = document.getElementById("event-form") as HTMLFormElement | null;
   const formTitle = document.getElementById("event-form-title");
   const saveBtn = document.getElementById("event-save-btn") as HTMLButtonElement | null;
   const lieuSelect = document.getElementById("lieu-select") as HTMLSelectElement | null;
+
+  function normalize(s: string): string {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  }
+
+  // Résout "@institution:id[:document]" en nom lisible pour l'affichage de la
+  // liste (le formulaire d'édition, lui, montre déjà des libellés via le
+  // <select> peuplé par populateLieuSelect) — la variante de document
+  // éventuelle n'a pas besoin d'être distinguée dans ce résumé compact.
+  function resolveLieuDisplay(lieu: string): string {
+    const m = /^@institution:([\w-]+)(?::([\w-]+))?$/.exec(lieu || "");
+    if (!m) return lieu || "—";
+    return institutions[m[1]]?.name ?? lieu;
+  }
+
+  const COLLAPSE_KEY_PREFIX = "admin-events-collapsed:";
+  function isCollapsed(year: string): boolean {
+    const stored = sessionStorage.getItem(COLLAPSE_KEY_PREFIX + year);
+    if (stored) return stored === "closed";
+    // Par défaut, seule l'année en cours est dépliée : c'est celle où se
+    // trouvent les événements encore actifs et les plus susceptibles d'être
+    // modifiés ; les autres années sont un registre consultable au besoin.
+    return year !== String(new Date().getFullYear());
+  }
+  function setCollapsed(year: string, collapsed: boolean) {
+    sessionStorage.setItem(COLLAPSE_KEY_PREFIX + year, collapsed ? "closed" : "open");
+  }
 
   // Une option par institution, plus une option par document quand elle en a
   // (ex. OVPAR : une option "sans document" et une par brochure), regroupées
@@ -165,20 +205,9 @@ const { session } = authenticateRequest(Astro.request);
     return !Number.isNaN(parsed.getTime()) && parsed.getTime() < Date.now();
   }
 
-  function renderList() {
-    if (!listEl) return;
-    const sortedYears = Object.keys(years).sort((a, b) => Number(b) - Number(a));
-    if (sortedYears.length === 0) {
-      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucun événement.</p>`;
-      return;
-    }
-
-    listEl.innerHTML = sortedYears
-      .map((year) => {
-        const rows = (years[year] || [])
-          .map((ev, i) => {
-            const past = isLockedPastEvent(ev);
-            return `
+  function eventRow(year: string, i: number, ev: any): string {
+    const past = isLockedPastEvent(ev);
+    return `
           <div class="p-4 flex items-start justify-between gap-4 border-b border-gray-100 dark:border-gray-800 last:border-0 ${past ? "opacity-60" : ""}">
             <div class="min-w-0">
               <p class="font-semibold text-sm text-gray-900 dark:text-white flex items-center gap-2">
@@ -186,7 +215,7 @@ const { session } = authenticateRequest(Astro.request);
                 ${past ? '<span class="text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">Passé</span>' : ""}
               </p>
               <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">${ev.from} → ${ev.to}</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">${ev.lieu}</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">${resolveLieuDisplay(ev.lieu)}</p>
             </div>
             <div class="flex gap-2 shrink-0">
               ${
@@ -197,16 +226,76 @@ const { session } = authenticateRequest(Astro.request);
               }
             </div>
           </div>`;
-          })
-          .join("");
+  }
+
+  function renderList() {
+    if (!listEl) return;
+    const query = normalize(searchInput?.value.trim() ?? "");
+    const sortedYears = Object.keys(years).sort((a, b) => Number(b) - Number(a));
+    if (sortedYears.length === 0) {
+      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucun événement.</p>`;
+      return;
+    }
+
+    // Indices originaux conservés (nécessaires à Modifier/Supprimer) même
+    // lorsqu'une recherche ne montre qu'un sous-ensemble des événements.
+    const matches: Record<string, number[]> = {};
+    let totalMatches = 0;
+    for (const year of sortedYears) {
+      const indices = (years[year] || [])
+        .map((ev, i) => i)
+        .filter((i) => {
+          if (!query) return true;
+          const ev = years[year][i];
+          return normalize(ev.titre).includes(query) || normalize(resolveLieuDisplay(ev.lieu)).includes(query);
+        });
+      if (indices.length) matches[year] = indices;
+      totalMatches += indices.length;
+    }
+
+    if (totalMatches === 0) {
+      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucun résultat pour « ${searchInput?.value ?? ""} ».</p>`;
+      return;
+    }
+
+    listEl.innerHTML = Object.keys(matches)
+      .map((year) => {
+        const indices = matches[year];
+        const rows = indices.map((i) => eventRow(year, i, years[year][i])).join("");
+        const collapsed = query ? false : isCollapsed(year);
         return `
-          <div>
-            <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">${year}</h3>
-            <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/60 overflow-hidden">${rows}</div>
+          <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800/60 overflow-hidden">
+            <button
+              type="button"
+              class="year-toggle w-full flex items-center justify-between gap-3 px-4 py-3 text-left cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+              data-year="${year}"
+              aria-expanded="${!collapsed}"
+              aria-controls="year-${year}"
+            >
+              <span class="font-semibold text-sm text-gray-900 dark:text-white">${year}</span>
+              <span class="flex items-center gap-2 shrink-0">
+                <span class="text-xs text-gray-400 dark:text-gray-500">${indices.length}</span>
+                <span class="text-gray-400 dark:text-gray-500 text-xs" aria-hidden="true">${collapsed ? "▸" : "▾"}</span>
+              </span>
+            </button>
+            <div id="year-${year}" ${collapsed ? "hidden" : ""}>${rows}</div>
           </div>`;
       })
       .join("");
 
+    listEl.querySelectorAll<HTMLButtonElement>(".year-toggle").forEach((btn) =>
+      btn.addEventListener("click", () => {
+        const year = btn.dataset.year!;
+        const content = document.getElementById(`year-${year}`);
+        if (!content) return;
+        const nowCollapsed = !content.hasAttribute("hidden");
+        content.toggleAttribute("hidden", nowCollapsed);
+        btn.setAttribute("aria-expanded", String(!nowCollapsed));
+        const arrow = btn.querySelector('[aria-hidden="true"]');
+        if (arrow) arrow.textContent = nowCollapsed ? "▸" : "▾";
+        setCollapsed(year, nowCollapsed);
+      })
+    );
     listEl.querySelectorAll<HTMLButtonElement>("[data-edit-year]").forEach((btn) =>
       btn.addEventListener("click", () => {
         const year = btn.dataset.editYear!;
@@ -222,6 +311,8 @@ const { session } = authenticateRequest(Astro.request);
       })
     );
   }
+
+  searchInput?.addEventListener("input", renderList);
 
   function openForm(year: string | null, index: number | null, event: any | null) {
     if (!form || !formContainer || !formTitle) return;
@@ -284,7 +375,8 @@ const { session } = authenticateRequest(Astro.request);
       return;
     }
 
-    populateLieuSelect(institutionsData.institutions || {});
+    institutions = institutionsData.institutions || {};
+    populateLieuSelect(institutions);
     years = data.years;
     renderList();
   }
