@@ -108,8 +108,8 @@ const { session } = authenticateRequest(Astro.request);
         : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
   }
 
-  // Un événement passé (date de fin dépassée) ne peut plus être modifié,
-  // seulement supprimé — cf. la même règle appliquée côté serveur.
+  // Un événement passé (date de fin dépassée) est en lecture seule : ni
+  // modification ni suppression — cf. la même règle appliquée côté serveur.
   function isPastEvent(ev: any): boolean {
     const parsed = new Date(String(ev.to).trim().replace(" ", "T"));
     return !Number.isNaN(parsed.getTime()) && parsed.getTime() < Date.now();
@@ -139,8 +139,12 @@ const { session } = authenticateRequest(Astro.request);
               <p class="text-xs text-gray-500 dark:text-gray-400">${ev.lieu}</p>
             </div>
             <div class="flex gap-2 shrink-0">
-              ${past ? "" : `<button data-edit-year="${year}" data-edit-index="${i}" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer">Modifier</button>`}
-              <button data-delete-year="${year}" data-delete-index="${i}" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer">Supprimer</button>
+              ${
+                past
+                  ? ""
+                  : `<button data-edit-year="${year}" data-edit-index="${i}" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer">Modifier</button>
+                     <button data-delete-year="${year}" data-delete-index="${i}" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer">Supprimer</button>`
+              }
             </div>
           </div>`;
           })

@@ -93,6 +93,9 @@ export const POST: APIRoute = async ({ request }) => {
       const list = data[year];
       if (!list || !list[index]) throw new Error("Événement introuvable.");
       const removed = list[index];
+      if (isPastEvent(removed.to)) {
+        throw new Error("Cet événement est passé et ne peut plus être supprimé.");
+      }
       doc.deleteIn([year, index]);
       pruneIfEmpty(year);
       commitMessage = `Supprime l'événement "${removed.titre}" — ${removed.from} (admin)`;
