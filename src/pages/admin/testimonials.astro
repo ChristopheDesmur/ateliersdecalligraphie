@@ -59,9 +59,15 @@ const { session } = authenticateRequest(Astro.request);
                   </div>
                 </div>
               </div>
-              <div>
+              <div class="sm:col-span-2">
                 <label class="field-label">Auteur</label>
-                <input name="author" required class="field-input" placeholder="OVPAR Villeurbanne" />
+                <select id="author-select" class="field-input mb-2">
+                  <option value="">Autre (personne, média… saisie libre ci-dessous)</option>
+                </select>
+                <input name="author" id="author-input" required class="field-input" placeholder="OVPAR Villeurbanne" />
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Choisir une institution ci-dessus remplit le champ ci-dessous ; il reste modifiable pour une personne ou un média absent d'<a href="/admin/institutions" class="text-indigo-600 dark:text-indigo-400 hover:underline">Institutions</a>.
+                </p>
               </div>
               <div>
                 <label class="field-label">Fonction / rôle</label>
@@ -117,8 +123,11 @@ const { session } = authenticateRequest(Astro.request);
 </style>
 
 <script>
+  import { INSTITUTION_CATEGORIES, institutionCategoryFor } from "@/lib/admin/institution-categories";
+
   let csrfToken = "";
   let testimonials: Record<string, any> = {};
+  let institutionNames: string[] = [];
 
   const listEl = document.getElementById("testimonials-list");
   const statusEl = document.getElementById("testimonials-status");
@@ -126,6 +135,48 @@ const { session } = authenticateRequest(Astro.request);
   const form = document.getElementById("testimonial-form") as HTMLFormElement | null;
   const formTitle = document.getElementById("testimonial-form-title");
   const saveBtn = document.getElementById("testimonial-save-btn") as HTMLButtonElement | null;
+  const authorSelect = document.getElementById("author-select") as HTMLSelectElement | null;
+  const authorInput = document.getElementById("author-input") as HTMLInputElement | null;
+
+  // Simple aide au remplissage : choisir une institution recopie son nom
+  // dans le champ Auteur, qui reste le seul champ réellement soumis — pas
+  // de référence stockée, contrairement au Lieu des événements. Les
+  // témoignages d'une personne ou d'un média (sans entrée institutions.yaml)
+  // continuent de se saisir librement dans ce même champ.
+  function populateAuthorSelect(institutions: Record<string, any>) {
+    if (!authorSelect) return;
+    const byCategory = new Map<string, string[]>();
+    for (const id of Object.keys(institutions)) {
+      // Certains noms embarquent du HTML (ex. "Lyon 4<sup>e</sup>") destiné à
+      // un rendu set:html ailleurs sur le site — Auteur est un champ texte
+      // brut, où ces balises apparaîtraient telles quelles si on ne les
+      // retirait pas.
+      const name = institutions[id].name.replace(/<[^>]+>/g, "");
+      const label = institutionCategoryFor(name);
+      if (!byCategory.has(label)) byCategory.set(label, []);
+      byCategory.get(label)!.push(name);
+    }
+    institutionNames = Array.from(byCategory.values()).flat();
+    for (const names of byCategory.values()) names.sort((a, b) => a.localeCompare(b, "fr"));
+
+    const placeholder = `<option value="">Autre (personne, média… saisie libre ci-dessous)</option>`;
+    authorSelect.innerHTML =
+      placeholder +
+      INSTITUTION_CATEGORIES.map((c) => c.label)
+        .filter((label) => byCategory.has(label))
+        .map((label) => {
+          const options = byCategory
+            .get(label)!
+            .map((name) => `<option value="${name}">${name}</option>`)
+            .join("");
+          return `<optgroup label="${label}">${options}</optgroup>`;
+        })
+        .join("");
+  }
+
+  authorSelect?.addEventListener("change", () => {
+    if (authorSelect.value && authorInput) authorInput.value = authorSelect.value;
+  });
   const photoUploadInput = document.getElementById("photo-upload-input") as HTMLInputElement | null;
   const photoUploadStatus = document.getElementById("photo-upload-status");
   const photoPreviewWrap = document.getElementById("photo-preview-wrap");
@@ -242,6 +293,7 @@ const { session } = authenticateRequest(Astro.request);
       set("linkText", t.linkText);
       set("date", t.date);
       set("photo", t.photo);
+      if (authorSelect) authorSelect.value = institutionNames.includes(t.author) ? t.author : "";
     }
 
     formContainer.classList.remove("hidden");
@@ -270,8 +322,13 @@ const { session } = authenticateRequest(Astro.request);
   }
 
   async function load() {
-    const [testimonialsRes, authRes] = await Promise.all([fetch("/api/admin/testimonials"), fetch("/api/admin/auth")]);
+    const [testimonialsRes, institutionsRes, authRes] = await Promise.all([
+      fetch("/api/admin/testimonials"),
+      fetch("/api/admin/institutions"),
+      fetch("/api/admin/auth"),
+    ]);
     const data = await testimonialsRes.json();
+    const institutionsData = await institutionsRes.json().catch(() => ({ institutions: {} }));
     const authData = await authRes.json();
     csrfToken = authData.csrfToken || "";
 
@@ -280,6 +337,7 @@ const { session } = authenticateRequest(Astro.request);
       return;
     }
 
+    populateAuthorSelect(institutionsData.institutions || {});
     testimonials = data.testimonials;
     renderList();
   }
