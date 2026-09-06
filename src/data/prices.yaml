@@ -13,3 +13,8 @@ cours_individuel_domicile:
 interventions:
   ht_heure_standard: 60 # écoles, collèges, lycées, universités, maisons de retraite
   ht_heure_entreprises: 90 # comités d'entreprise / CSE / séminaires
+
+# Les calligraphies de la galerie sont des pièces uniques sans prix fixe :
+# products.yaml référence cette clé plutôt que de répéter le libellé.
+galerie:
+  sur_demande: "Prix sur demande"
