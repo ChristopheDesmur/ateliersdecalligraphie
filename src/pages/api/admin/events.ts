@@ -19,6 +19,12 @@ function yearFromDate(dateStr: string): string {
   return match[1];
 }
 
+/** Un événement est passé dès que sa date de fin est dépassée. */
+function isPastEvent(toDate: string): boolean {
+  const parsed = new Date(String(toDate).trim().replace(" ", "T"));
+  return !Number.isNaN(parsed.getTime()) && parsed.getTime() < Date.now();
+}
+
 function sanitizeEvent(input: any): { year: string; event: Record<string, unknown> } {
   const required = (field: string, label: string) => {
     const v = String(input[field] || "").trim();
@@ -100,6 +106,9 @@ export const POST: APIRoute = async ({ request }) => {
       const originalIndex = Number(body.originalIndex);
       const existingList = data[originalYear];
       if (!existingList || !existingList[originalIndex]) throw new Error("Événement introuvable.");
+      if (isPastEvent(existingList[originalIndex].to)) {
+        throw new Error("Cet événement est passé et ne peut plus être modifié.");
+      }
 
       const { year: newYear, event } = sanitizeEvent(body.event || {});
 
