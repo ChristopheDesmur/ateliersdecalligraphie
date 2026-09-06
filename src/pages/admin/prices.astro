@@ -9,23 +9,30 @@ import { authenticateRequest } from "@/lib/admin/auth";
 const { session } = authenticateRequest(Astro.request);
 ---
 <Layout title="Administration — Tarifs" noindex={true}>
-  <div class="max-w-3xl mx-auto">
+  <div class="max-w-2xl mx-auto">
     {session ? (
       <div>
         <AdminNav active="prices" />
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Tarifs</h1>
-        <div id="prices-status" class="hidden mb-4 p-3 rounded-xl text-xs font-medium"></div>
-        <form id="prices-form" class="space-y-5 bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-2xl p-6">
-          <div id="prices-fields" class="space-y-5">
+        <h1 class="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-5">Tarifs</h1>
+
+        <div id="prices-error" class="hidden mb-4 p-3 rounded-xl text-xs font-medium bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800" role="alert"></div>
+
+        <form id="prices-form" class="bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-2xl p-5 sm:p-6">
+          <div id="prices-fields" class="space-y-6">
             <p class="text-sm text-gray-400">Chargement…</p>
           </div>
-          <button
-            type="submit"
-            id="prices-save-btn"
-            class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition cursor-pointer disabled:opacity-60"
-          >
-            Enregistrer
-          </button>
+
+          <div class="mt-6 pt-5 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3">
+            <button
+              type="submit"
+              id="prices-save-btn"
+              disabled
+              class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-600"
+            >
+              Enregistrer
+            </button>
+            <p id="prices-save-status" class="text-xs text-gray-500 dark:text-gray-400" aria-live="polite"></p>
+          </div>
         </form>
       </div>
     ) : (
@@ -34,23 +41,88 @@ const { session } = authenticateRequest(Astro.request);
   </div>
 </Layout>
 
+<style>
+  :global(.field-label) {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgb(75 85 99);
+    margin-bottom: 0.35rem;
+  }
+  :global(.dark .field-label) { color: rgb(209 213 219); }
+  :global(.myk-num) {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.6rem;
+    border: 1px solid rgb(209 213 219);
+    background: white;
+    color: rgb(17 24 39);
+    font-size: 0.875rem;
+  }
+  :global(.dark .myk-num) { border-color: rgb(75 85 99); background: rgb(55 65 81); color: white; }
+  :global(.myk-num:focus) {
+    outline: none;
+    box-shadow: 0 0 0 2px rgb(99 102 241 / 0.5);
+    border-color: rgb(79 70 229);
+  }
+</style>
+
 <script>
   const fieldsContainer = document.getElementById("prices-fields");
   const form = document.getElementById("prices-form") as HTMLFormElement | null;
   const saveBtn = document.getElementById("prices-save-btn") as HTMLButtonElement | null;
-  const statusEl = document.getElementById("prices-status");
-
-  function showStatus(message: string, kind: "success" | "error") {
-    if (!statusEl) return;
-    statusEl.textContent = message;
-    statusEl.className =
-      "mb-4 p-3 rounded-xl text-xs font-medium " +
-      (kind === "success"
-        ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
-        : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
-  }
+  const saveStatus = document.getElementById("prices-save-status");
+  const errorEl = document.getElementById("prices-error");
 
   let csrfToken = "";
+  let isDirty = false;
+  let savedSnapshot = "";
+
+  function showError(message: string) {
+    if (!errorEl) return;
+    errorEl.textContent = message;
+    errorEl.classList.remove("hidden");
+  }
+
+  function clearError() {
+    errorEl?.classList.add("hidden");
+  }
+
+  function formSnapshot(): string {
+    if (!form) return "";
+    const values: Record<string, string> = {};
+    for (const input of Array.from(form.querySelectorAll("input"))) {
+      values[input.name] = input.value;
+    }
+    return JSON.stringify(values);
+  }
+
+  function markDirty() {
+    isDirty = formSnapshot() !== savedSnapshot;
+    if (saveBtn) saveBtn.disabled = !isDirty;
+    if (!saveStatus) return;
+    if (isDirty && saveStatus.dataset.state !== "saving") {
+      saveStatus.textContent = "Modifications non enregistrées";
+      saveStatus.dataset.state = "dirty";
+    } else if (!isDirty) {
+      saveStatus.textContent = "";
+      saveStatus.dataset.state = "";
+    }
+  }
+
+  window.addEventListener("beforeunload", (e) => {
+    if (!isDirty) return;
+    e.preventDefault();
+    e.returnValue = "";
+  });
+
+  function numberField(nameKey: string, value: unknown, ariaLabel: string, unit?: string, disabled = false) {
+    const disabledAttr = disabled ? "disabled" : "";
+    const unitHtml = unit ? `<span class="text-xs text-gray-500 dark:text-gray-400 shrink-0" aria-hidden="true">${unit}</span>` : "";
+    return `<div class="flex items-center gap-1.5"><input type="number" step="1" inputmode="numeric" class="myk-num" name="${nameKey}" value="${String(value ?? "")}" aria-label="${ariaLabel}" ${disabledAttr} />${unitHtml}</div>`;
+  }
 
   async function loadFields() {
     const [pricesRes, authRes] = await Promise.all([fetch("/api/admin/prices"), fetch("/api/admin/auth")]);
@@ -62,61 +134,117 @@ const { session } = authenticateRequest(Astro.request);
       if (fieldsContainer) fieldsContainer.innerHTML = `<p class="text-sm text-rose-500">${pricesData.error}</p>`;
       return;
     }
-
     if (!fieldsContainer) return;
-    fieldsContainer.innerHTML = "";
-    for (const field of pricesData.fields) {
-      const key = field.path.join(".");
-      const value = pricesData.values[key];
-      const wrapper = document.createElement("div");
-      const disabledAttrs = field.readOnly
-        ? 'disabled aria-readonly="true" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-sm cursor-not-allowed"'
-        : 'class="w-full px-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"';
-      wrapper.innerHTML = `
-        <label class="block text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">${field.label}</label>
-        <input
-          type="${field.type === "number" ? "number" : "text"}"
-          name="${key}"
-          value="${String(value ?? "")}"
-          ${disabledAttrs}
-        />
-      `;
-      fieldsContainer.appendChild(wrapper);
 
-      // Sous le prix réel des cours à domicile, affiche le prix net (après
-      // réduction d'impôt) recalculé en direct : l'admin ne saisit jamais ce
-      // montant, il est toujours dérivé du prix réel + du taux de réduction.
-      if (key === "cours_individuel_domicile.ttc_heure") {
-        const netWrapper = document.createElement("div");
-        netWrapper.innerHTML = `
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1.5">
-            Prix net affiché au public après réduction d'impôt :
-            <strong id="net-price-preview" class="text-gray-800 dark:text-gray-200"></strong>
-          </p>
-        `;
-        fieldsContainer.appendChild(netWrapper);
+    const values = pricesData.values as Record<string, unknown>;
+    const byGroup: Record<string, any[]> = {};
+    const groupOrder: string[] = [];
+    for (const field of pricesData.fields) {
+      const group = field.group || "Général";
+      if (!byGroup[group]) {
+        byGroup[group] = [];
+        groupOrder.push(group);
       }
+      byGroup[group].push(field);
     }
+
+    const sectionHeader = (title: string) =>
+      `<h2 class="text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 mb-2.5">${title}</h2>`;
+
+    // "Cours collectifs" et "Interventions" sont deux paires de champs
+    // associés : affichés côte à côte sur desktop, empilés sur mobile.
+    function pairedGrid(fields: any[]) {
+      const cells = fields
+        .map((f) => {
+          const key = f.path.join(".");
+          return `<div><label class="field-label">${f.label}</label>${numberField(key, values[key], f.label, f.unit)}</div>`;
+        })
+        .join("");
+      return `<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">${cells}</div>`;
+    }
+
+    const coursCollectifsSection = byGroup["Cours collectifs"]
+      ? `<div>${sectionHeader("Cours collectifs")}${pairedGrid(byGroup["Cours collectifs"])}</div>`
+      : "";
+
+    const interventionsSection = byGroup["Interventions"]
+      ? `<div class="pt-5 border-t border-gray-100 dark:border-gray-800">${sectionHeader("Interventions")}${pairedGrid(byGroup["Interventions"])}</div>`
+      : "";
+
+    // "Cours individuel à domicile" : le prix réel s'édite, la réduction
+    // d'impôt est un fait fixe affiché en simple texte (pas un champ
+    // désactivé qui ressemblerait à un contrôle cassé), et le prix net
+    // affiché au public est mis en avant, clairement calculé.
+    const domicileFields = byGroup["Cours individuel à domicile"] || [];
+    const ttcField = domicileFields.find((f) => f.path[1] === "ttc_heure");
+    const pctField = domicileFields.find((f) => f.path[1] === "reduction_impot_pct");
+    const ttcKey = ttcField?.path.join(".");
+    const pctValue = pctField ? Number(values[pctField.path.join(".")]) : 50;
+
+    const domicileSection = ttcField
+      ? `
+      <div class="pt-5 border-t border-gray-100 dark:border-gray-800">
+        ${sectionHeader("Cours individuel à domicile")}
+        <div class="max-w-[12rem]">
+          <label class="field-label">${ttcField.label}</label>
+          ${numberField(ttcKey!, values[ttcKey!], ttcField.label, ttcField.unit)}
+        </div>
+        <div class="mt-3 flex items-center justify-between text-sm">
+          <span class="text-gray-500 dark:text-gray-400">Réduction d'impôt</span>
+          <span class="text-gray-700 dark:text-gray-300">${pctValue}&nbsp;% <span class="text-xs text-gray-400 dark:text-gray-500">(fixe)</span></span>
+        </div>
+        <div class="mt-3 pt-3 border-t border-dashed border-gray-200 dark:border-gray-700">
+          <p class="text-xs text-gray-500 dark:text-gray-400">Prix affiché au public après réduction d'impôt</p>
+          <p class="text-lg font-serif font-bold text-gray-900 dark:text-white"><span id="net-price-preview"></span> / heure</p>
+        </div>
+      </div>
+    `
+      : "";
+
+    const galerieFields = byGroup["Galerie"] || [];
+    const galerieSection = galerieFields.length
+      ? `
+      <div class="pt-5 border-t border-gray-100 dark:border-gray-800">
+        ${sectionHeader("Galerie")}
+        ${galerieFields
+          .map((f) => {
+            const key = f.path.join(".");
+            return `<div><label class="field-label">${f.label}</label><input type="text" class="myk-num" name="${key}" value="${String(values[key] ?? "")}" aria-label="${f.label}" /></div>`;
+          })
+          .join("")}
+      </div>
+    `
+      : "";
+
+    fieldsContainer.innerHTML = coursCollectifsSection + domicileSection + interventionsSection + galerieSection;
 
     function updateNetPricePreview() {
-      const ttcInput = form?.querySelector<HTMLInputElement>('input[name="cours_individuel_domicile.ttc_heure"]');
-      const pctInput = form?.querySelector<HTMLInputElement>('input[name="cours_individuel_domicile.reduction_impot_pct"]');
+      const ttcInput = form?.querySelector<HTMLInputElement>(`input[name="${ttcKey}"]`);
       const preview = document.getElementById("net-price-preview");
-      if (!ttcInput || !pctInput || !preview) return;
+      if (!ttcInput || !preview) return;
       const ttc = Number(ttcInput.value);
-      const pct = Number(pctInput.value);
-      preview.textContent = Number.isFinite(ttc) && Number.isFinite(pct) ? `${Math.round(ttc * (1 - pct / 100))} €` : "—";
+      preview.textContent = Number.isFinite(ttc) ? `${Math.round(ttc * (1 - pctValue / 100))} €` : "—";
     }
 
-    form?.querySelector('input[name="cours_individuel_domicile.ttc_heure"]')?.addEventListener("input", updateNetPricePreview);
+    form?.querySelector(`input[name="${ttcKey}"]`)?.addEventListener("input", updateNetPricePreview);
     updateNetPricePreview();
+
+    savedSnapshot = formSnapshot();
+    isDirty = false;
+    if (saveBtn) saveBtn.disabled = true;
+    fieldsContainer.addEventListener("input", () => {
+      updateNetPricePreview();
+      markDirty();
+    });
   }
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (!saveBtn || !form) return;
+    if (!saveBtn || !form || !saveStatus) return;
     saveBtn.disabled = true;
-    saveBtn.textContent = "Enregistrement…";
+    saveStatus.dataset.state = "saving";
+    saveStatus.textContent = "Enregistrement…";
+    clearError();
 
     const values: Record<string, string> = {};
     for (const input of Array.from(form.querySelectorAll("input"))) {
@@ -131,12 +259,21 @@ const { session } = authenticateRequest(Astro.request);
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Erreur lors de l'enregistrement.");
-      showStatus("Tarifs enregistrés et publiés avec succès.", "success");
+      savedSnapshot = formSnapshot();
+      isDirty = false;
+      saveStatus.dataset.state = "saved";
+      saveStatus.textContent = "Enregistré ✓";
+      window.setTimeout(() => {
+        if (saveStatus.dataset.state === "saved") {
+          saveStatus.textContent = "";
+          saveStatus.dataset.state = "";
+        }
+      }, 3000);
     } catch (err: any) {
-      showStatus(err.message, "error");
-    } finally {
+      saveStatus.textContent = "";
+      saveStatus.dataset.state = "";
       saveBtn.disabled = false;
-      saveBtn.textContent = "Enregistrer";
+      showError(err.message);
     }
   });
 

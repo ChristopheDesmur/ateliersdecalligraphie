@@ -7,18 +7,19 @@ import { loadTextFile, saveTextFile } from "@/lib/admin/store";
 
 const PRICES_PATH = "src/data/prices.yaml";
 
-// Chaque champ modifiable du formulaire, avec son chemin dans le YAML et son type.
-// "readOnly" (réduction d'impôt) reste affiché pour information mais n'est pas
-// saisi par l'admin : seul le prix réel (ttc_heure) s'édite, le prix net
-// affiché aux visiteurs est recalculé automatiquement à partir des deux.
+// Chaque champ modifiable du formulaire, avec son chemin dans le YAML, son
+// type et le groupe sous lequel il s'affiche. "readOnly" (réduction d'impôt)
+// reste affiché pour information mais n'est pas saisi par l'admin : seul le
+// prix réel (ttc_heure) s'édite, le prix net affiché aux visiteurs est
+// recalculé automatiquement à partir des deux.
 export const PRICE_FIELDS = [
-  { path: ["cours_collectifs", "trimestre"], label: "Cours collectifs — tarif par trimestre (€)", type: "number" },
-  { path: ["cours_collectifs", "seances"], label: "Cours collectifs — nombre de séances incluses", type: "number" },
-  { path: ["cours_individuel_domicile", "ttc_heure"], label: "Cours individuel à domicile — prix réel, TTC / heure (€)", type: "number" },
-  { path: ["cours_individuel_domicile", "reduction_impot_pct"], label: "Réduction d'impôt appliquée (%)", type: "number", readOnly: true },
-  { path: ["interventions", "ht_heure_standard"], label: "Interventions — tarif HT/h standard (écoles, retraites...) (€)", type: "number" },
-  { path: ["interventions", "ht_heure_entreprises"], label: "Interventions — tarif HT/h entreprises / CSE (€)", type: "number" },
-  { path: ["galerie", "sur_demande"], label: "Galerie — libellé du prix sur demande", type: "string" },
+  { path: ["cours_collectifs", "trimestre"], label: "Tarif par trimestre", type: "number", group: "Cours collectifs", unit: "€" },
+  { path: ["cours_collectifs", "seances"], label: "Nombre de séances incluses", type: "number", group: "Cours collectifs" },
+  { path: ["cours_individuel_domicile", "ttc_heure"], label: "Prix réel, TTC / heure", type: "number", group: "Cours individuel à domicile", unit: "€" },
+  { path: ["cours_individuel_domicile", "reduction_impot_pct"], label: "Réduction d'impôt", type: "number", group: "Cours individuel à domicile", unit: "%", readOnly: true },
+  { path: ["interventions", "ht_heure_standard"], label: "Écoles, retraites…", type: "number", group: "Interventions", unit: "€ HT / h" },
+  { path: ["interventions", "ht_heure_entreprises"], label: "Entreprises / CSE", type: "number", group: "Interventions", unit: "€ HT / h" },
+  { path: ["galerie", "sur_demande"], label: "Libellé du prix sur demande", type: "string", group: "Galerie" },
 ] as const;
 
 const NO_CACHE_HEADERS = { "Content-Type": "application/json", "Cache-Control": "no-store" };
