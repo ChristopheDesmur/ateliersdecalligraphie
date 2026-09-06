@@ -8,6 +8,7 @@ import AcquisitionProcess from "@/components/gallery/AcquisitionProcess.astro";
 import PersonalizedCalligraphyCTA from "@/components/gallery/PersonalizedCalligraphyCTA.astro";
 import GalleryFAQ from "@/components/gallery/GalleryFAQ.astro";
 import { getAllArtworks } from "@/data/artworks";
+import { prices } from "@/data/prices";
 
 const artworks = getAllArtworks();
 const availableCount = artworks.filter((a) => a.availability === "Disponible").length;
@@ -101,7 +102,7 @@ const collectionSchema = {
         </div>
 
         <p class="text-xs text-gray-500 dark:text-gray-400 mt-5 leading-relaxed">
-          📍 Œuvres visibles sur rendez-vous à Lyon (Croix-Rousse). Prix sur demande, échange direct avec le calligraphe sans intermédiaire ni paiement automatisé.
+          📍 Œuvres visibles sur rendez-vous à Lyon (Croix-Rousse). {prices.galerie.sur_demande}, échange direct avec le calligraphe sans intermédiaire ni paiement automatisé.
         </p>
       </div>
     </header>

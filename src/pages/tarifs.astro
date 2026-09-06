@@ -37,7 +37,7 @@ const rates = [
     features: [
       "Apprentissage entièrement personnalisé à votre rythme",
       `Agrément Coop A Dom (n° ${contact.coop_a_dom_agrement} — services à domicile)`,
-      "50 % de réduction ou crédit d’impôt (art. 199 sexdecies du CGI)",
+      `${prices.cours_individuel_domicile.reduction_impot_pct} % de réduction ou crédit d’impôt (art. 199 sexdecies du CGI)`,
       "Tout le matériel est apporté à votre domicile",
       "Horaires et fréquence flexibles selon vos disponibilités",
       "Possibilité de combiner calligraphie et initiation au chinois",
@@ -137,7 +137,7 @@ const rates = [
       "@context": "https://schema.org",
       "@type": "Course",
       "name": "Cours particulier de calligraphie chinoise à domicile",
-      "description": "Cours individuel à domicile à Lyon, agréé service à la personne (50 % de crédit d’impôt).",
+      "description": `Cours individuel à domicile à Lyon, agréé service à la personne (${prices.cours_individuel_domicile.reduction_impot_pct} % de crédit d’impôt).`,
       "url": "https://ateliersdecalligraphie.com/tarifs",
       "provider": {
         "@type": "Person",
@@ -248,7 +248,7 @@ const rates = [
         Conditions et déductions fiscales
       </h3>
       <p class="leading-relaxed mb-3">
-        <strong>Cours particuliers à domicile :</strong> Dispensés dans le cadre de la société coopérative de services à domicile <em>Coop A Dom</em> (agrément n° {contact.coop_a_dom_agrement}). Conformément à l’article 199 sexdecies du Code Général des Impôts, vous bénéficiez d’une réduction ou d’un crédit d’impôt de 50 % sur les sommes versées pour les cours particuliers à domicile (hors soutien scolaire).
+        <strong>Cours particuliers à domicile :</strong> Dispensés dans le cadre de la société coopérative de services à domicile <em>Coop A Dom</em> (agrément n° {contact.coop_a_dom_agrement}). Conformément à l’article 199 sexdecies du Code Général des Impôts, vous bénéficiez d’une réduction ou d’un crédit d’impôt de {prices.cours_individuel_domicile.reduction_impot_pct} % sur les sommes versées pour les cours particuliers à domicile (hors soutien scolaire).
       </p>
       <p class="leading-relaxed mb-3">
         <strong>Cours collectifs :</strong> Cette réduction fiscale s’applique uniquement aux cours particuliers à domicile. Les cours collectifs hebdomadaires (Dojo Zen, Miroirs du Ciel) n’ouvrent pas droit à un crédit d’impôt.

@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { contact, telHref } from "@/data/contact";
+import { prices } from "@/data/prices";
 
 const contactOptions = [
   {
@@ -11,7 +12,7 @@ const contactOptions = [
   },
   {
     title: "Cours individuels à domicile",
-    description: "Échangez sur un accompagnement personnalisé à votre domicile à Lyon (éligible au crédit d’impôt 50 %).",
+    description: `Échangez sur un accompagnement personnalisé à votre domicile à Lyon (éligible au crédit d’impôt ${prices.cours_individuel_domicile.reduction_impot_pct} %).`,
     subject: "Demande de cours individuels à domicile",
     cta: "Demander un cours particulier",
   },

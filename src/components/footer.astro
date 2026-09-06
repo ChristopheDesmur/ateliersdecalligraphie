@@ -1,6 +1,7 @@
 ---
 // Footer.astro - Pied de page avec NAP local complet, navigation thématique et mentions
 import { contact, telHref } from "@/data/contact";
+import { prices } from "@/data/prices";
 ---
 
 <footer class="mt-20 border-t border-gray-200 dark:border-gray-800 bg-gray-50/60 dark:bg-gray-900/60 pt-14 pb-12 text-sm text-gray-600 dark:text-gray-400" aria-label="Pied de page">
@@ -64,7 +65,7 @@ import { contact, telHref } from "@/data/contact";
           </li>
           <li>
             <a href="/cours-individuel-a-domicile" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
-              Cours individuels à domicile (50 % crédit d’impôt)
+              Cours individuels à domicile ({prices.cours_individuel_domicile.reduction_impot_pct} % crédit d’impôt)
             </a>
           </li>
           <li>

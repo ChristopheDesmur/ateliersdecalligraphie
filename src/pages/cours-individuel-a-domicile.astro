@@ -15,7 +15,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20de%20cours%20
       "@context": "https://schema.org",
       "@type": "Service",
       "name": "Cours particulier de calligraphie chinoise à domicile",
-      "description": `Cours individuel de calligraphie chinoise à domicile à Lyon et son agglomération, dispensé par Christophe Desmur. Accompagnement personnalisé à votre rythme, matériel fourni. Agrément Coop A Dom n° ${contact.coop_a_dom_agrement} — éligible à la réduction ou au crédit d’impôt de 50 % (article 199 sexdecies du CGI, hors soutien scolaire).`,
+      "description": `Cours individuel de calligraphie chinoise à domicile à Lyon et son agglomération, dispensé par Christophe Desmur. Accompagnement personnalisé à votre rythme, matériel fourni. Agrément Coop A Dom n° ${contact.coop_a_dom_agrement} — éligible à la réduction ou au crédit d’impôt de ${prices.cours_individuel_domicile.reduction_impot_pct} % (article 199 sexdecies du CGI, hors soutien scolaire).`,
       "url": "https://ateliersdecalligraphie.com/cours-individuel-a-domicile",
       "provider": {
         "@type": "Person",
@@ -29,11 +29,11 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20de%20cours%20
       "serviceType": "Cours à domicile de calligraphie chinoise",
       "offers": {
         "@type": "Offer",
-        "price": "80",
+        "price": `${prices.cours_individuel_domicile.ttc_heure}`,
         "priceCurrency": "EUR",
         "priceSpecification": {
           "@type": "UnitPriceSpecification",
-          "price": "80",
+          "price": `${prices.cours_individuel_domicile.ttc_heure}`,
           "priceCurrency": "EUR",
           "unitText": "heure"
         }
@@ -41,7 +41,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20de%20cours%20
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Services à domicile agréés",
-        "description": `Agrément Coop A Dom n° ${contact.coop_a_dom_agrement} — éligible à la réduction d’impôt de 50 % (article 199 sexdecies du CGI, hors soutien scolaire)`
+        "description": `Agrément Coop A Dom n° ${contact.coop_a_dom_agrement} — éligible à la réduction d’impôt de ${prices.cours_individuel_domicile.reduction_impot_pct} % (article 199 sexdecies du CGI, hors soutien scolaire)`
       }
     },
     {
