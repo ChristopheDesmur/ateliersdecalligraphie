@@ -15,10 +15,10 @@ const { session } = authenticateRequest(Astro.request);
         <AdminNav active="dashboard" />
         <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Administration</h1>
         <p class="text-sm text-gray-600 dark:text-gray-400 mb-8">
-          Gérez les tarifs, la galerie et les événements affichés sur le site. Chaque enregistrement publie directement une mise à jour du site.
+          Gérez les tarifs, la galerie, les événements et les coordonnées affichés sur le site. Chaque enregistrement publie directement une mise à jour du site.
         </p>
 
-        <div class="grid sm:grid-cols-3 gap-5">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           <a href="/admin/prices" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/60 hover:border-indigo-400 dark:hover:border-indigo-500 transition">
             <h2 class="font-bold text-gray-900 dark:text-white mb-1">Tarifs</h2>
             <p class="text-xs text-gray-500 dark:text-gray-400">Cours collectifs, cours à domicile, interventions.</p>
@@ -30,6 +30,10 @@ const { session } = authenticateRequest(Astro.request);
           <a href="/admin/events" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/60 hover:border-indigo-400 dark:hover:border-indigo-500 transition">
             <h2 class="font-bold text-gray-900 dark:text-white mb-1">Événements</h2>
             <p class="text-xs text-gray-500 dark:text-gray-400">Cours et interventions à venir.</p>
+          </a>
+          <a href="/admin/contact" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/60 hover:border-indigo-400 dark:hover:border-indigo-500 transition">
+            <h2 class="font-bold text-gray-900 dark:text-white mb-1">Contact</h2>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Téléphones, e-mail, agrément Coop A Dom.</p>
           </a>
         </div>
       </div>

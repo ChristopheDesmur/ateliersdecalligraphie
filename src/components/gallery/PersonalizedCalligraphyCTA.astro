@@ -1,6 +1,7 @@
 ---
 // PersonalizedCalligraphyCTA.astro - Section dédiée aux commandes personnalisées
-const customMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20de%20calligraphie%20personnalis%C3%A9e&body=Bonjour%20Christophe%2C%0A%0AJe%20souhaiterais%20vous%20consulter%20concernant%20la%20r%C3%A9alisation%20d’une%20calligraphie%20personnalis%C3%A9e%20%3A%0A%0A-%20Caract%C3%A8re%2C%20pr%C3%A9nom%20ou%20expression%20souhait%C3%A9e%20%3A%20%0A-%20Style%20ou%20ambiance%20envisag%C3%A9e%20%3A%20%0A-%20Format%20souhait%C3%A9%20%3A%20%0A%0AMerci%20d’avance%2C%0A";
+import { contact, telHref } from "@/data/contact";
+const customMailHref = `mailto:${contact.email}?subject=Demande%20de%20calligraphie%20personnalis%C3%A9e&body=Bonjour%20Christophe%2C%0A%0AJe%20souhaiterais%20vous%20consulter%20concernant%20la%20r%C3%A9alisation%20d’une%20calligraphie%20personnalis%C3%A9e%20%3A%0A%0A-%20Caract%C3%A8re%2C%20pr%C3%A9nom%20ou%20expression%20souhait%C3%A9e%20%3A%20%0A-%20Style%20ou%20ambiance%20envisag%C3%A9e%20%3A%20%0A-%20Format%20souhait%C3%A9%20%3A%20%0A%0AMerci%20d’avance%2C%0A`;
 ---
 
 <section
@@ -55,7 +56,7 @@ const customMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20de%
     </div>
 
     <p class="text-xs text-stone-400 mt-5">
-      Vous pouvez également joindre Christophe Desmur par téléphone au <a href="tel:+33769941643" class="text-stone-200 underline">07 69 94 16 43</a> ou au <a href="tel:+33472078861" class="text-stone-200 underline">04 72 07 88 61</a> pour échanger de vive voix sur votre projet.
+      Vous pouvez également joindre Christophe Desmur par téléphone au <a href={`tel:${telHref(contact.mobile)}`} class="text-stone-200 underline">{contact.mobile}</a> ou au <a href={`tel:${telHref(contact.landline)}`} class="text-stone-200 underline">{contact.landline}</a> pour échanger de vive voix sur votre projet.
     </p>
   </div>
 </section>

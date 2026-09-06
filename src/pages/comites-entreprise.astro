@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Layout.astro";
 import RelatedPages from "../components/related-pages.astro";
+import { contact, telHref } from "../data/contact";
 import fs from "fs";
 import yaml from "js-yaml";
 
@@ -111,7 +112,7 @@ const eventsByYear = Object.entries(grouped).sort(
 const recentYears = eventsByYear.slice(0, 5);
 const olderYears = eventsByYear.slice(5);
 
-const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation%20d’un%20atelier%20calligraphie%20en%20entreprise";
+const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%20atelier%20calligraphie%20en%20entreprise`;
 ---
 
 <Base
@@ -198,10 +199,10 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation
             Organiser un atelier
           </a>
           <a
-            href="tel:+33769941643"
+            href={`tel:${telHref(contact.mobile)}`}
             class="inline-flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
-            aria-label="Contacter Christophe Desmur au 07 69 94 16 43">
-            📱 07 69 94 16 43
+            aria-label={`Contacter Christophe Desmur au ${contact.mobile}`}>
+            📱 {contact.mobile}
           </a>
         </div>
       </div>
@@ -268,9 +269,9 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation
           Organiser un atelier
         </a>
         <a
-          href="tel:+33769941643"
+          href={`tel:${telHref(contact.mobile)}`}
           class="inline-flex items-center justify-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition py-2 text-center">
-          📱 07 69 94 16 43
+          📱 {contact.mobile}
         </a>
       </div>
     </section>

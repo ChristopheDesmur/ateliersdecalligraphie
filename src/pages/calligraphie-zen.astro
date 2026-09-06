@@ -2,8 +2,9 @@
 import Layout from "@/layouts/Layout.astro";
 import RelatedPages from "@/components/related-pages.astro";
 import { prices } from "@/data/prices";
+import { contact, telHref } from "@/data/contact";
 
-const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d’information%20calligraphie%20zen";
+const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’information%20calligraphie%20zen`;
 ---
 
 <Layout
@@ -555,9 +556,9 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d�
       <div class="mt-6 flex flex-wrap items-center justify-between gap-4 text-xs text-gray-500 dark:text-gray-400">
         <span>Christophe Desmur • Calligraphe à Lyon</span>
         <div class="flex items-center gap-4 font-medium">
-          <a href="tel:+33769941643" class="hover:text-indigo-600 dark:hover:text-indigo-400">📱 07 69 94 16 43</a>
-          <a href="tel:+33472078861" class="hover:text-indigo-600 dark:hover:text-indigo-400">📞 04 72 07 88 61</a>
-          <a href={contactMailHref} class="text-indigo-600 dark:text-indigo-400 underline">✉️ christophe.desmur@orange.fr</a>
+          <a href={`tel:${telHref(contact.mobile)}`} class="hover:text-indigo-600 dark:hover:text-indigo-400">📱 {contact.mobile}</a>
+          <a href={`tel:${telHref(contact.landline)}`} class="hover:text-indigo-600 dark:hover:text-indigo-400">📞 {contact.landline}</a>
+          <a href={contactMailHref} class="text-indigo-600 dark:text-indigo-400 underline">✉️ {contact.email}</a>
         </div>
       </div>
     </section>
