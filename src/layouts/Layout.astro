@@ -3,7 +3,6 @@ import { SEO } from "astro-seo";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
 import InfoBox from "@/components/info-box.astro";
-import { contact, telHref } from "@/data/contact";
 
 import "../styles/global.css";
 import Analytics from '@vercel/analytics/astro';
@@ -89,8 +88,8 @@ const makeTitle = !title
         "alternateName": "Ateliers de calligraphie chinoise à Lyon",
         "description": "Cours hebdomadaires de calligraphie chinoise, cours particuliers et ateliers sur mesure à Lyon avec Christophe Desmur. Pratique au pinceau, encre de Chine et philosophie.",
         "url": "https://ateliersdecalligraphie.com",
-        "telephone": [telHref(contact.mobile), telHref(contact.landline)],
-        "email": contact.email,
+        "telephone": ["+33769941643", "+33472078861"],
+        "email": "christophe.desmur@orange.fr",
         "image": "https://ateliersdecalligraphie.com/assets/opengraph.webp",
         "priceRange": "€€",
         "founder": {

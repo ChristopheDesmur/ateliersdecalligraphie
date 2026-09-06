@@ -4,7 +4,6 @@ import Container from "@/components/container.astro";
 import Cta from "@/components/cta.astro";
 import RelatedPages from "@/components/related-pages.astro";
 import { prices } from "@/data/prices";
-import { contact, telHref } from "@/data/contact";
 
 const locations = [
   {
@@ -246,7 +245,7 @@ const locations = [
                 ></iframe>
               </div>
               <a
-                href={`mailto:${contact.email}?subject=Demande%20d’inscription%20cours%20collectif`}
+                href="mailto:christophe.desmur@orange.fr?subject=Demande%20d’inscription%20cours%20collectif"
                 class="block w-full text-center py-2.5 px-4 bg-gray-900 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white rounded-lg font-medium text-sm transition">
                 Réserver une séance ({loc.day.toLowerCase()})
               </a>
@@ -409,14 +408,14 @@ const locations = [
 
       <div class="flex flex-wrap gap-4 items-center">
         <a
-          href={`mailto:${contact.email}?subject=Demande%20de%20première%20séance%20d’essai`}
+          href="mailto:christophe.desmur@orange.fr?subject=Demande%20de%20première%20séance%20d’essai"
           class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg text-sm transition">
           Prendre contact pour une séance d’essai
         </a>
         <a
-          href={`tel:${telHref(contact.mobile)}`}
+          href="tel:+33769941643"
           class="px-5 py-3 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg text-sm hover:bg-white dark:hover:bg-gray-700 transition">
-          📱 {contact.mobile}
+          📱 07 69 94 16 43
         </a>
       </div>
     </section>

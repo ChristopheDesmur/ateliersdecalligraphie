@@ -1,9 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { prices, netHeureDomicile } from "@/data/prices";
-import { contact, telHref } from "@/data/contact";
 
-const contactMailHref = `mailto:${contact.email}?subject=Demande%20de%20cours%20individuel%20%C3%A0%20domicile`;
+const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20de%20cours%20individuel%20%C3%A0%20domicile";
 ---
 
 <Layout
@@ -15,7 +14,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20de%20cours%20
       "@context": "https://schema.org",
       "@type": "Service",
       "name": "Cours particulier de calligraphie chinoise à domicile",
-      "description": `Cours individuel de calligraphie chinoise à domicile à Lyon et son agglomération, dispensé par Christophe Desmur. Accompagnement personnalisé à votre rythme, matériel fourni. Agrément Coop A Dom n° ${contact.coop_a_dom_agrement} — éligible à la réduction ou au crédit d’impôt de 50 % (article 199 sexdecies du CGI, hors soutien scolaire).`,
+      "description": "Cours individuel de calligraphie chinoise à domicile à Lyon et son agglomération, dispensé par Christophe Desmur. Accompagnement personnalisé à votre rythme, matériel fourni. Agrément Coop A Dom n° 2006-1-42.10 — éligible à la réduction ou au crédit d’impôt de 50 % (article 199 sexdecies du CGI, hors soutien scolaire).",
       "url": "https://ateliersdecalligraphie.com/cours-individuel-a-domicile",
       "provider": {
         "@type": "Person",
@@ -41,7 +40,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20de%20cours%20
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Services à domicile agréés",
-        "description": `Agrément Coop A Dom n° ${contact.coop_a_dom_agrement} — éligible à la réduction d’impôt de 50 % (article 199 sexdecies du CGI, hors soutien scolaire)`
+        "description": "Agrément Coop A Dom n° 2006-1-42.10 — éligible à la réduction d’impôt de 50 % (article 199 sexdecies du CGI, hors soutien scolaire)"
       }
     },
     {
@@ -61,7 +60,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20de%20cours%20
           "name": `Comment fonctionne le crédit d’impôt de ${prices.cours_individuel_domicile.reduction_impot_pct} % pour les cours à domicile ?`,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": `Via l’agrément Coop A Dom n° ${contact.coop_a_dom_agrement} (services à la personne), vous bénéficiez de ${prices.cours_individuel_domicile.reduction_impot_pct} % de réduction ou de crédit d’impôt sur le tarif de ${prices.cours_individuel_domicile.ttc_heure} € TTC / heure, soit ${netHeureDomicile} € net de l’heure. Une attestation fiscale annuelle officielle vous est délivrée.`
+            "text": `Via l’agrément Coop A Dom n° 2006-1-42.10 (services à la personne), vous bénéficiez de ${prices.cours_individuel_domicile.reduction_impot_pct} % de réduction ou de crédit d’impôt sur le tarif de ${prices.cours_individuel_domicile.ttc_heure} € TTC / heure, soit ${netHeureDomicile} € net de l’heure. Une attestation fiscale annuelle officielle vous est délivrée.`
           }
         },
         {
@@ -330,7 +329,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20de%20cours%20
           Cadre administratif & crédit d’impôt
         </h2>
         <p>
-          Prestation assurée en tant qu’entrepreneur au sein de la coopérative de services à domicile <strong>Coop A Dom</strong> (agrément n°&nbsp;{contact.coop_a_dom_agrement}). Conformément à l’article 199 sexdecies du Code Général des Impôts (hors soutien scolaire), vous bénéficiez de <strong>{prices.cours_individuel_domicile.reduction_impot_pct}&nbsp;% de réduction ou de crédit d’impôt</strong> sur le tarif horaire de {prices.cours_individuel_domicile.ttc_heure}&nbsp;€ TTC (soit {netHeureDomicile}&nbsp;€ net / heure).
+          Prestation assurée en tant qu’entrepreneur au sein de la coopérative de services à domicile <strong>Coop A Dom</strong> (agrément n°&nbsp;2006-1-42.10). Conformément à l’article 199 sexdecies du Code Général des Impôts (hors soutien scolaire), vous bénéficiez de <strong>{prices.cours_individuel_domicile.reduction_impot_pct}&nbsp;% de réduction ou de crédit d’impôt</strong> sur le tarif horaire de {prices.cours_individuel_domicile.ttc_heure}&nbsp;€ TTC (soit {netHeureDomicile}&nbsp;€ net / heure).
         </p>
         <p class="mt-2 text-stone-500 dark:text-stone-400">
           Facturation officielle établie par Coop A Dom et attestation fiscale annuelle délivrée pour votre déclaration de revenus.
@@ -364,15 +363,15 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20de%20cours%20
           </a>
 
           <a
-            href={`tel:${telHref(contact.mobile)}`}
+            href="tel:+33769941643"
             class="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition border border-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white inline-flex items-center justify-center gap-2">
             <span>📱</span>
-            <span>{contact.mobile}</span>
+            <span>07 69 94 16 43</span>
           </a>
         </div>
 
         <p class="text-xs text-stone-400 mt-5 font-sans">
-          Également joignable au <a href={`tel:${telHref(contact.landline)}`} class="underline hover:text-white">{contact.landline}</a> ou par courriel à <a href={`mailto:${contact.email}`} class="underline hover:text-white">{contact.email}</a>.
+          Également joignable au <a href="tel:+33472078861" class="underline hover:text-white">04 72 07 88 61</a> ou par courriel à <a href="mailto:christophe.desmur@orange.fr" class="underline hover:text-white">christophe.desmur@orange.fr</a>.
         </p>
       </div>
     </section>
