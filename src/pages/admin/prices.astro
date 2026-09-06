@@ -1,0 +1,144 @@
+---
+export const prerender = false;
+
+import Layout from "@/layouts/Layout.astro";
+import AdminNav from "@/components/admin/AdminNav.astro";
+import LoginGate from "@/components/admin/LoginGate.astro";
+import { authenticateRequest } from "@/lib/admin/auth";
+
+const { session } = authenticateRequest(Astro.request);
+---
+<Layout title="Administration — Tarifs" noindex={true}>
+  <div class="max-w-3xl mx-auto">
+    {session ? (
+      <div>
+        <AdminNav active="prices" />
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Tarifs</h1>
+        <div id="prices-status" class="hidden mb-4 p-3 rounded-xl text-xs font-medium"></div>
+        <form id="prices-form" class="space-y-5 bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-2xl p-6">
+          <div id="prices-fields" class="space-y-5">
+            <p class="text-sm text-gray-400">Chargement…</p>
+          </div>
+          <button
+            type="submit"
+            id="prices-save-btn"
+            class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition cursor-pointer disabled:opacity-60"
+          >
+            Enregistrer
+          </button>
+        </form>
+      </div>
+    ) : (
+      <LoginGate />
+    )}
+  </div>
+</Layout>
+
+<script>
+  const fieldsContainer = document.getElementById("prices-fields");
+  const form = document.getElementById("prices-form") as HTMLFormElement | null;
+  const saveBtn = document.getElementById("prices-save-btn") as HTMLButtonElement | null;
+  const statusEl = document.getElementById("prices-status");
+
+  function showStatus(message: string, kind: "success" | "error") {
+    if (!statusEl) return;
+    statusEl.textContent = message;
+    statusEl.className =
+      "mb-4 p-3 rounded-xl text-xs font-medium " +
+      (kind === "success"
+        ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
+        : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
+  }
+
+  let csrfToken = "";
+
+  async function loadFields() {
+    const [pricesRes, authRes] = await Promise.all([fetch("/api/admin/prices"), fetch("/api/admin/auth")]);
+    const pricesData = await pricesRes.json();
+    const authData = await authRes.json();
+    csrfToken = authData.csrfToken || "";
+
+    if (!pricesRes.ok) {
+      if (fieldsContainer) fieldsContainer.innerHTML = `<p class="text-sm text-rose-500">${pricesData.error}</p>`;
+      return;
+    }
+
+    if (!fieldsContainer) return;
+    fieldsContainer.innerHTML = "";
+    for (const field of pricesData.fields) {
+      const key = field.path.join(".");
+      const value = pricesData.values[key];
+      const wrapper = document.createElement("div");
+      const disabledAttrs = field.readOnly
+        ? 'disabled aria-readonly="true" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-sm cursor-not-allowed"'
+        : 'class="w-full px-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"';
+      wrapper.innerHTML = `
+        <label class="block text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">${field.label}</label>
+        <input
+          type="${field.type === "number" ? "number" : "text"}"
+          name="${key}"
+          value="${String(value ?? "")}"
+          ${disabledAttrs}
+        />
+      `;
+      fieldsContainer.appendChild(wrapper);
+
+      // Sous le prix réel des cours à domicile, affiche le prix net (après
+      // réduction d'impôt) recalculé en direct : l'admin ne saisit jamais ce
+      // montant, il est toujours dérivé du prix réel + du taux de réduction.
+      if (key === "cours_individuel_domicile.ttc_heure") {
+        const netWrapper = document.createElement("div");
+        netWrapper.innerHTML = `
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1.5">
+            Prix net affiché au public après réduction d'impôt :
+            <strong id="net-price-preview" class="text-gray-800 dark:text-gray-200"></strong>
+          </p>
+        `;
+        fieldsContainer.appendChild(netWrapper);
+      }
+    }
+
+    function updateNetPricePreview() {
+      const ttcInput = form?.querySelector<HTMLInputElement>('input[name="cours_individuel_domicile.ttc_heure"]');
+      const pctInput = form?.querySelector<HTMLInputElement>('input[name="cours_individuel_domicile.reduction_impot_pct"]');
+      const preview = document.getElementById("net-price-preview");
+      if (!ttcInput || !pctInput || !preview) return;
+      const ttc = Number(ttcInput.value);
+      const pct = Number(pctInput.value);
+      preview.textContent = Number.isFinite(ttc) && Number.isFinite(pct) ? `${Math.round(ttc * (1 - pct / 100))} €` : "—";
+    }
+
+    form?.querySelector('input[name="cours_individuel_domicile.ttc_heure"]')?.addEventListener("input", updateNetPricePreview);
+    updateNetPricePreview();
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!saveBtn || !form) return;
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Enregistrement…";
+
+    const values: Record<string, string> = {};
+    for (const input of Array.from(form.querySelectorAll("input"))) {
+      values[input.name] = input.value;
+    }
+
+    try {
+      const res = await fetch("/api/admin/prices", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-csrf-token": csrfToken },
+        body: JSON.stringify({ values }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Erreur lors de l'enregistrement.");
+      showStatus("Tarifs enregistrés et publiés avec succès.", "success");
+    } catch (err: any) {
+      showStatus(err.message, "error");
+    } finally {
+      saveBtn.disabled = false;
+      saveBtn.textContent = "Enregistrer";
+    }
+  });
+
+  loadFields();
+</script>

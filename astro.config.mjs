@@ -3,11 +3,20 @@ import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
+import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://ateliersdecalligraphie.com",
-  integrations: [mdx(), sitemap(), icon()],
+  output: "static",
+  adapter: vercel(),
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) => !page.includes("/admin/"),
+    }),
+    icon(),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

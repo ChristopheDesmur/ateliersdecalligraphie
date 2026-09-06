@@ -1,0 +1,43 @@
+---
+export interface Props {
+  active: "dashboard" | "prices" | "products" | "events";
+}
+const { active } = Astro.props;
+
+const tabs = [
+  { id: "dashboard", label: "Tableau de bord", href: "/admin" },
+  { id: "prices", label: "Tarifs", href: "/admin/prices" },
+  { id: "products", label: "Galerie", href: "/admin/products" },
+  { id: "events", label: "Événements", href: "/admin/events" },
+] as const;
+---
+<div class="flex items-center justify-between flex-wrap gap-3 mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">
+  <nav class="flex items-center gap-1 flex-wrap" aria-label="Navigation de l'administration">
+    {tabs.map((tab) => (
+      <a
+        href={tab.href}
+        class={`px-3.5 py-2 rounded-lg text-sm font-medium transition ${
+          active === tab.id
+            ? "bg-indigo-600 text-white"
+            : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+        }`}
+      >
+        {tab.label}
+      </a>
+    ))}
+  </nav>
+  <button
+    id="admin-logout-btn"
+    type="button"
+    class="px-3.5 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-rose-600 dark:text-gray-400 dark:hover:text-rose-400 transition cursor-pointer"
+  >
+    Se déconnecter
+  </button>
+</div>
+
+<script>
+  document.getElementById("admin-logout-btn")?.addEventListener("click", async () => {
+    await fetch("/api/admin/auth", { method: "DELETE" }).catch(() => {});
+    window.location.href = "/admin";
+  });
+</script>

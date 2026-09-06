@@ -1,0 +1,266 @@
+---
+export const prerender = false;
+
+import Layout from "@/layouts/Layout.astro";
+import AdminNav from "@/components/admin/AdminNav.astro";
+import LoginGate from "@/components/admin/LoginGate.astro";
+import { authenticateRequest } from "@/lib/admin/auth";
+
+const { session } = authenticateRequest(Astro.request);
+---
+<Layout title="Administration — Événements" noindex={true}>
+  <div class="max-w-4xl mx-auto">
+    {session ? (
+      <div>
+        <AdminNav active="events" />
+        <div class="flex items-center justify-between mb-6">
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Événements (cours & interventions)</h1>
+          <button
+            id="add-event-btn"
+            type="button"
+            class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition cursor-pointer"
+          >
+            + Ajouter un événement
+          </button>
+        </div>
+
+        <div id="events-status" class="hidden mb-4 p-3 rounded-xl text-xs font-medium"></div>
+
+        <div id="events-list" class="space-y-6 mb-10">
+          <p class="text-sm text-gray-400">Chargement…</p>
+        </div>
+
+        <!-- Formulaire d'ajout / modification -->
+        <div id="event-form-container" class="hidden bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-2xl p-6">
+          <h2 id="event-form-title" class="font-bold text-gray-900 dark:text-white mb-4">Ajouter un événement</h2>
+          <form id="event-form" class="grid sm:grid-cols-2 gap-4">
+            <input type="hidden" name="originalYear" value="" />
+            <input type="hidden" name="originalIndex" value="" />
+
+            <div>
+              <label class="field-label">Début (AAAA-MM-JJ HH:mm)</label>
+              <input name="from" required class="field-input" placeholder="2026-01-20 00:00" />
+            </div>
+            <div>
+              <label class="field-label">Fin (AAAA-MM-JJ HH:mm)</label>
+              <input name="to" required class="field-input" placeholder="2026-01-20 23:59" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="field-label">Titre</label>
+              <input name="titre" required class="field-input" placeholder="Ateliers de calligraphie chinoise" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="field-label">Lieu</label>
+              <input name="lieu" required class="field-input" placeholder="Centre social de l'Orangerie, Tassin-la-Demi-Lune (69160)" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="field-label">Détails (optionnel)</label>
+              <textarea name="details" rows="2" class="field-input"></textarea>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="field-label">Lien externe (optionnel)</label>
+              <input name="href" class="field-input" placeholder="https://…" />
+            </div>
+
+            <div class="sm:col-span-2 flex items-center gap-3 pt-2">
+              <button type="submit" id="event-save-btn" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition cursor-pointer disabled:opacity-60">
+                Enregistrer
+              </button>
+              <button type="button" id="event-cancel-btn" class="px-5 py-2.5 rounded-xl text-gray-600 dark:text-gray-300 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer">
+                Annuler
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    ) : (
+      <LoginGate />
+    )}
+  </div>
+</Layout>
+
+<style>
+  :global(.field-label) { display: block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(75 85 99); margin-bottom: 0.35rem; }
+  :global(.dark .field-label) { color: rgb(209 213 219); }
+  :global(.field-input) { width: 100%; padding: 0.5rem 0.9rem; border-radius: 0.75rem; border: 1px solid rgb(209 213 219); background: white; color: rgb(17 24 39); font-size: 0.875rem; }
+  :global(.dark .field-input) { border-color: rgb(75 85 99); background: rgb(55 65 81); color: white; }
+</style>
+
+<script>
+  let csrfToken = "";
+  let years: Record<string, any[]> = {};
+
+  const listEl = document.getElementById("events-list");
+  const statusEl = document.getElementById("events-status");
+  const formContainer = document.getElementById("event-form-container");
+  const form = document.getElementById("event-form") as HTMLFormElement | null;
+  const formTitle = document.getElementById("event-form-title");
+  const saveBtn = document.getElementById("event-save-btn") as HTMLButtonElement | null;
+
+  function showStatus(message: string, kind: "success" | "error") {
+    if (!statusEl) return;
+    statusEl.textContent = message;
+    statusEl.classList.remove("hidden");
+    statusEl.className =
+      "mb-4 p-3 rounded-xl text-xs font-medium " +
+      (kind === "success"
+        ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
+        : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
+  }
+
+  function renderList() {
+    if (!listEl) return;
+    const sortedYears = Object.keys(years).sort();
+    if (sortedYears.length === 0) {
+      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucun événement.</p>`;
+      return;
+    }
+
+    listEl.innerHTML = sortedYears
+      .map((year) => {
+        const rows = (years[year] || [])
+          .map(
+            (ev, i) => `
+          <div class="p-4 flex items-start justify-between gap-4 border-b border-gray-100 dark:border-gray-800 last:border-0">
+            <div class="min-w-0">
+              <p class="font-semibold text-sm text-gray-900 dark:text-white">${ev.titre}</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">${ev.from} → ${ev.to}</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">${ev.lieu}</p>
+            </div>
+            <div class="flex gap-2 shrink-0">
+              <button data-edit-year="${year}" data-edit-index="${i}" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer">Modifier</button>
+              <button data-delete-year="${year}" data-delete-index="${i}" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer">Supprimer</button>
+            </div>
+          </div>`
+          )
+          .join("");
+        return `
+          <div>
+            <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">${year}</h3>
+            <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/60 overflow-hidden">${rows}</div>
+          </div>`;
+      })
+      .join("");
+
+    listEl.querySelectorAll<HTMLButtonElement>("[data-edit-year]").forEach((btn) =>
+      btn.addEventListener("click", () => {
+        const year = btn.dataset.editYear!;
+        const index = Number(btn.dataset.editIndex);
+        openForm(year, index, years[year][index]);
+      })
+    );
+    listEl.querySelectorAll<HTMLButtonElement>("[data-delete-year]").forEach((btn) =>
+      btn.addEventListener("click", () => {
+        const year = btn.dataset.deleteYear!;
+        const index = Number(btn.dataset.deleteIndex);
+        deleteEvent(year, index, years[year][index]);
+      })
+    );
+  }
+
+  function openForm(year: string | null, index: number | null, event: any | null) {
+    if (!form || !formContainer || !formTitle) return;
+    form.reset();
+    (form.elements.namedItem("originalYear") as HTMLInputElement).value = year ?? "";
+    (form.elements.namedItem("originalIndex") as HTMLInputElement).value = index === null ? "" : String(index);
+    formTitle.textContent = event ? `Modifier « ${event.titre} »` : "Ajouter un événement";
+
+    if (event) {
+      const set = (name: string, value: any) => {
+        const el = form.elements.namedItem(name) as HTMLInputElement | null;
+        if (el) el.value = value ?? "";
+      };
+      set("from", event.from);
+      set("to", event.to);
+      set("titre", event.titre);
+      set("lieu", event.lieu);
+      set("details", event.details);
+      set("href", event.href);
+    }
+
+    formContainer.classList.remove("hidden");
+    formContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function closeForm() {
+    formContainer?.classList.add("hidden");
+  }
+
+  async function deleteEvent(year: string, index: number, event: any) {
+    if (!confirm(`Supprimer définitivement « ${event.titre} » ?`)) return;
+    try {
+      const res = await fetch("/api/admin/events", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-csrf-token": csrfToken },
+        body: JSON.stringify({ action: "delete", year, index }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      showStatus("Événement supprimé et site republié.", "success");
+      await load();
+    } catch (err: any) {
+      showStatus(err.message, "error");
+    }
+  }
+
+  async function load() {
+    const [eventsRes, authRes] = await Promise.all([fetch("/api/admin/events"), fetch("/api/admin/auth")]);
+    const data = await eventsRes.json();
+    const authData = await authRes.json();
+    csrfToken = authData.csrfToken || "";
+
+    if (!eventsRes.ok) {
+      if (listEl) listEl.innerHTML = `<p class="text-sm text-rose-500">${data.error}</p>`;
+      return;
+    }
+
+    years = data.years;
+    renderList();
+  }
+
+  document.getElementById("add-event-btn")?.addEventListener("click", () => openForm(null, null, null));
+  document.getElementById("event-cancel-btn")?.addEventListener("click", closeForm);
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!saveBtn || !form) return;
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Enregistrement…";
+
+    const fd = new FormData(form);
+    const originalYear = String(fd.get("originalYear") || "");
+    const originalIndex = fd.get("originalIndex");
+    const event = {
+      from: fd.get("from"),
+      to: fd.get("to"),
+      titre: fd.get("titre"),
+      lieu: fd.get("lieu"),
+      details: fd.get("details"),
+      href: fd.get("href"),
+    };
+
+    try {
+      const res = await fetch("/api/admin/events", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-csrf-token": csrfToken },
+        body: JSON.stringify(
+          originalYear && originalIndex !== ""
+            ? { action: "update", originalYear, originalIndex: Number(originalIndex), event }
+            : { action: "create", event }
+        ),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      showStatus("Événement enregistré et site republié.", "success");
+      closeForm();
+      await load();
+    } catch (err: any) {
+      showStatus(err.message, "error");
+    } finally {
+      saveBtn.disabled = false;
+      saveBtn.textContent = "Enregistrer";
+    }
+  });
+
+  load();
+</script>
