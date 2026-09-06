@@ -27,11 +27,27 @@ export const GET: APIRoute = async ({ request }) => {
   }
 };
 
-function sanitizeInstitution(input: any): { id: string; data: Record<string, unknown> } {
-  const id = String(input.id || "").trim();
-  if (!id) throw new Error("L'identifiant est obligatoire.");
-  if (!/^[a-z0-9_-]+$/.test(id)) throw new Error("L'identifiant ne doit contenir que des minuscules, chiffres, tirets et underscores.");
+/** Translitère et met en forme un nom en identifiant url-safe ("École Truc, Lyon 7e" -> "ecole-truc-lyon-7e"). */
+function slugify(name: string): string {
+  return name
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/<[^>]+>/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+}
 
+function uniqueSlug(base: string, existingIds: string[]): string {
+  const taken = new Set(existingIds);
+  if (!taken.has(base)) return base || "institution";
+  let i = 2;
+  while (taken.has(`${base}-${i}`)) i++;
+  return `${base}-${i}`;
+}
+
+function sanitizeInstitutionData(input: any): Record<string, unknown> {
   const name = String(input.name || "").trim();
   if (!name) throw new Error("Le nom est obligatoire.");
 
@@ -51,7 +67,7 @@ function sanitizeInstitution(input: any): { id: string; data: Record<string, unk
   const data: Record<string, unknown> = { name };
   if (short_name) data.short_name = short_name;
   if (Object.keys(documents).length) data.documents = documents;
-  return { id, data };
+  return data;
 }
 
 /** Vérifie si un événement de content/ateliers.yaml référence encore cette institution ("@institution:<id>[:<document>]"). */
@@ -89,22 +105,15 @@ export const POST: APIRoute = async ({ request }) => {
       doc.delete(id);
       commitMessage = `Supprime l'institution "${institutions[id].name}" (admin)`;
     } else if (action === "create") {
-      const { id, data } = sanitizeInstitution(body.institution || {});
-      if (institutions[id]) throw new Error(`Une institution avec l'identifiant "${id}" existe déjà.`);
+      const data = sanitizeInstitutionData(body.institution || {});
+      const id = uniqueSlug(slugify(String(data.name)), Object.keys(institutions));
       doc.set(id, data);
       commitMessage = `Ajoute l'institution "${data.name}" (admin)`;
     } else if (action === "update") {
       const originalId = String(body.originalId || "");
       if (!institutions[originalId]) throw new Error("Institution introuvable.");
-      const { id, data } = sanitizeInstitution(body.institution || {});
-      if (id !== originalId) {
-        if (institutions[id]) throw new Error(`Une institution avec l'identifiant "${id}" existe déjà.`);
-        if (await isInstitutionReferenced(originalId)) {
-          throw new Error("Cette institution est encore référencée par au moins un événement : son identifiant ne peut pas être changé.");
-        }
-        doc.delete(originalId);
-      }
-      doc.set(id, data);
+      const data = sanitizeInstitutionData(body.institution || {});
+      doc.set(originalId, data);
       commitMessage = `Modifie l'institution "${data.name}" (admin)`;
     } else {
       throw new Error("Action inconnue.");
