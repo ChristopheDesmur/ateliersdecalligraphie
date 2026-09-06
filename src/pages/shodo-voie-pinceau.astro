@@ -2,6 +2,10 @@
 import Layout from "@/layouts/Layout.astro";
 import RelatedPages from "@/components/related-pages.astro";
 import { contact, telHref } from "@/data/contact";
+import { venues, formatTimeTypographic } from "@/data/venues";
+
+const dojo = venues["dojo-zen-de-lyon"];
+const miroirs = venues["miroirs-du-ciel"];
 
 const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligraphie%20shodo`;
 ---
@@ -418,11 +422,11 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
               Lundi soir
             </span>
             <h3 class="font-serif font-medium text-xl text-gray-950 dark:text-gray-100 mt-1 mb-2">
-              Dojo Zen de Lyon
+              {dojo.name}
             </h3>
             <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
-              11, rue Dumenge, 69004 Lyon (Croix-Rousse)<br />
-              <strong>Horaire :</strong> 18&nbsp;h&nbsp;30 à 20&nbsp;h&nbsp;30
+              {dojo.address} ({dojo.district})<br />
+              <strong>Horaire :</strong> {formatTimeTypographic(dojo.time_start)} à {formatTimeTypographic(dojo.time_end)}
             </p>
             <p class="text-xs text-gray-500 dark:text-gray-400 italic">
               Cadre sobre, silencieux et traditionnel propice à l’immobilité et au centrage.
@@ -443,11 +447,11 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
               Mercredi matin
             </span>
             <h3 class="font-serif font-medium text-xl text-gray-950 dark:text-gray-100 mt-1 mb-2">
-              Boutique Miroirs du Ciel
+              {miroirs.name}
             </h3>
             <p class="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
-              9, rue de Belfort, 69004 Lyon (Croix-Rousse)<br />
-              <strong>Horaire :</strong> 10&nbsp;h&nbsp;00 à 12&nbsp;h&nbsp;00
+              {miroirs.address} ({miroirs.district})<br />
+              <strong>Horaire :</strong> {formatTimeTypographic(miroirs.time_start)} à {formatTimeTypographic(miroirs.time_end)}
             </p>
             <p class="text-xs text-gray-500 dark:text-gray-400 italic">
               Atmosphère lumineuse et conviviale au cœur d’une boutique dédiée aux arts d’Asie.
@@ -514,7 +518,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
             <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
           </summary>
           <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            La pratique a lieu chaque semaine à la Croix-Rousse : le lundi soir de 18&nbsp;h&nbsp;30 à 20&nbsp;h&nbsp;30 au Dojo Zen de Lyon (11, rue Dumenge) et le mercredi matin de 10&nbsp;h&nbsp;00 à 12&nbsp;h&nbsp;00 chez Miroirs du Ciel (9, rue de Belfort). Une première séance d’essai sans engagement est proposée.
+            La pratique a lieu chaque semaine à la Croix-Rousse : le lundi soir de {formatTimeTypographic(dojo.time_start)} à {formatTimeTypographic(dojo.time_end)} au {dojo.name} (11, rue Dumenge) et le mercredi matin de {formatTimeTypographic(miroirs.time_start)} à {formatTimeTypographic(miroirs.time_end)} chez Miroirs du Ciel (9, rue de Belfort). Une première séance d’essai sans engagement est proposée.
           </p>
         </details>
       </div>

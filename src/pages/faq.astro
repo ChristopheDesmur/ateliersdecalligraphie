@@ -2,6 +2,10 @@
 import Layout from "@/layouts/Layout.astro";
 import { prices, netHeureDomicile } from "@/data/prices";
 import { contact, telHref } from "@/data/contact";
+import { venues, formatTimeCompact, formatTimeCompactShort } from "@/data/venues";
+
+const dojo = venues["dojo-zen-de-lyon"];
+const miroirs = venues["miroirs-du-ciel"];
 
 const faqCategories = [
   {
@@ -30,7 +34,7 @@ const faqCategories = [
     items: [
       {
         question: "Où et quand ont lieu les cours réguliers de calligraphie à Lyon ?",
-        answer: "Les cours se déroulent dans le 4e arrondissement de Lyon (Croix-Rousse) sur deux créneaux hebdomadaires : les lundis soirs de 18h30 à 20h30 au Dojo Zen de Lyon (11, rue Dumenge) et les mercredis matins de 10h à 12h à la boutique Miroirs du Ciel (9, rue de Belfort).",
+        answer: `Les cours se déroulent dans le 4e arrondissement de Lyon (Croix-Rousse) sur deux créneaux hebdomadaires : les lundis soirs de ${formatTimeCompact(dojo.time_start)} à ${formatTimeCompact(dojo.time_end)} au ${dojo.name} (11, rue Dumenge) et les mercredis matins de ${formatTimeCompactShort(miroirs.time_start)} à ${formatTimeCompactShort(miroirs.time_end)} à la boutique Miroirs du Ciel (9, rue de Belfort).`,
       },
       {
         question: "Quels sont les tarifs des cours collectifs et particuliers ?",

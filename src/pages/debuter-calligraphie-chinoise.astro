@@ -3,6 +3,9 @@ import Layout from "@/layouts/Layout.astro";
 import RelatedPages from "@/components/related-pages.astro";
 import { prices } from "@/data/prices";
 import { contact } from "@/data/contact";
+import { venues } from "@/data/venues";
+
+const dojo = venues["dojo-zen-de-lyon"];
 
 const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9buter%20la%20calligraphie`;
 ---
@@ -368,7 +371,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
               <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">En groupe</span>
               <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1">Cours collectifs hebdomadaires</h3>
               <p class="text-xs text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
-                Au Dojo Zen de Lyon (lundi soir) ou chez Miroirs du Ciel (mercredi matin) à la Croix-Rousse. {prices.cours_collectifs.trimestre}&nbsp;€/trimestre, matériel fourni.
+                Au {dojo.name} (lundi soir) ou chez Miroirs du Ciel (mercredi matin) à la Croix-Rousse. {prices.cours_collectifs.trimestre}&nbsp;€/trimestre, matériel fourni.
               </p>
             </div>
             <a

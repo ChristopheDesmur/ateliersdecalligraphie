@@ -2,6 +2,10 @@
 // Footer.astro - Pied de page avec NAP local complet, navigation thématique et mentions
 import { contact, telHref } from "@/data/contact";
 import { prices } from "@/data/prices";
+import { venues } from "@/data/venues";
+
+const dojo = venues["dojo-zen-de-lyon"];
+const miroirs = venues["miroirs-du-ciel"];
 ---
 
 <footer class="mt-20 border-t border-gray-200 dark:border-gray-800 bg-gray-50/60 dark:bg-gray-900/60 pt-14 pb-12 text-sm text-gray-600 dark:text-gray-400" aria-label="Pied de page">
@@ -24,12 +28,12 @@ import { prices } from "@/data/prices";
         
         <div class="space-y-2 text-xs text-gray-700 dark:text-gray-300">
           <p>
-            <strong class="text-gray-900 dark:text-gray-100">Dojo Zen de Lyon :</strong><br />
-            11, rue Dumenge, 69004 Lyon (Croix-Rousse)
+            <strong class="text-gray-900 dark:text-gray-100">{dojo.name} :</strong><br />
+            {dojo.address} ({dojo.district})
           </p>
           <p>
-            <strong class="text-gray-900 dark:text-gray-100">Boutique Miroirs du Ciel :</strong><br />
-            9, rue de Belfort, 69004 Lyon
+            <strong class="text-gray-900 dark:text-gray-100">{miroirs.name} :</strong><br />
+            {miroirs.address}
           </p>
         </div>
 

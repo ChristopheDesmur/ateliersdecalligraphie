@@ -1,0 +1,21 @@
+# Lieux des cours collectifs hebdomadaires, jusqu'ici répétés (adresse,
+# jour, horaires) sous des formulations et formats différents dans une
+# dizaine de pages.
+dojo-zen-de-lyon:
+  name: "Dojo Zen de Lyon"
+  address: "11, rue Dumenge, 69004 Lyon"
+  district: "Croix-Rousse"
+  day: "lundi"
+  time_start: "18:30"
+  time_end: "20:30"
+  map_query: "Zen+Dojo+11+rue+Dumenge+Lyon"
+  map_embed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2782.717423001606!2d4.831558576633833!3d45.7768530710809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eae2496297a7%3A0xcf33e8e7e6f48d44!2sZen%20Dojo!5e0!3m2!1sfr!2sfr!4v1756472471300!5m2!1sfr!2sfr"
+miroirs-du-ciel:
+  name: "Boutique Miroirs du Ciel"
+  address: "9, rue de Belfort, 69004 Lyon"
+  district: "Croix-Rousse"
+  day: "mercredi"
+  time_start: "10:00"
+  time_end: "12:00"
+  map_query: "9+rue+de+Belfort+Lyon"
+  map_embed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2782.748123456789!2d4.8301!3d45.7762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eae26581b1b1%3A0x1234567890abcdef!2s9+Rue+de+Belfort%2C+69004+Lyon!5e0!3m2!1sfr!2sfr!4v1756472471301!5m2!1sfr!2sfr"

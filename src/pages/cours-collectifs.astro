@@ -5,35 +5,39 @@ import Cta from "@/components/cta.astro";
 import RelatedPages from "@/components/related-pages.astro";
 import { prices } from "@/data/prices";
 import { contact, telHref } from "@/data/contact";
+import { venues, formatTimeTypographic } from "@/data/venues";
+
+const dojo = venues["dojo-zen-de-lyon"];
+const miroirs = venues["miroirs-du-ciel"];
 
 const locations = [
   {
-    name: "Dojo Zen de Lyon",
-    address: "11, rue Dumenge, 69004 Lyon",
+    name: dojo.name,
+    address: dojo.address,
     district: "Lyon 4<sup>e</sup> — Plateau de la Croix-Rousse",
     day: "Lundi soir",
-    time: "18&nbsp;h&nbsp;30 – 20&nbsp;h&nbsp;30",
+    time: `${formatTimeTypographic(dojo.time_start)} – ${formatTimeTypographic(dojo.time_end)}`,
     duration: "2 heures",
     access: "Métro C (stations Croix-Rousse ou Hénon) • Bus C13, 2, 33, 45",
     atmosphere: "Cadre sobre, silencieux et traditionnel, propice au calme et à la concentration.",
-    mapQuery: "Zen+Dojo+11+rue+Dumenge+Lyon",
-    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2782.717423001606!2d4.831558576633833!3d45.7768530710809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eae2496297a7%3A0xcf33e8e7e6f48d44!2sZen%20Dojo!5e0!3m2!1sfr!2sfr!4v1756472471300!5m2!1sfr!2sfr",
+    mapQuery: dojo.map_query,
+    mapEmbed: dojo.map_embed,
     externalLink: {
       label: "Archive Le Progrès : « Zazen et calligraphie chinoise »",
       url: "https://www.leprogres.fr/loisirs/2013/05/26/zazen-et-calligraphie-chinoise",
     },
   },
   {
-    name: "Boutique Miroirs du Ciel",
-    address: "9, rue de Belfort, 69004 Lyon",
+    name: miroirs.name,
+    address: miroirs.address,
     district: "Lyon 4<sup>e</sup> — Cœur de la Croix-Rousse",
     day: "Mercredi matin",
-    time: "10&nbsp;h&nbsp;00 – 12&nbsp;h&nbsp;00",
+    time: `${formatTimeTypographic(miroirs.time_start)} – ${formatTimeTypographic(miroirs.time_end)}`,
     duration: "2 heures",
     access: "Métro C (station Croix-Rousse à 3 min à pied)",
     atmosphere: "Atmosphère lumineuse et conviviale au sein d’une boutique dédiée aux arts d’Asie.",
-    mapQuery: "9+rue+de+Belfort+Lyon",
-    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2782.748123456789!2d4.8301!3d45.7762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eae26581b1b1%3A0x1234567890abcdef!2s9+Rue+de+Belfort%2C+69004+Lyon!5e0!3m2!1sfr!2sfr!4v1756472471301!5m2!1sfr!2sfr",
+    mapQuery: miroirs.map_query,
+    mapEmbed: miroirs.map_embed,
     externalLink: {
       label: "Fiche atelier sur Arts Martiaux Lyon",
       url: "https://arts-martiaux-lyon.fr/calligraphie/",
@@ -77,7 +81,7 @@ const locations = [
           "courseMode": "ONSITE",
           "location": {
             "@type": "Place",
-            "name": "Dojo Zen de Lyon",
+            "name": dojo.name,
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "11, rue Dumenge",
@@ -92,7 +96,7 @@ const locations = [
           "courseMode": "ONSITE",
           "location": {
             "@type": "Place",
-            "name": "Boutique Miroirs du Ciel",
+            "name": miroirs.name,
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "9, rue de Belfort",
@@ -137,7 +141,7 @@ const locations = [
           "name": "Quelle est la différence entre le créneau du Dojo Zen et celui de Miroirs du Ciel ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Le lundi soir (18h30-20h30) a lieu au Dojo Zen de Lyon dans un cadre sobre et silencieux. Le mercredi matin (10h00-12h00) se déroule chez Miroirs du Ciel dans une ambiance lumineuse. Le programme pédagogique est identique."
+            "text": `Le lundi soir (${dojo.time_start.replace(":", "h")}-${dojo.time_end.replace(":", "h")}) a lieu au ${dojo.name} dans un cadre sobre et silencieux. Le mercredi matin (${miroirs.time_start.replace(":", "h")}-${miroirs.time_end.replace(":", "h")}) se déroule chez ${miroirs.name} dans une ambiance lumineuse. Le programme pédagogique est identique.`
           }
         },
         {
@@ -469,7 +473,7 @@ const locations = [
             <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
           </summary>
           <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            Le créneau du lundi soir (18&nbsp;h&nbsp;30 – 20&nbsp;h&nbsp;30) au Dojo Zen de Lyon offre un cadre traditionnel, sobre et silencieux particulièrement propice à l’intériorisation après le travail. Le créneau du mercredi matin (10&nbsp;h&nbsp;00 – 12&nbsp;h&nbsp;00) à la boutique Miroirs du Ciel propose une atmosphère lumineuse et conviviale. Le programme et la qualité d’enseignement sont identiques.
+            Le créneau du lundi soir ({formatTimeTypographic(dojo.time_start)} – {formatTimeTypographic(dojo.time_end)}) au {dojo.name} offre un cadre traditionnel, sobre et silencieux particulièrement propice à l’intériorisation après le travail. Le créneau du mercredi matin ({formatTimeTypographic(miroirs.time_start)} – {formatTimeTypographic(miroirs.time_end)}) à la boutique Miroirs du Ciel propose une atmosphère lumineuse et conviviale. Le programme et la qualité d’enseignement sont identiques.
           </p>
         </details>
 
