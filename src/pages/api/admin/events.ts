@@ -19,8 +19,16 @@ function yearFromDate(dateStr: string): string {
   return match[1];
 }
 
-/** Un événement est passé dès que sa date de fin est dépassée. */
-function isPastEvent(toDate: string): boolean {
+/**
+ * Seuls les événements de l'année en cours (ou d'une année future) se
+ * verrouillent une fois leur date de fin dépassée. Les archives des années
+ * précédentes restent toujours modifiables : ce sont des registres
+ * historiques, pas des créneaux d'agenda actifs, et beaucoup utilisent une
+ * plage sur toute l'année ("AAAA-01-01" à "AAAA-12-31") en simple
+ * approximation plutôt qu'une date réelle d'intervention.
+ */
+function isLockedPastEvent(year: string, toDate: string): boolean {
+  if (Number(year) < new Date().getFullYear()) return false;
   const parsed = new Date(String(toDate).trim().replace(" ", "T"));
   return !Number.isNaN(parsed.getTime()) && parsed.getTime() < Date.now();
 }
@@ -93,7 +101,7 @@ export const POST: APIRoute = async ({ request }) => {
       const list = data[year];
       if (!list || !list[index]) throw new Error("Événement introuvable.");
       const removed = list[index];
-      if (isPastEvent(removed.to)) {
+      if (isLockedPastEvent(year, removed.to)) {
         throw new Error("Cet événement est passé et ne peut plus être supprimé.");
       }
       doc.deleteIn([year, index]);
@@ -109,7 +117,7 @@ export const POST: APIRoute = async ({ request }) => {
       const originalIndex = Number(body.originalIndex);
       const existingList = data[originalYear];
       if (!existingList || !existingList[originalIndex]) throw new Error("Événement introuvable.");
-      if (isPastEvent(existingList[originalIndex].to)) {
+      if (isLockedPastEvent(originalYear, existingList[originalIndex].to)) {
         throw new Error("Cet événement est passé et ne peut plus être modifié.");
       }
 

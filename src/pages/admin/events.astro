@@ -108,9 +108,12 @@ const { session } = authenticateRequest(Astro.request);
         : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
   }
 
-  // Un événement passé (date de fin dépassée) est en lecture seule : ni
-  // modification ni suppression — cf. la même règle appliquée côté serveur.
-  function isPastEvent(ev: any): boolean {
+  // Seuls les événements de l'année en cours (ou d'une année future) passent
+  // en lecture seule une fois leur date de fin dépassée. Les archives des
+  // années précédentes restent toujours modifiables — cf. la même règle
+  // appliquée côté serveur.
+  function isLockedPastEvent(year: string, ev: any): boolean {
+    if (Number(year) < new Date().getFullYear()) return false;
     const parsed = new Date(String(ev.to).trim().replace(" ", "T"));
     return !Number.isNaN(parsed.getTime()) && parsed.getTime() < Date.now();
   }
@@ -127,7 +130,7 @@ const { session } = authenticateRequest(Astro.request);
       .map((year) => {
         const rows = (years[year] || [])
           .map((ev, i) => {
-            const past = isPastEvent(ev);
+            const past = isLockedPastEvent(year, ev);
             return `
           <div class="p-4 flex items-start justify-between gap-4 border-b border-gray-100 dark:border-gray-800 last:border-0 ${past ? "opacity-60" : ""}">
             <div class="min-w-0">
