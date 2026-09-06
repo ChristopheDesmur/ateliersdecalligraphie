@@ -1,6 +1,6 @@
 ---
 export interface Props {
-  active: "dashboard" | "prices" | "products" | "events" | "institutions" | "interventions" | "testimonials" | "venues" | "contact";
+  active: "dashboard" | "prices" | "products" | "events" | "institutions" | "interventions" | "testimonials" | "venues" | "contact" | "faq";
 }
 const { active } = Astro.props;
 
@@ -14,6 +14,7 @@ const tabs = [
   { id: "testimonials", label: "Témoignages", href: "/admin/testimonials" },
   { id: "venues", label: "Lieux", href: "/admin/venues" },
   { id: "contact", label: "Contact", href: "/admin/contact" },
+  { id: "faq", label: "FAQ", href: "/admin/faq" },
 ] as const;
 ---
 <div class="flex items-center justify-between flex-wrap gap-3 mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">

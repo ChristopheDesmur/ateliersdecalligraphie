@@ -1,36 +1,9 @@
 ---
-// HomeFAQ.astro - Teaser FAQ de 4 questions essentielles avec renvoi vers la page FAQ complète
-const teaserFaqs = [
-  {
-    question: "Faut-il parler chinois pour commencer ?",
-    answer: "Non. Aucune connaissance préalable du chinois n’est nécessaire.",
-  },
-  {
-    question: "Le matériel est-il fourni ?",
-    answer: "Oui, le matériel nécessaire est fourni pendant les ateliers.",
-  },
-  {
-    question: "Les débutants sont-ils acceptés ?",
-    answer: "Oui, les ateliers accueillent les débutants comme les pratiquants plus expérimentés.",
-  },
-  {
-    question: "Où ont lieu les ateliers ?",
-    answer: "À Lyon, notamment au dojo zen de Lyon et à la boutique Miroirs du Ciel.",
-  },
-];
+// HomeFAQ.astro - Teaser FAQ avec renvoi vers la page FAQ complète
+import { homeFaqs, homeFaqSchema } from "@/data/faq";
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": teaserFaqs.map((faq) => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.answer,
-    },
-  })),
-};
+const teaserFaqs = homeFaqs;
+const faqSchema = homeFaqSchema;
 ---
 
 <section class="py-14 sm:py-20 border-b border-gray-100 dark:border-gray-800" aria-labelledby="home-faq-heading">

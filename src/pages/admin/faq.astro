@@ -1,0 +1,639 @@
+---
+export const prerender = false;
+
+import Layout from "@/layouts/Layout.astro";
+import AdminNav from "@/components/admin/AdminNav.astro";
+import LoginGate from "@/components/admin/LoginGate.astro";
+import { authenticateRequest } from "@/lib/admin/auth";
+
+const { session } = authenticateRequest(Astro.request);
+---
+<Layout title="Administration — FAQ" noindex={true}>
+  <div class="max-w-4xl mx-auto">
+    {session ? (
+      <div>
+        <AdminNav active="faq" />
+        <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Foire aux questions (FAQ)</h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              Gérez les questions fréquentes affichées sur <a href="/faq" target="_blank" class="text-indigo-600 dark:text-indigo-400 hover:underline">/faq</a> et le teaser de la page d'accueil.
+            </p>
+          </div>
+          <button
+            id="add-faq-btn"
+            type="button"
+            class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition cursor-pointer shrink-0"
+          >
+            + Ajouter une question
+          </button>
+        </div>
+
+        <div id="faq-status" class="hidden mb-4 p-3 rounded-xl text-xs font-medium"></div>
+
+        <!-- Filtres et recherche -->
+        <div class="mb-6 p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/40 border border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row gap-3 items-center justify-between">
+          <div class="w-full sm:w-72">
+            <input
+              type="search"
+              id="faq-search-input"
+              placeholder="Rechercher une question ou mot-clé…"
+              class="field-input text-xs"
+            />
+          </div>
+          <div id="faq-category-filters" class="flex items-center gap-1.5 flex-wrap w-full sm:w-auto">
+            <!-- Rempli dynamiquement -->
+          </div>
+        </div>
+
+        <!-- Liste des FAQ groupées -->
+        <div id="faq-list" class="space-y-6 mb-10">
+          <p class="text-sm text-gray-400">Chargement des questions…</p>
+        </div>
+
+        <!-- Formulaire d'ajout / modification -->
+        <div id="faq-form-container" class="hidden bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm mb-12">
+          <h2 id="faq-form-title" class="font-bold text-gray-900 dark:text-white mb-4 text-lg">Ajouter une question</h2>
+          <form id="faq-form">
+            <input type="hidden" name="originalId" value="" />
+
+            <div class="space-y-4">
+              <div class="grid sm:grid-cols-3 gap-4">
+                <div class="sm:col-span-2">
+                  <label class="field-label">Catégorie</label>
+                  <input
+                    name="category"
+                    id="faq-category-input"
+                    list="category-datalist"
+                    required
+                    class="field-input"
+                    placeholder="ex. Débuter la calligraphie"
+                  />
+                  <datalist id="category-datalist"></datalist>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    Choisissez une catégorie existante ou saisissez-en une nouvelle.
+                  </p>
+                </div>
+                <div>
+                  <label class="field-label">Ordre dans la catégorie</label>
+                  <input
+                    name="order"
+                    type="number"
+                    min="1"
+                    class="field-input"
+                    placeholder="Auto (1, 2, 3…)"
+                  />
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    Position d'affichage relative.
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <label class="field-label">Question</label>
+                <textarea
+                  name="question"
+                  id="faq-question-input"
+                  required
+                  rows="2"
+                  class="field-input font-serif"
+                  placeholder="ex. Faut-il parler ou comprendre le chinois pour pratiquer la calligraphie ?"
+                ></textarea>
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="field-label mb-0">Réponse</label>
+                  <button
+                    type="button"
+                    id="toggle-variables-btn"
+                    class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer font-medium"
+                  >
+                    + Insérer une variable de prix/contact
+                  </button>
+                </div>
+
+                <!-- Tiroir des variables disponibles -->
+                <div id="variables-palette" class="hidden mb-2 p-3 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900 text-xs">
+                  <p class="font-semibold text-indigo-900 dark:text-indigo-300 mb-2">
+                    Variables dynamiques (mises à jour automatiquement avec les données du site) :
+                  </p>
+                  <div class="flex flex-wrap gap-1.5">
+                    <button type="button" data-insert="{{prices.cours_collectifs.trimestre}}" class="var-btn" title="Tarif trimestre cours collectifs">trimestre (cours)</button>
+                    <button type="button" data-insert="{{prices.cours_collectifs.seances}}" class="var-btn" title="Nombre de séances par trimestre">séances (trimestre)</button>
+                    <button type="button" data-insert="{{prices.cours_individuel_domicile.ttc_heure}}" class="var-btn" title="Tarif horaire TTC domicile">tarif TTC domicile</button>
+                    <button type="button" data-insert="{{prices.cours_individuel_domicile.reduction_impot_pct}}" class="var-btn" title="Taux de réduction d'impôt">taux crédit d'impôt (%)</button>
+                    <button type="button" data-insert="{{prices.cours_individuel_domicile.net_heure}}" class="var-btn" title="Tarif horaire net après crédit d'impôt">tarif net domicile</button>
+                    <button type="button" data-insert="{{prices.interventions.ht_heure_standard}}" class="var-btn" title="Tarif horaire standard interventions scolaires">tarif scolaire HT/h</button>
+                    <button type="button" data-insert="{{prices.interventions.ht_heure_entreprises}}" class="var-btn" title="Tarif horaire entreprises">tarif entreprise HT/h</button>
+                    <button type="button" data-insert="{{contact.coop_a_dom_agrement}}" class="var-btn" title="Numéro d'agrément Coop A Dom">agrément Coop A Dom</button>
+                    <button type="button" data-insert="{{contact.mobile}}" class="var-btn" title="Téléphone portable">mobile</button>
+                    <button type="button" data-insert="{{contact.email}}" class="var-btn" title="E-mail">e-mail</button>
+                  </div>
+                </div>
+
+                <textarea
+                  name="answer"
+                  id="faq-answer-input"
+                  required
+                  rows="5"
+                  class="field-input font-serif text-sm leading-relaxed"
+                  placeholder="Saisissez la réponse complète. Les balises comme {{prices.cours_collectifs.trimestre}} seront remplacées lors de l'affichage."
+                ></textarea>
+              </div>
+
+              <!-- Option Page d'accueil -->
+              <div class="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-stone-50/60 dark:bg-gray-800/40">
+                <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    name="show_on_home"
+                    id="faq-show-on-home"
+                    class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600"
+                  />
+                  <span class="text-sm font-semibold text-gray-900 dark:text-white">
+                    Afficher aussi cette question sur la page d'accueil (Teaser FAQ)
+                  </span>
+                </label>
+
+                <div id="home-options" class="hidden mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 space-y-3">
+                  <div>
+                    <label class="field-label">Question courte pour l'accueil (facultatif)</label>
+                    <input
+                      name="home_question"
+                      class="field-input"
+                      placeholder="Laisser vide pour utiliser la question standard"
+                    />
+                  </div>
+                  <div>
+                    <label class="field-label">Réponse courte pour l'accueil (facultatif)</label>
+                    <textarea
+                      name="home_answer"
+                      rows="2"
+                      class="field-input"
+                      placeholder="Laisser vide pour utiliser la réponse standard"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-5 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3">
+              <button
+                type="submit"
+                id="faq-save-btn"
+                class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition cursor-pointer disabled:opacity-60"
+              >
+                Enregistrer
+              </button>
+              <button
+                type="button"
+                id="faq-cancel-btn"
+                class="px-5 py-2.5 rounded-xl text-gray-600 dark:text-gray-300 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer"
+              >
+                Annuler
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    ) : (
+      <LoginGate />
+    )}
+  </div>
+</Layout>
+
+<style>
+  :global(.field-label) { display: block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(75 85 99); margin-bottom: 0.35rem; }
+  :global(.dark .field-label) { color: rgb(209 213 219); }
+  :global(.field-input) { width: 100%; padding: 0.5rem 0.9rem; border-radius: 0.75rem; border: 1px solid rgb(209 213 219); background: white; color: rgb(17 24 39); font-size: 0.875rem; }
+  :global(.dark .field-input) { border-color: rgb(75 85 99); background: rgb(55 65 81); color: white; }
+  :global(.var-btn) { padding: 0.25rem 0.5rem; border-radius: 0.5rem; background: white; border: 1px solid rgb(199 210 254); color: rgb(67 56 202); font-family: monospace; font-size: 0.75rem; cursor: pointer; transition: background-color 0.15s; }
+  :global(.dark .var-btn) { background: rgb(30 27 75); border-color: rgb(67 56 202); color: rgb(199 210 254); }
+  :global(.var-btn:hover) { background: rgb(224 231 255); }
+  :global(.dark .var-btn:hover) { background: rgb(49 46 129); }
+</style>
+
+<script>
+  let csrfToken = "";
+  let faqs: Record<string, any> = {};
+  let categories: string[] = [];
+  let selectedCategoryFilter = "all";
+  let searchQuery = "";
+
+  const listEl = document.getElementById("faq-list");
+  const statusEl = document.getElementById("faq-status");
+  const filtersEl = document.getElementById("faq-category-filters");
+  const searchInput = document.getElementById("faq-search-input") as HTMLInputElement | null;
+  const datalist = document.getElementById("category-datalist");
+  const formContainer = document.getElementById("faq-form-container");
+  const form = document.getElementById("faq-form") as HTMLFormElement | null;
+  const formTitle = document.getElementById("faq-form-title");
+  const saveBtn = document.getElementById("faq-save-btn") as HTMLButtonElement | null;
+  const showOnHomeCheckbox = document.getElementById("faq-show-on-home") as HTMLInputElement | null;
+  const homeOptions = document.getElementById("home-options");
+  const toggleVarsBtn = document.getElementById("toggle-variables-btn");
+  const varsPalette = document.getElementById("variables-palette");
+  const answerTextarea = document.getElementById("faq-answer-input") as HTMLTextAreaElement | null;
+
+  showOnHomeCheckbox?.addEventListener("change", () => {
+    if (showOnHomeCheckbox.checked) {
+      homeOptions?.classList.remove("hidden");
+    } else {
+      homeOptions?.classList.add("hidden");
+    }
+  });
+
+  toggleVarsBtn?.addEventListener("click", () => {
+    varsPalette?.classList.toggle("hidden");
+  });
+
+  document.querySelectorAll<HTMLButtonElement>("[data-insert]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const code = btn.dataset.insert;
+      if (!code || !answerTextarea) return;
+      const start = answerTextarea.selectionStart;
+      const end = answerTextarea.selectionEnd;
+      const val = answerTextarea.value;
+      answerTextarea.value = val.substring(0, start) + code + val.substring(end);
+      answerTextarea.focus();
+      answerTextarea.selectionStart = answerTextarea.selectionEnd = start + code.length;
+    });
+  });
+
+  function showStatus(message: string, kind: "success" | "error") {
+    if (!statusEl) return;
+    statusEl.textContent = message;
+    statusEl.classList.remove("hidden");
+    statusEl.className =
+      "mb-4 p-3 rounded-xl text-xs font-medium " +
+      (kind === "success"
+        ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
+        : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
+  }
+
+  function renderCategoryFilters() {
+    if (!filtersEl) return;
+    const catCounts: Record<string, number> = {};
+    for (const f of Object.values(faqs)) {
+      const c = f.category || "Autre";
+      catCounts[c] = (catCounts[c] || 0) + 1;
+    }
+    const allTotal = Object.keys(faqs).length;
+
+    let html = `
+      <button
+        type="button"
+        data-filter="all"
+        class="px-3 py-1 rounded-lg text-xs font-medium cursor-pointer transition ${
+          selectedCategoryFilter === "all"
+            ? "bg-indigo-600 text-white"
+            : "bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600"
+        }">
+        Toutes (${allTotal})
+      </button>
+    `;
+
+    for (const cat of categories) {
+      const count = catCounts[cat] || 0;
+      html += `
+        <button
+          type="button"
+          data-filter="${cat}"
+          class="px-3 py-1 rounded-lg text-xs font-medium cursor-pointer transition ${
+            selectedCategoryFilter === cat
+              ? "bg-indigo-600 text-white"
+              : "bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600"
+          }">
+          ${cat} (${count})
+        </button>
+      `;
+    }
+
+    filtersEl.innerHTML = html;
+
+    filtersEl.querySelectorAll<HTMLButtonElement>("[data-filter]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        selectedCategoryFilter = btn.dataset.filter || "all";
+        renderCategoryFilters();
+        renderList();
+      });
+    });
+
+    if (datalist) {
+      datalist.innerHTML = categories.map((c) => `<option value="${c}">`).join("");
+    }
+  }
+
+  function renderList() {
+    if (!listEl) return;
+    const allIds = Object.keys(faqs);
+    if (allIds.length === 0) {
+      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucune question dans la FAQ.</p>`;
+      return;
+    }
+
+    // Filter by category
+    let filteredIds = allIds;
+    if (selectedCategoryFilter !== "all") {
+      filteredIds = filteredIds.filter((id) => faqs[id].category === selectedCategoryFilter);
+    }
+
+    // Filter by search
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      filteredIds = filteredIds.filter((id) => {
+        const f = faqs[id];
+        return (
+          f.question?.toLowerCase().includes(q) ||
+          f.answer?.toLowerCase().includes(q) ||
+          f.category?.toLowerCase().includes(q)
+        );
+      });
+    }
+
+    if (filteredIds.length === 0) {
+      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucune question ne correspond à votre recherche.</p>`;
+      return;
+    }
+
+    // Group filtered items by category
+    const groups: Record<string, string[]> = {};
+    const groupOrder: string[] = [];
+
+    for (const id of filteredIds) {
+      const cat = faqs[id].category || "Sans catégorie";
+      if (!groups[cat]) {
+        groups[cat] = [];
+        groupOrder.push(cat);
+      }
+      groups[cat].push(id);
+    }
+
+    // Sort within each group by order
+    for (const cat of groupOrder) {
+      groups[cat].sort((a, b) => (Number(faqs[a].order) || 999) - (Number(faqs[b].order) || 999));
+    }
+
+    let html = "";
+    for (const cat of groupOrder) {
+      const idsInCat = groups[cat];
+      html += `
+        <div class="space-y-3">
+          <div class="flex items-center justify-between pb-1.5 border-b border-gray-200 dark:border-gray-700">
+            <h2 class="font-bold text-base text-gray-900 dark:text-white flex items-center gap-2">
+              <span>${cat}</span>
+              <span class="text-xs font-normal text-gray-500 dark:text-gray-400">(${idsInCat.length})</span>
+            </h2>
+          </div>
+          <div class="space-y-2.5">
+      `;
+
+      idsInCat.forEach((id, idx) => {
+        const f = faqs[id];
+        const isFirst = idx === 0;
+        const isLast = idx === idsInCat.length - 1;
+
+        html += `
+          <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800/60 hover:border-gray-300 dark:hover:border-gray-600 transition">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex items-start gap-3 min-w-0">
+                <span class="shrink-0 w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-bold flex items-center justify-center mt-0.5" title="Ordre d'affichage">
+                  ${f.order ?? idx + 1}
+                </span>
+                <div class="min-w-0">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <p class="font-semibold text-sm text-gray-900 dark:text-white font-serif">${f.question}</p>
+                    ${
+                      f.show_on_home
+                        ? `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border border-amber-200 dark:border-amber-800">⭐ Accueil</span>`
+                        : ""
+                    }
+                  </div>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2 font-serif">${f.answer}</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button
+                  data-move-up="${id}"
+                  ${isFirst ? "disabled" : ""}
+                  class="p-1 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed"
+                  title="Monter"
+                >
+                  ▲
+                </button>
+                <button
+                  data-move-down="${id}"
+                  ${isLast ? "disabled" : ""}
+                  class="p-1 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed"
+                  title="Descendre"
+                >
+                  ▼
+                </button>
+                <button
+                  data-edit="${id}"
+                  class="px-2.5 py-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 rounded-lg transition cursor-pointer"
+                >
+                  Modifier
+                </button>
+                <button
+                  data-delete="${id}"
+                  class="px-2.5 py-1 text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/60 rounded-lg transition cursor-pointer"
+                >
+                  Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      html += `
+          </div>
+        </div>
+      `;
+    }
+
+    listEl.innerHTML = html;
+
+    listEl.querySelectorAll<HTMLButtonElement>("[data-edit]").forEach((btn) =>
+      btn.addEventListener("click", () => openForm(btn.dataset.edit!, faqs[btn.dataset.edit!]))
+    );
+    listEl.querySelectorAll<HTMLButtonElement>("[data-delete]").forEach((btn) =>
+      btn.addEventListener("click", () => deleteFaq(btn.dataset.delete!, faqs[btn.dataset.delete!]))
+    );
+    listEl.querySelectorAll<HTMLButtonElement>("[data-move-up]").forEach((btn) =>
+      btn.addEventListener("click", () => moveItem(btn.dataset.moveUp!, -1))
+    );
+    listEl.querySelectorAll<HTMLButtonElement>("[data-move-down]").forEach((btn) =>
+      btn.addEventListener("click", () => moveItem(btn.dataset.moveDown!, 1))
+    );
+  }
+
+  async function moveItem(id: string, delta: number) {
+    const item = faqs[id];
+    if (!item) return;
+    const cat = item.category;
+    const itemsInCat = Object.entries(faqs)
+      .filter(([_, f]) => f.category === cat)
+      .map(([k, f]) => ({ id: k, order: Number(f.order) || 999 }))
+      .sort((a, b) => a.order - b.order);
+
+    const index = itemsInCat.findIndex((i) => i.id === id);
+    if (index === -1) return;
+    const targetIndex = index + delta;
+    if (targetIndex < 0 || targetIndex >= itemsInCat.length) return;
+
+    // Swap orders
+    const currentOrder = itemsInCat[index].order;
+    const targetOrder = itemsInCat[targetIndex].order;
+    const newOrder = currentOrder === targetOrder ? (delta > 0 ? targetOrder + 1 : targetOrder - 1) : targetOrder;
+
+    const updates = [
+      { id: itemsInCat[index].id, order: newOrder },
+      { id: itemsInCat[targetIndex].id, order: currentOrder },
+    ];
+
+    try {
+      const res = await fetch("/api/admin/faq", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-csrf-token": csrfToken },
+        body: JSON.stringify({ action: "reorder", items: updates }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      await load();
+    } catch (err: any) {
+      showStatus(err.message, "error");
+    }
+  }
+
+  function openForm(id: string | null, f: any | null) {
+    if (!form || !formContainer || !formTitle) return;
+    form.reset();
+    (form.elements.namedItem("originalId") as HTMLInputElement).value = id ?? "";
+    formTitle.textContent = f ? `Modifier la question` : "Ajouter une question";
+    varsPalette?.classList.add("hidden");
+
+    if (f) {
+      const set = (name: string, value: any) => {
+        const el = form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | null;
+        if (el) el.value = value ?? "";
+      };
+      set("category", f.category);
+      set("question", f.question);
+      set("answer", f.answer);
+      set("order", f.order);
+      set("home_question", f.home_question);
+      set("home_answer", f.home_answer);
+
+      if (showOnHomeCheckbox) {
+        showOnHomeCheckbox.checked = Boolean(f.show_on_home);
+        if (f.show_on_home) {
+          homeOptions?.classList.remove("hidden");
+        } else {
+          homeOptions?.classList.add("hidden");
+        }
+      }
+    } else {
+      // Default category if filtered
+      if (selectedCategoryFilter !== "all") {
+        const catInput = form.elements.namedItem("category") as HTMLInputElement | null;
+        if (catInput) catInput.value = selectedCategoryFilter;
+      }
+      homeOptions?.classList.add("hidden");
+    }
+
+    formContainer.classList.remove("hidden");
+    formContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function closeForm() {
+    formContainer?.classList.add("hidden");
+  }
+
+  async function deleteFaq(id: string, f: any) {
+    if (!confirm(`Supprimer définitivement la question :\n« ${f.question} » ?`)) return;
+    try {
+      const res = await fetch("/api/admin/faq", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-csrf-token": csrfToken },
+        body: JSON.stringify({ action: "delete", id }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      showStatus("Question supprimée et site republié.", "success");
+      await load();
+    } catch (err: any) {
+      showStatus(err.message, "error");
+    }
+  }
+
+  async function load() {
+    const [faqRes, authRes] = await Promise.all([
+      fetch("/api/admin/faq"),
+      fetch("/api/admin/auth"),
+    ]);
+    const data = await faqRes.json();
+    const authData = await authRes.json();
+    csrfToken = authData.csrfToken || "";
+
+    if (!faqRes.ok) {
+      if (listEl) listEl.innerHTML = `<p class="text-sm text-rose-500">${data.error}</p>`;
+      return;
+    }
+
+    faqs = data.faqs || {};
+    categories = data.categories || [];
+    renderCategoryFilters();
+    renderList();
+  }
+
+  document.getElementById("add-faq-btn")?.addEventListener("click", () => openForm(null, null));
+  document.getElementById("faq-cancel-btn")?.addEventListener("click", closeForm);
+
+  searchInput?.addEventListener("input", (e) => {
+    searchQuery = (e.target as HTMLInputElement).value.trim();
+    renderList();
+  });
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!saveBtn || !form) return;
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Enregistrement…";
+
+    const fd = new FormData(form);
+    const originalId = String(fd.get("originalId") || "");
+    const faq = {
+      category: fd.get("category"),
+      question: fd.get("question"),
+      answer: fd.get("answer"),
+      order: fd.get("order"),
+      show_on_home: fd.get("show_on_home") === "on",
+      home_question: fd.get("home_question"),
+      home_answer: fd.get("home_answer"),
+    };
+
+    try {
+      const res = await fetch("/api/admin/faq", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-csrf-token": csrfToken },
+        body: JSON.stringify(originalId ? { action: "update", originalId, faq } : { action: "create", faq }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      showStatus("Question enregistrée et site republié.", "success");
+      closeForm();
+      await load();
+    } catch (err: any) {
+      showStatus(err.message, "error");
+    } finally {
+      saveBtn.disabled = false;
+      saveBtn.textContent = "Enregistrer";
+    }
+  });
+
+  load();
+</script>
