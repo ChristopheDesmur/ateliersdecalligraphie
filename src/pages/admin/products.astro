@@ -49,7 +49,7 @@ const { session } = authenticateRequest(Astro.request);
               <input name="character" required class="field-input" placeholder="福" />
             </div>
             <div>
-              <label class="field-label">Pinyin (optionnel)</label>
+              <label class="field-label">Pinyin (facultatif)</label>
               <input name="pinyin" class="field-input" placeholder="Fú" />
             </div>
             <div class="sm:col-span-2">
@@ -61,7 +61,7 @@ const { session } = authenticateRequest(Astro.request);
               <input name="category" required class="field-input" placeholder="Caractère traditionnel" />
             </div>
             <div>
-              <label class="field-label">Style (optionnel)</label>
+              <label class="field-label">Style (facultatif)</label>
               <input name="style" class="field-input" placeholder="Écriture régulière (Kaishu)" />
             </div>
 
@@ -99,7 +99,7 @@ const { session } = authenticateRequest(Astro.request);
               <textarea name="description" required rows="2" class="field-input"></textarea>
             </div>
             <div class="sm:col-span-2">
-              <label class="field-label">Description étendue (optionnel)</label>
+              <label class="field-label">Description étendue (facultatif)</label>
               <textarea name="extendedDescription" rows="3" class="field-input"></textarea>
             </div>
 
