@@ -9,7 +9,7 @@ import { authenticateRequest } from "@/lib/admin/auth";
 const { session } = authenticateRequest(Astro.request);
 ---
 <Layout title="Administration — Institutions" noindex={true}>
-  <div class="max-w-3xl mx-auto">
+  <div class="max-w-4xl mx-auto">
     {session ? (
       <div>
         <AdminNav active="institutions" />
@@ -42,8 +42,22 @@ const { session } = authenticateRequest(Astro.request);
           />
         </div>
 
-        <div id="institutions-list" class="space-y-2 mb-10">
-          <p class="text-sm text-gray-400">Chargement…</p>
+        <!-- Sélecteur de catégorie compact (mobile uniquement) -->
+        <div class="md:hidden mb-4">
+          <label for="category-select" class="sr-only">Catégorie</label>
+          <select id="category-select" class="field-input"></select>
+        </div>
+
+        <div class="grid md:grid-cols-[13rem_1fr] gap-6 mb-10">
+          <!-- Navigation par catégorie (desktop uniquement) -->
+          <nav id="category-nav" class="hidden md:block space-y-0.5" aria-label="Catégories d'institutions"></nav>
+
+          <div class="min-w-0">
+            <div id="panel-header" class="mb-2 flex items-center justify-between gap-3"></div>
+            <div id="institutions-list" class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/60 divide-y divide-gray-100 dark:divide-gray-800 overflow-hidden">
+              <p class="p-4 text-sm text-gray-400">Chargement…</p>
+            </div>
+          </div>
         </div>
 
         <!-- Formulaire d'ajout / modification -->
@@ -99,12 +113,21 @@ const { session } = authenticateRequest(Astro.request);
 </style>
 
 <script>
-  import { INSTITUTION_CATEGORIES, institutionCategoryFor, slugifyLabel } from "@/lib/admin/institution-categories";
+  import { INSTITUTION_CATEGORIES, institutionCategoryFor } from "@/lib/admin/institution-categories";
 
   let csrfToken = "";
   let institutions: Record<string, any> = {};
+  let activeCategory: string = INSTITUTION_CATEGORIES[0].label;
+  let confirmingDeleteId: string | null = null;
+
+  const ACTIVE_CATEGORY_KEY = "admin-institutions-active-category";
+  const stored = sessionStorage.getItem(ACTIVE_CATEGORY_KEY);
+  if (stored && INSTITUTION_CATEGORIES.some((c) => c.label === stored)) activeCategory = stored;
 
   const listEl = document.getElementById("institutions-list");
+  const panelHeaderEl = document.getElementById("panel-header");
+  const categoryNavEl = document.getElementById("category-nav");
+  const categorySelectEl = document.getElementById("category-select") as HTMLSelectElement | null;
   const statusEl = document.getElementById("institutions-status");
   const searchInput = document.getElementById("institutions-search") as HTMLInputElement | null;
   const formContainer = document.getElementById("institution-form-container");
@@ -115,14 +138,6 @@ const { session } = authenticateRequest(Astro.request);
 
   function normalize(s: string): string {
     return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
-  }
-
-  const COLLAPSE_KEY_PREFIX = "admin-institutions-collapsed:";
-  function isCollapsed(label: string): boolean {
-    return sessionStorage.getItem(COLLAPSE_KEY_PREFIX + label) !== "open";
-  }
-  function setCollapsed(label: string, collapsed: boolean) {
-    sessionStorage.setItem(COLLAPSE_KEY_PREFIX + label, collapsed ? "closed" : "open");
   }
 
   function showStatus(message: string, kind: "success" | "error") {
@@ -151,103 +166,169 @@ const { session } = authenticateRequest(Astro.request);
 
   document.getElementById("add-document-row-btn")?.addEventListener("click", () => addDocumentRow());
 
-  function institutionRow(id: string): string {
+  function categoryCounts(): Map<string, number> {
+    const counts = new Map<string, number>();
+    for (const id of Object.keys(institutions)) {
+      const label = institutionCategoryFor(institutions[id].name);
+      counts.set(label, (counts.get(label) ?? 0) + 1);
+    }
+    return counts;
+  }
+
+  function renderSidebar() {
+    const counts = categoryCounts();
+    // Pendant une recherche, les résultats traversent toutes les catégories :
+    // n'en surligner aucune évite de laisser croire qu'on est encore filtré
+    // sur la dernière catégorie sélectionnée.
+    const searching = Boolean(searchInput?.value.trim());
+
+    if (categoryNavEl) {
+      categoryNavEl.innerHTML = INSTITUTION_CATEGORIES.map((c) => {
+        const count = counts.get(c.label) ?? 0;
+        const active = !searching && c.label === activeCategory;
+        return `
+          <button
+            type="button"
+            data-category="${c.label}"
+            aria-current="${active ? "true" : "false"}"
+            class="w-full text-left px-3 py-2 rounded-lg text-sm transition cursor-pointer flex items-center justify-between gap-2 ${
+              active
+                ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-semibold"
+                : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+            }"
+          >
+            <span>${c.label}</span>
+            <span class="text-xs text-gray-400 dark:text-gray-500 shrink-0">${count}</span>
+          </button>`;
+      }).join("");
+
+      categoryNavEl.querySelectorAll<HTMLButtonElement>("[data-category]").forEach((btn) =>
+        btn.addEventListener("click", () => selectCategory(btn.dataset.category!))
+      );
+    }
+
+    if (categorySelectEl) {
+      categorySelectEl.innerHTML = INSTITUTION_CATEGORIES.map((c) => {
+        const count = counts.get(c.label) ?? 0;
+        return `<option value="${c.label}" ${c.label === activeCategory ? "selected" : ""}>${c.label} (${count})</option>`;
+      }).join("");
+    }
+  }
+
+  function selectCategory(label: string) {
+    activeCategory = label;
+    sessionStorage.setItem(ACTIVE_CATEGORY_KEY, label);
+    if (searchInput) searchInput.value = "";
+    confirmingDeleteId = null;
+    renderSidebar();
+    renderPanel();
+  }
+
+  categorySelectEl?.addEventListener("change", () => selectCategory(categorySelectEl.value));
+
+  function institutionRow(id: string, opts: { showCategory?: boolean } = {}): string {
     const inst = institutions[id];
     const docCount = inst.documents ? Object.keys(inst.documents).length : 0;
-    return `
-      <div class="p-3.5 flex items-start justify-between gap-4 border-b border-gray-100 dark:border-gray-800 last:border-0">
-        <div class="min-w-0">
-          <p class="font-semibold text-sm text-gray-900 dark:text-white">${inst.name}${inst.short_name ? ` <span class="text-gray-400 dark:text-gray-500 font-normal">(${inst.short_name})</span>` : ""}</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">${docCount} document${docCount === 1 ? "" : "s"}</p>
+    const category = opts.showCategory ? institutionCategoryFor(inst.name) : null;
+
+    if (confirmingDeleteId === id) {
+      return `
+      <div class="p-3.5 flex items-center justify-between gap-4">
+        <p class="text-sm text-gray-700 dark:text-gray-300">Supprimer « ${inst.name} » ?</p>
+        <div class="flex gap-3 shrink-0">
+          <button data-cancel-delete="${id}" class="text-xs font-semibold text-gray-600 dark:text-gray-300 hover:underline cursor-pointer">Annuler</button>
+          <button data-confirm-delete="${id}" class="text-xs font-semibold text-white bg-rose-600 hover:bg-rose-700 px-2.5 py-1 rounded-lg cursor-pointer">Supprimer</button>
         </div>
-        <div class="flex gap-2 shrink-0">
+      </div>`;
+    }
+
+    return `
+      <div class="p-3.5 flex items-center justify-between gap-4">
+        <div class="min-w-0">
+          <p class="text-sm text-gray-900 dark:text-white truncate">${inst.name}${inst.short_name ? ` <span class="text-gray-400 dark:text-gray-500 font-normal">(${inst.short_name})</span>` : ""}</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+            ${category ? `${category} · ` : ""}${docCount} document${docCount === 1 ? "" : "s"}
+          </p>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
           <button data-edit="${id}" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer">Modifier</button>
-          <button data-delete="${id}" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer">Supprimer</button>
+          <button data-delete="${id}" class="text-xs text-gray-400 dark:text-gray-500 hover:text-rose-600 dark:hover:text-rose-400 hover:underline cursor-pointer transition">Supprimer</button>
         </div>
       </div>`;
   }
 
-  function renderList() {
+  function wireRowActions() {
     if (!listEl) return;
-    const query = normalize(searchInput?.value.trim() ?? "");
-    const ids = Object.keys(institutions).filter((id) => {
-      if (!query) return true;
-      const inst = institutions[id];
-      return normalize(inst.name).includes(query) || (inst.short_name && normalize(inst.short_name).includes(query));
-    });
-
-    if (Object.keys(institutions).length === 0) {
-      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucune institution.</p>`;
-      return;
-    }
-    if (ids.length === 0) {
-      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucun résultat pour « ${searchInput?.value ?? ""} ».</p>`;
-      return;
-    }
-
-    const byCategory = new Map<string, string[]>();
-    for (const id of ids) {
-      const label = institutionCategoryFor(institutions[id].name.replace(/<[^>]+>/g, ""));
-      if (!byCategory.has(label)) byCategory.set(label, []);
-      byCategory.get(label)!.push(id);
-    }
-    for (const groupIds of byCategory.values()) {
-      groupIds.sort((a, b) => institutions[a].name.localeCompare(institutions[b].name, "fr"));
-    }
-
-    // Pendant une recherche, les catégories qui contiennent un résultat
-    // s'ouvrent automatiquement (sans écraser la préférence mémorisée) pour
-    // que le résultat reste visible sans clic supplémentaire.
-    listEl.innerHTML = INSTITUTION_CATEGORIES.map((c) => c.label)
-      .filter((label) => byCategory.has(label))
-      .map((label) => {
-        const groupIds = byCategory.get(label)!;
-        const collapsed = query ? false : isCollapsed(label);
-        return `
-      <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800/60 overflow-hidden">
-        <button
-          type="button"
-          class="category-toggle w-full flex items-center justify-between gap-3 px-4 py-3 text-left cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition"
-          data-category="${label}"
-          aria-expanded="${!collapsed}"
-          aria-controls="cat-${slugifyLabel(label)}"
-        >
-          <span class="font-semibold text-sm text-gray-900 dark:text-white">${label}</span>
-          <span class="flex items-center gap-2 shrink-0">
-            <span class="text-xs text-gray-400 dark:text-gray-500">${groupIds.length}</span>
-            <span class="text-gray-400 dark:text-gray-500 text-xs" aria-hidden="true">${collapsed ? "▸" : "▾"}</span>
-          </span>
-        </button>
-        <div id="cat-${slugifyLabel(label)}" ${collapsed ? "hidden" : ""}>
-          ${groupIds.map(institutionRow).join("")}
-        </div>
-      </div>`;
-      })
-      .join("");
-
-    listEl.querySelectorAll<HTMLButtonElement>(".category-toggle").forEach((btn) =>
-      btn.addEventListener("click", () => {
-        const label = btn.dataset.category!;
-        const content = document.getElementById(`cat-${slugifyLabel(label)}`);
-        if (!content) return;
-        const nowCollapsed = !content.hasAttribute("hidden");
-        content.toggleAttribute("hidden", nowCollapsed);
-        btn.setAttribute("aria-expanded", String(!nowCollapsed));
-        const arrow = btn.querySelector('[aria-hidden="true"]');
-        if (arrow) arrow.textContent = nowCollapsed ? "▸" : "▾";
-        setCollapsed(label, nowCollapsed);
-      })
-    );
     listEl.querySelectorAll<HTMLButtonElement>("[data-edit]").forEach((btn) =>
       btn.addEventListener("click", () => openForm(btn.dataset.edit!, institutions[btn.dataset.edit!]))
     );
     listEl.querySelectorAll<HTMLButtonElement>("[data-delete]").forEach((btn) =>
-      btn.addEventListener("click", () => deleteInstitution(btn.dataset.delete!, institutions[btn.dataset.delete!]))
+      btn.addEventListener("click", () => {
+        confirmingDeleteId = btn.dataset.delete!;
+        renderPanel();
+      })
+    );
+    listEl.querySelectorAll<HTMLButtonElement>("[data-cancel-delete]").forEach((btn) =>
+      btn.addEventListener("click", () => {
+        confirmingDeleteId = null;
+        renderPanel();
+      })
+    );
+    listEl.querySelectorAll<HTMLButtonElement>("[data-confirm-delete]").forEach((btn) =>
+      btn.addEventListener("click", () => deleteInstitution(btn.dataset.confirmDelete!))
     );
   }
 
+  function renderPanel() {
+    if (!listEl || !panelHeaderEl) return;
+    const query = normalize(searchInput?.value.trim() ?? "");
 
-  searchInput?.addEventListener("input", renderList);
+    if (query) {
+      const matchingIds = Object.keys(institutions)
+        .filter((id) => {
+          const inst = institutions[id];
+          return normalize(inst.name).includes(query) || (inst.short_name && normalize(inst.short_name).includes(query));
+        })
+        .sort((a, b) => institutions[a].name.localeCompare(institutions[b].name, "fr"));
+
+      panelHeaderEl.innerHTML = `
+        <h2 class="text-sm font-semibold text-gray-900 dark:text-white">${matchingIds.length} résultat${matchingIds.length === 1 ? "" : "s"} pour « ${searchInput?.value ?? ""} »</h2>
+        <button id="clear-search-btn" type="button" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer shrink-0">Effacer la recherche</button>
+      `;
+      document.getElementById("clear-search-btn")?.addEventListener("click", () => {
+        if (searchInput) searchInput.value = "";
+        renderSidebar();
+        renderPanel();
+      });
+
+      if (matchingIds.length === 0) {
+        listEl.innerHTML = `<p class="p-4 text-sm text-gray-400">Aucune institution trouvée pour « ${searchInput?.value ?? ""} ».</p>`;
+        return;
+      }
+      listEl.innerHTML = matchingIds.map((id) => institutionRow(id, { showCategory: true })).join("");
+      wireRowActions();
+      return;
+    }
+
+    const ids = Object.keys(institutions)
+      .filter((id) => institutionCategoryFor(institutions[id].name) === activeCategory)
+      .sort((a, b) => institutions[a].name.localeCompare(institutions[b].name, "fr"));
+
+    panelHeaderEl.innerHTML = `<h2 class="text-sm font-semibold text-gray-900 dark:text-white">${activeCategory} · ${ids.length}</h2>`;
+
+    if (ids.length === 0) {
+      listEl.innerHTML = `<p class="p-4 text-sm text-gray-400">Aucun organisme dans cette catégorie.</p>`;
+      return;
+    }
+    listEl.innerHTML = ids.map((id) => institutionRow(id)).join("");
+    wireRowActions();
+  }
+
+  searchInput?.addEventListener("input", () => {
+    confirmingDeleteId = null;
+    renderSidebar();
+    renderPanel();
+  });
 
   function openForm(id: string | null, inst: any | null) {
     if (!form || !formContainer || !formTitle || !documentsRows) return;
@@ -276,8 +357,8 @@ const { session } = authenticateRequest(Astro.request);
     formContainer?.classList.add("hidden");
   }
 
-  async function deleteInstitution(id: string, inst: any) {
-    if (!confirm(`Supprimer définitivement « ${inst.name} » ?`)) return;
+  async function deleteInstitution(id: string) {
+    const inst = institutions[id];
     try {
       const res = await fetch("/api/admin/institutions", {
         method: "POST",
@@ -286,10 +367,13 @@ const { session } = authenticateRequest(Astro.request);
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
-      showStatus("Institution supprimée et site republié.", "success");
+      confirmingDeleteId = null;
+      showStatus(`« ${inst.name} » supprimée et site republié.`, "success");
       await load();
     } catch (err: any) {
+      confirmingDeleteId = null;
       showStatus(err.message, "error");
+      renderPanel();
     }
   }
 
@@ -300,12 +384,13 @@ const { session } = authenticateRequest(Astro.request);
     csrfToken = authData.csrfToken || "";
 
     if (!instRes.ok) {
-      if (listEl) listEl.innerHTML = `<p class="text-sm text-rose-500">${data.error}</p>`;
+      if (listEl) listEl.innerHTML = `<p class="p-4 text-sm text-rose-500">${data.error}</p>`;
       return;
     }
 
     institutions = data.institutions;
-    renderList();
+    renderSidebar();
+    renderPanel();
   }
 
   document.getElementById("add-institution-btn")?.addEventListener("click", () => openForm(null, null));
@@ -337,6 +422,10 @@ const { session } = authenticateRequest(Astro.request);
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
+      // Une institution nouvellement créée peut tomber dans une catégorie
+      // différente de celle actuellement affichée : on s'y place directement
+      // plutôt que de laisser l'administrateur la chercher.
+      if (!originalId) activeCategory = institutionCategoryFor(String(institution.name));
       showStatus("Institution enregistrée et site republié.", "success");
       closeForm();
       await load();
