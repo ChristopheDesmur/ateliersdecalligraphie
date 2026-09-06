@@ -120,7 +120,7 @@ const { session } = authenticateRequest(Astro.request);
 
   function renderList() {
     if (!listEl) return;
-    const sortedYears = Object.keys(years).sort();
+    const sortedYears = Object.keys(years).sort((a, b) => Number(b) - Number(a));
     if (sortedYears.length === 0) {
       listEl.innerHTML = `<p class="text-sm text-gray-400">Aucun événement.</p>`;
       return;
