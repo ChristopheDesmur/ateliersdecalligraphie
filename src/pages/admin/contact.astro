@@ -34,6 +34,14 @@ const { session } = authenticateRequest(Astro.request);
             >
               Enregistrer
             </button>
+            <button
+              type="button"
+              id="contact-cancel-btn"
+              disabled
+              class="px-5 py-2 rounded-xl text-gray-600 dark:text-gray-300 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+            >
+              Annuler
+            </button>
             <p id="contact-save-status" class="text-xs text-gray-500 dark:text-gray-400" aria-live="polite"></p>
           </div>
         </form>
@@ -76,6 +84,7 @@ const { session } = authenticateRequest(Astro.request);
   const fieldsContainer = document.getElementById("contact-fields");
   const form = document.getElementById("contact-form") as HTMLFormElement | null;
   const saveBtn = document.getElementById("contact-save-btn") as HTMLButtonElement | null;
+  const cancelBtn = document.getElementById("contact-cancel-btn") as HTMLButtonElement | null;
   const saveStatus = document.getElementById("contact-save-status");
   const errorEl = document.getElementById("contact-error");
 
@@ -102,6 +111,7 @@ const { session } = authenticateRequest(Astro.request);
   function markDirty() {
     isDirty = formSnapshot() !== savedSnapshot;
     if (saveBtn) saveBtn.disabled = !isDirty;
+    if (cancelBtn) cancelBtn.disabled = !isDirty;
     if (!saveStatus) return;
     if (isDirty && saveStatus.dataset.state !== "saving") {
       saveStatus.textContent = "Modifications non enregistrées";
@@ -111,6 +121,19 @@ const { session } = authenticateRequest(Astro.request);
       saveStatus.dataset.state = "";
     }
   }
+
+  // Restaure les champs à leur dernière valeur enregistrée, sans requête réseau.
+  function restoreSavedSnapshot() {
+    if (!form || !savedSnapshot) return;
+    const values = JSON.parse(savedSnapshot) as Record<string, string>;
+    for (const input of Array.from(form.querySelectorAll("input"))) {
+      if (input.name in values) input.value = values[input.name];
+    }
+    clearError();
+    markDirty();
+  }
+
+  cancelBtn?.addEventListener("click", restoreSavedSnapshot);
 
   window.addEventListener("beforeunload", (e) => {
     if (!isDirty) return;
