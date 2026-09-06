@@ -36,11 +36,7 @@ const { session } = authenticateRequest(Astro.request);
           <form id="product-form" class="grid sm:grid-cols-2 gap-4">
             <input type="hidden" name="originalId" value="" />
 
-            <div>
-              <label class="field-label">Identifiant (id, url-safe)</label>
-              <input name="id" required pattern="[a-z0-9-]+" class="field-input" placeholder="fu-bonheur" />
-            </div>
-            <div>
+            <div class="sm:col-span-2">
               <label class="field-label">Titre</label>
               <input name="title" required class="field-input" placeholder="福 — Bonheur & Prospérité" />
             </div>
@@ -174,7 +170,10 @@ const { session } = authenticateRequest(Astro.request);
     photoUploadStatus.textContent = "Téléversement…";
     photoUploadStatus.className = "text-xs text-gray-500 dark:text-gray-400 mt-1";
 
-    const nameHint = (form.elements.namedItem("id") as HTMLInputElement)?.value || file.name.replace(/\.[^.]+$/, "");
+    const originalIdVal = (form.elements.namedItem("originalId") as HTMLInputElement)?.value;
+    const pinyinVal = (form.elements.namedItem("pinyin") as HTMLInputElement)?.value;
+    const titleVal = (form.elements.namedItem("title") as HTMLInputElement)?.value;
+    const nameHint = originalIdVal || pinyinVal || titleVal || file.name.replace(/\.[^.]+$/, "");
     const fd = new FormData();
     fd.append("file", file);
     fd.append("nameHint", nameHint);
@@ -257,7 +256,6 @@ const { session } = authenticateRequest(Astro.request);
         const el = form.elements.namedItem(name) as HTMLInputElement | null;
         if (el) el.value = value ?? "";
       };
-      set("id", product.id);
       set("title", product.title);
       set("character", product.character);
       set("pinyin", product.pinyin);
@@ -335,7 +333,7 @@ const { session } = authenticateRequest(Astro.request);
     const fd = new FormData(form);
     const originalId = String(fd.get("originalId") || "");
     const product = {
-      id: fd.get("id"),
+      ...(originalId ? { id: originalId } : {}),
       title: fd.get("title"),
       character: fd.get("character"),
       pinyin: fd.get("pinyin"),

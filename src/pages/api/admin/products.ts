@@ -4,6 +4,7 @@ import type { APIRoute } from "astro";
 import { parseDocument } from "yaml";
 import { authenticateRequest, verifyCsrfToken } from "@/lib/admin/auth";
 import { loadTextFile, saveTextFile } from "@/lib/admin/store";
+import { slugify, uniqueSlug } from "@/lib/admin/slug";
 
 const PRODUCTS_PATH = "src/data/products.yaml";
 const PRICES_PATH = "src/data/prices.yaml";
@@ -36,8 +37,8 @@ export const GET: APIRoute = async ({ request }) => {
   }
 };
 
-function sanitizeProduct(input: any): Record<string, unknown> {
-  const id = String(input.id || "").trim();
+function sanitizeProduct(input: any, generatedId?: string): Record<string, unknown> {
+  const id = String(input.id || generatedId || "").trim();
   if (!id) throw new Error("L'identifiant (id) est obligatoire.");
   if (!/^[a-z0-9-]+$/.test(id)) throw new Error("L'identifiant ne doit contenir que des minuscules, chiffres et tirets.");
 
@@ -105,16 +106,28 @@ export const POST: APIRoute = async ({ request }) => {
       doc.deleteIn([index]);
       commitMessage = `Supprime l'œuvre "${removed.title}" (admin)`;
     } else if (action === "create") {
-      const product = sanitizeProduct(body.product || {});
-      if (products.some((p) => p.id === product.id)) throw new Error(`Une œuvre avec l'identifiant "${product.id}" existe déjà.`);
+      let id = String(body.product?.id || "").trim();
+      if (!id) {
+        const pinyin = String(body.product?.pinyin || "").trim();
+        const frenchMeaning = String(body.product?.frenchMeaning || "").trim();
+        const title = String(body.product?.title || "").trim();
+        const rawBase = pinyin ? `${pinyin} ${frenchMeaning || title}` : (frenchMeaning || title);
+        const baseSlug = slugify(rawBase).slice(0, 50).replace(/-+$/, "") || "oeuvre";
+        const existingIds = products.map((p: any) => p.id);
+        id = uniqueSlug(baseSlug, existingIds);
+      }
+      const product = sanitizeProduct(body.product || {}, id);
+      if (products.some((p: any) => p.id === product.id)) {
+        throw new Error(`Une œuvre avec l'identifiant "${product.id}" existe déjà.`);
+      }
       doc.add(product);
       commitMessage = `Ajoute l'œuvre "${product.title}" (admin)`;
     } else if (action === "update") {
       const originalId = String(body.originalId || "");
-      const product = sanitizeProduct(body.product || {});
-      const index = products.findIndex((p) => p.id === originalId);
+      const index = products.findIndex((p: any) => p.id === originalId);
       if (index === -1) throw new Error("Œuvre introuvable.");
-      if (product.id !== originalId && products.some((p) => p.id === product.id)) {
+      const product = sanitizeProduct(body.product || {}, originalId);
+      if (product.id !== originalId && products.some((p: any) => p.id === product.id)) {
         throw new Error(`Une œuvre avec l'identifiant "${product.id}" existe déjà.`);
       }
       doc.setIn([index], product);
