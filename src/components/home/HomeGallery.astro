@@ -1,7 +1,6 @@
 ---
 // HomeGallery.astro - Vitrine commerciale des calligraphies originales
 import { getAllArtworks } from "@/data/artworks";
-import { contact } from "@/data/contact";
 
 const all = getAllArtworks();
 // 4 œuvres représentatives de styles variés
@@ -101,7 +100,7 @@ const featuredArtworks = previewSlugs
       </a>
 
       <a
-        href={`mailto:${contact.email}?subject=Demande%20d’information%20calligraphie%20originale`}
+        href="mailto:christophe.desmur@orange.fr?subject=Demande%20d’information%20calligraphie%20originale"
         class="px-5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 text-xs sm:text-sm font-medium transition text-center inline-flex items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
         <span>✉️</span>
         <span>Contacter Christophe</span>

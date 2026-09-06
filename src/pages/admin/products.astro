@@ -65,18 +65,6 @@ const { session } = authenticateRequest(Astro.request);
               <input name="style" class="field-input" placeholder="Écriture régulière (Kaishu)" />
             </div>
 
-            <div class="sm:col-span-2">
-              <label class="field-label">Photo</label>
-              <div class="flex items-start gap-3">
-                <div id="photo-preview-wrap" class="hidden shrink-0 w-20 h-20 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-stone-50 dark:bg-gray-900">
-                  <img id="photo-preview" class="w-full h-full object-contain" alt="" />
-                </div>
-                <div class="flex-1 min-w-0">
-                  <input type="file" id="photo-upload-input" accept="image/*" class="text-xs text-gray-600 dark:text-gray-300 file:mr-3 file:px-3 file:py-1.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 dark:file:bg-indigo-950 dark:file:text-indigo-300 hover:file:bg-indigo-100 dark:hover:file:bg-indigo-900 cursor-pointer" />
-                  <p id="photo-upload-status" class="text-xs text-gray-500 dark:text-gray-400 mt-1"></p>
-                </div>
-              </div>
-            </div>
             <div>
               <label class="field-label">Photo — chemin</label>
               <input name="photoSrc" required class="field-input" placeholder="/assets/FUKU-Bonheur.webp" />
@@ -163,50 +151,6 @@ const { session } = authenticateRequest(Astro.request);
   const form = document.getElementById("product-form") as HTMLFormElement | null;
   const formTitle = document.getElementById("product-form-title");
   const saveBtn = document.getElementById("product-save-btn") as HTMLButtonElement | null;
-  const photoUploadInput = document.getElementById("photo-upload-input") as HTMLInputElement | null;
-  const photoUploadStatus = document.getElementById("photo-upload-status");
-  const photoPreviewWrap = document.getElementById("photo-preview-wrap");
-  const photoPreview = document.getElementById("photo-preview") as HTMLImageElement | null;
-
-  function showPhotoPreview(src: string) {
-    if (!photoPreview || !photoPreviewWrap) return;
-    photoPreview.src = src;
-    photoPreviewWrap.classList.remove("hidden");
-  }
-
-  photoUploadInput?.addEventListener("change", async () => {
-    const file = photoUploadInput.files?.[0];
-    if (!file || !form || !photoUploadStatus) return;
-
-    photoUploadStatus.textContent = "Téléversement…";
-    photoUploadStatus.className = "text-xs text-gray-500 dark:text-gray-400 mt-1";
-
-    const nameHint = (form.elements.namedItem("id") as HTMLInputElement)?.value || file.name.replace(/\.[^.]+$/, "");
-    const fd = new FormData();
-    fd.append("file", file);
-    fd.append("nameHint", nameHint);
-
-    try {
-      const res = await fetch("/api/admin/upload-image", {
-        method: "POST",
-        headers: { "x-csrf-token": csrfToken },
-        body: fd,
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
-
-      (form.elements.namedItem("photoSrc") as HTMLInputElement).value = data.path;
-      (form.elements.namedItem("photoWidth") as HTMLInputElement).value = String(data.width);
-      (form.elements.namedItem("photoHeight") as HTMLInputElement).value = String(data.height);
-      showPhotoPreview(data.path);
-      photoUploadStatus.textContent = "Photo téléversée et publiée ✓";
-    } catch (err: any) {
-      photoUploadStatus.textContent = err.message || "Échec du téléversement.";
-      photoUploadStatus.className = "text-xs text-rose-500 mt-1";
-    } finally {
-      photoUploadInput.value = "";
-    }
-  });
 
   function showStatus(message: string, kind: "success" | "error") {
     if (!statusEl) return;
@@ -255,9 +199,6 @@ const { session } = authenticateRequest(Astro.request);
     form.reset();
     (form.elements.namedItem("originalId") as HTMLInputElement).value = product?.id || "";
     formTitle.textContent = product ? `Modifier « ${product.title} »` : "Ajouter une œuvre";
-    if (photoUploadStatus) photoUploadStatus.textContent = "";
-    photoPreviewWrap?.classList.add("hidden");
-    if (product?.photo?.src) showPhotoPreview(product.photo.src);
 
     if (product) {
       const set = (name: string, value: any) => {
