@@ -3,7 +3,6 @@ import { SEO } from "astro-seo";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
 import InfoBox from "@/components/info-box.astro";
-import { contact, telHref } from "@/data/contact";
 
 import "../styles/global.css";
 import Analytics from '@vercel/analytics/astro';
@@ -17,6 +16,21 @@ export interface Props {
 }
 
 const { title, description, showSidebar = false, ogImage, noindex = false } = Astro.props;
+
+// src/data/contact.ts lit contact.yaml via fs au chargement du module — cela
+// fonctionne au build (pages statiques) mais casse à l'exécution sur les
+// pages rendues à la demande (ex. /admin), où le répertoire courant du
+// serverless Vercel n'est pas la racine du dépôt (ENOENT). Un import
+// statique en tête de fichier s'exécuterait pour TOUTES les pages qui
+// utilisent ce layout, y compris les pages noindex (admin) qui n'affichent
+// jamais le bloc JSON-LD ci-dessous : on ne l'importe donc que si on va
+// réellement l'utiliser, ce qui n'arrive qu'au build pour les pages
+// publiques statiques.
+let contactJsonLd: { telephone: string[]; email: string } | null = null;
+if (!noindex) {
+  const { contact, telHref } = await import("@/data/contact");
+  contactJsonLd = { telephone: [telHref(contact.mobile), telHref(contact.landline)], email: contact.email };
+}
 const metaDescription = description ?? "Cours de calligraphie chinoise à Lyon avec Christophe Desmur. Ateliers collectifs au Dojo Zen et Miroirs du Ciel, cours particuliers et interventions en écoles et entreprises.";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
@@ -89,8 +103,8 @@ const makeTitle = !title
         "alternateName": "Ateliers de calligraphie chinoise à Lyon",
         "description": "Cours hebdomadaires de calligraphie chinoise, cours particuliers et ateliers sur mesure à Lyon avec Christophe Desmur. Pratique au pinceau, encre de Chine et philosophie.",
         "url": "https://ateliersdecalligraphie.com",
-        "telephone": [telHref(contact.mobile), telHref(contact.landline)],
-        "email": contact.email,
+        "telephone": contactJsonLd!.telephone,
+        "email": contactJsonLd!.email,
         "image": "https://ateliersdecalligraphie.com/assets/opengraph.webp",
         "priceRange": "€€",
         "founder": {

@@ -9,7 +9,20 @@ import vercel from "@astrojs/vercel";
 export default defineConfig({
   site: "https://ateliersdecalligraphie.com",
   output: "static",
-  adapter: vercel(),
+  adapter: vercel({
+    // Les pages admin (prerender:false) lisent ces fichiers via fs au chargement
+    // du module (src/data/*.ts, api/admin/events.ts). Le traçage de fichiers de
+    // Vercel ne détecte pas fiablement un chemin littéral passé à
+    // fs.readFileSync : sans includeFiles, ces .yaml ne sont simplement pas
+    // copiés dans la fonction serverless, d'où un ENOENT à l'exécution alors
+    // que le build local réussit (les fichiers existent sur le disque de build).
+    includeFiles: [
+      "./src/data/prices.yaml",
+      "./src/data/products.yaml",
+      "./src/data/contact.yaml",
+      "./src/content/ateliers.yaml",
+    ],
+  }),
   integrations: [
     mdx(),
     sitemap({
