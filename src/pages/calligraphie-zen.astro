@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import RelatedPages from "@/components/related-pages.astro";
+import { prices } from "@/data/prices";
 
 const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d’information%20calligraphie%20zen";
 ---
@@ -464,7 +465,7 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d�
             Vous préférez un accompagnement individuel ?
           </h3>
           <p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
-            Cours particuliers à votre domicile à Lyon (40&nbsp;€ TTC/h • réduction d’impôt de 50&nbsp;% Coop A Dom).
+            Cours particuliers à votre domicile à Lyon ({prices.cours_individuel_domicile.ttc_heure}&nbsp;€ TTC/h • réduction d’impôt de {prices.cours_individuel_domicile.reduction_impot_pct}&nbsp;% Coop A Dom).
           </p>
         </div>
         <a

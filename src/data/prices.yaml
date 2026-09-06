@@ -1,0 +1,15 @@
+# Source unique des tarifs affichés sur le site.
+# Les montants sont des nombres nus (sans symbole monétaire) : le symbole
+# "€" est ajouté au moment de l'affichage, jamais stocké ici.
+
+cours_collectifs:
+  trimestre: 200
+  seances: 10
+
+cours_individuel_domicile:
+  ttc_heure: 80
+  reduction_impot_pct: 50
+
+interventions:
+  ht_heure_standard: 60 # écoles, collèges, lycées, universités, maisons de retraite
+  ht_heure_entreprises: 90 # comités d'entreprise / CSE / séminaires

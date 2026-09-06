@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { prices, netHeureDomicile } from "@/data/prices";
 
 const faqCategories = [
   {
@@ -32,7 +33,7 @@ const faqCategories = [
       },
       {
         question: "Quels sont les tarifs des cours collectifs et particuliers ?",
-        answer: "Les cours collectifs réguliers sont à 200 € par trimestre pour 10 cours (matériel inclus, sans crédit d’impôt). Les cours particuliers à domicile sont à 80 € TTC / heure et bénéficient d’un crédit d’impôt de 50 % (agrément Coop A Dom n° 2006-1-42.10), soit 40 € net de l’heure.",
+        answer: `Les cours collectifs réguliers sont à ${prices.cours_collectifs.trimestre} € par trimestre pour ${prices.cours_collectifs.seances} cours (matériel inclus, sans crédit d’impôt). Les cours particuliers à domicile sont à ${prices.cours_individuel_domicile.ttc_heure} € TTC / heure et bénéficient d’un crédit d’impôt de ${prices.cours_individuel_domicile.reduction_impot_pct} % (agrément Coop A Dom n° 2006-1-42.10), soit ${netHeureDomicile} € net de l’heure.`,
       },
       {
         question: "Proposez-vous des cours particuliers à domicile à Lyon ?",
@@ -62,7 +63,7 @@ const faqCategories = [
       },
       {
         question: "Comment organiser un atelier en école, collège, lycée ou université ?",
-        answer: "Christophe Desmur se déplace directement dans votre établissement scolaire à Lyon et dans la région avec tout le matériel pour la classe. Le format varie de 1 h à 3 h par session (60 € HT/h). Une prise de contact préalable permet de caler le projet pédagogique.",
+        answer: `Christophe Desmur se déplace directement dans votre établissement scolaire à Lyon et dans la région avec tout le matériel pour la classe. Le format varie de 1 h à 3 h par session (${prices.interventions.ht_heure_standard} € HT/h). Une prise de contact préalable permet de caler le projet pédagogique.`,
       },
       {
         question: "Proposez-vous des ateliers pour les comités d’entreprise et les résidences seniors ?",

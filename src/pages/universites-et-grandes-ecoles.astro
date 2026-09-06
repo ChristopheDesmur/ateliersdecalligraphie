@@ -1,13 +1,14 @@
 ---
 import Base from "../layouts/Layout.astro";
 import RelatedPages from "../components/related-pages.astro";
+import { prices } from "../data/prices";
 
 const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Organisation%20d’un%20atelier%20calligraphie%20universitaire";
 ---
 
 <Base
   title="Ateliers de calligraphie chinoise pour universités et grandes écoles à Lyon"
-  description="Ateliers de calligraphie chinoise pour universités et grandes écoles à Lyon : modules de 2 à 3 h pour cursus LEA/LLCER, écoles d’ingénieurs et associations étudiantes. 60 € HT/h.">
+  description={`Ateliers de calligraphie chinoise pour universités et grandes écoles à Lyon : modules de 2 à 3 h pour cursus LEA/LLCER, écoles d’ingénieurs et associations étudiantes. ${prices.interventions.ht_heure_standard} € HT/h.`}>
 
   <script slot="head" type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",

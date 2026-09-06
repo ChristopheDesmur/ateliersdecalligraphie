@@ -4,15 +4,16 @@ import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import Cta from "@/components/cta.astro";
 import RelatedPages from "@/components/related-pages.astro";
+import { prices, netHeureDomicile } from "@/data/prices";
 
 const rates = [
   {
     title: "Cours collectifs hebdomadaires",
     subtitle: "Dojo Zen & Miroirs du Ciel — Lyon 4<sup>e</sup>",
     badge: "Formule recommandée",
-    price: "200 €",
+    price: `${prices.cours_collectifs.trimestre} €`,
     period: "par trimestre",
-    detail: "10 cours, matériel inclus (hors crédit d’impôt)",
+    detail: `${prices.cours_collectifs.seances} cours, matériel inclus (hors crédit d’impôt)`,
     features: [
       "Séances régulières de 1&nbsp;h&nbsp;30 à 2&nbsp;h par semaine",
       "Lundi soir (Dojo Zen) ou mercredi matin (Miroirs du Ciel)",
@@ -28,10 +29,10 @@ const rates = [
   {
     title: "Cours individuels à domicile",
     subtitle: "Lyon et agglomération lyonnaise",
-    badge: "50 % de crédit d’impôt",
-    price: "80 €",
+    badge: `${prices.cours_individuel_domicile.reduction_impot_pct} % de crédit d’impôt`,
+    price: `${prices.cours_individuel_domicile.ttc_heure} €`,
     period: "TTC / heure",
-    detail: "Soit 40 € net après crédit d’impôt",
+    detail: `Soit ${netHeureDomicile} € net après crédit d’impôt`,
     features: [
       "Apprentissage entièrement personnalisé à votre rythme",
       "Agrément Coop A Dom (n° 2006-1-42.10 — services à domicile)",
@@ -48,7 +49,7 @@ const rates = [
     title: "Établissements scolaires & Universités",
     subtitle: "Primaires, collèges, lycées, enseignement supérieur",
     badge: "Sur site",
-    price: "60 €",
+    price: `${prices.interventions.ht_heure_standard} €`,
     period: "HT / heure",
     detail: "Tout le matériel de calligraphie fourni",
     features: [
@@ -67,7 +68,7 @@ const rates = [
     title: "Comités d’entreprise & Séminaires",
     subtitle: "CSE, entreprises et collectivités",
     badge: "Cohésion & Bien-être",
-    price: "90 €",
+    price: `${prices.interventions.ht_heure_entreprises} €`,
     period: "HT / heure",
     detail: "Matériel complet inclus pour tous les salariés",
     features: [
@@ -85,7 +86,7 @@ const rates = [
     title: "Résidences seniors & EHPAD",
     subtitle: "Maisons de retraite et associations de retraités",
     badge: "Activité apaisante",
-    price: "60 €",
+    price: `${prices.interventions.ht_heure_standard} €`,
     period: "HT / heure",
     detail: "Ateliers de 2 heures minimum",
     features: [
@@ -104,7 +105,7 @@ const rates = [
 
 <Layout
   title="Tarifs des cours et ateliers"
-  description="Tarifs transparents des cours de calligraphie chinoise à Lyon : cours collectifs (200 €/trimestre, 10 cours), cours particuliers avec crédit d’impôt 50 %, ateliers scolaires et entreprises.">
+  description={`Tarifs transparents des cours de calligraphie chinoise à Lyon : cours collectifs (${prices.cours_collectifs.trimestre} €/trimestre, ${prices.cours_collectifs.seances} cours), cours particuliers avec crédit d’impôt ${prices.cours_individuel_domicile.reduction_impot_pct} %, ateliers scolaires et entreprises.`}>
 
   <script slot="head" type="application/ld+json" set:html={JSON.stringify([
     {
@@ -121,11 +122,11 @@ const rates = [
       "inLanguage": "fr",
       "offers": {
         "@type": "Offer",
-        "price": "200",
+        "price": String(prices.cours_collectifs.trimestre),
         "priceCurrency": "EUR",
         "priceSpecification": {
           "@type": "UnitPriceSpecification",
-          "price": "200",
+          "price": String(prices.cours_collectifs.trimestre),
           "priceCurrency": "EUR",
           "unitText": "trimestre"
         }
@@ -145,11 +146,11 @@ const rates = [
       "inLanguage": "fr",
       "offers": {
         "@type": "Offer",
-        "price": "80",
+        "price": String(prices.cours_individuel_domicile.ttc_heure),
         "priceCurrency": "EUR",
         "priceSpecification": {
           "@type": "UnitPriceSpecification",
-          "price": "80",
+          "price": String(prices.cours_individuel_domicile.ttc_heure),
           "priceCurrency": "EUR",
           "unitText": "heure"
         }
