@@ -60,19 +60,24 @@ const { session } = authenticateRequest(Astro.request);
             <div class="space-y-4">
               <div class="grid sm:grid-cols-3 gap-4">
                 <div class="sm:col-span-2">
-                  <label class="field-label">Catégorie</label>
-                  <input
-                    name="category"
-                    id="faq-category-input"
-                    list="category-datalist"
-                    required
-                    class="field-input"
-                    placeholder="ex. Débuter la calligraphie"
-                  />
-                  <datalist id="category-datalist"></datalist>
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                    Choisissez une catégorie existante ou saisissez-en une nouvelle.
-                  </p>
+                  <label class="field-label" for="faq-category-select">Catégorie</label>
+                  <div class="space-y-2">
+                    <select id="faq-category-select" class="field-input" required>
+                      <option value="">-- Choisir une catégorie existante --</option>
+                      <option value="__new__">+ Créer une nouvelle catégorie…</option>
+                    </select>
+                    <div id="faq-new-category-wrapper" class="hidden">
+                      <input
+                        type="text"
+                        id="faq-category-new-input"
+                        class="field-input text-xs sm:text-sm"
+                        placeholder="Nom de la nouvelle catégorie"
+                      />
+                      <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        Saisissez le nom de la nouvelle catégorie à créer.
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <label class="field-label">Ordre dans la catégorie</label>
@@ -225,7 +230,9 @@ const { session } = authenticateRequest(Astro.request);
   const statusEl = document.getElementById("faq-status");
   const filtersEl = document.getElementById("faq-category-filters");
   const searchInput = document.getElementById("faq-search-input") as HTMLInputElement | null;
-  const datalist = document.getElementById("category-datalist");
+  const categorySelect = document.getElementById("faq-category-select") as HTMLSelectElement | null;
+  const newCategoryWrapper = document.getElementById("faq-new-category-wrapper");
+  const newCategoryInput = document.getElementById("faq-category-new-input") as HTMLInputElement | null;
   const formContainer = document.getElementById("faq-form-container");
   const form = document.getElementById("faq-form") as HTMLFormElement | null;
   const formTitle = document.getElementById("faq-form-title");
@@ -260,6 +267,56 @@ const { session } = authenticateRequest(Astro.request);
       answerTextarea.selectionStart = answerTextarea.selectionEnd = start + code.length;
     });
   });
+
+  categorySelect?.addEventListener("change", () => {
+    if (categorySelect.value === "__new__") {
+      newCategoryWrapper?.classList.remove("hidden");
+      if (newCategoryInput) {
+        newCategoryInput.required = true;
+        newCategoryInput.focus();
+      }
+    } else {
+      newCategoryWrapper?.classList.add("hidden");
+      if (newCategoryInput) {
+        newCategoryInput.required = false;
+        newCategoryInput.value = "";
+      }
+    }
+  });
+
+  function populateCategorySelect(selected?: string) {
+    if (!categorySelect) return;
+    const current = selected ?? categorySelect.value;
+    let html = `<option value="">-- Choisir une catégorie existante --</option>`;
+    for (const cat of categories) {
+      html += `<option value="${cat}">${cat}</option>`;
+    }
+    html += `<option value="__new__">+ Créer une nouvelle catégorie…</option>`;
+    categorySelect.innerHTML = html;
+
+    if (current && (categories.includes(current) || current === "__new__")) {
+      categorySelect.value = current;
+    } else if (current) {
+      const opt = document.createElement("option");
+      opt.value = current;
+      opt.textContent = current;
+      categorySelect.insertBefore(opt, categorySelect.lastElementChild);
+      categorySelect.value = current;
+    } else {
+      categorySelect.value = "";
+    }
+
+    if (categorySelect.value === "__new__") {
+      newCategoryWrapper?.classList.remove("hidden");
+      if (newCategoryInput) newCategoryInput.required = true;
+    } else {
+      newCategoryWrapper?.classList.add("hidden");
+      if (newCategoryInput) {
+        newCategoryInput.required = false;
+        newCategoryInput.value = "";
+      }
+    }
+  }
 
   function showStatus(message: string, kind: "success" | "error") {
     if (!statusEl) return;
@@ -320,9 +377,7 @@ const { session } = authenticateRequest(Astro.request);
       });
     });
 
-    if (datalist) {
-      datalist.innerHTML = categories.map((c) => `<option value="${c}">`).join("");
-    }
+    populateCategorySelect();
   }
 
   function renderList() {
@@ -521,7 +576,7 @@ const { session } = authenticateRequest(Astro.request);
         const el = form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | null;
         if (el) el.value = value ?? "";
       };
-      set("category", f.category);
+      populateCategorySelect(f.category);
       set("question", f.question);
       set("answer", f.answer);
       set("order", f.order);
@@ -537,11 +592,8 @@ const { session } = authenticateRequest(Astro.request);
         }
       }
     } else {
-      // Default category if filtered
-      if (selectedCategoryFilter !== "all") {
-        const catInput = form.elements.namedItem("category") as HTMLInputElement | null;
-        if (catInput) catInput.value = selectedCategoryFilter;
-      }
+      const defaultCat = selectedCategoryFilter !== "all" ? selectedCategoryFilter : "";
+      populateCategorySelect(defaultCat);
       homeOptions?.classList.add("hidden");
     }
 
@@ -606,8 +658,27 @@ const { session } = authenticateRequest(Astro.request);
 
     const fd = new FormData(form);
     const originalId = String(fd.get("originalId") || "");
+    const selectVal = categorySelect?.value || "";
+    let category = selectVal;
+    if (selectVal === "__new__") {
+      category = (newCategoryInput?.value || "").trim();
+      if (!category) {
+        showStatus("Veuillez saisir le nom de la nouvelle catégorie.", "error");
+        newCategoryInput?.focus();
+        saveBtn.disabled = false;
+        saveBtn.textContent = originalId ? "Enregistrer" : "Ajouter la question";
+        return;
+      }
+    } else if (!category) {
+      showStatus("Veuillez sélectionner une catégorie dans la liste.", "error");
+      categorySelect?.focus();
+      saveBtn.disabled = false;
+      saveBtn.textContent = originalId ? "Enregistrer" : "Ajouter la question";
+      return;
+    }
+
     const faq = {
-      category: fd.get("category"),
+      category,
       question: fd.get("question"),
       answer: fd.get("answer"),
       order: fd.get("order"),
