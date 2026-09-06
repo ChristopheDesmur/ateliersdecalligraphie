@@ -2,8 +2,9 @@
 import Base from "../layouts/Layout.astro";
 import RelatedPages from "../components/related-pages.astro";
 import { prices } from "../data/prices";
+import { contact, telHref } from "../data/contact";
 
-const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d’information%20atelier%20de%20groupe";
+const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’information%20atelier%20de%20groupe`;
 ---
 
 <Base
@@ -113,10 +114,10 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d�
             Demander un projet d’atelier
           </a>
           <a
-            href="tel:+33769941643"
+            href={`tel:${telHref(contact.mobile)}`}
             class="inline-flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
-            aria-label="Contacter Christophe Desmur au 07 69 94 16 43">
-            📱 07 69 94 16 43
+            aria-label={`Contacter Christophe Desmur au ${contact.mobile}`}>
+            📱 {contact.mobile}
           </a>
         </div>
       </div>
@@ -183,9 +184,9 @@ const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Demande%20d�
           Demander un projet d’atelier
         </a>
         <a
-          href="tel:+33769941643"
+          href={`tel:${telHref(contact.mobile)}`}
           class="inline-flex items-center justify-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition py-2 text-center">
-          📱 07 69 94 16 43
+          📱 {contact.mobile}
         </a>
       </div>
     </section>

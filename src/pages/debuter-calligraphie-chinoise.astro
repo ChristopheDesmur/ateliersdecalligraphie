@@ -2,8 +2,9 @@
 import Layout from "@/layouts/Layout.astro";
 import RelatedPages from "@/components/related-pages.astro";
 import { prices } from "@/data/prices";
+import { contact } from "@/data/contact";
 
-const contactMailHref = "mailto:christophe.desmur@orange.fr?subject=Renseignement%20d%C3%A9buter%20la%20calligraphie";
+const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9buter%20la%20calligraphie`;
 ---
 
 <Layout

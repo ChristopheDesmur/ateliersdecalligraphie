@@ -1,0 +1,190 @@
+---
+export const prerender = false;
+
+import Layout from "@/layouts/Layout.astro";
+import AdminNav from "@/components/admin/AdminNav.astro";
+import LoginGate from "@/components/admin/LoginGate.astro";
+import { authenticateRequest } from "@/lib/admin/auth";
+
+const { session } = authenticateRequest(Astro.request);
+---
+<Layout title="Administration — Contact" noindex={true}>
+  <div class="max-w-xl mx-auto">
+    {session ? (
+      <div>
+        <AdminNav active="contact" />
+        <h1 class="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-2">Contact</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">
+          Ces coordonnées sont affichées sur l'ensemble du site (menus de contact, pied de page, mentions légales).
+        </p>
+
+        <div id="contact-error" class="hidden mb-4 p-3 rounded-xl text-xs font-medium bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800" role="alert"></div>
+
+        <form id="contact-form" class="bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-2xl p-5 sm:p-6">
+          <div id="contact-fields" class="space-y-4">
+            <p class="text-sm text-gray-400">Chargement…</p>
+          </div>
+
+          <div class="mt-6 pt-5 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3">
+            <button
+              type="submit"
+              id="contact-save-btn"
+              disabled
+              class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-600"
+            >
+              Enregistrer
+            </button>
+            <p id="contact-save-status" class="text-xs text-gray-500 dark:text-gray-400" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    ) : (
+      <LoginGate />
+    )}
+  </div>
+</Layout>
+
+<style>
+  :global(.field-label) {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgb(75 85 99);
+    margin-bottom: 0.35rem;
+  }
+  :global(.dark .field-label) { color: rgb(209 213 219); }
+  :global(.field-input) {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.6rem;
+    border: 1px solid rgb(209 213 219);
+    background: white;
+    color: rgb(17 24 39);
+    font-size: 0.875rem;
+  }
+  :global(.dark .field-input) { border-color: rgb(75 85 99); background: rgb(55 65 81); color: white; }
+  :global(.field-input:focus) {
+    outline: none;
+    box-shadow: 0 0 0 2px rgb(99 102 241 / 0.5);
+    border-color: rgb(79 70 229);
+  }
+</style>
+
+<script>
+  const fieldsContainer = document.getElementById("contact-fields");
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  const saveBtn = document.getElementById("contact-save-btn") as HTMLButtonElement | null;
+  const saveStatus = document.getElementById("contact-save-status");
+  const errorEl = document.getElementById("contact-error");
+
+  let csrfToken = "";
+  let isDirty = false;
+  let savedSnapshot = "";
+
+  function showError(message: string) {
+    if (!errorEl) return;
+    errorEl.textContent = message;
+    errorEl.classList.remove("hidden");
+  }
+  function clearError() {
+    errorEl?.classList.add("hidden");
+  }
+
+  function formSnapshot(): string {
+    if (!form) return "";
+    const values: Record<string, string> = {};
+    for (const input of Array.from(form.querySelectorAll("input"))) values[input.name] = input.value;
+    return JSON.stringify(values);
+  }
+
+  function markDirty() {
+    isDirty = formSnapshot() !== savedSnapshot;
+    if (saveBtn) saveBtn.disabled = !isDirty;
+    if (!saveStatus) return;
+    if (isDirty && saveStatus.dataset.state !== "saving") {
+      saveStatus.textContent = "Modifications non enregistrées";
+      saveStatus.dataset.state = "dirty";
+    } else if (!isDirty) {
+      saveStatus.textContent = "";
+      saveStatus.dataset.state = "";
+    }
+  }
+
+  window.addEventListener("beforeunload", (e) => {
+    if (!isDirty) return;
+    e.preventDefault();
+    e.returnValue = "";
+  });
+
+  async function loadFields() {
+    const [contactRes, authRes] = await Promise.all([fetch("/api/admin/contact"), fetch("/api/admin/auth")]);
+    const contactData = await contactRes.json();
+    const authData = await authRes.json();
+    csrfToken = authData.csrfToken || "";
+
+    if (!contactRes.ok) {
+      if (fieldsContainer) fieldsContainer.innerHTML = `<p class="text-sm text-rose-500">${contactData.error}</p>`;
+      return;
+    }
+    if (!fieldsContainer) return;
+
+    fieldsContainer.innerHTML = contactData.fields
+      .map((f: any) => {
+        const value = contactData.values[f.key];
+        const type = f.key === "email" ? "email" : "text";
+        return `
+          <div>
+            <label class="field-label">${f.label}</label>
+            <input type="${type}" class="field-input" name="${f.key}" value="${String(value ?? "")}" aria-label="${f.label}" />
+          </div>
+        `;
+      })
+      .join("");
+
+    savedSnapshot = formSnapshot();
+    isDirty = false;
+    if (saveBtn) saveBtn.disabled = true;
+    fieldsContainer.addEventListener("input", markDirty);
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!saveBtn || !form || !saveStatus) return;
+    saveBtn.disabled = true;
+    saveStatus.dataset.state = "saving";
+    saveStatus.textContent = "Enregistrement…";
+    clearError();
+
+    const values: Record<string, string> = {};
+    for (const input of Array.from(form.querySelectorAll("input"))) values[input.name] = input.value;
+
+    try {
+      const res = await fetch("/api/admin/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-csrf-token": csrfToken },
+        body: JSON.stringify({ values }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Erreur lors de l'enregistrement.");
+      savedSnapshot = formSnapshot();
+      isDirty = false;
+      saveStatus.dataset.state = "saved";
+      saveStatus.textContent = "Enregistré ✓";
+      window.setTimeout(() => {
+        if (saveStatus.dataset.state === "saved") {
+          saveStatus.textContent = "";
+          saveStatus.dataset.state = "";
+        }
+      }, 3000);
+    } catch (err: any) {
+      saveStatus.textContent = "";
+      saveStatus.dataset.state = "";
+      saveBtn.disabled = false;
+      showError(err.message);
+    }
+  });
+
+  loadFields();
+</script>

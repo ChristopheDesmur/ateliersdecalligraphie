@@ -1,5 +1,6 @@
 ---
 // HomeLocations.astro - Lieux des ateliers à Lyon et coordonnées directes compactes
+import { contact, telHref } from "@/data/contact";
 ---
 
 <section class="pb-12 sm:pb-16" aria-labelledby="locations-heading">
@@ -57,17 +58,17 @@
     <div class="mt-8 pt-6 border-t border-stone-200 dark:border-gray-700/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-600 dark:text-gray-400 max-w-3xl mx-auto font-sans">
       <div class="flex items-center gap-1.5">
         <span>✉️</span>
-        <a href="mailto:christophe.desmur@orange.fr" class="hover:text-indigo-600 dark:hover:text-indigo-400 underline transition-colors">
-          christophe.desmur@orange.fr
+        <a href={`mailto:${contact.email}`} class="hover:text-indigo-600 dark:hover:text-indigo-400 underline transition-colors">
+          {contact.email}
         </a>
       </div>
 
       <div class="flex items-center gap-4">
-        <a href="tel:+33769941643" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors inline-flex items-center gap-1">
-          <span>📱</span> 07 69 94 16 43
+        <a href={`tel:${telHref(contact.mobile)}`} class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors inline-flex items-center gap-1">
+          <span>📱</span> {contact.mobile}
         </a>
-        <a href="tel:+33472078861" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors inline-flex items-center gap-1">
-          <span>📞</span> 04 72 07 88 61
+        <a href={`tel:${telHref(contact.landline)}`} class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors inline-flex items-center gap-1">
+          <span>📞</span> {contact.landline}
         </a>
       </div>
 
