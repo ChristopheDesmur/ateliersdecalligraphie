@@ -44,6 +44,8 @@ function sanitizeTestimonialData(input: any): Record<string, unknown> {
     throw new Error('Le champ "Date" doit être au format AAAA-MM-JJ.');
   }
 
+  const photo = String(input.photo || "").trim();
+
   return {
     quote: required("quote", "Citation"),
     author: required("author", "Auteur"),
@@ -51,6 +53,7 @@ function sanitizeTestimonialData(input: any): Record<string, unknown> {
     source: required("source", "Source"),
     badge: required("badge", "Badge"),
     ...(href ? { href, linkText } : {}),
+    ...(photo ? { photo } : {}),
     ...(date ? { date } : {}),
   };
 }

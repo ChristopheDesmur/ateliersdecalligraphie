@@ -429,9 +429,21 @@ const institutionalReferences = [
               </div>
 
               <div class="mt-5 pt-4 border-t border-gray-100 dark:border-gray-700/60 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 text-xs">
-                <div>
-                  <p class="font-medium text-gray-900 dark:text-gray-100">{t.author}</p>
-                  <p class="text-gray-500 dark:text-gray-400 text-[11px]">{t.role}</p>
+                <div class="flex items-center gap-2.5">
+                  {t.photo && (
+                    <img
+                      src={t.photo}
+                      alt=""
+                      width="36"
+                      height="36"
+                      loading="lazy"
+                      class="w-9 h-9 rounded-full object-cover shrink-0 border border-gray-200 dark:border-gray-700"
+                    />
+                  )}
+                  <div>
+                    <p class="font-medium text-gray-900 dark:text-gray-100">{t.author}</p>
+                    <p class="text-gray-500 dark:text-gray-400 text-[11px]">{t.role}</p>
+                  </div>
                 </div>
                 {t.href && (
                   <a

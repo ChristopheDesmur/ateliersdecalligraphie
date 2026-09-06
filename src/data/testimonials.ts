@@ -11,6 +11,7 @@ export interface TestimonialEntry {
   linkText?: string;
   /** Date réelle du témoignage/de l'événement (AAAA-MM-JJ), quand elle est connue avec certitude. */
   date?: string;
+  photo?: string;
 }
 
 export interface Testimonial extends TestimonialEntry {
