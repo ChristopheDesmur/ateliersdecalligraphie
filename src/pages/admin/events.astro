@@ -248,7 +248,8 @@ const { session } = authenticateRequest(Astro.request);
           if (!query) return true;
           const ev = years[year][i];
           return normalize(ev.titre).includes(query) || normalize(resolveLieuDisplay(ev.lieu)).includes(query);
-        });
+        })
+        .sort((a, b) => String(years[year][b].from).localeCompare(String(years[year][a].from)));
       if (indices.length) matches[year] = indices;
       totalMatches += indices.length;
     }
