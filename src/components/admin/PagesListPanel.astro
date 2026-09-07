@@ -29,6 +29,15 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
 
   <!-- Toolbar: search + category filter + bulk actions, sticky -->
   <div id="pages-toolbar" class="sticky top-8 z-20 bg-[#f0f0f1] dark:bg-[#101315] py-2 space-y-2">
+    <!-- Status subtabs (WordPress-style: Tous | Publié | Brouillon) -->
+    <div id="status-tabs" class="flex items-center gap-1.5 px-1 text-xs text-[#646970] dark:text-[#8c8f94]">
+      <button type="button" class="status-tab cursor-pointer" data-status="">Tous <span id="status-count-all">(0)</span></button>
+      <span class="text-[#c3c4c7] dark:text-[#50575e]" aria-hidden="true">|</span>
+      <button type="button" class="status-tab cursor-pointer" data-status="published">Publié <span id="status-count-published">(0)</span></button>
+      <span class="text-[#c3c4c7] dark:text-[#50575e]" aria-hidden="true">|</span>
+      <button type="button" class="status-tab cursor-pointer" data-status="draft">Brouillon <span id="status-count-draft">(0)</span></button>
+    </div>
+
     <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-[3px] bg-white dark:bg-[#1a1e22] border border-[#dcdcde] dark:border-[#2c3338] shadow-2xs">
       <div role="search" class="flex-1 min-w-0 flex items-center gap-2 px-2.5 py-1.5 bg-[#f6f7f7] dark:bg-[#161a1d] rounded-[3px] border border-[#dcdcde] dark:border-[#2c3338]">
         <span class="text-[#8c8f94] text-xs" aria-hidden="true">🔍</span>
@@ -166,6 +175,7 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
 
   let searchQuery = '';
   let selectedCategory = '';
+  let selectedStatus: '' | 'published' | 'draft' = '';
   let sortField: 'title' | 'publishDate' | 'category' | null = null;
   let sortDir: 'asc' | 'desc' = 'asc';
   let page = 1;
@@ -216,11 +226,35 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
     const q = searchQuery.trim().toLowerCase();
     return pages.filter((p) => {
       if (selectedCategory && p.category !== selectedCategory) return false;
+      if (selectedStatus === 'draft' && !p.draft) return false;
+      if (selectedStatus === 'published' && p.draft) return false;
       if (q) {
         const hay = `${p.title} ${p.url} ${p.file} ${p.category}`.toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
+    });
+  }
+
+  function updateStatusTabs() {
+    const allCount = pages.length;
+    const draftCount = pages.filter((p) => p.draft).length;
+    const publishedCount = allCount - draftCount;
+
+    const setCount = (id: string, n: number) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = `(${n})`;
+    };
+    setCount('status-count-all', allCount);
+    setCount('status-count-published', publishedCount);
+    setCount('status-count-draft', draftCount);
+
+    document.querySelectorAll<HTMLButtonElement>('.status-tab').forEach((btn) => {
+      const status = btn.getAttribute('data-status') || '';
+      const isActive = status === selectedStatus;
+      btn.className = isActive
+        ? 'font-semibold text-[#1d2327] dark:text-white'
+        : 'status-tab cursor-pointer text-[#2271b1] dark:text-[#72aee6] hover:underline';
     });
   }
 
@@ -312,7 +346,7 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
     if (!container) return;
 
     const filtered = getFiltered();
-    const isFiltered = filtered.length !== pages.length || searchQuery || selectedCategory;
+    const isFiltered = filtered.length !== pages.length || searchQuery || selectedCategory || selectedStatus;
 
     if (countLabel) {
       countLabel.textContent = isFiltered
@@ -320,6 +354,7 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
         : `${pages.length} page${pages.length > 1 ? 's' : ''}`;
     }
     updateSelectionUI();
+    updateStatusTabs();
 
     if (pages.length === 0 || filtered.length === 0) {
       container.innerHTML = emptyState();
@@ -329,6 +364,7 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
       document.getElementById('pages-reset-filters')?.addEventListener('click', () => {
         searchQuery = '';
         selectedCategory = '';
+        selectedStatus = '';
         if (searchInput) searchInput.value = '';
         if (categorySelect) categorySelect.value = '';
         render();
@@ -410,6 +446,14 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
   });
   categorySelect?.addEventListener('change', (e) => {
     selectedCategory = (e.target as HTMLSelectElement).value;
+    page = 1;
+    render();
+  });
+
+  document.getElementById('status-tabs')?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.status-tab');
+    if (!btn) return;
+    selectedStatus = (btn.getAttribute('data-status') || '') as '' | 'published' | 'draft';
     page = 1;
     render();
   });
