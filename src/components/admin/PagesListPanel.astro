@@ -103,6 +103,10 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
       <label for="new-page-image-alt" class="field-label">Image — texte alternatif</label>
       <input id="new-page-image-alt" type="text" class="field-input" />
     </div>
+    <div class="flex items-center gap-2">
+      <input type="checkbox" id="new-page-draft" checked class="w-4 h-4 cursor-pointer" />
+      <label for="new-page-draft" class="text-xs font-semibold text-[#2c3338] dark:text-[#dcdcde] cursor-pointer">Créer comme brouillon (masquée du site public)</label>
+    </div>
     <div id="new-page-error" class="hidden astro-notice astro-notice-error text-xs"></div>
     <div class="flex items-center gap-2 justify-end pt-1">
       <button type="button" id="new-page-cancel" class="astro-btn astro-btn-secondary text-xs">Annuler</button>
@@ -570,6 +574,7 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
   const newSlug = document.getElementById('new-page-slug') as HTMLInputElement | null;
   const newImageSrc = document.getElementById('new-page-image-src') as HTMLInputElement | null;
   const newImageAlt = document.getElementById('new-page-image-alt') as HTMLInputElement | null;
+  const newDraft = document.getElementById('new-page-draft') as HTMLInputElement | null;
   const newError = document.getElementById('new-page-error');
   const newCancel = document.getElementById('new-page-cancel');
   const newSubmit = document.getElementById('new-page-submit') as HTMLButtonElement | null;
@@ -586,6 +591,7 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
     if (newSlug) newSlug.value = '';
     if (newImageSrc) newImageSrc.value = '';
     if (newImageAlt) newImageAlt.value = '';
+    if (newDraft) newDraft.checked = true;
     if (newError) newError.classList.add('hidden');
     newModal.classList.remove('hidden');
     setTimeout(() => newTitle?.focus(), 50);
@@ -629,7 +635,7 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
       const res = await fetch('/api/admin/pages/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-csrf-token': csrfToken },
-        body: JSON.stringify({ collection: newCollection.value, title, slug, imageSrc, imageAlt }),
+        body: JSON.stringify({ collection: newCollection.value, title, slug, imageSrc, imageAlt, draft: newDraft ? newDraft.checked : true }),
       });
       const data = await res.json();
       if (!res.ok || data.error) throw new Error(data.error || 'Erreur lors de la création.');

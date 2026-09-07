@@ -41,6 +41,8 @@ export const POST: APIRoute = async ({ request }) => {
   const requestedSlug = String(payload?.slug || '').trim();
   const imageSrc = String(payload?.imageSrc || '').trim();
   const imageAlt = String(payload?.imageAlt || '').trim();
+  // Default to true (safer default) if the client omits the field entirely.
+  const draft = payload?.draft === false ? false : true;
 
   const col = getPageCollection(collectionId);
   if (!col) return json({ error: 'Rubrique invalide.' }, 400);
@@ -74,7 +76,7 @@ export const POST: APIRoute = async ({ request }) => {
     const today = new Date().toISOString().slice(0, 10);
     const doc = new Document({});
     doc.set('title', title);
-    doc.set('draft', true);
+    doc.set('draft', draft);
     doc.set('snippet', '');
     doc.set('image', doc.createNode({ src: imageSrc, alt: imageAlt }));
     const dateNode = doc.createNode(today);
