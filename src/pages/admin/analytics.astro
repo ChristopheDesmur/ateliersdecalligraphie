@@ -42,8 +42,7 @@ const { session } = authenticateRequest(Astro.request);
             <div id="range-selector" class="inline-flex rounded border border-[#c3c4c7] dark:border-[#50575e] overflow-hidden bg-white dark:bg-[#1d2327]">
               <button type="button" data-range="24h" class="range-tab px-3 py-1 text-xs border-r border-[#c3c4c7] dark:border-[#50575e] hover:bg-gray-100 dark:hover:bg-gray-800 transition cursor-pointer">24h</button>
               <button type="button" data-range="7d" class="range-tab px-3 py-1 text-xs border-r border-[#c3c4c7] dark:border-[#50575e] hover:bg-gray-100 dark:hover:bg-gray-800 transition cursor-pointer">7 jours</button>
-              <button type="button" data-range="30d" class="range-tab active px-3 py-1 text-xs border-r border-[#c3c4c7] dark:border-[#50575e] bg-[#2271b1] text-white font-medium transition cursor-pointer">30 jours</button>
-              <button type="button" data-range="90d" class="range-tab px-3 py-1 text-xs hover:bg-gray-100 dark:hover:bg-gray-800 transition cursor-pointer">90 jours</button>
+              <button type="button" data-range="30d" class="range-tab active px-3 py-1 text-xs bg-[#2271b1] text-white font-medium transition cursor-pointer">30 jours</button>
             </div>
           </div>
           <div id="range-dates-label" class="text-xs text-gray-500 dark:text-gray-400 font-mono">
