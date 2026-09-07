@@ -2,96 +2,104 @@
 export const prerender = false;
 
 import Layout from "@/layouts/Layout.astro";
-import AdminNav from "@/components/admin/AdminNav.astro";
+import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
 import LoginGate from "@/components/admin/LoginGate.astro";
 import { authenticateRequest } from "@/lib/admin/auth";
 
 const { session } = authenticateRequest(Astro.request);
 ---
 <Layout title="Administration — Événements" noindex={true}>
-  <div class="max-w-5xl">
+  <div>
     {session ? (
       <div>
-        <AdminNav active="events" />
-        <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
-          <div>
-            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Événements</h1>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-              Calendrier des cours, stages et interventions passés et à venir.
-            </p>
+        <AdminPageHeader
+          title="Événements"
+          description="Calendrier des cours, stages et interventions passés et à venir."
+          active="events"
+        >
+          <div slot="actions">
+            <button
+              id="add-event-btn"
+              type="button"
+              class="wp-btn wp-btn-primary text-xs"
+            >
+              + Ajouter un événement
+            </button>
           </div>
-          <button
-            id="add-event-btn"
-            type="button"
-            class="px-3 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-2xs transition cursor-pointer shrink-0"
-          >
-            + Ajouter un événement
-          </button>
+        </AdminPageHeader>
+
+        <div id="events-status" class="hidden mb-4 wp-notice" role="alert"></div>
+
+        <div class="wp-panel p-2 sm:p-2.5 mb-3 flex items-center justify-between gap-3 text-xs">
+          <div class="w-full max-w-sm">
+            <label for="events-search" class="sr-only">Rechercher un événement</label>
+            <input
+              type="search"
+              id="events-search"
+              class="field-input text-xs"
+              placeholder="Rechercher un événement (titre ou lieu)…"
+              autocomplete="off"
+            />
+          </div>
         </div>
 
-        <div id="events-status" class="hidden mb-4 p-2.5 rounded-md text-xs font-medium"></div>
-
-        <div class="mb-4">
-          <label for="events-search" class="sr-only">Rechercher un événement</label>
-          <input
-            type="search"
-            id="events-search"
-            class="field-input"
-            placeholder="Rechercher un événement (titre ou lieu)…"
-            autocomplete="off"
-          />
-        </div>
-
-        <div id="events-list" class="space-y-2 mb-10">
-          <p class="text-sm text-gray-400">Chargement…</p>
+        <div id="events-list" class="space-y-3 mb-8">
+          <p class="text-sm text-gray-400">Chargement des événements…</p>
         </div>
 
         <!-- Formulaire d'ajout / modification -->
-        <div id="event-form-container" class="hidden bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-2xs mb-10">
-          <h2 id="event-form-title" class="font-semibold text-lg text-gray-900 dark:text-white mb-4">Ajouter un événement</h2>
-          <form id="event-form" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-            <input type="hidden" name="originalYear" value="" />
-            <input type="hidden" name="originalIndex" value="" />
+        <div id="event-form-container" class="hidden wp-panel mb-10">
+          <div class="wp-panel-header">
+            <h2 id="event-form-title" class="wp-panel-title">Ajouter un événement</h2>
+            <button type="button" id="event-form-close-btn" class="text-xs text-[#646970] hover:text-[#2c3338] dark:hover:text-white cursor-pointer">
+              Fermer
+            </button>
+          </div>
+          <div class="wp-panel-body">
+            <form id="event-form" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <input type="hidden" name="originalYear" value="" />
+              <input type="hidden" name="originalIndex" value="" />
 
-            <div>
-              <label class="field-label">Début (AAAA-MM-JJ HH:mm)</label>
-              <input name="from" required class="field-input" placeholder="2026-01-20 00:00" />
-            </div>
-            <div>
-              <label class="field-label">Fin (AAAA-MM-JJ HH:mm)</label>
-              <input name="to" required class="field-input" placeholder="2026-01-20 23:59" />
-            </div>
-            <div class="sm:col-span-2">
-              <label class="field-label">Titre</label>
-              <input name="titre" required class="field-input" placeholder="Ateliers de calligraphie chinoise" />
-            </div>
-            <div class="sm:col-span-2">
-              <label class="field-label">Lieu</label>
-              <select name="lieu" id="lieu-select" required class="field-input">
-                <option value="" disabled selected>— Sélectionner un lieu —</option>
-              </select>
-              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                Lieu introuvable ? Ajoutez-le d'abord dans <a href="/admin/institutions" class="text-indigo-600 dark:text-indigo-400 hover:underline">Institutions</a>.
-              </p>
-            </div>
-            <div class="sm:col-span-2">
-              <label class="field-label">Détails (facultatif)</label>
-              <textarea name="details" rows="2" class="field-input"></textarea>
-            </div>
-            <div class="sm:col-span-2">
-              <label class="field-label">Lien externe (facultatif)</label>
-              <input name="href" class="field-input" placeholder="https://…" />
-            </div>
+              <div>
+                <label class="field-label">Début (AAAA-MM-JJ HH:mm)</label>
+                <input name="from" required class="field-input font-mono text-xs" placeholder="2026-01-20 00:00" />
+              </div>
+              <div>
+                <label class="field-label">Fin (AAAA-MM-JJ HH:mm)</label>
+                <input name="to" required class="field-input font-mono text-xs" placeholder="2026-01-20 23:59" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="field-label">Titre</label>
+                <input name="titre" required class="field-input" placeholder="Ateliers de calligraphie chinoise" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="field-label">Lieu</label>
+                <select name="lieu" id="lieu-select" required class="field-input">
+                  <option value="" disabled selected>— Sélectionner un lieu —</option>
+                </select>
+                <p class="field-help">
+                  Lieu introuvable ? Ajoutez-le d'abord dans <a href="/admin/institutions" class="text-[#2271b1] dark:text-[#72aee6] hover:underline">Institutions</a>.
+                </p>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="field-label">Détails (facultatif)</label>
+                <textarea name="details" rows="2" class="field-input"></textarea>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="field-label">Lien externe (facultatif)</label>
+                <input name="href" class="field-input font-mono text-xs" placeholder="https://…" />
+              </div>
 
-            <div class="sm:col-span-2 flex items-center gap-3 pt-2">
-              <button type="submit" id="event-save-btn" class="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-60">
-                Enregistrer
-              </button>
-              <button type="button" id="event-cancel-btn" class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer">
-                Annuler
-              </button>
-            </div>
-          </form>
+              <div class="sm:col-span-2 flex items-center gap-2 pt-3 border-t border-[#dcdcde] dark:border-[#2c3338]">
+                <button type="submit" id="event-save-btn" class="wp-btn wp-btn-primary text-xs cursor-pointer disabled:opacity-60">
+                  Enregistrer l'événement
+                </button>
+                <button type="button" id="event-cancel-btn" class="wp-btn text-xs cursor-pointer">
+                  Annuler
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     ) : (
@@ -189,10 +197,10 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "mb-4 p-3 rounded-xl text-xs font-medium " +
+      "mb-4 wp-notice " +
       (kind === "success"
-        ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
-        : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
+        ? "wp-notice-success text-[#00a32a] dark:text-[#4ac26b]"
+        : "wp-notice-error text-[#d63638] dark:text-[#ff8585]");
   }
 
   function parseEventDate(dateStr: string): number {
@@ -211,24 +219,39 @@ const { session } = authenticateRequest(Astro.request);
   function eventRow(year: string, i: number, ev: any): string {
     const past = isLockedPastEvent(ev);
     return `
-          <div class="p-3 sm:p-4 flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4 border-b border-gray-100 dark:border-gray-800 last:border-0 ${past ? "opacity-60" : ""}">
-            <div class="min-w-0">
-              <p class="font-semibold text-sm text-gray-900 dark:text-white flex items-center gap-2">
-                ${ev.titre}
-                ${past ? '<span class="text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">Passé</span>' : ""}
-              </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">${ev.from} → ${ev.to}</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">${resolveLieuDisplay(ev.lieu)}</p>
-            </div>
-            <div class="flex items-center gap-3 shrink-0 pt-1 sm:pt-0">
-              ${
-                past
-                  ? ""
-                  : `<button data-edit-year="${year}" data-edit-index="${i}" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer">Modifier</button>
-                     <button data-delete-year="${year}" data-delete-index="${i}" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer">Supprimer</button>`
-              }
-            </div>
-          </div>`;
+      <tr class="${past ? "opacity-75 bg-[#fafafa] dark:bg-[#181d21]" : ""}">
+        <td>
+          <div class="font-medium text-[#1d2327] dark:text-white leading-snug">${ev.titre}</div>
+          ${ev.details ? `<div class="text-[11px] text-[#646970] dark:text-[#8c8f94] mt-0.5">${ev.details}</div>` : ""}
+          <div class="row-actions">
+            ${
+              past
+                ? `<span class="text-[11px] text-[#8c8f94]">Événement passé (archivé)</span>`
+                : `<button type="button" data-edit-year="${year}" data-edit-index="${i}">Modifier</button>
+                   <span class="text-[#8c8f94]">|</span>
+                   <button type="button" data-delete-year="${year}" data-delete-index="${i}" class="delete-action">Supprimer</button>`
+            }
+            ${
+              ev.href
+                ? `<span class="text-[#8c8f94]">|</span>
+                   <a href="${ev.href}" target="_blank" rel="noopener noreferrer">Lien ↗</a>`
+                : ""
+            }
+          </div>
+        </td>
+        <td class="text-xs whitespace-nowrap text-[#2c3338] dark:text-[#dcdcde]">
+          <div>${ev.from}</div>
+          <div class="text-[11px] text-[#646970] dark:text-[#8c8f94]">→ ${ev.to}</div>
+        </td>
+        <td class="text-xs text-[#646970] dark:text-[#8c8f94] whitespace-nowrap">
+          ${resolveLieuDisplay(ev.lieu)}
+        </td>
+        <td class="whitespace-nowrap">
+          <span class="wp-badge ${past ? "wp-badge-muted" : "wp-badge-success"}">
+            ${past ? "Passé" : "À venir"}
+          </span>
+        </td>
+      </tr>`;
   }
 
   function renderList() {
@@ -236,7 +259,7 @@ const { session } = authenticateRequest(Astro.request);
     const query = normalize(searchInput?.value.trim() ?? "");
     const sortedYears = Object.keys(years).sort((a, b) => Number(b) - Number(a));
     if (sortedYears.length === 0) {
-      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucun événement.</p>`;
+      listEl.innerHTML = `<p class="text-xs text-gray-400">Aucun événement.</p>`;
       return;
     }
 
@@ -258,7 +281,7 @@ const { session } = authenticateRequest(Astro.request);
     }
 
     if (totalMatches === 0) {
-      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucun résultat pour « ${searchInput?.value ?? ""} ».</p>`;
+      listEl.innerHTML = `<div class="wp-panel p-4 text-center text-xs text-[#646970] dark:text-[#8c8f94]">Aucun résultat pour « ${searchInput?.value ?? ""} ».</div>`;
       return;
     }
 
@@ -274,21 +297,35 @@ const { session } = authenticateRequest(Astro.request);
         const rows = indices.map((i) => eventRow(year, i, years[year][i])).join("");
         const collapsed = query ? false : isCollapsed(year);
         return `
-          <div class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800/60 overflow-hidden">
+          <div class="wp-panel mb-3">
             <button
               type="button"
-              class="year-toggle w-full flex items-center justify-between gap-3 px-4 py-3 text-left cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+              class="year-toggle wp-panel-header w-full flex items-center justify-between text-left cursor-pointer hover:bg-[#f0f0f1] dark:hover:bg-[#21272c] transition"
               data-year="${year}"
               aria-expanded="${!collapsed}"
               aria-controls="year-${year}"
             >
-              <span class="font-semibold text-sm text-gray-900 dark:text-white">${year}</span>
+              <span class="wp-panel-title font-semibold text-xs text-[#1d2327] dark:text-white">Année ${year}</span>
               <span class="flex items-center gap-2 shrink-0">
-                <span class="text-xs text-gray-400 dark:text-gray-500">${indices.length}</span>
-                <span class="text-gray-400 dark:text-gray-500 text-xs" aria-hidden="true">${collapsed ? "▸" : "▾"}</span>
+                <span class="text-xs text-[#646970] dark:text-[#8c8f94]">${indices.length} événement${indices.length > 1 ? "s" : ""}</span>
+                <span class="text-xs text-[#8c8f94]" aria-hidden="true">${collapsed ? "▸" : "▾"}</span>
               </span>
             </button>
-            <div id="year-${year}" ${collapsed ? "hidden" : ""}>${rows}</div>
+            <div id="year-${year}" class="overflow-x-auto" ${collapsed ? "hidden" : ""}>
+              <table class="wp-table">
+                <thead>
+                  <tr>
+                    <th>Titre &amp; Actions</th>
+                    <th style="width: 170px;">Dates</th>
+                    <th style="width: 200px;">Lieu</th>
+                    <th style="width: 90px;">Statut</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${rows}
+                </tbody>
+              </table>
+            </div>
           </div>`;
       })
       .join("");
@@ -321,6 +358,8 @@ const { session } = authenticateRequest(Astro.request);
       })
     );
   }
+
+  document.getElementById("event-form-close-btn")?.addEventListener("click", closeForm);
 
   searchInput?.addEventListener("input", renderList);
 

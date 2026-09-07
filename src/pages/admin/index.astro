@@ -2,104 +2,200 @@
 export const prerender = false;
 
 import Layout from "@/layouts/Layout.astro";
-import AdminNav from "@/components/admin/AdminNav.astro";
+import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
+import AdminPanel from "@/components/admin/AdminPanel.astro";
 import LoginGate from "@/components/admin/LoginGate.astro";
 import { authenticateRequest } from "@/lib/admin/auth";
 
 const { session } = authenticateRequest(Astro.request);
+
+const modules = [
+  { href: "/admin/hero", name: "Hero", desc: "Contenu principal affiché en haut de la page d'accueil." },
+  { href: "/admin/prices", name: "Tarifs", desc: "Cours collectifs, cours particuliers à domicile, interventions." },
+  { href: "/admin/products", name: "Galerie", desc: "Catalogue des calligraphies et œuvres originales disponibles." },
+  { href: "/admin/events", name: "Événements", desc: "Calendrier des cours, stages et interventions." },
+  { href: "/admin/venues", name: "Lieux", desc: "Adresses et créneaux des cours hebdomadaires (Dojo, Miroirs du Ciel)." },
+  { href: "/admin/institutions", name: "Institutions", desc: "Organismes partenaires référencés dans les événements." },
+  { href: "/admin/interventions", name: "Formats d'ateliers", desc: "Grilles des publics et formats sur la page « Ateliers de groupe »." },
+  { href: "/admin/testimonials", name: "Témoignages", desc: "Avis et retours d'expérience sur « Le calligraphe »." },
+  { href: "/admin/faq", name: "FAQ", desc: "Questions fréquentes et réponses avec variables dynamiques." },
+  { href: "/admin/contact", name: "Contact", desc: "Numéros de téléphone, e-mail et informations administratives." },
+];
 ---
 <Layout title="Tableau de bord — Administration" noindex={true}>
-  <div class="max-w-5xl">
+  <div>
     {session ? (
-      <div>
-        <AdminNav active="dashboard" />
-        <div class="mb-5">
-          <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Tableau de bord</h1>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
-            Bienvenue dans l'espace d'administration. Sélectionnez un module ci-dessous ou dans la barre latérale pour modifier le contenu du site.
-          </p>
+      <div class="space-y-4">
+        <AdminPageHeader
+          title="Tableau de bord"
+          description="Bienvenue dans l'espace d'administration. Gérez l'ensemble des contenus du site depuis ce panneau de contrôle."
+          active="dashboard"
+          breadcrumbs={false}
+        >
+          <div slot="actions">
+            <a href="/" target="_blank" rel="noopener noreferrer" class="wp-btn text-xs">
+              <span>Voir le site</span>
+              <span class="font-mono text-[10px]" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </AdminPageHeader>
+
+        <!-- WordPress Welcome Panel -->
+        <div class="wp-panel p-4 sm:p-5 bg-white dark:bg-[#1a1e22] border-l-4 border-l-[#2271b1]">
+          <div class="max-w-3xl">
+            <h2 class="text-base font-semibold text-[#1d2327] dark:text-white mb-1">
+              Bienvenue dans l'administration d'Ateliers de calligraphie
+            </h2>
+            <p class="text-xs text-[#646970] dark:text-[#8c8f94] mb-3.5 leading-relaxed">
+              Nous avons rassemblé quelques liens pour vous aider à démarrer rapidement avec la mise à jour des contenus.
+            </p>
+            <div class="flex items-center gap-2 flex-wrap">
+              <a href="/admin/hero" class="wp-btn wp-btn-primary text-xs">
+                Modifier le Hero d'accueil
+              </a>
+              <a href="/admin/events" class="wp-btn text-xs">
+                Ajouter un événement
+              </a>
+              <a href="/admin/products" class="wp-btn text-xs">
+                Gérer la galerie
+              </a>
+              <a href="/admin/prices" class="wp-btn text-xs">
+                Modifier les tarifs
+              </a>
+            </div>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-          <a href="/admin/hero" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
-            <div class="flex items-center justify-between mb-1">
-              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Hero</h2>
-              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Contenu principal affiché en haut de la page d'accueil.</p>
-          </a>
+        <!-- 2-column WordPress dashboard widgets -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <!-- Left Column -->
+          <div class="space-y-4">
+            <!-- Widget: D'un coup d'œil -->
+            <AdminPanel title="D'un coup d'œil">
+              <div class="space-y-2.5 text-xs text-[#2c3338] dark:text-[#dcdcde]">
+                <div class="grid grid-cols-2 gap-2 pb-3 border-b border-[#dcdcde] dark:border-[#242a2f]">
+                  <div>
+                    <a href="/admin/products" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
+                      Galerie & Calligraphies
+                    </a>
+                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Œuvres disponibles</p>
+                  </div>
+                  <div>
+                    <a href="/admin/events" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
+                      Calendrier
+                    </a>
+                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Cours & stages à venir</p>
+                  </div>
+                  <div>
+                    <a href="/admin/venues" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
+                      Lieux hebdomadaires
+                    </a>
+                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Dojo Zen & Miroirs du Ciel</p>
+                  </div>
+                  <div>
+                    <a href="/admin/prices" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
+                      Tarification
+                    </a>
+                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Trimestres & interventions</p>
+                  </div>
+                </div>
+                <div class="pt-1 text-[11px] text-[#646970] dark:text-[#8c8f94] flex items-center justify-between">
+                  <span>Ateliers de calligraphie — Christophe Desmur</span>
+                  <span class="wp-badge wp-badge-success">En ligne</span>
+                </div>
+              </div>
+            </AdminPanel>
 
-          <a href="/admin/prices" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
-            <div class="flex items-center justify-between mb-1">
-              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Tarifs</h2>
-              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Cours collectifs, cours à domicile, interventions.</p>
-          </a>
+            <!-- Widget: Actions courantes -->
+            <AdminPanel title="Actions courantes & Raccourcis">
+              <ul class="divide-y divide-[#f0f0f1] dark:divide-[#242a2f] text-xs">
+                <li class="py-2 flex items-center justify-between gap-3">
+                  <div>
+                    <a href="/admin/hero" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
+                      Changer l'image ou l'accroche d'accueil
+                    </a>
+                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Sur-titre, H1, introduction et image du hero</p>
+                  </div>
+                  <a href="/admin/hero" class="wp-btn text-[11px] shrink-0">Modifier</a>
+                </li>
+                <li class="py-2 flex items-center justify-between gap-3">
+                  <div>
+                    <a href="/admin/events" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
+                      Planifier une nouvelle séance ou un stage
+                    </a>
+                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Dates, horaires, lieu et programme</p>
+                  </div>
+                  <a href="/admin/events" class="wp-btn text-[11px] shrink-0">Planifier</a>
+                </li>
+                <li class="py-2 flex items-center justify-between gap-3">
+                  <div>
+                    <a href="/admin/contact" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
+                      Vérifier les coordonnées de contact
+                    </a>
+                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Téléphones, courriel, agrément Coop A Dom</p>
+                  </div>
+                  <a href="/admin/contact" class="wp-btn text-[11px] shrink-0">Vérifier</a>
+                </li>
+              </ul>
+            </AdminPanel>
+          </div>
 
-          <a href="/admin/products" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
-            <div class="flex items-center justify-between mb-1">
-              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Galerie</h2>
-              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Ajouter, modifier ou retirer une calligraphie.</p>
-          </a>
+          <!-- Right Column -->
+          <div class="space-y-4">
+            <!-- Widget: Tous les modules CMS -->
+            <AdminPanel title="Modules d'administration (10)" noPadding={true}>
+              <div class="overflow-x-auto">
+                <table class="wp-table">
+                  <thead>
+                    <tr>
+                      <th>Module</th>
+                      <th>Description</th>
+                      <th class="text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {modules.map((m) => (
+                      <tr>
+                        <td class="font-medium whitespace-nowrap">
+                          <a href={m.href} class="text-[#2271b1] dark:text-[#72aee6] hover:underline">
+                            {m.name}
+                          </a>
+                        </td>
+                        <td class="text-xs text-[#646970] dark:text-[#8c8f94]">{m.desc}</td>
+                        <td class="text-right whitespace-nowrap">
+                          <a href={m.href} class="wp-btn text-[11px] py-0 px-2 min-h-[24px]">
+                            Ouvrir
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </AdminPanel>
 
-          <a href="/admin/events" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
-            <div class="flex items-center justify-between mb-1">
-              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Événements</h2>
-              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Cours et interventions à venir.</p>
-          </a>
-
-          <a href="/admin/institutions" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
-            <div class="flex items-center justify-between mb-1">
-              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Institutions</h2>
-              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Organismes partenaires référencés dans les événements.</p>
-          </a>
-
-          <a href="/admin/interventions" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
-            <div class="flex items-center justify-between mb-1">
-              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Formats d'ateliers</h2>
-              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Cartes publics visées sur la page « Ateliers de groupe ».</p>
-          </a>
-
-          <a href="/admin/testimonials" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
-            <div class="flex items-center justify-between mb-1">
-              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Témoignages</h2>
-              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Retours d'expérience affichés sur « Le calligraphe ».</p>
-          </a>
-
-          <a href="/admin/venues" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
-            <div class="flex items-center justify-between mb-1">
-              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Lieux</h2>
-              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Adresse et créneau des cours collectifs.</p>
-          </a>
-
-          <a href="/admin/contact" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
-            <div class="flex items-center justify-between mb-1">
-              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Contact</h2>
-              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Téléphones, e-mail, agrément Coop A Dom.</p>
-          </a>
-
-          <a href="/admin/faq" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
-            <div class="flex items-center justify-between mb-1">
-              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">FAQ</h2>
-              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Questions fréquentes affichées sur /faq et la page d'accueil.</p>
-          </a>
+            <!-- Widget: Système & Déploiement -->
+            <AdminPanel title="Environnement & Informations">
+              <div class="space-y-2 text-xs text-[#646970] dark:text-[#8c8f94]">
+                <div class="flex items-center justify-between py-1 border-b border-[#f0f0f1] dark:border-[#242a2f]">
+                  <span>Moteur</span>
+                  <span class="text-[#2c3338] dark:text-[#dcdcde] font-mono text-[11px]">Astro 5 (SSR Vercel)</span>
+                </div>
+                <div class="flex items-center justify-between py-1 border-b border-[#f0f0f1] dark:border-[#242a2f]">
+                  <span>Stockage des données</span>
+                  <span class="text-[#2c3338] dark:text-[#dcdcde] font-mono text-[11px]">YAML versionné (Git)</span>
+                </div>
+                <div class="flex items-center justify-between py-1 border-b border-[#f0f0f1] dark:border-[#242a2f]">
+                  <span>Design system admin</span>
+                  <span class="text-[#2c3338] dark:text-[#dcdcde]">WordPress wp-admin</span>
+                </div>
+                <div class="flex items-center justify-between py-1">
+                  <span>Authentification</span>
+                  <span class="text-[#2c3338] dark:text-[#dcdcde]">Session sécurisée</span>
+                </div>
+              </div>
+            </AdminPanel>
+          </div>
         </div>
       </div>
     ) : (

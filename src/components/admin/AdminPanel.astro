@@ -1,0 +1,33 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  class?: string;
+  id?: string;
+  noPadding?: boolean;
+}
+
+const { title, description, class: className = "", id, noPadding = false } = Astro.props;
+---
+
+<div id={id} class={`wp-panel ${className}`}>
+  {title && (
+    <div class="wp-panel-header">
+      <div class="min-w-0">
+        <h2 class="wp-panel-title">{title}</h2>
+        {description && <p class="text-xs text-[#646970] dark:text-[#8c8f94] mt-0.5">{description}</p>}
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <slot name="header-actions" />
+      </div>
+    </div>
+  )}
+  <div class={noPadding ? "" : "wp-panel-body"}>
+    <slot />
+  </div>
+  {Astro.slots.has("footer") && (
+    <div class="px-3.5 py-2.5 bg-[#f6f7f7] dark:bg-[#161a1d] border-t border-[#dcdcde] dark:border-[#242a2f] flex items-center justify-between gap-3 text-xs">
+      <slot name="footer" />
+    </div>
+  )}
+</div>

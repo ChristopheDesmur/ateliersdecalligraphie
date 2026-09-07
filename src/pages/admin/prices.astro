@@ -2,7 +2,7 @@
 export const prerender = false;
 
 import Layout from "@/layouts/Layout.astro";
-import AdminNav from "@/components/admin/AdminNav.astro";
+import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
 import LoginGate from "@/components/admin/LoginGate.astro";
 import { authenticateRequest } from "@/lib/admin/auth";
 
@@ -12,39 +12,46 @@ const { session } = authenticateRequest(Astro.request);
   <div class="max-w-3xl">
     {session ? (
       <div>
-        <AdminNav active="prices" />
-        <div class="mb-4">
-          <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Tarifs</h1>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-            Gestion globale des prix (cours, stages, interventions, galerie).
-          </p>
-        </div>
+        <AdminPageHeader
+          title="Tarifs"
+          description="Gestion globale des prix (cours collectifs, stages, interventions et galerie)."
+          active="prices"
+        />
 
-        <div id="prices-error" class="hidden mb-4 p-2.5 rounded-md text-xs font-medium bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800" role="alert"></div>
+        <div id="prices-error" class="hidden mb-4 wp-notice wp-notice-error" role="alert"></div>
 
-        <form id="prices-form" class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs">
-          <div id="prices-fields" class="space-y-6">
-            <p class="text-sm text-gray-400">Chargement…</p>
+        <form id="prices-form" class="space-y-4">
+          <div class="wp-panel">
+            <div class="wp-panel-header">
+              <h2 class="wp-panel-title">Grille tarifaire du site</h2>
+            </div>
+            <div class="wp-panel-body">
+              <div id="prices-fields" class="space-y-5">
+                <p class="text-xs text-gray-400">Chargement des tarifs…</p>
+              </div>
+            </div>
           </div>
 
-          <div class="mt-6 pt-5 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3">
-            <button
-              type="submit"
-              id="prices-save-btn"
-              disabled
-              class="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-600"
-            >
-              Enregistrer
-            </button>
-            <button
-              type="button"
-              id="prices-cancel-btn"
-              disabled
-              class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
-            >
-              Annuler
-            </button>
-            <p id="prices-save-status" class="text-xs text-gray-500 dark:text-gray-400" aria-live="polite"></p>
+          <div class="sticky bottom-0 z-10 bg-white/95 dark:bg-[#1a1e22]/95 backdrop-blur-2xs border border-[#c3c4c7] dark:border-[#2c3338] rounded-[3px] p-3 shadow-xs flex items-center justify-between gap-3 flex-wrap">
+            <div class="flex items-center gap-2">
+              <button
+                type="submit"
+                id="prices-save-btn"
+                disabled
+                class="wp-btn wp-btn-primary text-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Enregistrer les modifications
+              </button>
+              <button
+                type="button"
+                id="prices-cancel-btn"
+                disabled
+                class="wp-btn text-xs cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                Annuler
+              </button>
+            </div>
+            <p id="prices-save-status" class="text-xs text-[#646970] dark:text-[#8c8f94] font-medium" aria-live="polite"></p>
           </div>
         </form>
       </div>
@@ -53,32 +60,6 @@ const { session } = authenticateRequest(Astro.request);
     )}
   </div>
 </Layout>
-
-<style>
-  :global(.myk-num) {
-    width: 100%;
-    padding: 0.4rem 0.65rem;
-    border-radius: 0.375rem;
-    border: 1px solid #c3c4c7;
-    background: white;
-    color: #2c3338;
-    font-size: 0.875rem;
-  }
-  :global(.dark .myk-num) {
-    border-color: #3f444e;
-    background: #1a1d21;
-    color: #f0f0f1;
-  }
-  :global(.myk-num:focus) {
-    outline: none;
-    box-shadow: 0 0 0 1px #4f46e5;
-    border-color: #4f46e5;
-  }
-  :global(.dark .myk-num:focus) {
-    box-shadow: 0 0 0 1px #6366f1;
-    border-color: #6366f1;
-  }
-</style>
 
 <script>
   const fieldsContainer = document.getElementById("prices-fields");
@@ -149,8 +130,8 @@ const { session } = authenticateRequest(Astro.request);
 
   function numberField(nameKey: string, value: unknown, ariaLabel: string, unit?: string, disabled = false) {
     const disabledAttr = disabled ? "disabled" : "";
-    const unitHtml = unit ? `<span class="text-xs text-gray-500 dark:text-gray-400 shrink-0" aria-hidden="true">${unit}</span>` : "";
-    return `<div class="flex items-center gap-1.5"><input type="number" step="1" inputmode="numeric" class="myk-num" name="${nameKey}" value="${String(value ?? "")}" aria-label="${ariaLabel}" ${disabledAttr} />${unitHtml}</div>`;
+    const unitHtml = unit ? `<span class="text-xs text-[#646970] dark:text-[#8c8f94] shrink-0 font-medium" aria-hidden="true">${unit}</span>` : "";
+    return `<div class="flex items-center gap-1.5"><input type="number" step="1" inputmode="numeric" class="field-input max-w-[130px]" name="${nameKey}" value="${String(value ?? "")}" aria-label="${ariaLabel}" ${disabledAttr} />${unitHtml}</div>`;
   }
 
   async function loadFields() {
@@ -178,7 +159,7 @@ const { session } = authenticateRequest(Astro.request);
     }
 
     const sectionHeader = (title: string) =>
-      `<h2 class="text-xs font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 mb-2.5">${title}</h2>`;
+      `<h2 class="text-xs font-bold uppercase tracking-wider text-[#50575e] dark:text-[#a7aaad] mb-2">${title}</h2>`;
 
     // "Cours collectifs" et "Interventions" sont deux paires de champs
     // associés : affichés côte à côte sur desktop, empilés sur mobile.

@@ -2,101 +2,128 @@
 export const prerender = false;
 
 import Layout from "@/layouts/Layout.astro";
-import AdminNav from "@/components/admin/AdminNav.astro";
+import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
 import LoginGate from "@/components/admin/LoginGate.astro";
 import { authenticateRequest } from "@/lib/admin/auth";
 
 const { session } = authenticateRequest(Astro.request);
 ---
 <Layout title="Administration — Institutions" noindex={true}>
-  <div class="max-w-5xl">
+  <div>
     {session ? (
       <div>
-        <AdminNav active="institutions" />
-        <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
-          <div class="min-w-0 flex-1">
-            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white truncate">Institutions</h1>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-              Organismes et lieux référencés depuis les événements et certaines pages.
-            </p>
+        <AdminPageHeader
+          title="Institutions"
+          description="Organismes, institutions et partenaires référencés depuis les événements et pages du site."
+          active="institutions"
+        >
+          <div slot="actions">
+            <button
+              id="add-institution-btn"
+              type="button"
+              class="wp-btn wp-btn-primary text-xs"
+            >
+              + Ajouter une institution
+            </button>
           </div>
-          <button
-            id="add-institution-btn"
-            type="button"
-            class="px-3 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-2xs transition cursor-pointer shrink-0"
-          >
-            + Ajouter
-          </button>
+        </AdminPageHeader>
+
+        <div id="institutions-status" class="hidden mb-4 wp-notice" role="alert"></div>
+
+        <!-- Toolbar / Recherche -->
+        <div class="wp-panel p-2.5 mb-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 text-xs">
+          <div class="flex items-center gap-2 flex-1 min-w-0">
+            <label for="institutions-search" class="sr-only">Rechercher une institution</label>
+            <input
+              type="search"
+              id="institutions-search"
+              class="field-input max-w-sm text-xs"
+              placeholder="Rechercher une institution…"
+              autocomplete="off"
+            />
+          </div>
+          <!-- Sélecteur de catégorie compact (mobile uniquement) -->
+          <div class="md:hidden">
+            <label for="category-select" class="sr-only">Catégorie</label>
+            <select id="category-select" class="field-input text-xs"></select>
+          </div>
         </div>
 
-        <div id="institutions-status" class="hidden mb-4 p-2.5 rounded-md text-xs font-medium"></div>
-
-        <div class="mb-4">
-          <label for="institutions-search" class="sr-only">Rechercher une institution</label>
-          <input
-            type="search"
-            id="institutions-search"
-            class="field-input"
-            placeholder="Rechercher une institution…"
-            autocomplete="off"
-          />
-        </div>
-
-        <!-- Sélecteur de catégorie compact (mobile uniquement) -->
-        <div class="md:hidden mb-4">
-          <label for="category-select" class="sr-only">Catégorie</label>
-          <select id="category-select" class="field-input"></select>
-        </div>
-
-        <div class="grid md:grid-cols-[13rem_1fr] gap-6 mb-10">
+        <div class="grid md:grid-cols-[14rem_1fr] gap-4 mb-8 items-start">
           <!-- Navigation par catégorie (desktop uniquement) -->
-          <nav id="category-nav" class="hidden md:block space-y-0.5" aria-label="Catégories d'institutions"></nav>
+          <div class="wp-panel p-2">
+            <div class="px-2 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 mb-1">
+              Catégories
+            </div>
+            <nav id="category-nav" class="space-y-0.5 text-xs" aria-label="Catégories d'institutions"></nav>
+          </div>
 
-          <div class="min-w-0">
-            <div id="panel-header" class="mb-2 flex items-center justify-between gap-3"></div>
-            <div id="institutions-list" class="rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700 overflow-hidden shadow-2xs">
-              <p class="p-4 text-sm text-gray-400">Chargement…</p>
+          <!-- Liste des institutions sous forme de tableau WordPress -->
+          <div class="wp-panel overflow-hidden">
+            <div id="panel-header" class="wp-panel-header flex items-center justify-between gap-3 text-xs"></div>
+            <div class="wp-table-wrap border-0">
+              <table class="wp-table">
+                <thead>
+                  <tr>
+                    <th>Organisme</th>
+                    <th class="w-32">Nom court</th>
+                    <th class="w-28">Documents</th>
+                    <th class="w-24 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="institutions-list">
+                  <tr>
+                    <td colspan="4" class="p-6 text-center text-xs text-gray-500 dark:text-gray-400">Chargement…</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
 
-        <!-- Formulaire d'ajout / modification -->
-        <div id="institution-form-container" class="hidden bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-2xs mb-10">
-          <h2 id="institution-form-title" class="font-semibold text-lg text-gray-900 dark:text-white mb-4">Ajouter une institution</h2>
-          <form id="institution-form">
-            <input type="hidden" name="originalId" value="" />
+        <!-- Formulaire d'ajout / modification (Panel WordPress) -->
+        <div id="institution-form-container" class="hidden wp-panel mb-8">
+          <div class="wp-panel-header">
+            <h2 id="institution-form-title" class="wp-panel-title">Ajouter une institution</h2>
+          </div>
+          <div class="wp-panel-body">
+            <form id="institution-form">
+              <input type="hidden" name="originalId" value="" />
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              <div class="sm:col-span-2">
-                <label class="field-label">Nom complet</label>
-                <input name="name" required class="field-input" placeholder="Office villeurbannais des personnes âgées et des retraités" />
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div class="sm:col-span-2">
+                  <label class="field-label">Nom complet</label>
+                  <input name="name" required class="field-input" placeholder="Office villeurbannais des personnes âgées et des retraités" />
+                </div>
+                <div>
+                  <label class="field-label">Nom court affiché dans les liens (facultatif)</label>
+                  <input name="short_name" class="field-input" placeholder="OVPAR" />
+                </div>
               </div>
-              <div>
-                <label class="field-label">Nom court affiché dans les liens (facultatif)</label>
-                <input name="short_name" class="field-input" placeholder="OVPAR" />
-              </div>
-            </div>
 
-            <div class="mt-5 pt-4 border-t border-gray-200 dark:border-gray-700">
-              <div class="flex items-center justify-between mb-2">
-                <label class="field-label mb-0">Documents (liens externes, facultatifs)</label>
-                <button type="button" id="add-document-row-btn" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer">+ Ajouter un document</button>
+              <div class="mt-5 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between mb-1.5">
+                  <label class="field-label mb-0">Documents associés (brochures, programmes, liens externes)</label>
+                  <button type="button" id="add-document-row-btn" class="wp-btn wp-btn-secondary text-xs py-1 px-2.5">
+                    + Ajouter un document
+                  </button>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">
+                  Document référencé depuis un événement en lien avec cette institution.
+                </p>
+                <div id="documents-rows" class="space-y-2"></div>
               </div>
-              <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">
-                Un document (brochure, programme…) référencé depuis un événement en lien avec cette institution.
-              </p>
-              <div id="documents-rows" class="space-y-2"></div>
-            </div>
 
-            <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center gap-3">
-              <button type="submit" id="institution-save-btn" class="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-60">
-                Enregistrer
-              </button>
-              <button type="button" id="institution-cancel-btn" class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer">
-                Annuler
-              </button>
-            </div>
-          </form>
+              <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center gap-2">
+                <button type="submit" id="institution-save-btn" class="wp-btn wp-btn-primary">
+                  Enregistrer
+                </button>
+                <button type="button" id="institution-cancel-btn" class="wp-btn wp-btn-secondary">
+                  Annuler
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     ) : (
@@ -138,20 +165,18 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "mb-4 p-3 rounded-xl text-xs font-medium " +
-      (kind === "success"
-        ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
-        : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
+      "wp-notice mb-4 " +
+      (kind === "success" ? "wp-notice-success" : "wp-notice-error");
   }
 
   function addDocumentRow(key = "", url = "") {
     if (!documentsRows) return;
     const row = document.createElement("div");
-    row.className = "flex flex-col sm:flex-row items-stretch sm:items-center gap-2 p-2 sm:p-0 rounded border border-gray-200 dark:border-gray-700 sm:border-0";
+    row.className = "flex flex-col sm:flex-row items-stretch sm:items-center gap-2 p-2.5 rounded bg-gray-50 dark:bg-[#1d2327]/60 border border-gray-200 dark:border-gray-700";
     row.innerHTML = `
-      <input type="text" class="field-input doc-key sm:w-1/3" placeholder="clé (ex. animation_2022)" value="${key}" />
-      <input type="text" class="field-input doc-url flex-1" placeholder="https://…" value="${url}" />
-      <button type="button" class="remove-document-row shrink-0 text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer self-end sm:self-auto py-1">Retirer</button>
+      <input type="text" class="field-input doc-key sm:w-1/3 text-xs" placeholder="clé (ex. animation_2022)" value="${key}" />
+      <input type="text" class="field-input doc-url flex-1 text-xs" placeholder="https://…" value="${url}" />
+      <button type="button" class="remove-document-row wp-btn wp-btn-danger text-xs py-1 px-2 shrink-0">Retirer</button>
     `;
     row.querySelector(".remove-document-row")?.addEventListener("click", () => row.remove());
     documentsRows.appendChild(row);
@@ -170,9 +195,6 @@ const { session } = authenticateRequest(Astro.request);
 
   function renderSidebar() {
     const counts = categoryCounts();
-    // Pendant une recherche, les résultats traversent toutes les catégories :
-    // n'en surligner aucune évite de laisser croire qu'on est encore filtré
-    // sur la dernière catégorie sélectionnée.
     const searching = Boolean(searchInput?.value.trim());
 
     if (categoryNavEl) {
@@ -184,14 +206,14 @@ const { session } = authenticateRequest(Astro.request);
             type="button"
             data-category="${c.label}"
             aria-current="${active ? "true" : "false"}"
-            class="w-full text-left px-3 py-2 rounded-lg text-sm transition cursor-pointer flex items-center justify-between gap-2 ${
+            class="w-full text-left px-2.5 py-1.5 rounded text-xs transition cursor-pointer flex items-center justify-between gap-2 ${
               active
-                ? "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-semibold"
-                : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                ? "bg-[#2271b1] text-white font-medium shadow-xs"
+                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
             }"
           >
-            <span>${c.label}</span>
-            <span class="text-xs text-gray-400 dark:text-gray-500 shrink-0">${count}</span>
+            <span class="truncate">${c.label}</span>
+            <span class="text-[11px] ${active ? "text-white/80" : "text-gray-400 dark:text-gray-500"} shrink-0">${count}</span>
           </button>`;
       }).join("");
 
@@ -226,28 +248,44 @@ const { session } = authenticateRequest(Astro.request);
 
     if (confirmingDeleteId === id) {
       return `
-      <div class="p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <p class="text-sm text-gray-700 dark:text-gray-300">Supprimer « ${inst.name} » ?</p>
-        <div class="flex gap-3 shrink-0">
-          <button data-cancel-delete="${id}" class="text-xs font-semibold text-gray-600 dark:text-gray-300 hover:underline cursor-pointer py-1">Annuler</button>
-          <button data-confirm-delete="${id}" class="text-xs font-semibold text-white bg-rose-600 hover:bg-rose-700 px-2.5 py-1 rounded cursor-pointer">Supprimer</button>
-        </div>
-      </div>`;
+      <tr class="bg-rose-50/70 dark:bg-rose-950/30">
+        <td colspan="4" class="p-3">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <span class="text-xs font-semibold text-rose-800 dark:text-rose-200">Supprimer définitivement « ${inst.name} » ?</span>
+            <div class="flex items-center gap-2">
+              <button type="button" data-cancel-delete="${id}" class="wp-btn wp-btn-secondary text-xs py-1 px-2.5">Annuler</button>
+              <button type="button" data-confirm-delete="${id}" class="wp-btn wp-btn-danger text-xs py-1 px-2.5">Confirmer</button>
+            </div>
+          </div>
+        </td>
+      </tr>`;
     }
 
     return `
-      <div class="p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
-        <div class="min-w-0">
-          <p class="text-sm text-gray-900 dark:text-white truncate">${inst.name}${inst.short_name ? ` <span class="text-gray-400 dark:text-gray-500 font-normal">(${inst.short_name})</span>` : ""}</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-            ${category ? `${category} · ` : ""}${docCount} document${docCount === 1 ? "" : "s"}
-          </p>
-        </div>
-        <div class="flex items-center gap-3 shrink-0 pt-1 sm:pt-0">
-          <button data-edit="${id}" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer py-1">Modifier</button>
-          <button data-delete="${id}" class="text-xs text-gray-400 dark:text-gray-500 hover:text-rose-600 dark:hover:text-rose-400 hover:underline cursor-pointer transition py-1">Supprimer</button>
-        </div>
-      </div>`;
+      <tr class="hover:bg-gray-50/60 dark:hover:bg-gray-800/40 transition-colors">
+        <td>
+          <div class="font-medium text-gray-900 dark:text-gray-100 text-xs">${inst.name}</div>
+          ${category ? `<div class="text-[11px] text-gray-400 dark:text-gray-500 mt-0.5">${category}</div>` : ""}
+          <div class="row-actions text-xs mt-1">
+            <button type="button" data-edit="${id}" class="text-[#2271b1] hover:underline cursor-pointer">Modifier</button>
+            <span class="text-gray-300 dark:text-gray-600">|</span>
+            <button type="button" data-delete="${id}" class="text-rose-600 hover:underline cursor-pointer">Supprimer</button>
+          </div>
+        </td>
+        <td class="text-xs text-gray-600 dark:text-gray-400">
+          ${inst.short_name ? `<span class="font-mono text-[11px] px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">${inst.short_name}</span>` : '<span class="text-gray-300 dark:text-gray-600">—</span>'}
+        </td>
+        <td class="text-xs">
+          ${docCount > 0 
+            ? `<span class="wp-badge wp-badge-info">${docCount} doc${docCount > 1 ? "s" : ""}</span>` 
+            : '<span class="text-gray-400 dark:text-gray-500 text-xs">0</span>'}
+        </td>
+        <td class="text-right">
+          <button type="button" data-edit="${id}" class="wp-btn wp-btn-secondary text-xs py-0.5 px-2">
+            Modifier
+          </button>
+        </td>
+      </tr>`;
   }
 
   function wireRowActions() {
@@ -285,8 +323,8 @@ const { session } = authenticateRequest(Astro.request);
         .sort((a, b) => institutions[a].name.localeCompare(institutions[b].name, "fr"));
 
       panelHeaderEl.innerHTML = `
-        <h2 class="text-sm font-semibold text-gray-900 dark:text-white">${matchingIds.length} résultat${matchingIds.length === 1 ? "" : "s"} pour « ${searchInput?.value ?? ""} »</h2>
-        <button id="clear-search-btn" type="button" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer shrink-0">Effacer la recherche</button>
+        <span class="font-semibold text-gray-900 dark:text-white">${matchingIds.length} résultat${matchingIds.length === 1 ? "" : "s"} pour « ${searchInput?.value ?? ""} »</span>
+        <button id="clear-search-btn" type="button" class="text-xs font-medium text-[#2271b1] hover:underline cursor-pointer">Effacer la recherche</button>
       `;
       document.getElementById("clear-search-btn")?.addEventListener("click", () => {
         if (searchInput) searchInput.value = "";
@@ -295,7 +333,7 @@ const { session } = authenticateRequest(Astro.request);
       });
 
       if (matchingIds.length === 0) {
-        listEl.innerHTML = `<p class="p-4 text-sm text-gray-400">Aucune institution trouvée pour « ${searchInput?.value ?? ""} ».</p>`;
+        listEl.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-xs text-gray-500 dark:text-gray-400">Aucune institution trouvée pour « ${searchInput?.value ?? ""} ».</td></tr>`;
         return;
       }
       listEl.innerHTML = matchingIds.map((id) => institutionRow(id, { showCategory: true })).join("");
@@ -307,10 +345,13 @@ const { session } = authenticateRequest(Astro.request);
       .filter((id) => institutionCategoryFor(institutions[id].name) === activeCategory)
       .sort((a, b) => institutions[a].name.localeCompare(institutions[b].name, "fr"));
 
-    panelHeaderEl.innerHTML = `<h2 class="text-sm font-semibold text-gray-900 dark:text-white">${activeCategory} · ${ids.length}</h2>`;
+    panelHeaderEl.innerHTML = `
+      <span class="font-semibold text-gray-900 dark:text-white">${activeCategory}</span>
+      <span class="text-xs text-gray-500 dark:text-gray-400 font-normal">${ids.length} organisme${ids.length > 1 ? "s" : ""}</span>
+    `;
 
     if (ids.length === 0) {
-      listEl.innerHTML = `<p class="p-4 text-sm text-gray-400">Aucun organisme dans cette catégorie.</p>`;
+      listEl.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-xs text-gray-500 dark:text-gray-400">Aucun organisme dans cette catégorie.</td></tr>`;
       return;
     }
     listEl.innerHTML = ids.map((id) => institutionRow(id)).join("");
@@ -377,7 +418,7 @@ const { session } = authenticateRequest(Astro.request);
     csrfToken = authData.csrfToken || "";
 
     if (!instRes.ok) {
-      if (listEl) listEl.innerHTML = `<p class="p-4 text-sm text-rose-500">${data.error}</p>`;
+      if (listEl) listEl.innerHTML = `<tr><td colspan="4" class="p-4 text-sm text-rose-500">${data.error}</td></tr>`;
       return;
     }
 

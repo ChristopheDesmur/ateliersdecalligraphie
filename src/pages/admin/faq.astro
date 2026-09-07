@@ -2,37 +2,36 @@
 export const prerender = false;
 
 import Layout from "@/layouts/Layout.astro";
-import AdminNav from "@/components/admin/AdminNav.astro";
+import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
 import LoginGate from "@/components/admin/LoginGate.astro";
 import { authenticateRequest } from "@/lib/admin/auth";
 
 const { session } = authenticateRequest(Astro.request);
 ---
 <Layout title="Administration — FAQ" noindex={true}>
-  <div class="max-w-5xl">
+  <div>
     {session ? (
       <div>
-        <AdminNav active="faq" />
-        <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
-          <div>
-            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Foire aux questions (FAQ)</h1>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-              Gérez les questions fréquentes affichées sur <a href="/faq" target="_blank" class="text-indigo-600 dark:text-indigo-400 hover:underline">/faq</a> et le teaser de la page d'accueil.
-            </p>
+        <AdminPageHeader
+          title="Foire aux questions (FAQ)"
+          description="Gérez les questions fréquentes affichées sur /faq et le teaser de la page d'accueil."
+          active="faq"
+        >
+          <div slot="actions">
+            <button
+              id="add-faq-btn"
+              type="button"
+              class="wp-btn wp-btn-primary text-xs"
+            >
+              + Ajouter une question
+            </button>
           </div>
-          <button
-            id="add-faq-btn"
-            type="button"
-            class="px-3 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer shrink-0"
-          >
-            + Ajouter une question
-          </button>
-        </div>
+        </AdminPageHeader>
 
-        <div id="faq-status" class="hidden mb-4 p-2.5 rounded-md text-xs font-medium"></div>
+        <div id="faq-status" class="hidden mb-4 wp-notice" role="alert"></div>
 
-        <!-- Filtres et recherche -->
-        <div class="mb-6 p-3 sm:p-4 rounded-md bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between shadow-xs">
+        <!-- Filtres et recherche (Panel WordPress Toolbar) -->
+        <div class="wp-panel p-2.5 mb-4 flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center justify-between text-xs">
           <div class="w-full sm:w-72">
             <input
               type="search"
@@ -46,160 +45,164 @@ const { session } = authenticateRequest(Astro.request);
           </div>
         </div>
 
-        <!-- Liste des FAQ groupées -->
-        <div id="faq-list" class="space-y-6 mb-10">
-          <p class="text-sm text-gray-400">Chargement des questions…</p>
+        <!-- Liste des FAQ groupées par catégories -->
+        <div id="faq-list" class="space-y-4 mb-8">
+          <div class="wp-panel p-4 text-xs text-gray-500 dark:text-gray-400">Chargement des questions…</div>
         </div>
 
-        <!-- Formulaire d'ajout / modification -->
-        <div id="faq-form-container" class="hidden bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs mb-12">
-          <h2 id="faq-form-title" class="font-semibold text-gray-900 dark:text-white mb-4 text-base">Ajouter une question</h2>
-          <form id="faq-form">
-            <input type="hidden" name="originalId" value="" />
+        <!-- Formulaire d'ajout / modification (Panel WordPress) -->
+        <div id="faq-form-container" class="hidden wp-panel mb-10">
+          <div class="wp-panel-header">
+            <h2 id="faq-form-title" class="wp-panel-title">Ajouter une question</h2>
+          </div>
+          <div class="wp-panel-body">
+            <form id="faq-form">
+              <input type="hidden" name="originalId" value="" />
 
-            <div class="space-y-4">
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                <div class="sm:col-span-2">
-                  <label class="field-label" for="faq-category-select">Catégorie</label>
-                  <div class="space-y-2">
-                    <select id="faq-category-select" class="field-input" required>
-                      <option value="">-- Choisir une catégorie existante --</option>
-                      <option value="__new__">+ Créer une nouvelle catégorie…</option>
-                    </select>
-                    <div id="faq-new-category-wrapper" class="hidden">
+              <div class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                  <div class="sm:col-span-2">
+                    <label class="field-label" for="faq-category-select">Catégorie</label>
+                    <div class="space-y-2">
+                      <select id="faq-category-select" class="field-input text-xs" required>
+                        <option value="">-- Choisir une catégorie existante --</option>
+                        <option value="__new__">+ Créer une nouvelle catégorie…</option>
+                      </select>
+                      <div id="faq-new-category-wrapper" class="hidden">
+                        <input
+                          type="text"
+                          id="faq-category-new-input"
+                          class="field-input text-xs sm:text-sm"
+                          placeholder="Nom de la nouvelle catégorie"
+                        />
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                          Saisissez le nom de la nouvelle catégorie à créer.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="field-label">Ordre d'affichage</label>
+                    <input
+                      name="order"
+                      type="number"
+                      min="1"
+                      class="field-input text-xs"
+                      placeholder="Auto (1, 2, 3…)"
+                    />
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      Position relative dans la catégorie.
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="field-label">Question</label>
+                  <textarea
+                    name="question"
+                    id="faq-question-input"
+                    required
+                    rows="2"
+                    class="field-input text-xs"
+                    placeholder="ex. Faut-il parler ou comprendre le chinois pour pratiquer la calligraphie ?"
+                  ></textarea>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="field-label mb-0">Réponse</label>
+                    <button
+                      type="button"
+                      id="toggle-variables-btn"
+                      class="text-xs text-[#2271b1] hover:underline cursor-pointer font-medium"
+                    >
+                      + Insérer une variable de prix/contact
+                    </button>
+                  </div>
+
+                  <!-- Tiroir des variables disponibles -->
+                  <div id="variables-palette" class="hidden mb-2.5 p-3 rounded bg-gray-50 dark:bg-[#1d2327] border border-gray-200 dark:border-gray-700 text-xs">
+                    <p class="font-semibold text-gray-900 dark:text-gray-200 mb-2">
+                      Variables dynamiques (remplacées automatiquement à l'affichage) :
+                    </p>
+                    <div class="flex flex-wrap gap-1.5">
+                      <button type="button" data-insert="{{prices.cours_collectifs.trimestre}}" class="var-btn" title="Tarif trimestre cours collectifs">trimestre (cours)</button>
+                      <button type="button" data-insert="{{prices.cours_collectifs.seances}}" class="var-btn" title="Nombre de séances par trimestre">séances (trimestre)</button>
+                      <button type="button" data-insert="{{prices.cours_individuel_domicile.ttc_heure}}" class="var-btn" title="Tarif horaire TTC domicile">tarif TTC domicile</button>
+                      <button type="button" data-insert="{{prices.cours_individuel_domicile.reduction_impot_pct}}" class="var-btn" title="Taux de réduction d'impôt">taux crédit d'impôt (%)</button>
+                      <button type="button" data-insert="{{prices.cours_individuel_domicile.net_heure}}" class="var-btn" title="Tarif horaire net après crédit d'impôt">tarif net domicile</button>
+                      <button type="button" data-insert="{{prices.interventions.ht_heure_standard}}" class="var-btn" title="Tarif horaire standard interventions scolaires">tarif scolaire HT/h</button>
+                      <button type="button" data-insert="{{prices.interventions.ht_heure_entreprises}}" class="var-btn" title="Tarif horaire entreprises">tarif entreprise HT/h</button>
+                      <button type="button" data-insert="{{contact.coop_a_dom_agrement}}" class="var-btn" title="Numéro d'agrément Coop A Dom">agrément Coop A Dom</button>
+                      <button type="button" data-insert="{{contact.mobile}}" class="var-btn" title="Téléphone portable">mobile</button>
+                      <button type="button" data-insert="{{contact.email}}" class="var-btn" title="E-mail">e-mail</button>
+                    </div>
+                  </div>
+
+                  <textarea
+                    name="answer"
+                    id="faq-answer-input"
+                    required
+                    rows="5"
+                    class="field-input text-xs leading-relaxed"
+                    placeholder="Saisissez la réponse complète. Les balises comme {{prices.cours_collectifs.trimestre}} seront remplacées lors de l'affichage."
+                  ></textarea>
+                </div>
+
+                <!-- Option Page d'accueil -->
+                <div class="p-3.5 rounded border border-gray-200 dark:border-gray-700 bg-gray-50/60 dark:bg-[#1d2327]/60">
+                  <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      name="show_on_home"
+                      id="faq-show-on-home"
+                      class="w-4 h-4 rounded text-[#2271b1] focus:ring-[#2271b1] border-gray-300 dark:border-gray-600"
+                    />
+                    <span class="text-xs font-semibold text-gray-900 dark:text-white">
+                      Afficher aussi cette question sur la page d'accueil (Teaser FAQ)
+                    </span>
+                  </label>
+
+                  <div id="home-options" class="hidden mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 space-y-3">
+                    <div>
+                      <label class="field-label">Question courte pour l'accueil (facultatif)</label>
                       <input
-                        type="text"
-                        id="faq-category-new-input"
-                        class="field-input text-xs sm:text-sm"
-                        placeholder="Nom de la nouvelle catégorie"
+                        name="home_question"
+                        class="field-input text-xs"
+                        placeholder="Laisser vide pour utiliser la question standard"
                       />
-                      <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        Saisissez le nom de la nouvelle catégorie à créer.
-                      </p>
+                    </div>
+                    <div>
+                      <label class="field-label">Réponse courte pour l'accueil (facultatif)</label>
+                      <textarea
+                        name="home_answer"
+                        rows="2"
+                        class="field-input text-xs"
+                        placeholder="Laisser vide pour utiliser la réponse standard"
+                      ></textarea>
                     </div>
                   </div>
                 </div>
-                <div>
-                  <label class="field-label">Ordre dans la catégorie</label>
-                  <input
-                    name="order"
-                    type="number"
-                    min="1"
-                    class="field-input"
-                    placeholder="Auto (1, 2, 3…)"
-                  />
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                    Position d'affichage relative.
-                  </p>
-                </div>
               </div>
 
-              <div>
-                <label class="field-label">Question</label>
-                <textarea
-                  name="question"
-                  id="faq-question-input"
-                  required
-                  rows="2"
-                  class="field-input"
-                  placeholder="ex. Faut-il parler ou comprendre le chinois pour pratiquer la calligraphie ?"
-                ></textarea>
+              <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center gap-2">
+                <button
+                  type="submit"
+                  id="faq-save-btn"
+                  class="wp-btn wp-btn-primary"
+                >
+                  Enregistrer
+                </button>
+                <button
+                  type="button"
+                  id="faq-cancel-btn"
+                  class="wp-btn wp-btn-secondary"
+                >
+                  Annuler
+                </button>
               </div>
-
-              <div>
-                <div class="flex items-center justify-between mb-1">
-                  <label class="field-label mb-0">Réponse</label>
-                  <button
-                    type="button"
-                    id="toggle-variables-btn"
-                    class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer font-medium"
-                  >
-                    + Insérer une variable de prix/contact
-                  </button>
-                </div>
-
-                <!-- Tiroir des variables disponibles -->
-                <div id="variables-palette" class="hidden mb-2 p-3 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900 text-xs">
-                  <p class="font-semibold text-indigo-900 dark:text-indigo-300 mb-2">
-                    Variables dynamiques (mises à jour automatiquement avec les données du site) :
-                  </p>
-                  <div class="flex flex-wrap gap-1.5">
-                    <button type="button" data-insert="{{prices.cours_collectifs.trimestre}}" class="var-btn" title="Tarif trimestre cours collectifs">trimestre (cours)</button>
-                    <button type="button" data-insert="{{prices.cours_collectifs.seances}}" class="var-btn" title="Nombre de séances par trimestre">séances (trimestre)</button>
-                    <button type="button" data-insert="{{prices.cours_individuel_domicile.ttc_heure}}" class="var-btn" title="Tarif horaire TTC domicile">tarif TTC domicile</button>
-                    <button type="button" data-insert="{{prices.cours_individuel_domicile.reduction_impot_pct}}" class="var-btn" title="Taux de réduction d'impôt">taux crédit d'impôt (%)</button>
-                    <button type="button" data-insert="{{prices.cours_individuel_domicile.net_heure}}" class="var-btn" title="Tarif horaire net après crédit d'impôt">tarif net domicile</button>
-                    <button type="button" data-insert="{{prices.interventions.ht_heure_standard}}" class="var-btn" title="Tarif horaire standard interventions scolaires">tarif scolaire HT/h</button>
-                    <button type="button" data-insert="{{prices.interventions.ht_heure_entreprises}}" class="var-btn" title="Tarif horaire entreprises">tarif entreprise HT/h</button>
-                    <button type="button" data-insert="{{contact.coop_a_dom_agrement}}" class="var-btn" title="Numéro d'agrément Coop A Dom">agrément Coop A Dom</button>
-                    <button type="button" data-insert="{{contact.mobile}}" class="var-btn" title="Téléphone portable">mobile</button>
-                    <button type="button" data-insert="{{contact.email}}" class="var-btn" title="E-mail">e-mail</button>
-                  </div>
-                </div>
-
-                <textarea
-                  name="answer"
-                  id="faq-answer-input"
-                  required
-                  rows="5"
-                  class="field-input text-sm leading-relaxed"
-                  placeholder="Saisissez la réponse complète. Les balises comme {{prices.cours_collectifs.trimestre}} seront remplacées lors de l'affichage."
-                ></textarea>
-              </div>
-
-              <!-- Option Page d'accueil -->
-              <div class="p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-stone-50/60 dark:bg-gray-800/40">
-                <label class="flex items-center gap-2.5 cursor-pointer select-none">
-                  <input
-                    type="checkbox"
-                    name="show_on_home"
-                    id="faq-show-on-home"
-                    class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600"
-                  />
-                  <span class="text-sm font-semibold text-gray-900 dark:text-white">
-                    Afficher aussi cette question sur la page d'accueil (Teaser FAQ)
-                  </span>
-                </label>
-
-                <div id="home-options" class="hidden mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 space-y-3">
-                  <div>
-                    <label class="field-label">Question courte pour l'accueil (facultatif)</label>
-                    <input
-                      name="home_question"
-                      class="field-input"
-                      placeholder="Laisser vide pour utiliser la question standard"
-                    />
-                  </div>
-                  <div>
-                    <label class="field-label">Réponse courte pour l'accueil (facultatif)</label>
-                    <textarea
-                      name="home_answer"
-                      rows="2"
-                      class="field-input"
-                      placeholder="Laisser vide pour utiliser la réponse standard"
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-6 pt-5 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3">
-              <button
-                type="submit"
-                id="faq-save-btn"
-                class="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-60"
-              >
-                Enregistrer
-              </button>
-              <button
-                type="button"
-                id="faq-cancel-btn"
-                class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer"
-              >
-                Annuler
-              </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     ) : (
@@ -209,10 +212,30 @@ const { session } = authenticateRequest(Astro.request);
 </Layout>
 
 <style>
-  :global(.var-btn) { padding: 0.25rem 0.5rem; border-radius: 0.375rem; background: white; border: 1px solid rgb(199 210 254); color: rgb(67 56 202); font-family: monospace; font-size: 0.75rem; cursor: pointer; transition: background-color 0.15s; }
-  :global(.dark .var-btn) { background: rgb(30 27 75); border-color: rgb(67 56 202); color: rgb(199 210 254); }
-  :global(.var-btn:hover) { background: rgb(224 231 255); }
-  :global(.dark .var-btn:hover) { background: rgb(49 46 129); }
+  :global(.var-btn) {
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    background: #f0f0f1;
+    border: 1px solid #c3c4c7;
+    color: #2271b1;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  :global(.dark .var-btn) {
+    background: #2c3338;
+    border-color: #50575e;
+    color: #72aee6;
+  }
+  :global(.var-btn:hover) {
+    background: #e0e0e0;
+    border-color: #2271b1;
+  }
+  :global(.dark .var-btn:hover) {
+    background: #3c434a;
+    border-color: #72aee6;
+  }
 </style>
 
 <script>
@@ -319,10 +342,8 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "mb-4 p-3 rounded-md text-xs font-medium " +
-      (kind === "success"
-        ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
-        : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
+      "wp-notice mb-4 " +
+      (kind === "success" ? "wp-notice-success" : "wp-notice-error");
   }
 
   function renderCategoryFilters() {
@@ -338,10 +359,8 @@ const { session } = authenticateRequest(Astro.request);
       <button
         type="button"
         data-filter="all"
-        class="px-2.5 py-1 rounded-md text-xs font-medium cursor-pointer transition ${
-          selectedCategoryFilter === "all"
-            ? "bg-indigo-600 text-white"
-            : "bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-300 dark:border-gray-600"
+        class="wp-btn text-xs py-0.5 px-2.5 ${
+          selectedCategoryFilter === "all" ? "wp-btn-primary" : "wp-btn-secondary"
         }">
         Toutes (${allTotal})
       </button>
@@ -353,10 +372,8 @@ const { session } = authenticateRequest(Astro.request);
         <button
           type="button"
           data-filter="${cat}"
-          class="px-2.5 py-1 rounded-md text-xs font-medium cursor-pointer transition ${
-            selectedCategoryFilter === cat
-              ? "bg-indigo-600 text-white"
-              : "bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-300 dark:border-gray-600"
+          class="wp-btn text-xs py-0.5 px-2.5 ${
+            selectedCategoryFilter === cat ? "wp-btn-primary" : "wp-btn-secondary"
           }">
           ${cat} (${count})
         </button>
@@ -380,7 +397,7 @@ const { session } = authenticateRequest(Astro.request);
     if (!listEl) return;
     const allIds = Object.keys(faqs);
     if (allIds.length === 0) {
-      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucune question dans la FAQ.</p>`;
+      listEl.innerHTML = `<div class="wp-panel p-6 text-center text-xs text-gray-500 dark:text-gray-400">Aucune question dans la FAQ.</div>`;
       return;
     }
 
@@ -404,7 +421,7 @@ const { session } = authenticateRequest(Astro.request);
     }
 
     if (filteredIds.length === 0) {
-      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucune question ne correspond à votre recherche.</p>`;
+      listEl.innerHTML = `<div class="wp-panel p-6 text-center text-xs text-gray-500 dark:text-gray-400">Aucune question ne correspond à votre recherche.</div>`;
       return;
     }
 
@@ -430,14 +447,24 @@ const { session } = authenticateRequest(Astro.request);
     for (const cat of groupOrder) {
       const idsInCat = groups[cat];
       html += `
-        <div class="space-y-3">
-          <div class="flex items-center justify-between pb-1.5 border-b border-gray-200 dark:border-gray-700">
-            <h2 class="font-semibold text-sm text-gray-900 dark:text-white flex items-center gap-2">
+        <div class="wp-panel overflow-hidden">
+          <div class="wp-panel-header flex items-center justify-between">
+            <h2 class="wp-panel-title flex items-center gap-2">
               <span>${cat}</span>
               <span class="text-xs font-normal text-gray-500 dark:text-gray-400">(${idsInCat.length})</span>
             </h2>
           </div>
-          <div class="space-y-2.5">
+          <div class="wp-table-wrap border-0">
+            <table class="wp-table">
+              <thead>
+                <tr>
+                  <th class="w-12 text-center">Ordre</th>
+                  <th>Question & Réponse</th>
+                  <th class="w-24 text-center">Accueil</th>
+                  <th class="w-36 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
       `;
 
       idsInCat.forEach((id, idx) => {
@@ -446,61 +473,62 @@ const { session } = authenticateRequest(Astro.request);
         const isLast = idx === idsInCat.length - 1;
 
         html += `
-          <div class="p-3.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-[#1e2327] hover:border-gray-400 dark:hover:border-gray-600 transition shadow-xs">
-            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
-              <div class="flex items-start gap-3 min-w-0">
-                <span class="shrink-0 w-5 h-5 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-semibold flex items-center justify-center mt-0.5" title="Ordre d'affichage">
-                  ${f.order ?? idx + 1}
-                </span>
-                <div class="min-w-0">
-                  <div class="flex items-center gap-2 flex-wrap">
-                    <p class="font-semibold text-sm text-gray-900 dark:text-white">${f.question}</p>
-                    ${
-                      f.show_on_home
-                        ? `<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border border-amber-200 dark:border-amber-800">⭐ Accueil</span>`
-                        : ""
-                    }
-                  </div>
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">${f.answer}</p>
-                </div>
+          <tr class="hover:bg-gray-50/60 dark:hover:bg-gray-800/40 transition-colors">
+            <td class="text-center font-mono text-xs text-gray-500 dark:text-gray-400">
+              ${f.order ?? idx + 1}
+            </td>
+            <td>
+              <div class="font-medium text-gray-900 dark:text-gray-100 text-xs">${f.question}</div>
+              <div class="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-2 mt-0.5">${f.answer}</div>
+              <div class="row-actions text-xs mt-1">
+                <button type="button" data-edit="${id}" class="text-[#2271b1] hover:underline cursor-pointer">Modifier</button>
+                <span class="text-gray-300 dark:text-gray-600">|</span>
+                <button type="button" data-delete="${id}" class="text-rose-600 hover:underline cursor-pointer">Supprimer</button>
               </div>
-
-              <div class="flex items-center gap-1.5 shrink-0 pt-1 sm:pt-0 self-end sm:self-start">
+            </td>
+            <td class="text-center">
+              ${
+                f.show_on_home
+                  ? `<span class="wp-badge wp-badge-success">Accueil</span>`
+                  : '<span class="text-gray-400 dark:text-gray-500 text-xs">—</span>'
+              }
+            </td>
+            <td class="text-right">
+              <div class="inline-flex items-center gap-1">
                 <button
+                  type="button"
                   data-move-up="${id}"
                   ${isFirst ? "disabled" : ""}
-                  class="p-1 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed text-xs"
+                  class="wp-btn wp-btn-secondary px-1.5 py-0.5 text-xs disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed"
                   title="Monter"
                 >
                   ▲
                 </button>
                 <button
+                  type="button"
                   data-move-down="${id}"
                   ${isLast ? "disabled" : ""}
-                  class="p-1 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed text-xs"
+                  class="wp-btn wp-btn-secondary px-1.5 py-0.5 text-xs disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed"
                   title="Descendre"
                 >
                   ▼
                 </button>
                 <button
+                  type="button"
                   data-edit="${id}"
-                  class="px-2 py-0.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 rounded transition cursor-pointer"
+                  class="wp-btn wp-btn-secondary px-2 py-0.5 text-xs"
                 >
                   Modifier
                 </button>
-                <button
-                  data-delete="${id}"
-                  class="px-2 py-0.5 text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/60 rounded transition cursor-pointer"
-                >
-                  Supprimer
-                </button>
               </div>
-            </div>
-          </div>
+            </td>
+          </tr>
         `;
       });
 
       html += `
+              </tbody>
+            </table>
           </div>
         </div>
       `;
@@ -628,7 +656,7 @@ const { session } = authenticateRequest(Astro.request);
     csrfToken = authData.csrfToken || "";
 
     if (!faqRes.ok) {
-      if (listEl) listEl.innerHTML = `<p class="text-sm text-rose-500">${data.error}</p>`;
+      if (listEl) listEl.innerHTML = `<div class="wp-panel p-4 text-xs text-rose-500">${data.error}</div>`;
       return;
     }
 

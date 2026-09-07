@@ -2,51 +2,56 @@
 export const prerender = false;
 
 import Layout from "@/layouts/Layout.astro";
-import AdminNav from "@/components/admin/AdminNav.astro";
+import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
 import LoginGate from "@/components/admin/LoginGate.astro";
 import { authenticateRequest } from "@/lib/admin/auth";
 
 const { session } = authenticateRequest(Astro.request);
 ---
 <Layout title="Administration — Contact" noindex={true}>
-  <div class="max-w-2xl">
+  <div>
     {session ? (
       <div>
-        <AdminNav active="contact" />
-        <div class="mb-4">
-          <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Contact</h1>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-            Ces coordonnées sont affichées sur l'ensemble du site (menus de contact, pied de page, mentions légales).
-          </p>
+        <AdminPageHeader
+          title="Contact"
+          description="Ces coordonnées sont affichées sur l'ensemble du site (menus de contact, pied de page, mentions légales)."
+          active="contact"
+        />
+
+        <div id="contact-error" class="hidden mb-4 wp-notice wp-notice-error" role="alert"></div>
+
+        <div class="wp-panel max-w-2xl mb-8">
+          <div class="wp-panel-header">
+            <h2 class="wp-panel-title">Coordonnées publiques</h2>
+          </div>
+          <div class="wp-panel-body">
+            <form id="contact-form">
+              <div id="contact-fields" class="space-y-4">
+                <p class="text-xs text-gray-500 dark:text-gray-400">Chargement…</p>
+              </div>
+
+              <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center gap-3">
+                <button
+                  type="submit"
+                  id="contact-save-btn"
+                  disabled
+                  class="wp-btn wp-btn-primary"
+                >
+                  Enregistrer
+                </button>
+                <button
+                  type="button"
+                  id="contact-cancel-btn"
+                  disabled
+                  class="wp-btn wp-btn-secondary"
+                >
+                  Annuler
+                </button>
+                <span id="contact-save-status" class="text-xs text-gray-500 dark:text-gray-400 font-medium" aria-live="polite"></span>
+              </div>
+            </form>
+          </div>
         </div>
-
-        <div id="contact-error" class="hidden mb-4 p-2.5 rounded-md text-xs font-medium bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800" role="alert"></div>
-
-        <form id="contact-form" class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs">
-          <div id="contact-fields" class="space-y-4">
-            <p class="text-sm text-gray-400">Chargement…</p>
-          </div>
-
-          <div class="mt-6 pt-5 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3">
-            <button
-              type="submit"
-              id="contact-save-btn"
-              disabled
-              class="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-600"
-            >
-              Enregistrer
-            </button>
-            <button
-              type="button"
-              id="contact-cancel-btn"
-              disabled
-              class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
-            >
-              Annuler
-            </button>
-            <p id="contact-save-status" class="text-xs text-gray-500 dark:text-gray-400" aria-live="polite"></p>
-          </div>
-        </form>
       </div>
     ) : (
       <LoginGate />
@@ -70,6 +75,7 @@ const { session } = authenticateRequest(Astro.request);
     if (!errorEl) return;
     errorEl.textContent = message;
     errorEl.classList.remove("hidden");
+    errorEl.className = "wp-notice wp-notice-error mb-4";
   }
   function clearError() {
     errorEl?.classList.add("hidden");

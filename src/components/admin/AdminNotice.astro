@@ -1,0 +1,23 @@
+---
+export interface Props {
+  type?: "success" | "error" | "warning" | "info";
+  class?: string;
+  id?: string;
+  dismissible?: boolean;
+}
+
+const { type = "info", class: className = "", id, dismissible = false } = Astro.props;
+---
+
+<div id={id} class={`wp-notice wp-notice-${type} ${className}`} role={type === "error" ? "alert" : "status"}>
+  <div class="flex items-start justify-between gap-2">
+    <div class="min-w-0">
+      <slot />
+    </div>
+    {dismissible && (
+      <button type="button" class="text-[#8c8f94] hover:text-[#2c3338] dark:hover:text-white p-0.5 cursor-pointer" onclick="this.closest('.wp-notice')?.remove()" aria-label="Fermer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    )}
+  </div>
+</div>

@@ -1,0 +1,58 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  active?: "dashboard" | "hero" | "prices" | "products" | "events" | "institutions" | "interventions" | "testimonials" | "venues" | "contact" | "faq";
+  breadcrumbs?: boolean;
+}
+
+const { title, description, active, breadcrumbs = true } = Astro.props;
+
+const labels: Record<string, string> = {
+  dashboard: "Tableau de bord",
+  hero: "Hero",
+  events: "Événements",
+  institutions: "Institutions",
+  interventions: "Formats d'ateliers",
+  prices: "Tarifs",
+  products: "Galerie",
+  testimonials: "Témoignages",
+  venues: "Lieux",
+  contact: "Contact",
+  faq: "FAQ",
+};
+
+const currentLabel = (active && labels[active]) || title;
+---
+
+<div class="mb-4">
+  {breadcrumbs && active && active !== "dashboard" && (
+    <nav aria-label="Fil d'Ariane" class="flex items-center gap-1.5 text-xs text-[#646970] dark:text-[#8c8f94] mb-2 select-none flex-wrap">
+      <a href="/admin" class="hover:text-[#2271b1] dark:hover:text-[#72aee6] transition font-normal">
+        Administration
+      </a>
+      <span class="text-[#8c8f94] dark:text-[#50575e] shrink-0" aria-hidden="true">/</span>
+      <span class="text-[#2c3338] dark:text-[#dcdcde] font-medium truncate" aria-current="page">
+        {currentLabel}
+      </span>
+    </nav>
+  )}
+
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div class="min-w-0">
+      <h1 class="text-xl sm:text-2xl font-normal text-[#1d2327] dark:text-white flex items-center gap-2.5 leading-tight">
+        {title}
+        <slot name="badge" />
+      </h1>
+      {description && (
+        <p class="text-xs text-[#646970] dark:text-[#8c8f94] mt-0.5 leading-relaxed">
+          {description}
+        </p>
+      )}
+    </div>
+
+    <div class="flex items-center gap-2 shrink-0">
+      <slot name="actions" />
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@
 export const prerender = false;
 
 import Layout from "@/layouts/Layout.astro";
-import AdminNav from "@/components/admin/AdminNav.astro";
+import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
 import LoginGate from "@/components/admin/LoginGate.astro";
 import { authenticateRequest } from "@/lib/admin/auth";
 
@@ -12,23 +12,21 @@ const { session } = authenticateRequest(Astro.request);
   <div class="max-w-4xl">
     {session ? (
       <div>
-        <AdminNav active="hero" />
+        <AdminPageHeader
+          title="Hero"
+          description="Contenu principal affiché en haut de la page d'accueil."
+          active="hero"
+        />
 
-        <div class="mb-5">
-          <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Hero</h1>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-            Contenu principal affiché en haut de la page d'accueil.
-          </p>
-        </div>
+        <div id="hero-status" class="hidden mb-4 wp-notice" role="alert"></div>
 
-        <div id="hero-status" class="hidden mb-4 p-3 rounded-md text-xs font-medium" role="alert"></div>
-
-        <form id="hero-form" class="space-y-6">
+        <form id="hero-form" class="space-y-4">
           <!-- Panneau 1 : Contenu textuel -->
-          <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs space-y-4">
-            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700/60 pb-2">
-              Contenu
-            </h2>
+          <div class="wp-panel">
+            <div class="wp-panel-header">
+              <h2 class="wp-panel-title">Contenu</h2>
+            </div>
+            <div class="wp-panel-body space-y-3.5">
 
             <div>
               <label for="field-eyebrow" class="field-label">Sur-titre</label>
@@ -69,150 +67,150 @@ const { session } = authenticateRequest(Astro.request);
           </div>
 
           <!-- Panneau 2 : Liens & Boutons d'action (CTAs) -->
-          <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs space-y-4">
-            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700/60 pb-2">
-              Liens & Boutons d'action (CTAs)
-            </h2>
+          <div class="wp-panel">
+            <div class="wp-panel-header">
+              <h2 class="wp-panel-title">Liens & Boutons d'action (CTAs)</h2>
+            </div>
+            <div class="wp-panel-body">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Bouton principal -->
+                <div class="p-3 rounded-[3px] border border-[#dcdcde] dark:border-[#2c3338] bg-[#f9fafa] dark:bg-[#14171a] space-y-2.5">
+                  <div class="text-xs font-semibold text-[#2c3338] dark:text-[#dcdcde] flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-[#1d2327] dark:bg-white"></span>
+                    Bouton principal
+                  </div>
+                  <div>
+                    <label for="field-primary-label" class="field-label">Libellé</label>
+                    <input
+                      id="field-primary-label"
+                      name="primary_cta_label"
+                      type="text"
+                      class="field-input"
+                      placeholder="Découvrir les cours"
+                    />
+                  </div>
+                  <div>
+                    <label for="field-primary-url" class="field-label">Lien / Destination</label>
+                    <input
+                      id="field-primary-url"
+                      name="primary_cta_url"
+                      type="text"
+                      class="field-input"
+                      placeholder="/cours-collectifs"
+                    />
+                  </div>
+                </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <!-- Bouton principal -->
-              <div class="p-3.5 rounded-md border border-gray-200 dark:border-gray-700/80 bg-gray-50/50 dark:bg-gray-800/40 space-y-3">
-                <div class="text-xs font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full bg-gray-900 dark:bg-white"></span>
-                  Bouton principal
-                </div>
-                <div>
-                  <label for="field-primary-label" class="field-label">Libellé</label>
-                  <input
-                    id="field-primary-label"
-                    name="primary_cta_label"
-                    type="text"
-                    class="field-input"
-                    placeholder="Découvrir les cours"
-                  />
-                </div>
-                <div>
-                  <label for="field-primary-url" class="field-label">Lien / Destination</label>
-                  <input
-                    id="field-primary-url"
-                    name="primary_cta_url"
-                    type="text"
-                    class="field-input"
-                    placeholder="/cours-collectifs"
-                  />
-                </div>
-              </div>
-
-              <!-- Bouton secondaire -->
-              <div class="p-3.5 rounded-md border border-gray-200 dark:border-gray-700/80 bg-gray-50/50 dark:bg-gray-800/40 space-y-3">
-                <div class="text-xs font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full border border-gray-400 bg-transparent"></span>
-                  Bouton secondaire
-                </div>
-                <div>
-                  <label for="field-secondary-label" class="field-label">Libellé</label>
-                  <input
-                    id="field-secondary-label"
-                    name="secondary_cta_label"
-                    type="text"
-                    class="field-input"
-                    placeholder="Voir les œuvres disponibles"
-                  />
-                </div>
-                <div>
-                  <label for="field-secondary-url" class="field-label">Lien / Destination</label>
-                  <input
-                    id="field-secondary-url"
-                    name="secondary_cta_url"
-                    type="text"
-                    class="field-input"
-                    placeholder="/galerie"
-                  />
+                <!-- Bouton secondaire -->
+                <div class="p-3 rounded-[3px] border border-[#dcdcde] dark:border-[#2c3338] bg-[#f9fafa] dark:bg-[#14171a] space-y-2.5">
+                  <div class="text-xs font-semibold text-[#2c3338] dark:text-[#dcdcde] flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full border border-[#8c8f94] bg-transparent"></span>
+                    Bouton secondaire
+                  </div>
+                  <div>
+                    <label for="field-secondary-label" class="field-label">Libellé</label>
+                    <input
+                      id="field-secondary-label"
+                      name="secondary_cta_label"
+                      type="text"
+                      class="field-input"
+                      placeholder="Voir les œuvres disponibles"
+                    />
+                  </div>
+                  <div>
+                    <label for="field-secondary-url" class="field-label">Lien / Destination</label>
+                    <input
+                      id="field-secondary-url"
+                      name="secondary_cta_url"
+                      type="text"
+                      class="field-input"
+                      placeholder="/galerie"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Panneau 3 : Image du Hero -->
-          <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs space-y-4">
-            <div class="flex items-center justify-between border-b border-gray-200 dark:border-gray-700/60 pb-2 flex-wrap gap-2">
-              <h2 class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                Image du hero
-              </h2>
+          <div class="wp-panel">
+            <div class="wp-panel-header">
+              <h2 class="wp-panel-title">Image du hero</h2>
               <button
                 type="button"
                 id="remove-image-btn"
-                class="text-xs text-rose-600 dark:text-rose-400 hover:underline cursor-pointer"
+                class="text-xs text-[#b32d2e] dark:text-[#ff8585] hover:underline cursor-pointer"
               >
                 Retirer l'image
               </button>
             </div>
-
-            <div class="flex flex-col sm:flex-row items-start gap-4">
-              <!-- Aperçu miniature -->
-              <div id="image-preview-container" class="shrink-0 w-36 h-28 rounded-lg overflow-hidden border border-gray-300 dark:border-gray-700 bg-stone-100 dark:bg-gray-900 flex items-center justify-center">
-                <img
-                  id="image-preview"
-                  src="/assets/christophe-desmur-calligraphie-dedicace.webp"
-                  alt="Aperçu"
-                  class="w-full h-full object-cover"
-                />
-                <span id="no-image-text" class="hidden text-xs text-gray-400 text-center px-2">Aucune image</span>
-              </div>
-
-              <!-- Téléversement & options -->
-              <div class="flex-1 min-w-0 space-y-3 w-full">
-                <div>
-                  <label class="field-label">Téléverser une nouvelle image</label>
-                  <input
-                    type="file"
-                    id="hero-image-file"
-                    accept="image/*"
-                    class="text-xs text-gray-600 dark:text-gray-300 file:mr-3 file:px-3 file:py-1.5 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 dark:file:bg-indigo-950 dark:file:text-indigo-300 hover:file:bg-indigo-100 dark:hover:file:bg-indigo-900 cursor-pointer"
+            <div class="wp-panel-body">
+              <div class="flex flex-col sm:flex-row items-start gap-4">
+                <!-- Aperçu miniature -->
+                <div id="image-preview-container" class="shrink-0 w-36 h-28 rounded-[3px] overflow-hidden border border-[#c3c4c7] dark:border-[#2c3338] bg-[#f0f0f1] dark:bg-[#14171a] flex items-center justify-center">
+                  <img
+                    id="image-preview"
+                    src="/assets/christophe-desmur-calligraphie-dedicace.webp"
+                    alt="Aperçu"
+                    class="w-full h-full object-cover"
                   />
-                  <p id="hero-upload-status" class="text-xs text-gray-500 dark:text-gray-400 mt-1"></p>
+                  <span id="no-image-text" class="hidden text-xs text-[#646970] text-center px-2">Aucune image</span>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div class="sm:col-span-2">
-                    <label for="field-image-src" class="field-label">Chemin de l'image (src)</label>
-                    <input
-                      id="field-image-src"
-                      name="image_src"
-                      type="text"
-                      class="field-input"
-                      placeholder="/assets/christophe-desmur-calligraphie-dedicace.webp"
-                    />
-                  </div>
-                  <div class="sm:col-span-2">
-                    <label for="field-image-alt" class="field-label">Texte alternatif (alt)</label>
-                    <input
-                      id="field-image-alt"
-                      name="image_alt"
-                      type="text"
-                      class="field-input"
-                      placeholder="Christophe Desmur traçant une calligraphie chinoise au pinceau et à l’encre de Chine à Lyon"
-                    />
-                  </div>
+                <!-- Téléversement & options -->
+                <div class="flex-1 min-w-0 space-y-3 w-full">
                   <div>
-                    <label for="field-image-caption" class="field-label">Légende</label>
+                    <label class="field-label">Téléverser une nouvelle image</label>
                     <input
-                      id="field-image-caption"
-                      name="image_caption"
-                      type="text"
-                      class="field-input"
-                      placeholder="Le geste de l’encre & la tenue du pinceau"
+                      type="file"
+                      id="hero-image-file"
+                      accept="image/*"
+                      class="text-xs text-[#646970] dark:text-[#8c8f94] file:mr-2 file:px-2.5 file:py-1 file:rounded-[3px] file:border file:border-[#c3c4c7] dark:file:border-[#384148] file:text-xs file:font-medium file:bg-[#f6f7f7] file:text-[#2c3338] dark:file:bg-[#21262b] dark:file:text-[#dcdcde] hover:file:bg-[#f0f0f1] cursor-pointer"
                     />
+                    <p id="hero-upload-status" class="text-xs text-[#646970] dark:text-[#8c8f94] mt-1"></p>
                   </div>
-                  <div>
-                    <label for="field-image-location" class="field-label">Lieu</label>
-                    <input
-                      id="field-image-location"
-                      name="image_location"
-                      type="text"
-                      class="field-input"
-                      placeholder="Lyon Croix-Rousse"
-                    />
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="sm:col-span-2">
+                      <label for="field-image-src" class="field-label">Chemin de l'image (src)</label>
+                      <input
+                        id="field-image-src"
+                        name="image_src"
+                        type="text"
+                        class="field-input"
+                        placeholder="/assets/christophe-desmur-calligraphie-dedicace.webp"
+                      />
+                    </div>
+                    <div class="sm:col-span-2">
+                      <label for="field-image-alt" class="field-label">Texte alternatif (alt)</label>
+                      <input
+                        id="field-image-alt"
+                        name="image_alt"
+                        type="text"
+                        class="field-input"
+                        placeholder="Christophe Desmur traçant une calligraphie chinoise au pinceau et à l’encre de Chine à Lyon"
+                      />
+                    </div>
+                    <div>
+                      <label for="field-image-caption" class="field-label">Légende</label>
+                      <input
+                        id="field-image-caption"
+                        name="image_caption"
+                        type="text"
+                        class="field-input"
+                        placeholder="Le geste de l’encre & la tenue du pinceau"
+                      />
+                    </div>
+                    <div>
+                      <label for="field-image-location" class="field-label">Lieu</label>
+                      <input
+                        id="field-image-location"
+                        name="image_location"
+                        type="text"
+                        class="field-input"
+                        placeholder="Lyon Croix-Rousse"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -220,13 +218,13 @@ const { session } = authenticateRequest(Astro.request);
           </div>
 
           <!-- Barre d'actions & Enregistrement (style WordPress) -->
-          <div class="sticky bottom-0 z-10 bg-white/95 dark:bg-[#1e2327]/95 backdrop-blur-xs border border-gray-300 dark:border-gray-700 rounded-md p-4 shadow-md flex items-center justify-between gap-3 flex-wrap">
-            <div class="flex items-center gap-3">
+          <div class="sticky bottom-0 z-10 bg-white/95 dark:bg-[#1a1e22]/95 backdrop-blur-2xs border border-[#c3c4c7] dark:border-[#2c3338] rounded-[3px] p-3 shadow-xs flex items-center justify-between gap-3 flex-wrap">
+            <div class="flex items-center gap-2">
               <button
                 type="submit"
                 id="hero-save-btn"
                 disabled
-                class="px-5 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                class="wp-btn wp-btn-primary text-xs"
               >
                 Enregistrer
               </button>
@@ -234,12 +232,12 @@ const { session } = authenticateRequest(Astro.request);
                 type="button"
                 id="hero-cancel-btn"
                 disabled
-                class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                class="wp-btn text-xs"
               >
                 Annuler
               </button>
             </div>
-            <p id="hero-save-status" class="text-xs text-gray-500 dark:text-gray-400 font-medium" aria-live="polite"></p>
+            <p id="hero-save-status" class="text-xs text-[#646970] dark:text-[#8c8f94] font-medium" aria-live="polite"></p>
           </div>
         </form>
 
@@ -344,10 +342,10 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "mb-4 p-3 rounded-md text-xs font-medium " +
+      "mb-4 wp-notice " +
       (kind === "success"
-        ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
-        : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
+        ? "wp-notice-success text-[#00a32a] dark:text-[#4ac26b]"
+        : "wp-notice-error text-[#d63638] dark:text-[#ff8585]");
   }
 
   function clearStatus() {

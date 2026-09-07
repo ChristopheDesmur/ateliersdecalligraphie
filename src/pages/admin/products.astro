@@ -2,137 +2,190 @@
 export const prerender = false;
 
 import Layout from "@/layouts/Layout.astro";
-import AdminNav from "@/components/admin/AdminNav.astro";
+import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
 import LoginGate from "@/components/admin/LoginGate.astro";
 import { authenticateRequest } from "@/lib/admin/auth";
 
 const { session } = authenticateRequest(Astro.request);
 ---
 <Layout title="Administration — Galerie" noindex={true}>
-  <div class="max-w-5xl">
+  <div>
     {session ? (
       <div>
-        <AdminNav active="products" />
-        <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
-          <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Galerie</h1>
-          <button
-            id="add-product-btn"
-            type="button"
-            class="px-3 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer"
-          >
-            + Ajouter une œuvre
-          </button>
+        <AdminPageHeader
+          title="Galerie"
+          description="Catalogue des calligraphies et œuvres originales exposées sur la galerie publique."
+          active="products"
+        >
+          <div slot="actions">
+            <button
+              id="add-product-btn"
+              type="button"
+              class="wp-btn wp-btn-primary text-xs"
+            >
+              + Ajouter une œuvre
+            </button>
+          </div>
+        </AdminPageHeader>
+
+        <div id="products-status" class="hidden mb-4 wp-notice" role="alert"></div>
+
+        <!-- Toolbar / Recherche et filtres -->
+        <div class="wp-panel p-2 sm:p-2.5 mb-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 text-xs">
+          <div class="flex items-center gap-2 flex-1 min-w-0">
+            <input
+              type="search"
+              id="product-search"
+              placeholder="Rechercher par titre, caractère ou signification…"
+              class="field-input max-w-sm text-xs"
+            />
+            <select id="product-filter-availability" class="field-input max-w-[170px] text-xs">
+              <option value="">Toutes les disponibilités</option>
+              <option value="Disponible">Disponible</option>
+              <option value="Vendue">Vendue</option>
+            </select>
+          </div>
+          <div id="product-count" class="text-xs text-[#646970] dark:text-[#8c8f94] shrink-0 text-right">
+            Chargement…
+          </div>
         </div>
 
-        <div id="products-status" class="hidden mb-4 p-2.5 rounded-md text-xs font-medium"></div>
-
-        <div id="products-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-10">
-          <p class="text-sm text-gray-400">Chargement…</p>
+        <!-- Table des œuvres -->
+        <div class="wp-table-wrap mb-8">
+          <table class="wp-table">
+            <thead>
+              <tr>
+                <th style="width: 48px;">Photo</th>
+                <th>Titre</th>
+                <th>Caractère</th>
+                <th class="hidden md:table-cell">Signification</th>
+                <th class="hidden sm:table-cell">Catégorie</th>
+                <th>Disponibilité</th>
+                <th class="hidden lg:table-cell">Réf. prix</th>
+              </tr>
+            </thead>
+            <tbody id="products-table-body">
+              <tr>
+                <td colspan="7" class="p-4 text-sm text-gray-400">Chargement des œuvres…</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <!-- Formulaire d'ajout / modification -->
-        <div id="product-form-container" class="hidden bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs mb-10">
-          <h2 id="product-form-title" class="font-semibold text-gray-900 dark:text-white mb-4 text-base">Ajouter une œuvre</h2>
-          <form id="product-form" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-            <input type="hidden" name="originalId" value="" />
+        <div id="product-form-container" class="hidden wp-panel mb-10">
+          <div class="wp-panel-header">
+            <h2 id="product-form-title" class="wp-panel-title">Ajouter une œuvre</h2>
+            <button
+              type="button"
+              id="product-form-close-btn"
+              class="text-xs text-[#646970] hover:text-[#2c3338] dark:hover:text-white cursor-pointer"
+            >
+              Fermer
+            </button>
+          </div>
+          <div class="wp-panel-body">
+            <form id="product-form" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <input type="hidden" name="originalId" value="" />
 
-            <div class="sm:col-span-2">
-              <label class="field-label">Titre</label>
-              <input name="title" required class="field-input" placeholder="福 — Bonheur & Prospérité" />
-            </div>
-            <div>
-              <label class="field-label">Caractère</label>
-              <input name="character" required class="field-input" placeholder="福" />
-            </div>
-            <div>
-              <label class="field-label">Pinyin (facultatif)</label>
-              <input name="pinyin" class="field-input" placeholder="Fú" />
-            </div>
-            <div class="sm:col-span-2">
-              <label class="field-label">Signification française</label>
-              <input name="frenchMeaning" required class="field-input" placeholder="Bonheur · Fortune & Prospérité" />
-            </div>
-            <div>
-              <label class="field-label">Catégorie</label>
-              <input name="category" required class="field-input" placeholder="Caractère traditionnel" />
-            </div>
-            <div>
-              <label class="field-label">Style (facultatif)</label>
-              <input name="style" class="field-input" placeholder="Écriture régulière (Kaishu)" />
-            </div>
+              <div class="sm:col-span-2">
+                <label class="field-label">Titre</label>
+                <input name="title" required class="field-input" placeholder="福 — Bonheur & Prospérité" />
+              </div>
+              <div>
+                <label class="field-label">Caractère</label>
+                <input name="character" required class="field-input font-serif text-base" placeholder="福" />
+              </div>
+              <div>
+                <label class="field-label">Pinyin (facultatif)</label>
+                <input name="pinyin" class="field-input" placeholder="Fú" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="field-label">Signification française</label>
+                <input name="frenchMeaning" required class="field-input" placeholder="Bonheur · Fortune & Prospérité" />
+              </div>
+              <div>
+                <label class="field-label">Catégorie</label>
+                <input name="category" required class="field-input" placeholder="Caractère traditionnel" />
+              </div>
+              <div>
+                <label class="field-label">Style (facultatif)</label>
+                <input name="style" class="field-input" placeholder="Écriture régulière (Kaishu)" />
+              </div>
 
-            <div class="sm:col-span-2">
-              <label class="field-label">Photo</label>
-              <div class="flex items-start gap-3">
-                <div id="photo-preview-wrap" class="hidden shrink-0 w-20 h-20 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-stone-50 dark:bg-gray-900">
-                  <img id="photo-preview" class="w-full h-full object-contain" alt="" />
-                </div>
-                <div class="flex-1 min-w-0">
-                  <input type="file" id="photo-upload-input" accept="image/*" class="text-xs text-gray-600 dark:text-gray-300 file:mr-3 file:px-3 file:py-1.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 dark:file:bg-indigo-950 dark:file:text-indigo-300 hover:file:bg-indigo-100 dark:hover:file:bg-indigo-900 cursor-pointer" />
-                  <p id="photo-upload-status" class="text-xs text-gray-500 dark:text-gray-400 mt-1"></p>
+              <div class="sm:col-span-2">
+                <label class="field-label">Photo</label>
+                <div class="flex items-start gap-3">
+                  <div id="photo-preview-wrap" class="hidden shrink-0 w-16 h-16 rounded-[3px] overflow-hidden border border-[#c3c4c7] dark:border-[#2c3338] bg-stone-50 dark:bg-gray-900">
+                    <img id="photo-preview" class="w-full h-full object-contain" alt="" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <input type="file" id="photo-upload-input" accept="image/*" class="text-xs text-[#646970] dark:text-[#8c8f94] file:mr-2 file:px-2.5 file:py-1 file:rounded-[3px] file:border file:border-[#c3c4c7] dark:file:border-[#384148] file:text-xs file:font-medium file:bg-[#f6f7f7] file:text-[#2c3338] dark:file:bg-[#21262b] dark:file:text-[#dcdcde] hover:file:bg-[#f0f0f1] cursor-pointer" />
+                    <p id="photo-upload-status" class="text-xs text-[#646970] dark:text-[#8c8f94] mt-1"></p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div>
-              <label class="field-label">Photo — chemin</label>
-              <input name="photoSrc" required class="field-input" placeholder="/assets/FUKU-Bonheur.webp" />
-            </div>
-            <div>
-              <label class="field-label">Photo — texte alternatif</label>
-              <input name="photoAlt" required class="field-input" placeholder="Calligraphie chinoise 福…" />
-            </div>
-            <div>
-              <label class="field-label">Photo — largeur (px)</label>
-              <input name="photoWidth" type="number" required class="field-input" />
-            </div>
-            <div>
-              <label class="field-label">Photo — hauteur (px)</label>
-              <input name="photoHeight" type="number" required class="field-input" />
-            </div>
+              <div>
+                <label class="field-label">Photo — chemin</label>
+                <input name="photoSrc" required class="field-input font-mono text-xs" placeholder="/assets/FUKU-Bonheur.webp" />
+              </div>
+              <div>
+                <label class="field-label">Photo — texte alternatif</label>
+                <input name="photoAlt" required class="field-input" placeholder="Calligraphie chinoise 福…" />
+              </div>
+              <div>
+                <label class="field-label">Photo — largeur (px)</label>
+                <input name="photoWidth" type="number" required class="field-input font-mono text-xs" />
+              </div>
+              <div>
+                <label class="field-label">Photo — hauteur (px)</label>
+                <input name="photoHeight" type="number" required class="field-input font-mono text-xs" />
+              </div>
 
-            <div class="sm:col-span-2">
-              <label class="field-label">Description</label>
-              <textarea name="description" required rows="2" class="field-input"></textarea>
-            </div>
-            <div class="sm:col-span-2">
-              <label class="field-label">Description étendue (facultatif)</label>
-              <textarea name="extendedDescription" rows="3" class="field-input"></textarea>
-            </div>
+              <div class="sm:col-span-2">
+                <label class="field-label">Description</label>
+                <textarea name="description" required rows="2" class="field-input"></textarea>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="field-label">Description étendue (facultatif)</label>
+                <textarea name="extendedDescription" rows="3" class="field-input"></textarea>
+              </div>
 
-            <div>
-              <label class="field-label">Référence de prix (prices.yaml)</label>
-              <input name="price_ref" required list="price-refs" class="field-input" placeholder="galerie.sur_demande" />
-              <datalist id="price-refs"></datalist>
-            </div>
-            <div>
-              <label class="field-label">Disponibilité</label>
-              <select name="availability" class="field-input">
-                <option value="Disponible">Disponible</option>
-                <option value="Vendue">Vendue</option>
-              </select>
-            </div>
-            <div>
-              <label class="field-label">Technique</label>
-              <input name="technique" required class="field-input" />
-            </div>
-            <div>
-              <label class="field-label">Support</label>
-              <input name="medium" required class="field-input" />
-            </div>
-            <div>
-              <label class="field-label">Artiste</label>
-              <input name="artist" required class="field-input" value="Christophe Desmur" />
-            </div>
+              <div>
+                <label class="field-label">Référence de prix (prices.yaml)</label>
+                <input name="price_ref" required list="price-refs" class="field-input font-mono text-xs" placeholder="galerie.sur_demande" />
+                <datalist id="price-refs"></datalist>
+              </div>
+              <div>
+                <label class="field-label">Disponibilité</label>
+                <select name="availability" class="field-input">
+                  <option value="Disponible">Disponible</option>
+                  <option value="Vendue">Vendue</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label">Technique</label>
+                <input name="technique" required class="field-input" />
+              </div>
+              <div>
+                <label class="field-label">Support</label>
+                <input name="medium" required class="field-input" />
+              </div>
+              <div>
+                <label class="field-label">Artiste</label>
+                <input name="artist" required class="field-input" value="Christophe Desmur" />
+              </div>
 
-            <div class="sm:col-span-2 flex items-center gap-3 pt-2">
-              <button type="submit" id="product-save-btn" class="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-60">
-                Enregistrer
-              </button>
-              <button type="button" id="product-cancel-btn" class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer">
-                Annuler
-              </button>
-            </div>
-          </form>
+              <div class="sm:col-span-2 flex items-center gap-2 pt-3 border-t border-[#dcdcde] dark:border-[#2c3338]">
+                <button type="submit" id="product-save-btn" class="wp-btn wp-btn-primary text-xs cursor-pointer disabled:opacity-60">
+                  Enregistrer l'œuvre
+                </button>
+                <button type="button" id="product-cancel-btn" class="wp-btn text-xs cursor-pointer">
+                  Annuler
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     ) : (
@@ -146,7 +199,10 @@ const { session } = authenticateRequest(Astro.request);
   let products: any[] = [];
   let priceRefs: string[] = [];
 
-  const listEl = document.getElementById("products-list");
+  const tableBody = document.getElementById("products-table-body");
+  const countEl = document.getElementById("product-count");
+  const searchInput = document.getElementById("product-search") as HTMLInputElement | null;
+  const filterAvailability = document.getElementById("product-filter-availability") as HTMLSelectElement | null;
   const statusEl = document.getElementById("products-status");
   const formContainer = document.getElementById("product-form-container");
   const form = document.getElementById("product-form") as HTMLFormElement | null;
@@ -205,42 +261,89 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "mb-4 p-3 rounded-md text-xs font-medium " +
+      "mb-4 wp-notice " +
       (kind === "success"
-        ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
-        : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
+        ? "wp-notice-success text-[#00a32a] dark:text-[#4ac26b]"
+        : "wp-notice-error text-[#d63638] dark:text-[#ff8585]");
+  }
+
+  function normalize(s: string): string {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
   }
 
   function renderList() {
-    if (!listEl) return;
-    if (products.length === 0) {
-      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucune œuvre.</p>`;
+    if (!tableBody) return;
+    const query = normalize(searchInput?.value.trim() || "");
+    const filterAvail = filterAvailability?.value || "";
+
+    const filtered = products.filter((p) => {
+      if (filterAvail && p.availability !== filterAvail) return false;
+      if (!query) return true;
+      const hay = normalize(`${p.title || ""} ${p.character || ""} ${p.pinyin || ""} ${p.frenchMeaning || ""} ${p.id || ""}`);
+      return hay.includes(query);
+    });
+
+    if (countEl) {
+      countEl.textContent = `${filtered.length} œuvre${filtered.length > 1 ? "s" : ""}${filtered.length !== products.length ? ` (sur ${products.length})` : ""}`;
+    }
+
+    if (filtered.length === 0) {
+      tableBody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-xs text-[#646970] dark:text-[#8c8f94]">Aucune œuvre trouvée.</td></tr>`;
       return;
     }
-    listEl.innerHTML = products
-      .map(
-        (p, i) => `
-      <div class="border border-gray-300 dark:border-gray-700 rounded-md overflow-hidden bg-white dark:bg-[#1e2327] shadow-xs">
-        <img src="${p.photo.src}" alt="" class="w-full h-32 object-contain bg-stone-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700" />
-        <div class="p-3">
-          <p class="font-semibold text-sm text-gray-900 dark:text-white truncate">${p.title}</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400">${p.availability} · ${p.id}</p>
-          <div class="mt-2 flex items-center gap-3">
-            <button data-edit="${i}" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer">Modifier</button>
-            <button data-delete="${i}" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer">Supprimer</button>
-          </div>
-        </div>
-      </div>`
-      )
+
+    tableBody.innerHTML = filtered
+      .map((p) => {
+        const originalIndex = products.indexOf(p);
+        const isAvail = p.availability === "Disponible";
+        return `
+        <tr>
+          <td class="w-12">
+            <img src="${p.photo?.src || ''}" alt="" class="w-9 h-9 object-cover rounded-[2px] border border-[#dcdcde] dark:border-[#2c3338] bg-stone-50 dark:bg-gray-900" />
+          </td>
+          <td>
+            <div class="font-medium text-[#1d2327] dark:text-white leading-snug">${p.title || 'Sans titre'}</div>
+            <div class="row-actions">
+              <button type="button" data-edit="${originalIndex}">Modifier</button>
+              <span class="text-[#8c8f94]">|</span>
+              <button type="button" data-delete="${originalIndex}" class="delete-action">Supprimer</button>
+              <span class="text-[#8c8f94]">|</span>
+              <a href="/galerie/${p.id}" target="_blank" rel="noopener noreferrer">Voir ↗</a>
+            </div>
+          </td>
+          <td class="font-serif text-base text-[#1d2327] dark:text-white whitespace-nowrap">
+            ${p.character || "—"}
+            ${p.pinyin ? `<span class="font-sans text-xs text-[#646970] dark:text-[#8c8f94]">(${p.pinyin})</span>` : ""}
+          </td>
+          <td class="text-xs text-[#646970] dark:text-[#8c8f94] max-w-xs truncate hidden md:table-cell">
+            ${p.frenchMeaning || "—"}
+          </td>
+          <td class="text-xs text-[#646970] dark:text-[#8c8f94] whitespace-nowrap hidden sm:table-cell">
+            ${p.category || "—"}
+          </td>
+          <td class="whitespace-nowrap">
+            <span class="wp-badge ${isAvail ? "wp-badge-success" : "wp-badge-muted"}">
+              ${p.availability || "—"}
+            </span>
+          </td>
+          <td class="font-mono text-xs text-[#646970] dark:text-[#8c8f94] whitespace-nowrap hidden lg:table-cell">
+            ${p.price_ref || "—"}
+          </td>
+        </tr>`;
+      })
       .join("");
 
-    listEl.querySelectorAll<HTMLButtonElement>("[data-edit]").forEach((btn) =>
+    tableBody.querySelectorAll<HTMLButtonElement>("[data-edit]").forEach((btn) =>
       btn.addEventListener("click", () => openForm(products[Number(btn.dataset.edit)]))
     );
-    listEl.querySelectorAll<HTMLButtonElement>("[data-delete]").forEach((btn) =>
+    tableBody.querySelectorAll<HTMLButtonElement>("[data-delete]").forEach((btn) =>
       btn.addEventListener("click", () => deleteProduct(products[Number(btn.dataset.delete)]))
     );
   }
+
+  searchInput?.addEventListener("input", renderList);
+  filterAvailability?.addEventListener("change", renderList);
+  document.getElementById("product-form-close-btn")?.addEventListener("click", closeForm);
 
   function openForm(product: any | null) {
     if (!form || !formContainer || !formTitle) return;

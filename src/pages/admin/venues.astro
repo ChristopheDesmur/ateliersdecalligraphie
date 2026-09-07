@@ -2,93 +2,115 @@
 export const prerender = false;
 
 import Layout from "@/layouts/Layout.astro";
-import AdminNav from "@/components/admin/AdminNav.astro";
+import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
 import LoginGate from "@/components/admin/LoginGate.astro";
 import { authenticateRequest } from "@/lib/admin/auth";
 
 const { session } = authenticateRequest(Astro.request);
 ---
 <Layout title="Administration — Lieux" noindex={true}>
-  <div class="max-w-4xl">
+  <div>
     {session ? (
       <div>
-        <AdminNav active="venues" />
-        <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
-          <div>
-            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Lieux des cours</h1>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-              Adresse et créneau des cours collectifs hebdomadaires, affichés sur plusieurs pages du site.
-            </p>
+        <AdminPageHeader
+          title="Lieux des cours"
+          description="Adresse et créneau des cours collectifs hebdomadaires, affichés sur plusieurs pages du site."
+          active="venues"
+        >
+          <div slot="actions">
+            <button
+              id="add-venue-btn"
+              type="button"
+              class="wp-btn wp-btn-primary text-xs"
+            >
+              + Ajouter un lieu
+            </button>
           </div>
-          <button
-            id="add-venue-btn"
-            type="button"
-            class="px-3 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer shrink-0"
-          >
-            + Ajouter
-          </button>
-        </div>
+        </AdminPageHeader>
 
-        <div id="venues-status" class="hidden mb-4 p-2.5 rounded-md text-xs font-medium"></div>
+        <div id="venues-status" class="hidden mb-4 wp-notice" role="alert"></div>
 
-        <div id="venues-list" class="space-y-3 mb-10">
-          <p class="text-sm text-gray-400">Chargement…</p>
+        <!-- Table des lieux -->
+        <div class="wp-table-wrap mb-8">
+          <table class="wp-table">
+            <thead>
+              <tr>
+                <th>Lieu</th>
+                <th>Quartier</th>
+                <th>Adresse</th>
+                <th>Créneau</th>
+                <th class="hidden sm:table-cell">Plan</th>
+              </tr>
+            </thead>
+            <tbody id="venues-table-body">
+              <tr>
+                <td colspan="5" class="p-4 text-xs text-gray-400">Chargement des lieux…</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <!-- Formulaire d'ajout / modification -->
-        <div id="venue-form-container" class="hidden bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs mb-10">
-          <h2 id="venue-form-title" class="font-semibold text-gray-900 dark:text-white mb-4 text-base">Ajouter un lieu</h2>
-          <form id="venue-form">
-            <input type="hidden" name="originalId" value="" />
+        <div id="venue-form-container" class="hidden wp-panel mb-10">
+          <div class="wp-panel-header">
+            <h2 id="venue-form-title" class="wp-panel-title">Ajouter un lieu</h2>
+            <button type="button" id="venue-form-close-btn" class="text-xs text-[#646970] hover:text-[#2c3338] dark:hover:text-white cursor-pointer">
+              Fermer
+            </button>
+          </div>
+          <div class="wp-panel-body">
+            <form id="venue-form">
+              <input type="hidden" name="originalId" value="" />
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              <div>
-                <label class="field-label">Nom</label>
-                <input name="name" required class="field-input" placeholder="Dojo Zen de Lyon" />
-              </div>
-              <div>
-                <label class="field-label">Quartier (facultatif)</label>
-                <input name="district" class="field-input" placeholder="Croix-Rousse" />
-              </div>
-              <div class="sm:col-span-2">
-                <label class="field-label">Adresse</label>
-                <input name="address" required class="field-input" placeholder="11, rue Dumenge, 69004 Lyon" />
-              </div>
-              <div>
-                <label class="field-label">Jour</label>
-                <input name="day" required class="field-input" placeholder="lundi" />
-              </div>
-              <div class="grid grid-cols-2 gap-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label class="field-label">Heure de début</label>
-                  <input name="time_start" type="time" required class="field-input" />
+                  <label class="field-label">Nom</label>
+                  <input name="name" required class="field-input" placeholder="Dojo Zen de Lyon" />
                 </div>
                 <div>
-                  <label class="field-label">Heure de fin</label>
-                  <input name="time_end" type="time" required class="field-input" />
+                  <label class="field-label">Quartier (facultatif)</label>
+                  <input name="district" class="field-input" placeholder="Croix-Rousse" />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="field-label">Adresse</label>
+                  <input name="address" required class="field-input" placeholder="11, rue Dumenge, 69004 Lyon" />
+                </div>
+                <div>
+                  <label class="field-label">Jour</label>
+                  <input name="day" required class="field-input" placeholder="lundi" />
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="field-label">Heure de début</label>
+                    <input name="time_start" type="time" required class="field-input" />
+                  </div>
+                  <div>
+                    <label class="field-label">Heure de fin</label>
+                    <input name="time_end" type="time" required class="field-input" />
+                  </div>
+                </div>
+                <div>
+                  <label class="field-label">Requête plan (facultative)</label>
+                  <input name="map_query" class="field-input font-mono text-xs" placeholder="Zen+Dojo+11+rue+Dumenge+Lyon" />
+                  <p class="field-help">Utilisée pour un lien Google Maps externe.</p>
+                </div>
+                <div>
+                  <label class="field-label">URL de plan intégré (facultative)</label>
+                  <input name="map_embed" class="field-input font-mono text-xs" placeholder="https://www.google.com/maps/embed?…" />
+                  <p class="field-help">Carte interactive affichée directement sur la page.</p>
                 </div>
               </div>
-              <div>
-                <label class="field-label">Requête plan (facultative)</label>
-                <input name="map_query" class="field-input" placeholder="Zen+Dojo+11+rue+Dumenge+Lyon" />
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Utilisée pour un lien Google Maps.</p>
-              </div>
-              <div>
-                <label class="field-label">URL de plan intégré (facultative)</label>
-                <input name="map_embed" class="field-input" placeholder="https://www.google.com/maps/embed?…" />
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Utilisée pour une carte affichée directement sur la page.</p>
-              </div>
-            </div>
 
-            <div class="mt-6 pt-5 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3">
-              <button type="submit" id="venue-save-btn" class="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-60">
-                Enregistrer
-              </button>
-              <button type="button" id="venue-cancel-btn" class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer">
-                Annuler
-              </button>
-            </div>
-          </form>
+              <div class="mt-4 pt-3 border-t border-[#dcdcde] dark:border-[#2c3338] flex items-center gap-2">
+                <button type="submit" id="venue-save-btn" class="wp-btn wp-btn-primary text-xs cursor-pointer disabled:opacity-60">
+                  Enregistrer le lieu
+                </button>
+                <button type="button" id="venue-cancel-btn" class="wp-btn text-xs cursor-pointer">
+                  Annuler
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     ) : (
@@ -101,7 +123,7 @@ const { session } = authenticateRequest(Astro.request);
   let csrfToken = "";
   let venues: Record<string, any> = {};
 
-  const listEl = document.getElementById("venues-list");
+  const tableBody = document.getElementById("venues-table-body");
   const statusEl = document.getElementById("venues-status");
   const formContainer = document.getElementById("venue-form-container");
   const form = document.getElementById("venue-form") as HTMLFormElement | null;
@@ -113,43 +135,57 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "mb-4 p-3 rounded-md text-xs font-medium " +
+      "mb-4 wp-notice " +
       (kind === "success"
-        ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
-        : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
+        ? "wp-notice-success text-[#00a32a] dark:text-[#4ac26b]"
+        : "wp-notice-error text-[#d63638] dark:text-[#ff8585]");
   }
 
   function renderList() {
-    if (!listEl) return;
+    if (!tableBody) return;
     const ids = Object.keys(venues);
     if (ids.length === 0) {
-      listEl.innerHTML = `<p class="text-sm text-gray-400">Aucun lieu.</p>`;
+      tableBody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-xs text-[#646970] dark:text-[#8c8f94]">Aucun lieu configuré.</td></tr>`;
       return;
     }
-    listEl.innerHTML = ids
+    tableBody.innerHTML = ids
       .map((id) => {
         const v = venues[id];
         return `
-      <div class="p-3 sm:p-4 flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-[#1e2327] shadow-xs">
-        <div class="min-w-0">
-          <p class="font-semibold text-sm text-gray-900 dark:text-white">${v.name}</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">${v.address} · ${v.day} ${v.time_start}–${v.time_end}</p>
-        </div>
-        <div class="flex items-center gap-3 shrink-0 pt-1 sm:pt-0">
-          <button data-edit="${id}" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer">Modifier</button>
-          <button data-delete="${id}" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer">Supprimer</button>
-        </div>
-      </div>`;
+        <tr>
+          <td>
+            <div class="font-medium text-[#1d2327] dark:text-white leading-snug">${v.name}</div>
+            <div class="row-actions">
+              <button type="button" data-edit="${id}">Modifier</button>
+              <span class="text-[#8c8f94]">|</span>
+              <button type="button" data-delete="${id}" class="delete-action">Supprimer</button>
+            </div>
+          </td>
+          <td class="text-xs text-[#646970] dark:text-[#8c8f94]">${v.district || "—"}</td>
+          <td class="text-xs text-[#646970] dark:text-[#8c8f94]">${v.address}</td>
+          <td class="text-xs text-[#2c3338] dark:text-[#dcdcde] whitespace-nowrap font-medium">
+            <span class="capitalize">${v.day}</span> ${v.time_start}–${v.time_end}
+          </td>
+          <td class="text-xs text-[#646970] dark:text-[#8c8f94] whitespace-nowrap hidden sm:table-cell">
+            ${
+              v.map_query
+                ? `<a href="https://maps.google.com/?q=${v.map_query}" target="_blank" rel="noopener noreferrer" class="text-[#2271b1] dark:text-[#72aee6] hover:underline">Google Maps ↗</a>`
+                : "—"
+            }
+          </td>
+        </tr>`;
       })
       .join("");
 
-    listEl.querySelectorAll<HTMLButtonElement>("[data-edit]").forEach((btn) =>
+    tableBody.querySelectorAll<HTMLButtonElement>("[data-edit]").forEach((btn) =>
       btn.addEventListener("click", () => openForm(btn.dataset.edit!, venues[btn.dataset.edit!]))
     );
-    listEl.querySelectorAll<HTMLButtonElement>("[data-delete]").forEach((btn) =>
+    tableBody.querySelectorAll<HTMLButtonElement>("[data-delete]").forEach((btn) =>
       btn.addEventListener("click", () => deleteVenue(btn.dataset.delete!, venues[btn.dataset.delete!]))
     );
   }
+
+  document.getElementById("venue-form-close-btn")?.addEventListener("click", closeForm);
 
   function openForm(id: string | null, v: any | null) {
     if (!form || !formContainer || !formTitle) return;

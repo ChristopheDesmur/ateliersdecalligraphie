@@ -1,0 +1,23 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  actionText?: string;
+  actionId?: string;
+  actionHref?: string;
+}
+
+const { title, description, actionText, actionId, actionHref } = Astro.props;
+---
+
+<div class="py-8 px-4 text-center">
+  <p class="text-sm font-medium text-[#2c3338] dark:text-[#f0f0f1] mb-1">{title}</p>
+  {description && <p class="text-xs text-[#646970] dark:text-[#8c8f94] max-w-md mx-auto mb-3">{description}</p>}
+  {actionText && (
+    actionHref ? (
+      <a href={actionHref} class="wp-btn wp-btn-primary text-xs">{actionText}</a>
+    ) : (
+      <button type="button" id={actionId} class="wp-btn wp-btn-primary text-xs">{actionText}</button>
+    )
+  )}
+</div>
