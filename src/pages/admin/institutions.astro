@@ -58,7 +58,7 @@ const { session } = authenticateRequest(Astro.request);
             <nav id="category-nav" class="space-y-0.5 text-xs" aria-label="Catégories d'institutions"></nav>
           </div>
 
-          <!-- Liste des institutions sous forme de tableau WordPress -->
+          <!-- Liste des institutions sous forme de tableau Astro -->
           <div class="wp-panel overflow-hidden">
             <div id="panel-header" class="wp-panel-header flex items-center justify-between gap-3 text-xs"></div>
             <div class="wp-table-wrap border-0">
@@ -81,7 +81,7 @@ const { session } = authenticateRequest(Astro.request);
           </div>
         </div>
 
-        <!-- Formulaire d'ajout / modification (Panel WordPress) -->
+        <!-- Formulaire d'ajout / modification (Panel Astro) -->
         <div id="institution-form-container" class="hidden wp-panel mb-8">
           <div class="wp-panel-header">
             <h2 id="institution-form-title" class="wp-panel-title">Ajouter une institution</h2>

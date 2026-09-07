@@ -30,7 +30,7 @@ const { session } = authenticateRequest(Astro.request);
 
         <div id="faq-status" class="hidden mb-4 wp-notice" role="alert"></div>
 
-        <!-- Filtres et recherche (Panel WordPress Toolbar) -->
+        <!-- Filtres et recherche (Panel Astro Toolbar) -->
         <div class="wp-panel p-2.5 mb-4 flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center justify-between text-xs">
           <div class="w-full sm:w-72">
             <input
@@ -50,7 +50,7 @@ const { session } = authenticateRequest(Astro.request);
           <div class="wp-panel p-4 text-xs text-gray-500 dark:text-gray-400">Chargement des questions…</div>
         </div>
 
-        <!-- Formulaire d'ajout / modification (Panel WordPress) -->
+        <!-- Formulaire d'ajout / modification (Panel Astro) -->
         <div id="faq-form-container" class="hidden wp-panel mb-10">
           <div class="wp-panel-header">
             <h2 id="faq-form-title" class="wp-panel-title">Ajouter une question</h2>

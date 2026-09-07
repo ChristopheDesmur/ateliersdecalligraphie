@@ -42,12 +42,12 @@
   scrollbar-width: none;
 }
 
-/* WordPress admin design tokens & typography */
+/* Astro admin design tokens & typography */
 :root {
   --admin-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
-/* WordPress-inspired back-office design system */
+/* Astro-inspired back-office design system */
 .admin-shell {
   --wp-admin-bg: #f0f0f1;
   --wp-sidebar-bg: #1d2327;
@@ -95,7 +95,7 @@
   background-color: var(--wp-admin-bg);
 }
 
-/* Ensure all admin elements use the WordPress font stack */
+/* Ensure all admin elements use the Astro font stack */
 .admin-shell :is(h1, h2, h3, h4, h5, h6) {
   font-family: var(--admin-font-family) !important;
   letter-spacing: normal !important;
@@ -162,7 +162,7 @@
   }
 }
 
-/* WordPress Buttons */
+/* Astro Buttons */
 .admin-shell :is(.wp-btn, .button) {
   display: inline-flex;
   align-items: center;
@@ -241,7 +241,7 @@
   color: #ff8585;
 }
 
-/* WordPress Panels */
+/* Astro Panels */
 .admin-shell .wp-panel {
   background-color: var(--wp-panel-bg);
   border: 1px solid var(--wp-border);
@@ -269,7 +269,7 @@
   padding: 12px 14px;
 }
 
-/* WordPress Notices */
+/* Astro Notices */
 .admin-shell .wp-notice {
   background: var(--wp-panel-bg);
   border: 1px solid var(--wp-border);
@@ -294,7 +294,7 @@
   border-left-color: #72aee6;
 }
 
-/* WordPress Data Tables */
+/* Astro Data Tables */
 .admin-shell .wp-table-wrap {
   width: 100%;
   overflow-x: auto;
