@@ -15,7 +15,7 @@ const { session } = authenticateRequest(Astro.request);
         <AdminNav active="events" />
         <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
           <div>
-            <h1 class="text-xl sm:text-2xl font-serif font-bold text-gray-900 dark:text-white">Événements</h1>
+            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Événements</h1>
             <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
               Calendrier des cours, stages et interventions passés et à venir.
             </p>
@@ -48,7 +48,7 @@ const { session } = authenticateRequest(Astro.request);
 
         <!-- Formulaire d'ajout / modification -->
         <div id="event-form-container" class="hidden bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-2xs mb-10">
-          <h2 id="event-form-title" class="font-serif font-bold text-lg text-gray-900 dark:text-white mb-4">Ajouter un événement</h2>
+          <h2 id="event-form-title" class="font-semibold text-lg text-gray-900 dark:text-white mb-4">Ajouter un événement</h2>
           <form id="event-form" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <input type="hidden" name="originalYear" value="" />
             <input type="hidden" name="originalIndex" value="" />

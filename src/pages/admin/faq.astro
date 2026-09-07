@@ -15,7 +15,7 @@ const { session } = authenticateRequest(Astro.request);
         <AdminNav active="faq" />
         <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
           <div>
-            <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Foire aux questions (FAQ)</h1>
+            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Foire aux questions (FAQ)</h1>
             <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
               Gérez les questions fréquentes affichées sur <a href="/faq" target="_blank" class="text-indigo-600 dark:text-indigo-400 hover:underline">/faq</a> et le teaser de la page d'accueil.
             </p>
@@ -53,7 +53,7 @@ const { session } = authenticateRequest(Astro.request);
 
         <!-- Formulaire d'ajout / modification -->
         <div id="faq-form-container" class="hidden bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs mb-12">
-          <h2 id="faq-form-title" class="font-bold text-gray-900 dark:text-white mb-4 text-base">Ajouter une question</h2>
+          <h2 id="faq-form-title" class="font-semibold text-gray-900 dark:text-white mb-4 text-base">Ajouter une question</h2>
           <form id="faq-form">
             <input type="hidden" name="originalId" value="" />
 
@@ -101,7 +101,7 @@ const { session } = authenticateRequest(Astro.request);
                   id="faq-question-input"
                   required
                   rows="2"
-                  class="field-input font-serif"
+                  class="field-input"
                   placeholder="ex. Faut-il parler ou comprendre le chinois pour pratiquer la calligraphie ?"
                 ></textarea>
               </div>
@@ -142,7 +142,7 @@ const { session } = authenticateRequest(Astro.request);
                   id="faq-answer-input"
                   required
                   rows="5"
-                  class="field-input font-serif text-sm leading-relaxed"
+                  class="field-input text-sm leading-relaxed"
                   placeholder="Saisissez la réponse complète. Les balises comme {{prices.cours_collectifs.trimestre}} seront remplacées lors de l'affichage."
                 ></textarea>
               </div>
@@ -432,7 +432,7 @@ const { session } = authenticateRequest(Astro.request);
       html += `
         <div class="space-y-3">
           <div class="flex items-center justify-between pb-1.5 border-b border-gray-200 dark:border-gray-700">
-            <h2 class="font-bold text-sm text-gray-900 dark:text-white flex items-center gap-2">
+            <h2 class="font-semibold text-sm text-gray-900 dark:text-white flex items-center gap-2">
               <span>${cat}</span>
               <span class="text-xs font-normal text-gray-500 dark:text-gray-400">(${idsInCat.length})</span>
             </h2>
@@ -454,14 +454,14 @@ const { session } = authenticateRequest(Astro.request);
                 </span>
                 <div class="min-w-0">
                   <div class="flex items-center gap-2 flex-wrap">
-                    <p class="font-semibold text-sm text-gray-900 dark:text-white font-serif">${f.question}</p>
+                    <p class="font-semibold text-sm text-gray-900 dark:text-white">${f.question}</p>
                     ${
                       f.show_on_home
                         ? `<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border border-amber-200 dark:border-amber-800">⭐ Accueil</span>`
                         : ""
                     }
                   </div>
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2 font-serif">${f.answer}</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">${f.answer}</p>
                 </div>
               </div>
 

@@ -15,7 +15,7 @@ const { session } = authenticateRequest(Astro.request);
         <AdminNav active="testimonials" />
         <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
           <div>
-            <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Témoignages</h1>
+            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Témoignages</h1>
             <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
               Section « Témoignages & retours d'expérience » de /le-calligraphe.
             </p>
@@ -37,7 +37,7 @@ const { session } = authenticateRequest(Astro.request);
 
         <!-- Formulaire d'ajout / modification -->
         <div id="testimonial-form-container" class="hidden bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs mb-10">
-          <h2 id="testimonial-form-title" class="font-bold text-gray-900 dark:text-white mb-4 text-base">Ajouter un témoignage</h2>
+          <h2 id="testimonial-form-title" class="font-semibold text-gray-900 dark:text-white mb-4 text-base">Ajouter un témoignage</h2>
           <form id="testimonial-form">
             <input type="hidden" name="originalId" value="" />
             <input type="hidden" name="photo" value="" />

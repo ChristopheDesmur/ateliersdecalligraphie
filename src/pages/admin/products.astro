@@ -14,7 +14,7 @@ const { session } = authenticateRequest(Astro.request);
       <div>
         <AdminNav active="products" />
         <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
-          <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Galerie</h1>
+          <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Galerie</h1>
           <button
             id="add-product-btn"
             type="button"
@@ -32,7 +32,7 @@ const { session } = authenticateRequest(Astro.request);
 
         <!-- Formulaire d'ajout / modification -->
         <div id="product-form-container" class="hidden bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs mb-10">
-          <h2 id="product-form-title" class="font-bold text-gray-900 dark:text-white mb-4 text-base">Ajouter une œuvre</h2>
+          <h2 id="product-form-title" class="font-semibold text-gray-900 dark:text-white mb-4 text-base">Ajouter une œuvre</h2>
           <form id="product-form" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <input type="hidden" name="originalId" value="" />
 

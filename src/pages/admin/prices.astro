@@ -14,7 +14,7 @@ const { session } = authenticateRequest(Astro.request);
       <div>
         <AdminNav active="prices" />
         <div class="mb-4">
-          <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Tarifs</h1>
+          <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Tarifs</h1>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
             Gestion globale des prix (cours, stages, interventions, galerie).
           </p>
@@ -178,7 +178,7 @@ const { session } = authenticateRequest(Astro.request);
     }
 
     const sectionHeader = (title: string) =>
-      `<h2 class="text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 mb-2.5">${title}</h2>`;
+      `<h2 class="text-xs font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 mb-2.5">${title}</h2>`;
 
     // "Cours collectifs" et "Interventions" sont deux paires de champs
     // associés : affichés côte à côte sur desktop, empilés sur mobile.
@@ -224,7 +224,7 @@ const { session } = authenticateRequest(Astro.request);
         </div>
         <div class="mt-3 pt-3 border-t border-dashed border-gray-200 dark:border-gray-700">
           <p class="text-xs text-gray-500 dark:text-gray-400">Prix affiché au public après réduction d'impôt</p>
-          <p class="text-lg font-serif font-bold text-gray-900 dark:text-white"><span id="net-price-preview"></span> / heure</p>
+          <p class="text-lg font-semibold text-gray-900 dark:text-white"><span id="net-price-preview"></span> / heure</p>
         </div>
       </div>
     `

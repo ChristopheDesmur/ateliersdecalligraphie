@@ -42,14 +42,43 @@
   scrollbar-width: none;
 }
 
+/* WordPress admin design tokens & typography */
+:root {
+  --admin-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
 /* WordPress-inspired back-office styling */
 .admin-shell {
   --wp-admin-bg: #f0f0f1;
   --wp-sidebar-bg: #1d2327;
   --wp-sidebar-text: #c3c4c7;
   --wp-border: #dcdcde;
+  font-family: var(--admin-font-family);
+  font-size: 13px;
+  line-height: 1.4;
+  color: #3c434a;
   overflow-x: hidden;
   max-width: 100vw;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+}
+
+.dark .admin-shell {
+  color: #c3c4c7;
+}
+
+/* Ensure all admin elements, headings, and form controls strictly use the WordPress font stack */
+.admin-shell :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--admin-font-family) !important;
+  letter-spacing: normal !important;
+}
+
+.admin-shell :is(input, select, textarea, button, optgroup, option, label, table, th, td, p, span, a, div, li) {
+  font-family: var(--admin-font-family);
+}
+
+.admin-shell :is(input, select, textarea, button) {
+  font-family: var(--admin-font-family) !important;
 }
 
 :where(.admin-shell) {
@@ -61,7 +90,7 @@
     border: 1px solid #c3c4c7;
     background-color: #ffffff;
     color: #2c3338;
-    font-size: 0.875rem;
+    font-size: 0.8125rem; /* 13px */
     line-height: 1.35;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }

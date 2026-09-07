@@ -15,7 +15,7 @@ const { session } = authenticateRequest(Astro.request);
         <AdminNav active="venues" />
         <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
           <div>
-            <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Lieux des cours</h1>
+            <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Lieux des cours</h1>
             <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
               Adresse et créneau des cours collectifs hebdomadaires, affichés sur plusieurs pages du site.
             </p>
@@ -37,7 +37,7 @@ const { session } = authenticateRequest(Astro.request);
 
         <!-- Formulaire d'ajout / modification -->
         <div id="venue-form-container" class="hidden bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs mb-10">
-          <h2 id="venue-form-title" class="font-bold text-gray-900 dark:text-white mb-4 text-base">Ajouter un lieu</h2>
+          <h2 id="venue-form-title" class="font-semibold text-gray-900 dark:text-white mb-4 text-base">Ajouter un lieu</h2>
           <form id="venue-form">
             <input type="hidden" name="originalId" value="" />
 

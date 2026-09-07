@@ -14,7 +14,7 @@ const { session } = authenticateRequest(Astro.request);
       <div>
         <AdminNav active="dashboard" />
         <div class="mb-5">
-          <h1 class="text-xl sm:text-2xl font-serif font-bold text-gray-900 dark:text-white">Tableau de bord</h1>
+          <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Tableau de bord</h1>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
             Bienvenue dans l'espace d'administration. Sélectionnez un module ci-dessous ou dans la barre latérale pour modifier le contenu du site.
           </p>
@@ -23,7 +23,7 @@ const { session } = authenticateRequest(Astro.request);
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           <a href="/admin/prices" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
             <div class="flex items-center justify-between mb-1">
-              <h2 class="font-serif font-bold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Tarifs</h2>
+              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Tarifs</h2>
               <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Cours collectifs, cours à domicile, interventions.</p>
@@ -31,7 +31,7 @@ const { session } = authenticateRequest(Astro.request);
 
           <a href="/admin/products" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
             <div class="flex items-center justify-between mb-1">
-              <h2 class="font-serif font-bold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Galerie</h2>
+              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Galerie</h2>
               <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Ajouter, modifier ou retirer une calligraphie.</p>
@@ -39,7 +39,7 @@ const { session } = authenticateRequest(Astro.request);
 
           <a href="/admin/events" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
             <div class="flex items-center justify-between mb-1">
-              <h2 class="font-serif font-bold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Événements</h2>
+              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Événements</h2>
               <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Cours et interventions à venir.</p>
@@ -47,7 +47,7 @@ const { session } = authenticateRequest(Astro.request);
 
           <a href="/admin/institutions" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
             <div class="flex items-center justify-between mb-1">
-              <h2 class="font-serif font-bold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Institutions</h2>
+              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Institutions</h2>
               <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Organismes partenaires référencés dans les événements.</p>
@@ -55,7 +55,7 @@ const { session } = authenticateRequest(Astro.request);
 
           <a href="/admin/interventions" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
             <div class="flex items-center justify-between mb-1">
-              <h2 class="font-serif font-bold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Formats d'ateliers</h2>
+              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Formats d'ateliers</h2>
               <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Cartes publics visées sur la page « Ateliers de groupe ».</p>
@@ -63,7 +63,7 @@ const { session } = authenticateRequest(Astro.request);
 
           <a href="/admin/testimonials" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
             <div class="flex items-center justify-between mb-1">
-              <h2 class="font-serif font-bold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Témoignages</h2>
+              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Témoignages</h2>
               <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Retours d'expérience affichés sur « Le calligraphe ».</p>
@@ -71,7 +71,7 @@ const { session } = authenticateRequest(Astro.request);
 
           <a href="/admin/venues" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
             <div class="flex items-center justify-between mb-1">
-              <h2 class="font-serif font-bold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Lieux</h2>
+              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Lieux</h2>
               <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Adresse et créneau des cours collectifs.</p>
@@ -79,7 +79,7 @@ const { session } = authenticateRequest(Astro.request);
 
           <a href="/admin/contact" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
             <div class="flex items-center justify-between mb-1">
-              <h2 class="font-serif font-bold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Contact</h2>
+              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Contact</h2>
               <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Téléphones, e-mail, agrément Coop A Dom.</p>
@@ -87,7 +87,7 @@ const { session } = authenticateRequest(Astro.request);
 
           <a href="/admin/faq" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
             <div class="flex items-center justify-between mb-1">
-              <h2 class="font-serif font-bold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">FAQ</h2>
+              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">FAQ</h2>
               <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
             </div>
             <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Questions fréquentes affichées sur /faq et la page d'accueil.</p>
