@@ -2,7 +2,7 @@
 export interface Props {
   title: string;
   description?: string;
-  active?: "dashboard" | "analytics" | "speed-insights" | "deployments" | "hero" | "prices" | "products" | "events" | "institutions" | "interventions" | "testimonials" | "venues" | "contact" | "faq";
+  active?: "dashboard" | "analytics" | "speed-insights" | "deployments" | "hero" | "prices" | "products" | "events" | "institutions" | "interventions" | "testimonials" | "venues" | "contact" | "faq" | "pages";
   breadcrumbs?: boolean;
 }
 
@@ -23,6 +23,7 @@ const labels: Record<string, string> = {
   venues: "Lieux",
   contact: "Contact",
   faq: "FAQ",
+  pages: "Pages",
 };
 
 const currentLabel = (active && labels[active]) || title;

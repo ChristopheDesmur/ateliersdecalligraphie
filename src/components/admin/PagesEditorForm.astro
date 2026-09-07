@@ -1,0 +1,534 @@
+---
+import AdminPanel from './AdminPanel.astro';
+
+interface Props {
+  csrfToken: string;
+  collection: string;
+  slug: string;
+}
+
+const { csrfToken, collection, slug } = Astro.props;
+---
+
+<div class="space-y-4" id="page-editor-root" data-collection={collection} data-slug={slug} data-csrf-token={csrfToken}>
+  <div id="page-editor-loading" class="py-8 px-4 text-center text-xs text-[#646970] dark:text-[#8c8f94]">Chargement de la page…</div>
+
+  <div id="page-editor-body" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+    <!-- LEFT: main content editor -->
+    <div class="lg:col-span-7 space-y-4">
+      <AdminPanel title="Contenu">
+        <div class="space-y-3.5">
+          <div>
+            <label for="field-title" class="field-label">Titre *</label>
+            <input id="field-title" type="text" class="field-input" />
+          </div>
+          <div>
+            <label for="field-snippet" class="field-label">Extrait (snippet)</label>
+            <textarea id="field-snippet" rows="2" class="field-input"></textarea>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="field-category" class="field-label">Catégorie</label>
+              <input id="field-category" type="text" class="field-input" />
+            </div>
+            <div>
+              <label for="field-publishDate" class="field-label">Date de publication</label>
+              <input id="field-publishDate" type="text" placeholder="AAAA-MM-JJ" class="field-input font-mono" />
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="field-author" class="field-label">Auteur</label>
+              <input id="field-author" type="text" class="field-input" />
+            </div>
+            <div>
+              <label for="field-tags" class="field-label">Tags (séparés par des virgules)</label>
+              <input id="field-tags" type="text" class="field-input" />
+            </div>
+          </div>
+          <div class="flex items-center gap-4 pt-1">
+            <label class="flex items-center gap-2 text-xs font-medium text-[#2c3338] dark:text-[#dcdcde]">
+              <input type="checkbox" id="field-draft" class="w-4 h-4" /> Brouillon
+            </label>
+            <label class="flex items-center gap-2 text-xs font-medium text-[#2c3338] dark:text-[#dcdcde]">
+              <input type="checkbox" id="field-showRelated" class="w-4 h-4" /> Afficher les pages liées
+            </label>
+          </div>
+        </div>
+      </AdminPanel>
+
+      <AdminPanel title="Image (obligatoire)">
+        <div class="flex flex-col sm:flex-row items-start gap-4">
+          <div id="image-preview-container" class="shrink-0 w-32 h-24 rounded-[3px] overflow-hidden border border-[#c3c4c7] dark:border-[#2c3338] bg-[#f0f0f1] dark:bg-[#14171a] flex items-center justify-center">
+            <img id="image-preview" src="" alt="Aperçu" class="w-full h-full object-cover hidden" />
+            <span id="no-image-text" class="text-xs text-[#646970] text-center px-2">Aucune image</span>
+          </div>
+          <div class="flex-1 min-w-0 space-y-3 w-full">
+            <div>
+              <label class="field-label">Téléverser une nouvelle image</label>
+              <input type="file" id="page-image-file" accept="image/*" class="text-xs" />
+              <p id="page-upload-status" class="field-help"></p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="sm:col-span-2">
+                <label for="field-imageSrc" class="field-label">Chemin de l'image (src) *</label>
+                <input id="field-imageSrc" type="text" class="field-input font-mono" placeholder="/assets/exemple.webp" />
+              </div>
+              <div class="sm:col-span-2">
+                <label for="field-imageAlt" class="field-label">Texte alternatif (alt)</label>
+                <input id="field-imageAlt" type="text" class="field-input" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </AdminPanel>
+
+      <AdminPanel title="Corps de la page (Markdown)">
+        <Fragment slot="header-actions">
+          <div class="inline-flex rounded-[3px] border border-[#dcdcde] dark:border-[#2c3338] overflow-hidden text-[11px] font-semibold">
+            <button type="button" id="body-tab-edit" class="px-3 py-1 bg-[#2271b1] text-white cursor-pointer">Édition</button>
+            <button type="button" id="body-tab-preview" class="px-3 py-1 bg-white dark:bg-[#1a1e22] text-[#646970] dark:text-[#8c8f94] cursor-pointer">Aperçu</button>
+          </div>
+        </Fragment>
+        <div id="body-toolbar" class="flex flex-wrap items-center gap-1 mb-2 text-xs">
+          <button type="button" data-md="h2" class="astro-btn astro-btn-secondary text-xs font-bold" title="Titre de section">H2</button>
+          <button type="button" data-md="bold" class="astro-btn astro-btn-secondary text-xs font-bold" title="Gras">B</button>
+          <button type="button" data-md="italic" class="astro-btn astro-btn-secondary text-xs italic" title="Italique">I</button>
+          <button type="button" data-md="link" class="astro-btn astro-btn-secondary text-xs" title="Lien">🔗</button>
+          <button type="button" data-md="list" class="astro-btn astro-btn-secondary text-xs" title="Liste">•</button>
+          <button type="button" data-md="quote" class="astro-btn astro-btn-secondary text-xs" title="Citation">❝</button>
+        </div>
+        <textarea id="field-body" rows="22" spellcheck="false" class="field-input font-mono text-xs leading-relaxed"></textarea>
+        <div id="body-preview-render" class="hidden prose prose-sm dark:prose-invert max-w-none text-xs leading-relaxed py-2"></div>
+        <p class="field-help mt-2">Les composants MDX sont affichés comme des repères dans l'aperçu — leur rendu réel n'est visible que sur le site publié.</p>
+      </AdminPanel>
+    </div>
+
+    <!-- RIGHT: page settings / metadata -->
+    <div class="lg:col-span-5 sticky top-4 space-y-4">
+      <div id="page-editor-status-wrap"></div>
+
+      <AdminPanel title="Page">
+        <dl class="text-xs space-y-1.5">
+          <div class="flex items-center justify-between gap-3">
+            <dt class="text-[#646970] dark:text-[#8c8f94]">Titre</dt>
+            <dd id="meta-title" class="font-semibold text-[#1d2327] dark:text-white truncate max-w-[60%] text-right">—</dd>
+          </div>
+          <div class="flex items-center justify-between gap-3">
+            <dt class="text-[#646970] dark:text-[#8c8f94]">Slug</dt>
+            <dd id="meta-slug" class="font-mono text-[#2c3338] dark:text-[#dcdcde] truncate max-w-[60%] text-right">—</dd>
+          </div>
+          <div class="flex items-center justify-between gap-3">
+            <dt class="text-[#646970] dark:text-[#8c8f94]">Statut</dt>
+            <dd id="meta-status" class="font-semibold">—</dd>
+          </div>
+        </dl>
+      </AdminPanel>
+
+      <AdminPanel title="Source">
+        <code id="meta-file" class="block text-[11px] font-mono text-[#2271b1] dark:text-[#72aee6] bg-[#f0f6fc] dark:bg-[#0d1e2b] border border-[#c3e0f4] dark:border-[#1d3a52] rounded-[3px] px-2.5 py-1.5 break-all">—</code>
+      </AdminPanel>
+
+      <AdminPanel title="Git">
+        <p id="meta-git" class="text-xs text-[#646970] dark:text-[#8c8f94]">Aucun enregistrement dans cette session.</p>
+      </AdminPanel>
+
+      <a id="meta-preview-link" href="#" target="_blank" rel="noopener noreferrer" class="astro-btn astro-btn-secondary text-xs w-full text-center block">Aperçu de la page publiée ↗</a>
+
+      <AdminPanel title="Zone dangereuse">
+        <p class="text-[11px] text-[#646970] dark:text-[#8c8f94] mb-2">Supprime définitivement le fichier source sur GitHub.</p>
+        <button type="button" id="delete-page-btn" class="astro-btn astro-btn-danger text-xs w-full">Supprimer cette page</button>
+      </AdminPanel>
+
+      <div class="flex items-center gap-2">
+        <button type="button" id="save-page-btn" disabled class="astro-btn astro-btn-primary text-xs flex-1">Enregistrer</button>
+        <button type="button" id="reset-page-btn" disabled class="astro-btn astro-btn-secondary text-xs">Annuler</button>
+      </div>
+      <p id="save-status-text" class="text-xs text-[#646970] dark:text-[#8c8f94]" aria-live="polite"></p>
+    </div>
+  </div>
+</div>
+
+<div id="delete-page-modal" class="hidden fixed inset-0 z-150 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+  <div class="bg-white dark:bg-[#1a1e22] rounded-[3px] p-6 max-w-md w-full border border-[#c3c4c7] dark:border-[#2c3338] shadow-2xl space-y-4">
+    <h3 class="text-lg font-semibold text-[#b32d2e] dark:text-[#ff8585]">Supprimer cette page ?</h3>
+    <p class="text-xs text-[#646970] dark:text-[#8c8f94]">
+      Cette action supprime définitivement le fichier source sur GitHub. Pour confirmer, tapez le titre exact : <strong id="delete-confirm-title" class="text-[#1d2327] dark:text-white"></strong>
+    </p>
+    <input id="delete-confirm-input" type="text" class="field-input" />
+    <div id="delete-page-error" class="hidden astro-notice astro-notice-error text-xs"></div>
+    <div class="flex items-center gap-2 justify-end pt-1">
+      <button type="button" id="delete-cancel-btn" class="astro-btn astro-btn-secondary text-xs">Annuler</button>
+      <button type="button" id="delete-confirm-btn" disabled class="astro-btn astro-btn-danger text-xs">Supprimer définitivement</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const root = document.getElementById('page-editor-root') as HTMLElement | null;
+  const collection = root?.dataset.collection || '';
+  const slug = root?.dataset.slug || '';
+  const csrfToken = root?.dataset.csrfToken || '';
+
+  const loadingEl = document.getElementById('page-editor-loading');
+  const bodyEl = document.getElementById('page-editor-body');
+  const statusWrap = document.getElementById('page-editor-status-wrap');
+
+  const saveBtn = document.getElementById('save-page-btn') as HTMLButtonElement | null;
+  const resetBtn = document.getElementById('reset-page-btn') as HTMLButtonElement | null;
+  const saveStatusText = document.getElementById('save-status-text');
+
+  const fieldTitle = document.getElementById('field-title') as HTMLInputElement;
+  const fieldSnippet = document.getElementById('field-snippet') as HTMLTextAreaElement;
+  const fieldCategory = document.getElementById('field-category') as HTMLInputElement;
+  const fieldPublishDate = document.getElementById('field-publishDate') as HTMLInputElement;
+  const fieldAuthor = document.getElementById('field-author') as HTMLInputElement;
+  const fieldTags = document.getElementById('field-tags') as HTMLInputElement;
+  const fieldImageSrc = document.getElementById('field-imageSrc') as HTMLInputElement;
+  const fieldImageAlt = document.getElementById('field-imageAlt') as HTMLInputElement;
+  const fieldDraft = document.getElementById('field-draft') as HTMLInputElement;
+  const fieldShowRelated = document.getElementById('field-showRelated') as HTMLInputElement;
+  const fieldBody = document.getElementById('field-body') as HTMLTextAreaElement;
+
+  const imagePreview = document.getElementById('image-preview') as HTMLImageElement | null;
+  const noImageText = document.getElementById('no-image-text');
+  const imageFile = document.getElementById('page-image-file') as HTMLInputElement | null;
+  const uploadStatus = document.getElementById('page-upload-status');
+
+  const bodyTabEdit = document.getElementById('body-tab-edit');
+  const bodyTabPreview = document.getElementById('body-tab-preview');
+  const bodyPreviewRender = document.getElementById('body-preview-render');
+  const bodyToolbar = document.getElementById('body-toolbar');
+
+  const metaTitle = document.getElementById('meta-title');
+  const metaSlug = document.getElementById('meta-slug');
+  const metaStatus = document.getElementById('meta-status');
+  const metaFile = document.getElementById('meta-file');
+  const metaGit = document.getElementById('meta-git');
+  const metaPreviewLink = document.getElementById('meta-preview-link') as HTMLAnchorElement | null;
+
+  let loaded: any = null;
+  let savedSnapshot = '';
+  let isDirty = false;
+  let isSaving = false;
+
+  function currentState() {
+    return {
+      title: fieldTitle.value,
+      snippet: fieldSnippet.value,
+      category: fieldCategory.value,
+      publishDate: fieldPublishDate.value,
+      author: fieldAuthor.value,
+      tags: fieldTags.value,
+      imageSrc: fieldImageSrc.value,
+      imageAlt: fieldImageAlt.value,
+      draft: fieldDraft.checked,
+      showRelated: fieldShowRelated.checked,
+      body: fieldBody.value,
+    };
+  }
+
+  function showAlert(message: string, type: 'success' | 'error') {
+    if (!statusWrap) return;
+    statusWrap.innerHTML = `<div class="astro-notice astro-notice-${type} text-xs">${message}</div>`;
+  }
+  function clearAlert() {
+    if (statusWrap) statusWrap.innerHTML = '';
+  }
+
+  function updateSaveState() {
+    isDirty = !isSaving && JSON.stringify(currentState()) !== savedSnapshot;
+    if (resetBtn) resetBtn.disabled = !isDirty;
+    if (saveBtn) saveBtn.disabled = !isDirty || isSaving;
+    if (saveStatusText) {
+      saveStatusText.textContent = isSaving ? 'Enregistrement…' : isDirty ? 'Modifications non enregistrées' : 'À jour';
+    }
+    if (metaTitle) metaTitle.textContent = fieldTitle.value || '—';
+    if (metaStatus) {
+      metaStatus.textContent = fieldDraft.checked ? 'Brouillon' : 'Publié';
+      metaStatus.className = fieldDraft.checked ? 'font-semibold text-amber-700 dark:text-amber-400' : 'font-semibold text-emerald-700 dark:text-emerald-400';
+    }
+    if (imagePreview && noImageText) {
+      const src = fieldImageSrc.value.trim();
+      if (src) {
+        imagePreview.src = src;
+        imagePreview.classList.remove('hidden');
+        noImageText.classList.add('hidden');
+      } else {
+        imagePreview.classList.add('hidden');
+        noImageText.classList.remove('hidden');
+      }
+    }
+  }
+
+  function renderMarkdownPreview(md: string): string {
+    const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const lines = md.split('\n');
+    let html = '';
+    let inList = false;
+    let inQuote = false;
+    const closeBlocks = () => {
+      if (inList) { html += '</ul>'; inList = false; }
+      if (inQuote) { html += '</blockquote>'; inQuote = false; }
+    };
+    for (const line of lines) {
+      const jsxMatch = /^\s*<([A-Z][A-Za-z0-9]*)[^>]*\/?>\s*$/.exec(line);
+      if (jsxMatch) {
+        closeBlocks();
+        html += `<p class="not-prose inline-block text-[11px] font-mono px-2 py-1 my-1 rounded border border-dashed border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400">Composant : &lt;${esc(jsxMatch[1])} /&gt;</p>`;
+        continue;
+      }
+      if (/^import\s.+from\s+["'].+["'];?\s*$/.test(line.trim())) continue;
+      let inline = esc(line)
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, '<em>$1</em>')
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="underline">$1</a>');
+      if (/^#{1,3}\s+/.test(line)) {
+        closeBlocks();
+        const level = Math.min(line.match(/^#+/)![0].length, 6);
+        const text = inline.replace(/^#{1,3}\s+/, '');
+        html += `<h${level} class="font-bold mt-3 mb-1">${text}</h${level}>`;
+      } else if (/^>\s?/.test(line)) {
+        if (!inQuote) { closeBlocks(); html += '<blockquote class="border-l-2 pl-3 italic text-gray-600 dark:text-gray-400">'; inQuote = true; }
+        html += `<p>${inline.replace(/^>\s?/, '')}</p>`;
+      } else if (/^[-*]\s+/.test(line)) {
+        if (!inList) { closeBlocks(); html += '<ul class="list-disc pl-5">'; inList = true; }
+        html += `<li>${inline.replace(/^[-*]\s+/, '')}</li>`;
+      } else if (line.trim() === '') {
+        closeBlocks();
+      } else {
+        closeBlocks();
+        html += `<p>${inline}</p>`;
+      }
+    }
+    closeBlocks();
+    return html || '<p class="text-gray-400 italic">Aucun contenu.</p>';
+  }
+
+  function setBodyTab(tab: 'edit' | 'preview') {
+    const isEdit = tab === 'edit';
+    fieldBody.classList.toggle('hidden', !isEdit);
+    bodyToolbar?.classList.toggle('hidden', !isEdit);
+    bodyPreviewRender?.classList.toggle('hidden', isEdit);
+    if (bodyTabEdit) bodyTabEdit.className = isEdit ? 'px-3 py-1 bg-[#2271b1] text-white cursor-pointer' : 'px-3 py-1 bg-white dark:bg-[#1a1e22] text-[#646970] dark:text-[#8c8f94] cursor-pointer';
+    if (bodyTabPreview) bodyTabPreview.className = !isEdit ? 'px-3 py-1 bg-[#2271b1] text-white cursor-pointer' : 'px-3 py-1 bg-white dark:bg-[#1a1e22] text-[#646970] dark:text-[#8c8f94] cursor-pointer';
+    if (!isEdit && bodyPreviewRender) bodyPreviewRender.innerHTML = renderMarkdownPreview(fieldBody.value);
+  }
+  bodyTabEdit?.addEventListener('click', () => setBodyTab('edit'));
+  bodyTabPreview?.addEventListener('click', () => setBodyTab('preview'));
+
+  bodyToolbar?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('[data-md]');
+    if (!btn || !fieldBody) return;
+    const kind = btn.getAttribute('data-md');
+    const start = fieldBody.selectionStart;
+    const end = fieldBody.selectionEnd;
+    const selected = fieldBody.value.slice(start, end) || '';
+    let before = '', after = '', placeholder = '';
+    if (kind === 'h2') { before = '\n## '; placeholder = 'Titre de section'; }
+    else if (kind === 'bold') { before = '**'; after = '**'; placeholder = 'texte en gras'; }
+    else if (kind === 'italic') { before = '*'; after = '*'; placeholder = 'texte en italique'; }
+    else if (kind === 'link') { before = '['; after = '](https://)'; placeholder = 'texte du lien'; }
+    else if (kind === 'list') { before = '\n- '; placeholder = 'élément de liste'; }
+    else if (kind === 'quote') { before = '\n> '; placeholder = 'citation'; }
+    const text = selected || placeholder;
+    fieldBody.value = fieldBody.value.slice(0, start) + before + text + after + fieldBody.value.slice(end);
+    const cursor = start + before.length + text.length;
+    fieldBody.focus();
+    fieldBody.setSelectionRange(cursor, cursor);
+    updateSaveState();
+  });
+
+  imageFile?.addEventListener('change', async () => {
+    if (!imageFile.files || !imageFile.files[0] || !uploadStatus) return;
+    const file = imageFile.files[0];
+    uploadStatus.textContent = 'Téléversement…';
+    uploadStatus.className = 'field-help';
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('nameHint', fieldTitle.value || 'page');
+    try {
+      const res = await fetch('/api/admin/upload-image', { method: 'POST', headers: { 'x-csrf-token': csrfToken }, body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Échec du téléversement.');
+      fieldImageSrc.value = data.path;
+      uploadStatus.textContent = 'Image téléversée ✓';
+      uploadStatus.className = 'field-help text-emerald-600 dark:text-emerald-400';
+      updateSaveState();
+    } catch (err: any) {
+      uploadStatus.textContent = err.message || 'Erreur de téléversement.';
+      uploadStatus.className = 'field-help text-rose-500';
+    } finally {
+      imageFile.value = '';
+    }
+  });
+
+  function applyLoadedData(data: any) {
+    loaded = data;
+    fieldTitle.value = data.frontmatter.title || '';
+    fieldSnippet.value = data.frontmatter.snippet || '';
+    fieldCategory.value = data.frontmatter.category || '';
+    fieldPublishDate.value = data.frontmatter.publishDate || '';
+    fieldAuthor.value = data.frontmatter.author || '';
+    fieldTags.value = (data.frontmatter.tags || []).join(', ');
+    fieldImageSrc.value = data.frontmatter.imageSrc || '';
+    fieldImageAlt.value = data.frontmatter.imageAlt || '';
+    fieldDraft.checked = Boolean(data.frontmatter.draft);
+    fieldShowRelated.checked = Boolean(data.frontmatter.showRelated);
+    fieldBody.value = data.body || '';
+
+    metaSlug!.textContent = data.slug;
+    metaFile!.textContent = data.file;
+    if (metaPreviewLink) metaPreviewLink.href = data.url;
+
+    setBodyTab('edit');
+    savedSnapshot = JSON.stringify(currentState());
+    updateSaveState();
+  }
+
+  async function loadPage(showSpinner: boolean) {
+    if (showSpinner) {
+      loadingEl?.classList.remove('hidden');
+      bodyEl?.classList.add('hidden');
+    }
+    try {
+      const res = await fetch(`/api/admin/pages/file?collection=${encodeURIComponent(collection)}&slug=${encodeURIComponent(slug)}`, { cache: 'no-store' });
+      const data = await res.json();
+      if (!res.ok || data.error) throw new Error(data.error || 'Erreur lors du chargement de la page.');
+      applyLoadedData(data);
+      loadingEl?.classList.add('hidden');
+      bodyEl?.classList.remove('hidden');
+    } catch (err: any) {
+      if (loadingEl) loadingEl.innerHTML = `<p class="font-semibold text-sm text-rose-600 dark:text-rose-400 mb-1">Impossible de charger cette page</p><p>${err.message}</p>`;
+    }
+  }
+
+  root?.addEventListener('input', updateSaveState);
+  root?.addEventListener('change', updateSaveState);
+
+  resetBtn?.addEventListener('click', () => {
+    if (!loaded) return;
+    if (confirm('Annuler les modifications et revenir à la dernière version chargée ?')) {
+      applyLoadedData(loaded);
+      clearAlert();
+    }
+  });
+
+  async function handleSave() {
+    if (!loaded || isSaving || !saveBtn) return;
+    isSaving = true;
+    updateSaveState();
+    saveBtn.textContent = 'Enregistrement…';
+    clearAlert();
+
+    const state = currentState();
+    const payload = {
+      collection,
+      slug,
+      expectedVersion: loaded.version,
+      frontmatter: {
+        title: state.title.trim(),
+        snippet: state.snippet.trim(),
+        category: state.category.trim(),
+        publishDate: state.publishDate.trim(),
+        author: state.author.trim(),
+        tags: state.tags.split(',').map((t) => t.trim()).filter(Boolean),
+        imageSrc: state.imageSrc.trim(),
+        imageAlt: state.imageAlt.trim(),
+        draft: state.draft,
+        showRelated: state.showRelated,
+      },
+      body: state.body,
+    };
+
+    try {
+      const res = await fetch('/api/admin/pages/file', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-csrf-token': csrfToken },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (res.status === 409 || data.conflict) {
+        showAlert(`<p class="font-semibold mb-2">⚠️ ${data.error || "Cette page a été modifiée sur GitHub depuis que vous l'avez ouverte."}</p><div class="flex items-center gap-2"><button type="button" id="conflict-reload-btn" class="astro-btn astro-btn-primary text-xs">Recharger la dernière version</button><button type="button" id="conflict-cancel-btn" class="astro-btn astro-btn-secondary text-xs">Annuler</button></div>`, 'error');
+        document.getElementById('conflict-reload-btn')?.addEventListener('click', () => { clearAlert(); loadPage(true); });
+        document.getElementById('conflict-cancel-btn')?.addEventListener('click', clearAlert);
+        return;
+      }
+      if (!res.ok || data.error) throw new Error(data.error || "Erreur lors de l'enregistrement de la page.");
+
+      loaded.version = data.version;
+      savedSnapshot = JSON.stringify(currentState());
+      if (metaGit) {
+        const time = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        metaGit.innerHTML = data.commitUrl ? `Enregistré à ${time} — <a href="${data.commitUrl}" target="_blank" rel="noopener noreferrer" class="underline font-semibold">voir le commit ↗</a>` : `Enregistré à ${time}.`;
+      }
+      showAlert(`<p class="font-semibold">✓ Page enregistrée avec succès ! ${data.message || 'Changements enregistrés sur GitHub.'}</p>`, 'success');
+    } catch (err: any) {
+      showAlert(`❌ <strong>Erreur :</strong> ${err.message}`, 'error');
+    } finally {
+      isSaving = false;
+      updateSaveState();
+      if (saveBtn) saveBtn.textContent = 'Enregistrer';
+    }
+  }
+  saveBtn?.addEventListener('click', handleSave);
+
+  window.addEventListener('beforeunload', (e) => {
+    if (isDirty) {
+      e.preventDefault();
+      e.returnValue = 'Vous avez des modifications non enregistrées sur cette page.';
+    }
+  });
+
+  // Delete flow
+  const deleteBtn = document.getElementById('delete-page-btn');
+  const deleteModal = document.getElementById('delete-page-modal');
+  const deleteConfirmTitle = document.getElementById('delete-confirm-title');
+  const deleteConfirmInput = document.getElementById('delete-confirm-input') as HTMLInputElement | null;
+  const deleteError = document.getElementById('delete-page-error');
+  const deleteCancelBtn = document.getElementById('delete-cancel-btn');
+  const deleteConfirmBtn = document.getElementById('delete-confirm-btn') as HTMLButtonElement | null;
+
+  deleteBtn?.addEventListener('click', () => {
+    if (!loaded || !deleteModal) return;
+    if (deleteConfirmTitle) deleteConfirmTitle.textContent = loaded.frontmatter.title || slug;
+    if (deleteConfirmInput) deleteConfirmInput.value = '';
+    if (deleteError) deleteError.classList.add('hidden');
+    if (deleteConfirmBtn) deleteConfirmBtn.disabled = true;
+    deleteModal.classList.remove('hidden');
+    setTimeout(() => deleteConfirmInput?.focus(), 50);
+  });
+  deleteCancelBtn?.addEventListener('click', () => deleteModal?.classList.add('hidden'));
+  deleteModal?.addEventListener('click', (e) => {
+    if (e.target === deleteModal) deleteModal.classList.add('hidden');
+  });
+  deleteConfirmInput?.addEventListener('input', () => {
+    if (!loaded || !deleteConfirmBtn) return;
+    const expected = loaded.frontmatter.title || slug;
+    deleteConfirmBtn.disabled = deleteConfirmInput.value.trim() !== expected;
+  });
+  deleteConfirmBtn?.addEventListener('click', async () => {
+    if (!loaded || !deleteConfirmBtn) return;
+    deleteConfirmBtn.disabled = true;
+    deleteConfirmBtn.textContent = 'Suppression…';
+    if (deleteError) deleteError.classList.add('hidden');
+    try {
+      const res = await fetch('/api/admin/pages/file', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'x-csrf-token': csrfToken },
+        body: JSON.stringify({ collection, slug, expectedVersion: loaded.version }),
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) throw new Error(data.error || 'Erreur lors de la suppression.');
+      isDirty = false;
+      window.location.href = '/admin/pages';
+    } catch (err: any) {
+      if (deleteError) { deleteError.textContent = err.message || 'Erreur lors de la suppression.'; deleteError.classList.remove('hidden'); }
+      deleteConfirmBtn.disabled = false;
+      deleteConfirmBtn.textContent = 'Supprimer définitivement';
+    }
+  });
+
+  loadPage(true);
+</script>

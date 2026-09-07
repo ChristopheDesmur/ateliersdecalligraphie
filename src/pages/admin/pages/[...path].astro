@@ -1,0 +1,45 @@
+---
+export const prerender = false;
+
+import Layout from "@/layouts/Layout.astro";
+import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
+import LoginGate from "@/components/admin/LoginGate.astro";
+import PagesEditorForm from "@/components/admin/PagesEditorForm.astro";
+import { authenticateRequest, createCsrfToken } from "@/lib/admin/auth";
+import { resolvePage } from "@/lib/pages/discover";
+
+const { session, sessionToken } = authenticateRequest(Astro.request);
+
+if (session && sessionToken) {
+  // URL shape: /admin/pages/<collectionId>/<slug...> — the first segment
+  // must be one of the allowlisted collections, the rest is the entry
+  // slug. resolvePage() only ever returns a hit for a real entry inside
+  // that collection's real content directory, so an invalid or crafted
+  // path here simply 404s rather than reaching the filesystem/GitHub.
+  const pathParts = (Astro.params.path || "").split("/").filter(Boolean);
+  const [collectionId, ...slugParts] = pathParts;
+  const slug = slugParts.join("/");
+  const resolved = collectionId && slug ? await resolvePage(collectionId, slug) : null;
+
+  if (!resolved) {
+    return new Response("Page introuvable.", { status: 404 });
+  }
+}
+
+const csrfToken = session && sessionToken ? createCsrfToken(sessionToken) : "";
+const pathParts = (Astro.params.path || "").split("/").filter(Boolean);
+const [collectionId, ...slugParts] = pathParts;
+const slug = slugParts.join("/");
+---
+<Layout title="Administration — Modifier la page" noindex={true}>
+  <div class="max-w-5xl">
+    {session ? (
+      <div>
+        <AdminPageHeader title="Modifier la page" active="pages" />
+        <PagesEditorForm csrfToken={csrfToken} collection={collectionId} slug={slug} />
+      </div>
+    ) : (
+      <LoginGate />
+    )}
+  </div>
+</Layout>

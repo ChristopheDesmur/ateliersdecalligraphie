@@ -236,3 +236,68 @@ export async function saveBinaryFile(relativePath: string, buffer: Buffer, commi
 
   return { mode: "local" };
 }
+
+/** Supprime un fichier du dépôt : commit direct sur GitHub (arbre avec sha:null pour ce chemin), ou git rm local. */
+export async function deleteTextFile(relativePath: string, commitMessage: string): Promise<SaveResult> {
+  const cleanPath = relativePath.replace(/^\/+/, "");
+
+  if (isServerless() || getGitHubToken()) {
+    const target = getGitHubTarget();
+    const headers = { "Content-Type": "application/json" };
+
+    const refData = await githubRequest(
+      target,
+      `/repos/${target.owner}/${target.repo}/git/ref/heads/${encodeURIComponent(target.branch)}`
+    );
+    const latestCommitSha = refData.object.sha;
+
+    const commitData = await githubRequest(target, `/repos/${target.owner}/${target.repo}/git/commits/${latestCommitSha}`);
+    const baseTreeSha = commitData.tree.sha;
+
+    const treeData = await githubRequest(target, `/repos/${target.owner}/${target.repo}/git/trees`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        base_tree: baseTreeSha,
+        tree: [{ path: cleanPath, mode: "100644", type: "blob", sha: null }],
+      }),
+    });
+
+    const now = new Date().toISOString();
+    const newCommitData = await githubRequest(target, `/repos/${target.owner}/${target.repo}/git/commits`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        message: commitMessage,
+        tree: treeData.sha,
+        parents: [latestCommitSha],
+        author: { ...GIT_AUTHOR, date: now },
+        committer: { ...GIT_AUTHOR, date: now },
+      }),
+    });
+    const newCommitSha = newCommitData.sha;
+
+    await githubRequest(target, `/repos/${target.owner}/${target.repo}/git/refs/heads/${encodeURIComponent(target.branch)}`, {
+      method: "PATCH",
+      headers,
+      body: JSON.stringify({ sha: newCommitSha, force: false }),
+    });
+
+    return {
+      mode: "github",
+      commitSha: newCommitSha,
+      commitUrl: `https://github.com/${target.owner}/${target.repo}/commit/${newCommitSha}`,
+    };
+  }
+
+  const fullPath = path.join(process.cwd(), cleanPath);
+  try {
+    execFileSync("git", ["rm", cleanPath], { cwd: process.cwd() });
+    execFileSync("git", ["commit", "-m", commitMessage], { cwd: process.cwd() });
+  } catch (err: any) {
+    console.warn("[deleteTextFile] commit git local ignoré, suppression directe :", err.message);
+    if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
+  }
+
+  return { mode: "local" };
+}

@@ -1,0 +1,283 @@
+---
+import AdminPanel from './AdminPanel.astro';
+import type { DiscoveredPage } from '@/lib/pages/discover';
+import type { PageCollectionConfig } from '@/lib/pages/collections';
+
+interface Props {
+  initialPages: DiscoveredPage[];
+  initialErrors?: string[];
+  csrfToken: string;
+  collections: PageCollectionConfig[];
+}
+
+const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = Astro.props;
+---
+
+<div class="space-y-4" id="pages-admin-root" data-csrf-token={csrfToken}>
+  <AdminPanel noPadding>
+    <Fragment slot="header-actions">
+      <button type="button" id="pages-new-btn" class="astro-btn astro-btn-primary text-xs">+ Nouvelle page</button>
+      <button type="button" id="pages-refresh-btn" class="astro-btn astro-btn-secondary text-xs">
+        <span id="pages-refresh-icon">↻</span> <span id="pages-refresh-label">Actualiser</span>
+      </button>
+    </Fragment>
+    <div class="p-3.5 space-y-3">
+      <div id="pages-errors-wrap"></div>
+      <div role="search" class="flex items-center gap-2 px-3 py-2 bg-[#f6f7f7] dark:bg-[#161a1d] rounded-[3px] border border-[#dcdcde] dark:border-[#2c3338]">
+        <span class="text-[#8c8f94] text-xs" aria-hidden="true">🔍</span>
+        <label for="pages-search-input" class="sr-only">Rechercher une page</label>
+        <input type="search" id="pages-search-input" placeholder="Rechercher par titre, chemin ou catégorie…" class="w-full text-xs bg-transparent border-0 focus:ring-0 text-[#1d2327] dark:text-white placeholder-[#8c8f94]" />
+      </div>
+      <div class="flex items-center justify-between text-xs text-[#646970] dark:text-[#8c8f94] px-0.5">
+        <span id="pages-count-label"></span>
+      </div>
+      <div id="pages-list-container" class="space-y-2"></div>
+    </div>
+  </AdminPanel>
+</div>
+
+<!-- New page modal -->
+<div id="pages-new-modal" class="hidden fixed inset-0 z-150 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+  <div class="bg-white dark:bg-[#1a1e22] rounded-[3px] p-6 max-w-md w-full border border-[#c3c4c7] dark:border-[#2c3338] shadow-2xl space-y-4">
+    <h3 class="text-lg font-semibold text-[#1d2327] dark:text-white">Nouvelle page</h3>
+    <div>
+      <label for="new-page-collection" class="field-label">Rubrique</label>
+      <select id="new-page-collection" class="field-input">
+        {collections.map((c) => <option value={c.id}>{c.label}</option>)}
+      </select>
+    </div>
+    <div>
+      <label for="new-page-title" class="field-label">Titre</label>
+      <input id="new-page-title" type="text" class="field-input" placeholder="ex : L'art de la calligraphie zen" />
+    </div>
+    <div>
+      <label for="new-page-slug" class="field-label">Slug (URL)</label>
+      <input id="new-page-slug" type="text" class="field-input" placeholder="généré depuis le titre" />
+    </div>
+    <div>
+      <label for="new-page-image-src" class="field-label">Image — chemin (obligatoire)</label>
+      <input id="new-page-image-src" type="text" class="field-input" placeholder="/assets/exemple.webp" />
+    </div>
+    <div>
+      <label for="new-page-image-alt" class="field-label">Image — texte alternatif</label>
+      <input id="new-page-image-alt" type="text" class="field-input" />
+    </div>
+    <div id="new-page-error" class="hidden astro-notice astro-notice-error text-xs"></div>
+    <div class="flex items-center gap-2 justify-end pt-1">
+      <button type="button" id="new-page-cancel" class="astro-btn astro-btn-secondary text-xs">Annuler</button>
+      <button type="button" id="new-page-submit" class="astro-btn astro-btn-primary text-xs">Créer la page</button>
+    </div>
+  </div>
+</div>
+
+<script id="initial-pages-data" type="application/json" set:html={JSON.stringify(initialPages)}></script>
+<script id="initial-pages-errors" type="application/json" set:html={JSON.stringify(initialErrors)}></script>
+
+<script>
+  interface PageRow {
+    collection: string;
+    collectionLabel: string;
+    slug: string;
+    file: string;
+    title: string;
+    snippet: string;
+    category: string;
+    draft: boolean;
+    publishDate: string;
+    url: string;
+  }
+
+  let pages: PageRow[] = [];
+  try {
+    pages = JSON.parse(document.getElementById('initial-pages-data')?.textContent || '[]');
+  } catch {
+    pages = [];
+  }
+
+  function showErrors(errors: string[]) {
+    const wrap = document.getElementById('pages-errors-wrap');
+    if (!wrap) return;
+    if (!errors || errors.length === 0) {
+      wrap.innerHTML = '';
+      return;
+    }
+    wrap.innerHTML = `<div class="astro-notice astro-notice-warning text-xs"><p class="font-semibold mb-1">⚠️ Certaines rubriques n'ont pas pu être chargées :</p><ul class="list-disc pl-4">${errors.map((e) => `<li>${e}</li>`).join('')}</ul></div>`;
+  }
+  try {
+    showErrors(JSON.parse(document.getElementById('initial-pages-errors')?.textContent || '[]'));
+  } catch {}
+
+  let searchQuery = '';
+  const container = document.getElementById('pages-list-container');
+  const countLabel = document.getElementById('pages-count-label');
+  const searchInput = document.getElementById('pages-search-input') as HTMLInputElement | null;
+  const refreshBtn = document.getElementById('pages-refresh-btn');
+  const refreshIcon = document.getElementById('pages-refresh-icon');
+  const refreshLabel = document.getElementById('pages-refresh-label');
+
+  function formatDate(iso: string): string {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return iso;
+    return d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
+  function render() {
+    if (!container) return;
+    const q = searchQuery.trim().toLowerCase();
+    const filtered = pages.filter((p) => {
+      if (!q) return true;
+      const hay = `${p.title} ${p.file} ${p.category} ${p.snippet}`.toLowerCase();
+      return hay.includes(q);
+    });
+
+    if (countLabel) {
+      countLabel.textContent = filtered.length === pages.length
+        ? `${pages.length} page${pages.length > 1 ? 's' : ''}`
+        : `${filtered.length} page${filtered.length > 1 ? 's' : ''} sur ${pages.length}`;
+    }
+
+    if (pages.length === 0) {
+      container.innerHTML = `<div class="py-8 px-4 text-center text-xs text-[#646970] dark:text-[#8c8f94]"><p class="font-medium text-[#2c3338] dark:text-[#f0f0f1] mb-1">Aucune page trouvée</p><p>Aucun article Markdown n'a été trouvé.</p></div>`;
+      return;
+    }
+    if (filtered.length === 0) {
+      container.innerHTML = `<div class="py-6 px-4 text-center text-xs text-[#646970] dark:text-[#8c8f94]"><p>Aucune page ne correspond à votre recherche.</p></div>`;
+      return;
+    }
+
+    container.innerHTML = '';
+    for (const p of filtered) {
+      const row = document.createElement('div');
+      row.className = 'flex flex-col sm:flex-row sm:items-center gap-3 justify-between p-3 rounded-[3px] bg-white dark:bg-[#1a1e22] border border-[#dcdcde] dark:border-[#2c3338] hover:border-[#8c8f94] transition';
+      row.innerHTML = `
+        <div class="min-w-0 space-y-0.5">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-sm font-semibold text-[#1d2327] dark:text-white truncate">${p.title}</span>
+            ${p.draft ? '<span class="astro-badge astro-badge-muted">Brouillon</span>' : '<span class="astro-badge astro-badge-success">Publié</span>'}
+          </div>
+          <div class="flex items-center gap-2 flex-wrap text-[11px] text-[#646970] dark:text-[#8c8f94]">
+            <span class="font-mono">${p.url}</span>
+            ${p.publishDate ? `<span>· ${formatDate(p.publishDate)}</span>` : ''}
+            ${p.category ? `<span>· ${p.category}</span>` : ''}
+          </div>
+          <div class="text-[10px] font-mono text-[#8c8f94]">${p.file}</div>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="astro-btn astro-btn-secondary text-xs">Aperçu ↗</a>
+          <a href="/admin/pages/${p.collection}/${p.slug}" class="astro-btn astro-btn-primary text-xs">Modifier</a>
+        </div>
+      `;
+      container.appendChild(row);
+    }
+  }
+
+  searchInput?.addEventListener('input', (e) => {
+    searchQuery = (e.target as HTMLInputElement).value;
+    render();
+  });
+
+  refreshBtn?.addEventListener('click', async () => {
+    if (!refreshBtn || !refreshIcon || !refreshLabel) return;
+    (refreshBtn as HTMLButtonElement).disabled = true;
+    refreshIcon.textContent = '…';
+    refreshLabel.textContent = 'Actualisation…';
+    try {
+      const res = await fetch('/api/admin/pages', { cache: 'no-store' });
+      const data = await res.json();
+      if (!res.ok || data.error) throw new Error(data.error || "Erreur lors de l'actualisation.");
+      pages = data.pages || [];
+      showErrors(data.errors || []);
+      render();
+    } catch (err: any) {
+      showErrors([err.message || 'Impossible de joindre le serveur.']);
+    } finally {
+      (refreshBtn as HTMLButtonElement).disabled = false;
+      refreshIcon.textContent = '↻';
+      refreshLabel.textContent = 'Actualiser';
+    }
+  });
+
+  // New page modal
+  const csrfToken = (document.getElementById('pages-admin-root') as HTMLElement | null)?.dataset.csrfToken || '';
+  const newBtn = document.getElementById('pages-new-btn');
+  const newModal = document.getElementById('pages-new-modal');
+  const newCollection = document.getElementById('new-page-collection') as HTMLSelectElement | null;
+  const newTitle = document.getElementById('new-page-title') as HTMLInputElement | null;
+  const newSlug = document.getElementById('new-page-slug') as HTMLInputElement | null;
+  const newImageSrc = document.getElementById('new-page-image-src') as HTMLInputElement | null;
+  const newImageAlt = document.getElementById('new-page-image-alt') as HTMLInputElement | null;
+  const newError = document.getElementById('new-page-error');
+  const newCancel = document.getElementById('new-page-cancel');
+  const newSubmit = document.getElementById('new-page-submit') as HTMLButtonElement | null;
+  let slugManuallyEdited = false;
+
+  function slugifyClient(text: string): string {
+    return text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
+  function openNewModal() {
+    if (!newModal) return;
+    slugManuallyEdited = false;
+    if (newTitle) newTitle.value = '';
+    if (newSlug) newSlug.value = '';
+    if (newImageSrc) newImageSrc.value = '';
+    if (newImageAlt) newImageAlt.value = '';
+    if (newError) newError.classList.add('hidden');
+    newModal.classList.remove('hidden');
+    setTimeout(() => newTitle?.focus(), 50);
+  }
+  function closeNewModal() {
+    newModal?.classList.add('hidden');
+  }
+
+  newBtn?.addEventListener('click', openNewModal);
+  newCancel?.addEventListener('click', closeNewModal);
+  newModal?.addEventListener('click', (e) => {
+    if (e.target === newModal) closeNewModal();
+  });
+  newTitle?.addEventListener('input', () => {
+    if (!slugManuallyEdited && newSlug) newSlug.value = slugifyClient(newTitle.value);
+  });
+  newSlug?.addEventListener('input', () => {
+    slugManuallyEdited = true;
+  });
+
+  newSubmit?.addEventListener('click', async () => {
+    if (!newCollection || !newTitle || !newSubmit) return;
+    const title = newTitle.value.trim();
+    const slug = (newSlug?.value || '').trim();
+    const imageSrc = (newImageSrc?.value || '').trim();
+    const imageAlt = (newImageAlt?.value || '').trim();
+    if (newError) newError.classList.add('hidden');
+
+    if (!title) {
+      if (newError) { newError.textContent = 'Le titre est requis.'; newError.classList.remove('hidden'); }
+      return;
+    }
+    if (!imageSrc) {
+      if (newError) { newError.textContent = "L'image est obligatoire."; newError.classList.remove('hidden'); }
+      return;
+    }
+
+    newSubmit.disabled = true;
+    newSubmit.textContent = 'Création…';
+    try {
+      const res = await fetch('/api/admin/pages/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-csrf-token': csrfToken },
+        body: JSON.stringify({ collection: newCollection.value, title, slug, imageSrc, imageAlt }),
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) throw new Error(data.error || 'Erreur lors de la création.');
+      window.location.href = `/admin/pages/${data.collection}/${data.slug}`;
+    } catch (err: any) {
+      if (newError) { newError.textContent = err.message || 'Erreur lors de la création.'; newError.classList.remove('hidden'); }
+    } finally {
+      newSubmit.disabled = false;
+      newSubmit.textContent = 'Créer la page';
+    }
+  });
+
+  render();
+</script>

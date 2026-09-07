@@ -1,0 +1,31 @@
+---
+export const prerender = false;
+
+import Layout from "@/layouts/Layout.astro";
+import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
+import LoginGate from "@/components/admin/LoginGate.astro";
+import PagesListPanel from "@/components/admin/PagesListPanel.astro";
+import { authenticateRequest, createCsrfToken } from "@/lib/admin/auth";
+import { listPages } from "@/lib/pages/discover";
+import { PAGE_COLLECTIONS } from "@/lib/pages/collections";
+
+const { session, sessionToken } = authenticateRequest(Astro.request);
+const csrfToken = session && sessionToken ? createCsrfToken(sessionToken) : "";
+const { pages, errors } = session ? await listPages() : { pages: [], errors: [] };
+---
+<Layout title="Administration — Pages" noindex={true}>
+  <div class="max-w-5xl">
+    {session ? (
+      <div>
+        <AdminPageHeader
+          title="Pages"
+          description="Articles du blog (Markdown). Les modifications sont enregistrées directement sur GitHub, qui déclenche le déploiement automatique."
+          active="pages"
+        />
+        <PagesListPanel initialPages={pages} initialErrors={errors} csrfToken={csrfToken} collections={PAGE_COLLECTIONS} />
+      </div>
+    ) : (
+      <LoginGate />
+    )}
+  </div>
+</Layout>
