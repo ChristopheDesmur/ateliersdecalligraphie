@@ -138,7 +138,7 @@ const makeTitle = !title
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.webp" />
+    <link rel="icon" type={isAdmin ? "image/svg+xml" : "image/webp"} href={isAdmin ? "/admin-logo.svg" : "/favicon.webp"} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -316,7 +316,10 @@ const makeTitle = !title
               </button>
             )}
 
-            <a href="/admin" class="font-serif font-bold text-xs sm:text-sm text-white tracking-tight hover:text-indigo-300 transition truncate flex items-center gap-1.5">
+            <a href="/admin" class="font-serif font-bold text-xs sm:text-sm text-white tracking-tight hover:text-indigo-300 transition truncate flex items-center gap-2">
+              <span class="w-5 h-5 rounded bg-white flex items-center justify-center p-0.5 shrink-0 shadow-2xs">
+                <img src="/admin-logo.svg" alt="Astro" class="w-full h-full object-contain" />
+              </span>
               <span class="truncate">Ateliers de calligraphie</span>
             </a>
 
@@ -398,9 +401,14 @@ const makeTitle = !title
               aria-label="Navigation de l'administration"
             >
               <div class="px-4 py-3 border-b border-[#2c3338] dark:border-gray-800 flex items-center justify-between">
-                <div class="sidebar-header-text min-w-0">
-                  <div class="text-[10px] uppercase font-mono tracking-widest text-indigo-400 font-semibold">Administration</div>
-                  <div class="font-serif font-bold text-sm text-white tracking-tight leading-tight truncate">Ateliers de calligraphie</div>
+                <div class="sidebar-header-text min-w-0 flex items-center gap-2.5">
+                  <span class="w-6 h-6 rounded bg-white flex items-center justify-center p-0.5 shrink-0 shadow-2xs">
+                    <img src="/admin-logo.svg" alt="Astro" class="w-full h-full object-contain" />
+                  </span>
+                  <div class="min-w-0">
+                    <div class="text-[10px] uppercase font-mono tracking-widest text-indigo-400 font-semibold">Administration</div>
+                    <div class="font-serif font-bold text-sm text-white tracking-tight leading-tight truncate">Ateliers de calligraphie</div>
+                  </div>
                 </div>
                 <button
                   id="admin-sidebar-close"
@@ -450,9 +458,6 @@ const makeTitle = !title
                   <span>Voir le site public</span>
                   <span class="font-mono text-xs" aria-hidden="true">↗</span>
                 </a>
-                <div class="mt-2 text-[10px] text-gray-500 font-mono text-center">
-                  Ateliers de calligraphie · CMS
-                </div>
               </div>
 
               <!-- Tablet/Desktop Collapse Toggle button -->
@@ -476,10 +481,8 @@ const makeTitle = !title
               </div>
 
               <footer class="mt-8 sm:mt-12 pt-4 border-t border-gray-300 dark:border-gray-800 text-xs text-gray-500 dark:text-gray-400 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-                <div>Merci de faire confiance à <strong class="font-medium text-gray-700 dark:text-gray-300">Ateliers de calligraphie</strong>.</div>
-                <div class="flex items-center gap-3">
-                  <span class="text-gray-400 dark:text-gray-600">Espace d'administration</span>
-                  <span class="text-gray-300 dark:text-gray-700 select-none">·</span>
+                <div>Espace d'administration</div>
+                <div>
                   <a href="/" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Voir le site public ↗</a>
                 </div>
               </footer>
