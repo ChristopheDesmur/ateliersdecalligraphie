@@ -52,6 +52,7 @@ if (isAdmin) {
 
   const pathname = Astro.url.pathname.replace(/\/$/, "");
   if (pathname === "/admin") currentAdminTab = "dashboard";
+  else if (pathname.startsWith("/admin/hero")) currentAdminTab = "hero";
   else if (pathname.startsWith("/admin/events")) currentAdminTab = "events";
   else if (pathname.startsWith("/admin/venues")) currentAdminTab = "venues";
   else if (pathname.startsWith("/admin/prices")) currentAdminTab = "prices";
@@ -69,6 +70,12 @@ const adminNavItems = [
     label: "Tableau de bord",
     href: "/admin",
     svg: `<svg width="16" height="16" class="w-4 h-4" style="width:16px;height:16px;min-width:16px;display:block;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>`,
+  },
+  {
+    id: "hero",
+    label: "Hero",
+    href: "/admin/hero",
+    svg: `<svg width="16" height="16" class="w-4 h-4" style="width:16px;height:16px;min-width:16px;display:block;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-6A1.125 1.125 0 0 1 2.25 9.375v-2.25ZM2.25 14.625c0-.621.504-1.125 1.125-1.125h6c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-2.25ZM13.5 7.125c0-.621.504-1.125 1.125-1.125h6c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-9.75Z" /></svg>`,
   },
   {
     id: "events",

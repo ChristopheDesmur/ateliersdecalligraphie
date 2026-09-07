@@ -1,11 +1,12 @@
 ---
 export interface Props {
-  active: "dashboard" | "prices" | "products" | "events" | "institutions" | "interventions" | "testimonials" | "venues" | "contact" | "faq";
+  active: "dashboard" | "hero" | "prices" | "products" | "events" | "institutions" | "interventions" | "testimonials" | "venues" | "contact" | "faq";
 }
 const { active } = Astro.props;
 
 const labels: Record<string, string> = {
   dashboard: "Tableau de bord",
+  hero: "Hero",
   events: "Événements",
   institutions: "Institutions",
   interventions: "Formats d'ateliers",

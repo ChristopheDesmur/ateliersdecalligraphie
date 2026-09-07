@@ -21,6 +21,14 @@ const { session } = authenticateRequest(Astro.request);
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          <a href="/admin/hero" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Hero</h2>
+              <span class="text-gray-400 group-hover:text-indigo-500 font-mono text-xs transition" aria-hidden="true">→</span>
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Contenu principal affiché en haut de la page d'accueil.</p>
+          </a>
+
           <a href="/admin/prices" class="group block p-3.5 sm:p-4 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1e2327] hover:border-indigo-500 dark:hover:border-indigo-400 shadow-2xs transition">
             <div class="flex items-center justify-between mb-1">
               <h2 class="font-semibold text-sm sm:text-base text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Tarifs</h2>

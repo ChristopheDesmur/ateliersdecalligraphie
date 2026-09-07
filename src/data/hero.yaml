@@ -1,0 +1,21 @@
+# Contenu principal affiché en haut de la page d'accueil (ateliersdecalligraphie.com)
+
+eyebrow: "Calligraphie chinoise · Lyon"
+title: "Découvrez l’art de la calligraphie chinoise"
+intro: "Christophe Desmur vous accompagne dans la découverte du pinceau, du geste et des caractères chinois, à travers des ateliers collectifs et des cours individuels."
+
+primary_cta:
+  label: "Découvrir les cours"
+  url: "/cours-collectifs"
+
+secondary_cta:
+  label: "Voir les œuvres disponibles"
+  url: "/galerie"
+
+image:
+  src: "/assets/christophe-desmur-calligraphie-dedicace.webp"
+  alt: "Christophe Desmur traçant une calligraphie chinoise au pinceau et à l’encre de Chine à Lyon"
+  caption: "Le geste de l’encre & la tenue du pinceau"
+  location: "Lyon Croix-Rousse"
+  width: 1536
+  height: 1024

@@ -1,0 +1,631 @@
+---
+export const prerender = false;
+
+import Layout from "@/layouts/Layout.astro";
+import AdminNav from "@/components/admin/AdminNav.astro";
+import LoginGate from "@/components/admin/LoginGate.astro";
+import { authenticateRequest } from "@/lib/admin/auth";
+
+const { session } = authenticateRequest(Astro.request);
+---
+<Layout title="Administration — Hero" noindex={true}>
+  <div class="max-w-4xl">
+    {session ? (
+      <div>
+        <AdminNav active="hero" />
+
+        <div class="mb-5">
+          <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Hero</h1>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+            Contenu principal affiché en haut de la page d'accueil.
+          </p>
+        </div>
+
+        <div id="hero-status" class="hidden mb-4 p-3 rounded-md text-xs font-medium" role="alert"></div>
+
+        <form id="hero-form" class="space-y-6">
+          <!-- Panneau 1 : Contenu textuel -->
+          <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs space-y-4">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700/60 pb-2">
+              Contenu
+            </h2>
+
+            <div>
+              <label for="field-eyebrow" class="field-label">Sur-titre</label>
+              <input
+                id="field-eyebrow"
+                name="eyebrow"
+                type="text"
+                required
+                class="field-input"
+                placeholder="Calligraphie chinoise · Lyon"
+              />
+              <p class="text-[11px] text-gray-400 mt-1">Accroche discrète au-dessus du titre principal.</p>
+            </div>
+
+            <div>
+              <label for="field-title" class="field-label">Titre principal (H1)</label>
+              <textarea
+                id="field-title"
+                name="title"
+                required
+                rows="2"
+                class="field-input"
+                placeholder="Découvrez l’art de la calligraphie chinoise"
+              ></textarea>
+            </div>
+
+            <div>
+              <label for="field-intro" class="field-label">Texte d’introduction</label>
+              <textarea
+                id="field-intro"
+                name="intro"
+                required
+                rows="3"
+                class="field-input"
+                placeholder="Christophe Desmur vous accompagne dans la découverte du pinceau, du geste et des caractères chinois, à travers des ateliers collectifs et des cours individuels."
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Panneau 2 : Liens & Boutons d'action (CTAs) -->
+          <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs space-y-4">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700/60 pb-2">
+              Liens & Boutons d'action (CTAs)
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Bouton principal -->
+              <div class="p-3.5 rounded-md border border-gray-200 dark:border-gray-700/80 bg-gray-50/50 dark:bg-gray-800/40 space-y-3">
+                <div class="text-xs font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-gray-900 dark:bg-white"></span>
+                  Bouton principal
+                </div>
+                <div>
+                  <label for="field-primary-label" class="field-label">Libellé</label>
+                  <input
+                    id="field-primary-label"
+                    name="primary_cta_label"
+                    type="text"
+                    class="field-input"
+                    placeholder="Découvrir les cours"
+                  />
+                </div>
+                <div>
+                  <label for="field-primary-url" class="field-label">Lien / Destination</label>
+                  <input
+                    id="field-primary-url"
+                    name="primary_cta_url"
+                    type="text"
+                    class="field-input"
+                    placeholder="/cours-collectifs"
+                  />
+                </div>
+              </div>
+
+              <!-- Bouton secondaire -->
+              <div class="p-3.5 rounded-md border border-gray-200 dark:border-gray-700/80 bg-gray-50/50 dark:bg-gray-800/40 space-y-3">
+                <div class="text-xs font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full border border-gray-400 bg-transparent"></span>
+                  Bouton secondaire
+                </div>
+                <div>
+                  <label for="field-secondary-label" class="field-label">Libellé</label>
+                  <input
+                    id="field-secondary-label"
+                    name="secondary_cta_label"
+                    type="text"
+                    class="field-input"
+                    placeholder="Voir les œuvres disponibles"
+                  />
+                </div>
+                <div>
+                  <label for="field-secondary-url" class="field-label">Lien / Destination</label>
+                  <input
+                    id="field-secondary-url"
+                    name="secondary_cta_url"
+                    type="text"
+                    class="field-input"
+                    placeholder="/galerie"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panneau 3 : Image du Hero -->
+          <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs space-y-4">
+            <div class="flex items-center justify-between border-b border-gray-200 dark:border-gray-700/60 pb-2 flex-wrap gap-2">
+              <h2 class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                Image du hero
+              </h2>
+              <button
+                type="button"
+                id="remove-image-btn"
+                class="text-xs text-rose-600 dark:text-rose-400 hover:underline cursor-pointer"
+              >
+                Retirer l'image
+              </button>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-start gap-4">
+              <!-- Aperçu miniature -->
+              <div id="image-preview-container" class="shrink-0 w-36 h-28 rounded-lg overflow-hidden border border-gray-300 dark:border-gray-700 bg-stone-100 dark:bg-gray-900 flex items-center justify-center">
+                <img
+                  id="image-preview"
+                  src="/assets/christophe-desmur-calligraphie-dedicace.webp"
+                  alt="Aperçu"
+                  class="w-full h-full object-cover"
+                />
+                <span id="no-image-text" class="hidden text-xs text-gray-400 text-center px-2">Aucune image</span>
+              </div>
+
+              <!-- Téléversement & options -->
+              <div class="flex-1 min-w-0 space-y-3 w-full">
+                <div>
+                  <label class="field-label">Téléverser une nouvelle image</label>
+                  <input
+                    type="file"
+                    id="hero-image-file"
+                    accept="image/*"
+                    class="text-xs text-gray-600 dark:text-gray-300 file:mr-3 file:px-3 file:py-1.5 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 dark:file:bg-indigo-950 dark:file:text-indigo-300 hover:file:bg-indigo-100 dark:hover:file:bg-indigo-900 cursor-pointer"
+                  />
+                  <p id="hero-upload-status" class="text-xs text-gray-500 dark:text-gray-400 mt-1"></p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div class="sm:col-span-2">
+                    <label for="field-image-src" class="field-label">Chemin de l'image (src)</label>
+                    <input
+                      id="field-image-src"
+                      name="image_src"
+                      type="text"
+                      class="field-input"
+                      placeholder="/assets/christophe-desmur-calligraphie-dedicace.webp"
+                    />
+                  </div>
+                  <div class="sm:col-span-2">
+                    <label for="field-image-alt" class="field-label">Texte alternatif (alt)</label>
+                    <input
+                      id="field-image-alt"
+                      name="image_alt"
+                      type="text"
+                      class="field-input"
+                      placeholder="Christophe Desmur traçant une calligraphie chinoise au pinceau et à l’encre de Chine à Lyon"
+                    />
+                  </div>
+                  <div>
+                    <label for="field-image-caption" class="field-label">Légende</label>
+                    <input
+                      id="field-image-caption"
+                      name="image_caption"
+                      type="text"
+                      class="field-input"
+                      placeholder="Le geste de l’encre & la tenue du pinceau"
+                    />
+                  </div>
+                  <div>
+                    <label for="field-image-location" class="field-label">Lieu</label>
+                    <input
+                      id="field-image-location"
+                      name="image_location"
+                      type="text"
+                      class="field-input"
+                      placeholder="Lyon Croix-Rousse"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Barre d'actions & Enregistrement (style WordPress) -->
+          <div class="sticky bottom-0 z-10 bg-white/95 dark:bg-[#1e2327]/95 backdrop-blur-xs border border-gray-300 dark:border-gray-700 rounded-md p-4 shadow-md flex items-center justify-between gap-3 flex-wrap">
+            <div class="flex items-center gap-3">
+              <button
+                type="submit"
+                id="hero-save-btn"
+                disabled
+                class="px-5 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Enregistrer
+              </button>
+              <button
+                type="button"
+                id="hero-cancel-btn"
+                disabled
+                class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                Annuler
+              </button>
+            </div>
+            <p id="hero-save-status" class="text-xs text-gray-500 dark:text-gray-400 font-medium" aria-live="polite"></p>
+          </div>
+        </form>
+
+        <!-- Panneau 4 : Aperçu en direct (Live Preview) -->
+        <div class="mt-8 space-y-3">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              Aperçu en direct
+            </h2>
+            <span class="text-[11px] text-gray-400 dark:text-gray-500 font-mono">Page d'accueil · /</span>
+          </div>
+
+          <div class="rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 p-6 sm:p-8 overflow-hidden shadow-2xs">
+            <div id="preview-grid" class="grid lg:grid-cols-12 gap-6 items-center">
+              <div id="preview-text-col" class="lg:col-span-7 flex flex-col justify-center">
+                <p id="preview-eyebrow" class="text-xs uppercase tracking-widest font-semibold text-indigo-700 dark:text-indigo-400 mb-2.5">
+                  Calligraphie chinoise · Lyon
+                </p>
+                <h3 id="preview-title" class="text-2xl sm:text-3xl font-serif font-medium tracking-tight text-gray-950 dark:text-white leading-tight mb-3">
+                  Découvrez l’art de la calligraphie chinoise
+                </h3>
+                <p id="preview-intro" class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-serif leading-relaxed mb-5">
+                  Christophe Desmur vous accompagne dans la découverte du pinceau, du geste et des caractères chinois, à travers des ateliers collectifs et des cours individuels.
+                </p>
+                <div id="preview-ctas" class="flex flex-wrap items-center gap-2.5 mb-4">
+                  <span id="preview-primary-btn" class="px-4 py-2 rounded-lg bg-gray-950 text-white dark:bg-gray-100 dark:text-gray-950 text-xs font-medium">
+                    Découvrir les cours
+                  </span>
+                  <span id="preview-secondary-btn" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 text-xs font-medium">
+                    Voir les œuvres disponibles
+                  </span>
+                </div>
+                <div class="pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center flex-wrap gap-x-2 gap-y-1 text-[11px] text-gray-400">
+                  <span class="text-indigo-600 font-bold">✓</span>
+                  <span>Débutants bienvenus</span>
+                  <span>•</span>
+                  <span>Enfants & adultes</span>
+                  <span>•</span>
+                  <span>Lyon</span>
+                </div>
+              </div>
+
+              <div id="preview-image-col" class="lg:col-span-5 relative mt-4 lg:mt-0">
+                <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 bg-stone-50 dark:bg-gray-800">
+                  <img
+                    id="preview-img-tag"
+                    src="/assets/christophe-desmur-calligraphie-dedicace.webp"
+                    alt=""
+                    class="w-full h-auto aspect-4/3 object-cover"
+                  />
+                  <div class="py-2 px-3 bg-stone-50 dark:bg-stone-900 text-[11px] text-gray-500 border-t border-gray-100 dark:border-gray-800 flex justify-between items-center font-serif">
+                    <span id="preview-img-caption">Le geste de l’encre & la tenue du pinceau</span>
+                    <span id="preview-img-location" class="text-stone-400">Lyon Croix-Rousse</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <LoginGate />
+    )}
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById("hero-form") as HTMLFormElement | null;
+  const saveBtn = document.getElementById("hero-save-btn") as HTMLButtonElement | null;
+  const cancelBtn = document.getElementById("hero-cancel-btn") as HTMLButtonElement | null;
+  const saveStatus = document.getElementById("hero-save-status");
+  const statusEl = document.getElementById("hero-status");
+  const fileInput = document.getElementById("hero-image-file") as HTMLInputElement | null;
+  const uploadStatus = document.getElementById("hero-upload-status");
+  const removeImageBtn = document.getElementById("remove-image-btn");
+
+  const imagePreview = document.getElementById("image-preview") as HTMLImageElement | null;
+  const noImageText = document.getElementById("no-image-text");
+  const imagePreviewContainer = document.getElementById("image-preview-container");
+
+  // Preview elements
+  const previewEyebrow = document.getElementById("preview-eyebrow");
+  const previewTitle = document.getElementById("preview-title");
+  const previewIntro = document.getElementById("preview-intro");
+  const previewPrimaryBtn = document.getElementById("preview-primary-btn");
+  const previewSecondaryBtn = document.getElementById("preview-secondary-btn");
+  const previewImageCol = document.getElementById("preview-image-col");
+  const previewTextCol = document.getElementById("preview-text-col");
+  const previewGrid = document.getElementById("preview-grid");
+  const previewImgTag = document.getElementById("preview-img-tag") as HTMLImageElement | null;
+  const previewImgCaption = document.getElementById("preview-img-caption");
+  const previewImgLocation = document.getElementById("preview-img-location");
+
+  let csrfToken = "";
+  let isDirty = false;
+  let savedSnapshot = "";
+  let currentImageWidth = 1536;
+  let currentImageHeight = 1024;
+
+  function showStatus(message: string, kind: "success" | "error") {
+    if (!statusEl) return;
+    statusEl.textContent = message;
+    statusEl.classList.remove("hidden");
+    statusEl.className =
+      "mb-4 p-3 rounded-md text-xs font-medium " +
+      (kind === "success"
+        ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
+        : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
+  }
+
+  function clearStatus() {
+    statusEl?.classList.add("hidden");
+  }
+
+  function formSnapshot(): string {
+    if (!form) return "";
+    const data: Record<string, string> = {};
+    for (const el of Array.from(form.elements) as (HTMLInputElement | HTMLTextAreaElement)[]) {
+      if (el.name) data[el.name] = el.value;
+    }
+    return JSON.stringify(data);
+  }
+
+  function updateLivePreview() {
+    if (!form) return;
+    const fd = new FormData(form);
+    const eyebrow = String(fd.get("eyebrow") || "");
+    const title = String(fd.get("title") || "");
+    const intro = String(fd.get("intro") || "");
+    const primaryLabel = String(fd.get("primary_cta_label") || "");
+    const secondaryLabel = String(fd.get("secondary_cta_label") || "");
+    const imageSrc = String(fd.get("image_src") || "").trim();
+    const imageCaption = String(fd.get("image_caption") || "");
+    const imageLocation = String(fd.get("image_location") || "");
+
+    if (previewEyebrow) previewEyebrow.textContent = eyebrow || "Sur-titre";
+    if (previewTitle) previewTitle.textContent = title || "Titre du Hero";
+    if (previewIntro) previewIntro.textContent = intro || "Texte d'introduction…";
+
+    if (previewPrimaryBtn) {
+      if (primaryLabel) {
+        previewPrimaryBtn.textContent = primaryLabel;
+        previewPrimaryBtn.classList.remove("hidden");
+      } else {
+        previewPrimaryBtn.classList.add("hidden");
+      }
+    }
+    if (previewSecondaryBtn) {
+      if (secondaryLabel) {
+        previewSecondaryBtn.textContent = secondaryLabel;
+        previewSecondaryBtn.classList.remove("hidden");
+      } else {
+        previewSecondaryBtn.classList.add("hidden");
+      }
+    }
+
+    if (imageSrc) {
+      if (imagePreview) {
+        imagePreview.src = imageSrc;
+        imagePreview.classList.remove("hidden");
+      }
+      noImageText?.classList.add("hidden");
+
+      if (previewImageCol) previewImageCol.classList.remove("hidden");
+      if (previewTextCol) {
+        previewTextCol.className = "lg:col-span-7 flex flex-col justify-center";
+      }
+      if (previewGrid) {
+        previewGrid.className = "grid lg:grid-cols-12 gap-6 items-center";
+      }
+      if (previewImgTag) previewImgTag.src = imageSrc;
+      if (previewImgCaption) previewImgCaption.textContent = imageCaption;
+      if (previewImgLocation) previewImgLocation.textContent = imageLocation;
+    } else {
+      if (imagePreview) imagePreview.classList.add("hidden");
+      noImageText?.classList.remove("hidden");
+
+      if (previewImageCol) previewImageCol.classList.add("hidden");
+      if (previewTextCol) {
+        previewTextCol.className = "max-w-xl mx-auto text-center flex flex-col justify-center";
+      }
+      if (previewGrid) {
+        previewGrid.className = "grid lg:grid-cols-1 gap-6 items-center";
+      }
+    }
+  }
+
+  function markDirty() {
+    isDirty = formSnapshot() !== savedSnapshot;
+    if (saveBtn) saveBtn.disabled = !isDirty;
+    if (cancelBtn) cancelBtn.disabled = !isDirty;
+    if (!saveStatus) return;
+    if (isDirty && saveStatus.dataset.state !== "saving") {
+      saveStatus.textContent = "Modifications non enregistrées";
+      saveStatus.dataset.state = "dirty";
+    } else if (!isDirty) {
+      saveStatus.textContent = "";
+      saveStatus.dataset.state = "";
+    }
+    updateLivePreview();
+  }
+
+  function setFieldValue(name: string, value: any) {
+    if (!form) return;
+    const el = form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | null;
+    if (el) el.value = value ?? "";
+  }
+
+  function restoreSavedSnapshot() {
+    if (!form || !savedSnapshot) return;
+    const values = JSON.parse(savedSnapshot) as Record<string, string>;
+    for (const [k, v] of Object.entries(values)) {
+      setFieldValue(k, v);
+    }
+    clearStatus();
+    markDirty();
+  }
+
+  cancelBtn?.addEventListener("click", restoreSavedSnapshot);
+
+  removeImageBtn?.addEventListener("click", () => {
+    setFieldValue("image_src", "");
+    setFieldValue("image_alt", "");
+    setFieldValue("image_caption", "");
+    setFieldValue("image_location", "");
+    markDirty();
+  });
+
+  window.addEventListener("beforeunload", (e) => {
+    if (!isDirty) return;
+    e.preventDefault();
+    e.returnValue = "";
+  });
+
+  // Handle file upload
+  fileInput?.addEventListener("change", async () => {
+    if (!fileInput.files || !fileInput.files[0]) return;
+    const file = fileInput.files[0];
+    if (!uploadStatus) return;
+
+    uploadStatus.textContent = "Téléversement…";
+    uploadStatus.className = "text-xs text-gray-500 dark:text-gray-400 mt-1";
+
+    const fd = new FormData();
+    fd.append("file", file);
+    fd.append("nameHint", "hero-calligraphie");
+
+    try {
+      const res = await fetch("/api/admin/upload-image", {
+        method: "POST",
+        headers: { "x-csrf-token": csrfToken },
+        body: fd,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Échec du téléversement.");
+
+      setFieldValue("image_src", data.path);
+      if (data.width) currentImageWidth = data.width;
+      if (data.height) currentImageHeight = data.height;
+
+      uploadStatus.textContent = "Image téléversée ✓";
+      uploadStatus.className = "text-xs text-emerald-600 dark:text-emerald-400 mt-1";
+      markDirty();
+    } catch (err: any) {
+      uploadStatus.textContent = err.message || "Erreur de téléversement.";
+      uploadStatus.className = "text-xs text-rose-500 mt-1";
+    } finally {
+      fileInput.value = "";
+    }
+  });
+
+  form?.addEventListener("input", markDirty);
+
+  async function loadData() {
+    try {
+      const [heroRes, authRes] = await Promise.all([
+        fetch("/api/admin/hero"),
+        fetch("/api/admin/auth")
+      ]);
+      const heroData = await heroRes.json();
+      const authData = await authRes.json();
+      csrfToken = authData.csrfToken || "";
+
+      if (!heroRes.ok) {
+        showStatus(heroData.error || "Erreur de chargement.", "error");
+        return;
+      }
+
+      const h = heroData.hero || {};
+      setFieldValue("eyebrow", h.eyebrow);
+      setFieldValue("title", h.title);
+      setFieldValue("intro", h.intro);
+      setFieldValue("primary_cta_label", h.primary_cta?.label);
+      setFieldValue("primary_cta_url", h.primary_cta?.url);
+      setFieldValue("secondary_cta_label", h.secondary_cta?.label);
+      setFieldValue("secondary_cta_url", h.secondary_cta?.url);
+
+      if (h.image) {
+        setFieldValue("image_src", h.image.src);
+        setFieldValue("image_alt", h.image.alt);
+        setFieldValue("image_caption", h.image.caption);
+        setFieldValue("image_location", h.image.location);
+        if (h.image.width) currentImageWidth = Number(h.image.width);
+        if (h.image.height) currentImageHeight = Number(h.image.height);
+      } else {
+        setFieldValue("image_src", "");
+        setFieldValue("image_alt", "");
+        setFieldValue("image_caption", "");
+        setFieldValue("image_location", "");
+      }
+
+      savedSnapshot = formSnapshot();
+      isDirty = false;
+      if (saveBtn) saveBtn.disabled = true;
+      if (cancelBtn) cancelBtn.disabled = true;
+      updateLivePreview();
+    } catch (err: any) {
+      showStatus(err.message || "Erreur de chargement du Hero.", "error");
+    }
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!saveBtn || !form || !saveStatus) return;
+
+    saveBtn.disabled = true;
+    saveStatus.dataset.state = "saving";
+    saveStatus.textContent = "Enregistrement…";
+    clearStatus();
+
+    const fd = new FormData(form);
+    const imageSrc = String(fd.get("image_src") || "").trim();
+
+    const heroPayload = {
+      eyebrow: String(fd.get("eyebrow") || "").trim(),
+      title: String(fd.get("title") || "").trim(),
+      intro: String(fd.get("intro") || "").trim(),
+      primary_cta: {
+        label: String(fd.get("primary_cta_label") || "").trim(),
+        url: String(fd.get("primary_cta_url") || "").trim(),
+      },
+      secondary_cta: {
+        label: String(fd.get("secondary_cta_label") || "").trim(),
+        url: String(fd.get("secondary_cta_url") || "").trim(),
+      },
+      image: imageSrc ? {
+        src: imageSrc,
+        alt: String(fd.get("image_alt") || "").trim(),
+        caption: String(fd.get("image_caption") || "").trim(),
+        location: String(fd.get("image_location") || "").trim(),
+        width: currentImageWidth,
+        height: currentImageHeight,
+      } : null,
+    };
+
+    try {
+      const res = await fetch("/api/admin/hero", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-csrf-token": csrfToken,
+        },
+        body: JSON.stringify({ hero: heroPayload }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Erreur lors de l'enregistrement.");
+
+      savedSnapshot = formSnapshot();
+      isDirty = false;
+      saveStatus.dataset.state = "saved";
+      saveStatus.textContent = "Enregistré ✓";
+      showStatus("Contenu du Hero enregistré et synchronisé.", "success");
+
+      window.setTimeout(() => {
+        if (saveStatus.dataset.state === "saved") {
+          saveStatus.textContent = "";
+          saveStatus.dataset.state = "";
+        }
+      }, 3000);
+    } catch (err: any) {
+      saveStatus.textContent = "";
+      saveStatus.dataset.state = "";
+      saveBtn.disabled = false;
+      showStatus(err.message || "Échec de l'enregistrement.", "error");
+    }
+  });
+
+  loadData();
+</script>
