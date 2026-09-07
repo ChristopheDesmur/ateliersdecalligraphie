@@ -1,0 +1,245 @@
+---
+export const prerender = false;
+
+import Layout from "@/layouts/Layout.astro";
+import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
+import LoginGate from "@/components/admin/LoginGate.astro";
+import { authenticateRequest } from "@/lib/admin/auth";
+
+const { session } = authenticateRequest(Astro.request);
+const vercelUrl = "https://vercel.com/*/~/deployments";
+---
+
+<Layout title="Administration — Déploiements" noindex={true}>
+  <div>
+    {session ? (
+      <div class="space-y-6">
+        <AdminPageHeader
+          title="Déploiements"
+          description="Historique des builds Vercel, commits déployés et statuts de mise en production."
+          active="deployments"
+        >
+          <div slot="actions" class="flex items-center gap-2">
+            <button
+              id="deployments-refresh-btn"
+              type="button"
+              class="astro-btn astro-btn-secondary text-xs flex items-center gap-1.5"
+              title="Actualiser la liste"
+            >
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+              </svg>
+              <span>Actualiser</span>
+            </button>
+            <a
+              href={vercelUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="astro-btn astro-btn-primary text-xs flex items-center gap-1.5"
+              title="Ouvrir la liste complète sur Vercel"
+            >
+              <span>Tableau de bord Vercel</span>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            </a>
+          </div>
+        </AdminPageHeader>
+
+        <!-- Message d'alerte / configuration -->
+        <div id="deployments-notice" class="hidden p-3 rounded text-xs font-medium" role="alert"></div>
+
+        <!-- Tableau des déploiements -->
+        <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded overflow-hidden shadow-2xs">
+          <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h2 class="text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300">
+              Derniers builds & déploiements
+            </h2>
+            <span id="deployments-count" class="text-xs text-gray-500 dark:text-gray-400 font-mono">
+              Chargement…
+            </span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-gray-700 dark:text-gray-300">
+              <thead class="bg-gray-50 dark:bg-[#15191d] border-b border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 uppercase text-[10px] tracking-wider">
+                <tr>
+                  <th scope="col" class="px-4 py-2.5 font-semibold">Statut</th>
+                  <th scope="col" class="px-4 py-2.5 font-semibold">Message & Commit</th>
+                  <th scope="col" class="px-4 py-2.5 font-semibold">Branche / Cible</th>
+                  <th scope="col" class="px-4 py-2.5 font-semibold">Date</th>
+                  <th scope="col" class="px-4 py-2.5 font-semibold text-right">Lien</th>
+                </tr>
+              </thead>
+              <tbody id="deployments-tbody" class="divide-y divide-gray-100 dark:divide-gray-800">
+                <tr>
+                  <td colspan="5" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+                    Chargement des déploiements depuis Vercel…
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Carte d'aide Git/Vercel -->
+        <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded p-4 text-xs shadow-2xs space-y-2">
+          <div class="font-medium text-gray-900 dark:text-white flex items-center justify-between">
+            <span>Déploiement continu via Git & GitHub</span>
+            <a
+              href={vercelUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-[#2271b1] dark:text-sky-400 hover:underline flex items-center gap-1"
+            >
+              <span>Voir sur vercel.com</span>
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            </a>
+          </div>
+          <p class="text-gray-500 dark:text-gray-400 text-[11px] leading-relaxed">
+            Chaque mise à jour (tarifs, événements, calligraphies) validée déclenche un build automatisé sur Vercel et une mise en ligne instantanée sur ateliersdecalligraphie.com.
+          </p>
+        </div>
+      </div>
+    ) : (
+      <LoginGate />
+    )}
+  </div>
+</Layout>
+
+<script is:inline>
+  (function () {
+    const noticeEl = document.getElementById("deployments-notice");
+    const countEl = document.getElementById("deployments-count");
+    const tbodyEl = document.getElementById("deployments-tbody");
+    const refreshBtn = document.getElementById("deployments-refresh-btn");
+
+    function setNotice(message, type) {
+      if (!noticeEl) return;
+      if (!message) {
+        noticeEl.className = "hidden p-3 rounded text-xs font-medium";
+        noticeEl.textContent = "";
+        return;
+      }
+      let colorClasses = "bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800";
+      if (type === "error") {
+        colorClasses = "bg-rose-50 text-rose-800 border border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800";
+      } else if (type === "info") {
+        colorClasses = "bg-sky-50 text-sky-800 border border-sky-200 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-800";
+      }
+      noticeEl.className = "p-3 rounded text-xs font-medium " + colorClasses;
+      noticeEl.innerHTML = message;
+    }
+
+    function formatRelativeDate(isoOrTs) {
+      if (!isoOrTs) return "—";
+      const ts = typeof isoOrTs === "number" ? isoOrTs : new Date(isoOrTs).getTime();
+      const diff = Date.now() - ts;
+      const min = Math.floor(diff / 60000);
+      if (min < 1) return "À l'instant";
+      if (min < 60) return "Il y a " + min + " min";
+      const h = Math.floor(min / 60);
+      if (h < 24) return "Il y a " + h + " h";
+      const d = Math.floor(h / 24);
+      if (d < 30) return "Il y a " + d + " j";
+      return new Date(ts).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" });
+    }
+
+    function renderDeployments(deployments) {
+      if (!tbodyEl) return;
+      if (!deployments || deployments.length === 0) {
+        tbodyEl.innerHTML = '<tr><td colspan="5" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">Aucun déploiement disponible. Rendez-vous sur <a href="https://vercel.com/*/~/deployments" target="_blank" rel="noopener noreferrer" class="text-[#2271b1] underline">le tableau de bord Vercel</a>.</td></tr>';
+        if (countEl) countEl.textContent = "0 déploiement";
+        return;
+      }
+
+      if (countEl) countEl.textContent = deployments.length + (deployments.length > 1 ? " déploiements" : " déploiement");
+
+      let html = "";
+      deployments.forEach(function (d) {
+        const state = (d.state || "").toUpperCase();
+        let stateBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">' + state + '</span>';
+
+        if (state === "READY") {
+          stateBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">Prêt (Ready)</span>';
+        } else if (state === "BUILDING" || state === "INITIALIZING" || state === "QUEUED") {
+          stateBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-sky-50 text-sky-700 dark:bg-sky-950/40 dark:text-sky-300 border border-sky-200 dark:border-sky-800 animate-pulse">En cours…</span>';
+        } else if (state === "ERROR") {
+          stateBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300 border border-rose-200 dark:border-rose-800">Erreur</span>';
+        } else if (state === "CANCELED") {
+          stateBadge = '<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400">Annulé</span>';
+        }
+
+        const commitMsg = d.commit?.message || "Déploiement manuel";
+        const commitSha = d.commit?.sha ? d.commit.sha.substring(0, 7) : "";
+        const commitAuthor = d.commit?.author || "Vercel";
+        const target = d.target === "production"
+          ? '<span class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Production</span>'
+          : '<span class="text-[10px] text-gray-500 dark:text-gray-400">Preview</span>';
+
+        const branch = d.commit?.ref || "main";
+        const relDate = formatRelativeDate(d.created);
+        const url = d.url;
+
+        html += '<tr class="hover:bg-gray-50/50 dark:hover:bg-[#181d22] transition">';
+        html += '<td class="px-4 py-3 whitespace-nowrap">' + stateBadge + '</td>';
+        html += '<td class="px-4 py-3 min-w-[200px]"><div class="font-medium text-gray-900 dark:text-white truncate max-w-sm" title="' + commitMsg.replace(/"/g, "&quot;") + '">' + commitMsg + '</div>';
+        if (commitSha) {
+          html += '<div class="text-[10px] text-gray-400 dark:text-gray-500 font-mono mt-0.5">' + commitSha + ' · ' + commitAuthor + '</div>';
+        }
+        html += '</td>';
+        html += '<td class="px-4 py-3 whitespace-nowrap"><div class="flex items-center gap-1.5">' + target + '<span class="text-gray-400">/</span><code class="text-[11px] text-gray-600 dark:text-gray-300 font-mono">' + branch + '</code></div></td>';
+        html += '<td class="px-4 py-3 whitespace-nowrap text-gray-500 dark:text-gray-400 font-mono text-[11px]">' + relDate + '</td>';
+        html += '<td class="px-4 py-3 whitespace-nowrap text-right">';
+        if (url) {
+          html += '<a href="' + url + '" target="_blank" rel="noopener noreferrer" class="text-xs text-[#2271b1] dark:text-sky-400 hover:underline font-medium inline-flex items-center gap-1"><span>Aperçu</span><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg></a>';
+        } else {
+          html += '<span class="text-gray-400">—</span>';
+        }
+        html += '</td>';
+        html += '</tr>';
+      });
+
+      tbodyEl.innerHTML = html;
+    }
+
+    async function loadDeployments() {
+      setNotice("", "");
+      if (tbodyEl) {
+        tbodyEl.innerHTML = '<tr><td colspan="5" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">Actualisation des déploiements…</td></tr>';
+      }
+
+      try {
+        const res = await fetch("/api/admin/deployments?limit=20", { cache: "no-store" });
+        const data = await res.json();
+
+        if (!data.configured) {
+          setNotice(
+            (data.error || "Configuration VERCEL_TOKEN requise pour l'affichage direct.") +
+            ' Vous pouvez consulter vos déploiements sur le <a href="https://vercel.com/*/~/deployments" target="_blank" rel="noopener noreferrer" class="underline font-semibold">tableau de bord Vercel ↗</a>.',
+            "warning"
+          );
+        } else if (data.error) {
+          setNotice(
+            data.error +
+            ' Consultez également vos déploiements sur <a href="https://vercel.com/*/~/deployments" target="_blank" rel="noopener noreferrer" class="underline font-semibold">Vercel ↗</a>.',
+            "warning"
+          );
+        }
+
+        renderDeployments(data.deployments || []);
+      } catch (err) {
+        setNotice(
+          'Impossible de joindre le serveur. Vous pouvez accéder directement à la liste des déploiements sur le <a href="https://vercel.com/*/~/deployments" target="_blank" rel="noopener noreferrer" class="underline font-semibold">tableau de bord Vercel ↗</a>.',
+          "error"
+        );
+        renderDeployments([]);
+      }
+    }
+
+    refreshBtn?.addEventListener("click", loadDeployments);
+    loadDeployments();
+  })();
+</script>

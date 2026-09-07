@@ -1,0 +1,197 @@
+---
+export const prerender = false;
+
+import Layout from "@/layouts/Layout.astro";
+import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
+import LoginGate from "@/components/admin/LoginGate.astro";
+import { authenticateRequest } from "@/lib/admin/auth";
+
+const { session } = authenticateRequest(Astro.request);
+const vercelUrl = "https://vercel.com/*/~/speed-insights";
+---
+
+<Layout title="Administration — Speed Insights" noindex={true}>
+  <div>
+    {session ? (
+      <div class="space-y-6">
+        <AdminPageHeader
+          title="Speed Insights"
+          description="Supervision des performances réelles (Real User Monitoring) et indicateurs Core Web Vitals collectés par Vercel."
+          active="speed-insights"
+        >
+          <div slot="actions" class="flex items-center gap-2">
+            <a
+              href={vercelUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="astro-btn astro-btn-primary text-xs flex items-center gap-1.5"
+              title="Ouvrir le tableau de bord Speed Insights sur Vercel"
+            >
+              <span>Tableau de bord Vercel</span>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            </a>
+          </div>
+        </AdminPageHeader>
+
+        <!-- Bandeau d'intégration de la sonde -->
+        <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded p-4 text-xs shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+            </div>
+            <div>
+              <div class="font-medium text-gray-900 dark:text-white">Collecte automatique activée via <code>@vercel/speed-insights</code></div>
+              <div class="text-gray-500 dark:text-gray-400 text-[11px] mt-0.5">
+                La balise <code>&lt;SpeedInsights /&gt;</code> est active sur l'ensemble du site et transmet les métriques réelles lors des visites.
+              </div>
+            </div>
+          </div>
+          <a
+            href={vercelUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs text-[#2271b1] dark:text-sky-400 hover:underline font-medium whitespace-nowrap"
+          >
+            Consulter les scores par URL →
+          </a>
+        </div>
+
+        <!-- Métriques Core Web Vitals -->
+        <div class="space-y-3">
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            Indicateurs clés de performance (Core Web Vitals)
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- LCP -->
+            <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded p-4 shadow-2xs flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-bold text-gray-900 dark:text-white">LCP</span>
+                  <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                    ≤ 2.5 s
+                  </span>
+                </div>
+                <div class="text-[11px] font-medium text-gray-700 dark:text-gray-300">Largest Contentful Paint</div>
+                <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">
+                  Temps nécessaire pour afficher l'élément principal (grande calligraphie ou titre) sur l’écran.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-[11px] text-gray-400">
+                <span>Objectif : <strong class="text-emerald-600 dark:text-emerald-400">Bon</strong></span>
+                <span>&gt; 4.0 s : Mauvais</span>
+              </div>
+            </div>
+
+            <!-- INP -->
+            <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded p-4 shadow-2xs flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-bold text-gray-900 dark:text-white">INP</span>
+                  <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                    ≤ 200 ms
+                  </span>
+                </div>
+                <div class="text-[11px] font-medium text-gray-700 dark:text-gray-300">Interaction to Next Paint</div>
+                <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">
+                  Réactivité globale de la page aux clics sur les formulaires d'ateliers et interactions utilisateur.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-[11px] text-gray-400">
+                <span>Objectif : <strong class="text-emerald-600 dark:text-emerald-400">Bon</strong></span>
+                <span>&gt; 500 ms : Mauvais</span>
+              </div>
+            </div>
+
+            <!-- CLS -->
+            <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded p-4 shadow-2xs flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-bold text-gray-900 dark:text-white">CLS</span>
+                  <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                    ≤ 0.1
+                  </span>
+                </div>
+                <div class="text-[11px] font-medium text-gray-700 dark:text-gray-300">Cumulative Layout Shift</div>
+                <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">
+                  Stabilité visuelle : garantit l'absence de décalages inattendus lors du chargement des polices ou photos.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-[11px] text-gray-400">
+                <span>Objectif : <strong class="text-emerald-600 dark:text-emerald-400">Bon</strong></span>
+                <span>&gt; 0.25 : Mauvais</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Autres métriques de vitesse -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- FCP -->
+          <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded p-4 shadow-2xs">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-bold text-gray-900 dark:text-white">FCP (First Contentful Paint)</span>
+              <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                ≤ 1.8 s
+              </span>
+            </div>
+            <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
+              Délai avant l'apparition du premier élément textuel ou visuel sur la page.
+            </p>
+          </div>
+
+          <!-- TTFB -->
+          <div class="bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded p-4 shadow-2xs">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-bold text-gray-900 dark:text-white">TTFB (Time to First Byte)</span>
+              <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                ≤ 800 ms
+              </span>
+            </div>
+            <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
+              Temps de réponse du serveur Edge Vercel avant réception du premier octet HTML.
+            </p>
+          </div>
+        </div>
+
+        <!-- Carte Vercel Dashboard -->
+        <div class="bg-[#1d2327] border border-gray-800 rounded p-6 text-white shadow-2xs space-y-4">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="text-sm font-semibold text-white">Analyse détaillée sur Vercel Speed Insights</h3>
+              <p class="text-xs text-gray-300 mt-1 leading-relaxed max-w-2xl">
+                Accédez aux rapports complets par page (ex. <code>/</code>, <code>/stages</code>, <code>/galerie</code>) ventilés par réseau, système et appareil mobile.
+              </p>
+            </div>
+            <span class="px-2 py-1 rounded bg-teal-500/20 text-teal-300 border border-teal-500/40 text-[10px] font-semibold uppercase tracking-wider shrink-0">
+              RUM Vercel
+            </span>
+          </div>
+
+          <div class="pt-2 flex flex-wrap items-center gap-3">
+            <a
+              href={vercelUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-2 rounded bg-white text-gray-900 hover:bg-gray-100 text-xs font-semibold shadow transition inline-flex items-center gap-2"
+            >
+              <span>Accéder aux scores en direct</span>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            </a>
+            <span class="text-xs text-gray-400">
+              URL directe : <code class="text-gray-300 font-mono text-[11px]">{vercelUrl}</code>
+            </span>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <LoginGate />
+    )}
+  </div>
+</Layout>

@@ -2,7 +2,7 @@
 export interface Props {
   title: string;
   description?: string;
-  active?: "dashboard" | "analytics" | "hero" | "prices" | "products" | "events" | "institutions" | "interventions" | "testimonials" | "venues" | "contact" | "faq";
+  active?: "dashboard" | "analytics" | "speed-insights" | "deployments" | "hero" | "prices" | "products" | "events" | "institutions" | "interventions" | "testimonials" | "venues" | "contact" | "faq";
   breadcrumbs?: boolean;
 }
 
@@ -11,6 +11,8 @@ const { title, description, active, breadcrumbs = true } = Astro.props;
 const labels: Record<string, string> = {
   dashboard: "Tableau de bord",
   analytics: "Analytics",
+  "speed-insights": "Speed Insights",
+  deployments: "Déploiements",
   hero: "Hero",
   events: "Événements",
   institutions: "Institutions",
