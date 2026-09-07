@@ -6,7 +6,7 @@ import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
 import LoginGate from "@/components/admin/LoginGate.astro";
 import PagesEditorForm from "@/components/admin/PagesEditorForm.astro";
 import { authenticateRequest, createCsrfToken } from "@/lib/admin/auth";
-import { resolvePage } from "@/lib/pages/discover";
+import { resolvePage, resolvePageLive } from "@/lib/pages/discover";
 
 const { session, sessionToken } = authenticateRequest(Astro.request);
 
@@ -19,7 +19,14 @@ if (session && sessionToken) {
   const pathParts = (Astro.params.path || "").split("/").filter(Boolean);
   const [collectionId, ...slugParts] = pathParts;
   const slug = slugParts.join("/");
-  const resolved = collectionId && slug ? await resolvePage(collectionId, slug) : null;
+  // A page created moments ago (create.ts commits straight to GitHub)
+  // isn't visible to resolvePage()'s build-time collection cache until
+  // the deploy that commit triggers finishes — without this fallback,
+  // the redirect straight into the editor after "Créer la page" would
+  // always 404.
+  const resolved =
+    (collectionId && slug ? await resolvePage(collectionId, slug) : null) ||
+    (collectionId && slug ? await resolvePageLive(collectionId, slug) : null);
 
   if (!resolved) {
     return new Response("Page introuvable.", { status: 404 });

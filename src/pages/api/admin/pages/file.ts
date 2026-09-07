@@ -3,7 +3,7 @@ export const prerender = false;
 import type { APIRoute } from 'astro';
 import { parseDocument, Scalar } from 'yaml';
 import { authenticateRequest, verifyCsrfToken } from '@/lib/admin/auth';
-import { resolvePage } from '@/lib/pages/discover';
+import { resolvePage, resolvePageLive } from '@/lib/pages/discover';
 import { loadPageFile, savePageFile, deletePageFile, PageConflictError } from '@/lib/pages/store';
 import { splitFrontmatter, rebuildFile } from '@/lib/pages/frontmatter';
 
@@ -21,7 +21,7 @@ export const GET: APIRoute = async ({ request, url }) => {
     return json({ error: 'Paramètres invalides.' }, 400);
   }
 
-  const resolved = await resolvePage(collection, slug);
+  const resolved = (await resolvePage(collection, slug)) || (await resolvePageLive(collection, slug));
   if (!resolved) return json({ error: 'Page introuvable.' }, 404);
 
   try {
@@ -109,7 +109,7 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ error: "Version manquante. Rechargez la page avant d'enregistrer." }, 400);
   }
 
-  const resolved = await resolvePage(collection, slug);
+  const resolved = (await resolvePage(collection, slug)) || (await resolvePageLive(collection, slug));
   if (!resolved) return json({ error: 'Page introuvable.' }, 404);
 
   try {
@@ -227,7 +227,7 @@ export const DELETE: APIRoute = async ({ request }) => {
     return json({ error: 'Version manquante. Rechargez la page avant de la supprimer.' }, 400);
   }
 
-  const resolved = await resolvePage(collection, slug);
+  const resolved = (await resolvePage(collection, slug)) || (await resolvePageLive(collection, slug));
   if (!resolved) return json({ error: 'Page introuvable.' }, 404);
 
   try {
