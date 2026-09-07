@@ -254,6 +254,13 @@ const { session } = authenticateRequest(Astro.request);
   const newCategoryInput = document.getElementById("faq-category-new-input") as HTMLInputElement | null;
   const formContainer = document.getElementById("faq-form-container");
   const form = document.getElementById("faq-form") as HTMLFormElement | null;
+  let formDirty = false;
+  form?.addEventListener("input", () => { formDirty = true; });
+  window.addEventListener("beforeunload", (e) => {
+    if (!formDirty || formContainer?.classList.contains("hidden")) return;
+    e.preventDefault();
+    e.returnValue = "";
+  });
   const formTitle = document.getElementById("faq-form-title");
   const saveBtn = document.getElementById("faq-save-btn") as HTMLButtonElement | null;
   const showOnHomeCheckbox = document.getElementById("faq-show-on-home") as HTMLInputElement | null;
@@ -590,6 +597,7 @@ const { session } = authenticateRequest(Astro.request);
 
   function openForm(id: string | null, f: any | null) {
     if (!form || !formContainer || !formTitle) return;
+    formDirty = false;
     form.reset();
     (form.elements.namedItem("originalId") as HTMLInputElement).value = id ?? "";
     formTitle.textContent = f ? `Modifier la question` : "Ajouter une question";
@@ -626,6 +634,7 @@ const { session } = authenticateRequest(Astro.request);
   }
 
   function closeForm() {
+    formDirty = false;
     formContainer?.classList.add("hidden");
   }
 

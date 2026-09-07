@@ -206,6 +206,13 @@ const { session } = authenticateRequest(Astro.request);
   const statusEl = document.getElementById("products-status");
   const formContainer = document.getElementById("product-form-container");
   const form = document.getElementById("product-form") as HTMLFormElement | null;
+  let formDirty = false;
+  form?.addEventListener("input", () => { formDirty = true; });
+  window.addEventListener("beforeunload", (e) => {
+    if (!formDirty || formContainer?.classList.contains("hidden")) return;
+    e.preventDefault();
+    e.returnValue = "";
+  });
   const formTitle = document.getElementById("product-form-title");
   const saveBtn = document.getElementById("product-save-btn") as HTMLButtonElement | null;
   const photoUploadInput = document.getElementById("photo-upload-input") as HTMLInputElement | null;
@@ -347,6 +354,7 @@ const { session } = authenticateRequest(Astro.request);
 
   function openForm(product: any | null) {
     if (!form || !formContainer || !formTitle) return;
+    formDirty = false;
     form.reset();
     (form.elements.namedItem("originalId") as HTMLInputElement).value = product?.id || "";
     formTitle.textContent = product ? `Modifier « ${product.title} »` : "Ajouter une œuvre";
@@ -385,6 +393,7 @@ const { session } = authenticateRequest(Astro.request);
   }
 
   function closeForm() {
+    formDirty = false;
     formContainer?.classList.add("hidden");
   }
 

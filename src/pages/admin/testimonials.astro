@@ -151,6 +151,13 @@ const { session } = authenticateRequest(Astro.request);
   const statusEl = document.getElementById("testimonials-status");
   const formContainer = document.getElementById("testimonial-form-container");
   const form = document.getElementById("testimonial-form") as HTMLFormElement | null;
+  let formDirty = false;
+  form?.addEventListener("input", () => { formDirty = true; });
+  window.addEventListener("beforeunload", (e) => {
+    if (!formDirty || formContainer?.classList.contains("hidden")) return;
+    e.preventDefault();
+    e.returnValue = "";
+  });
   const formTitle = document.getElementById("testimonial-form-title");
   const saveBtn = document.getElementById("testimonial-save-btn") as HTMLButtonElement | null;
   const authorSelect = document.getElementById("author-select") as HTMLSelectElement | null;
@@ -300,6 +307,7 @@ const { session } = authenticateRequest(Astro.request);
 
   function openForm(id: string | null, t: any | null) {
     if (!form || !formContainer || !formTitle) return;
+    formDirty = false;
     form.reset();
     (form.elements.namedItem("originalId") as HTMLInputElement).value = id ?? "";
     formTitle.textContent = t ? `Modifier le témoignage de « ${t.author} »` : "Ajouter un témoignage";
@@ -329,6 +337,7 @@ const { session } = authenticateRequest(Astro.request);
   }
 
   function closeForm() {
+    formDirty = false;
     formContainer?.classList.add("hidden");
   }
 

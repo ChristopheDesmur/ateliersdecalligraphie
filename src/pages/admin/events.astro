@@ -120,6 +120,13 @@ const { session } = authenticateRequest(Astro.request);
   const searchInput = document.getElementById("events-search") as HTMLInputElement | null;
   const formContainer = document.getElementById("event-form-container");
   const form = document.getElementById("event-form") as HTMLFormElement | null;
+  let formDirty = false;
+  form?.addEventListener("input", () => { formDirty = true; });
+  window.addEventListener("beforeunload", (e) => {
+    if (!formDirty || formContainer?.classList.contains("hidden")) return;
+    e.preventDefault();
+    e.returnValue = "";
+  });
   const formTitle = document.getElementById("event-form-title");
   const saveBtn = document.getElementById("event-save-btn") as HTMLButtonElement | null;
   const lieuSelect = document.getElementById("lieu-select") as HTMLSelectElement | null;
@@ -365,6 +372,7 @@ const { session } = authenticateRequest(Astro.request);
 
   function openForm(year: string | null, index: number | null, event: any | null) {
     if (!form || !formContainer || !formTitle) return;
+    formDirty = false;
     form.reset();
     (form.elements.namedItem("originalYear") as HTMLInputElement).value = year ?? "";
     (form.elements.namedItem("originalIndex") as HTMLInputElement).value = index === null ? "" : String(index);
@@ -388,6 +396,7 @@ const { session } = authenticateRequest(Astro.request);
   }
 
   function closeForm() {
+    formDirty = false;
     formContainer?.classList.add("hidden");
   }
 

@@ -127,6 +127,13 @@ const { session } = authenticateRequest(Astro.request);
   const statusEl = document.getElementById("venues-status");
   const formContainer = document.getElementById("venue-form-container");
   const form = document.getElementById("venue-form") as HTMLFormElement | null;
+  let formDirty = false;
+  form?.addEventListener("input", () => { formDirty = true; });
+  window.addEventListener("beforeunload", (e) => {
+    if (!formDirty || formContainer?.classList.contains("hidden")) return;
+    e.preventDefault();
+    e.returnValue = "";
+  });
   const formTitle = document.getElementById("venue-form-title");
   const saveBtn = document.getElementById("venue-save-btn") as HTMLButtonElement | null;
 
@@ -189,6 +196,7 @@ const { session } = authenticateRequest(Astro.request);
 
   function openForm(id: string | null, v: any | null) {
     if (!form || !formContainer || !formTitle) return;
+    formDirty = false;
     form.reset();
     (form.elements.namedItem("originalId") as HTMLInputElement).value = id ?? "";
     formTitle.textContent = v ? `Modifier « ${v.name} »` : "Ajouter un lieu";
@@ -213,6 +221,7 @@ const { session } = authenticateRequest(Astro.request);
   }
 
   function closeForm() {
+    formDirty = false;
     formContainer?.classList.add("hidden");
   }
 

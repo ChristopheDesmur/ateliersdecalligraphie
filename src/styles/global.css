@@ -409,6 +409,7 @@
     width: 3.25rem !important;
   }
   #admin-sidebar.collapsed .nav-label,
+  #admin-sidebar.collapsed .nav-group-label,
   #admin-sidebar.collapsed .sidebar-header-text,
   #admin-sidebar.collapsed .sidebar-footer-text {
     display: none !important;

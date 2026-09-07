@@ -472,7 +472,7 @@ const dashboard = getDashboardData();
 
       function formatDateLabel(isoDate) {
         const d = new Date(isoDate);
-        if (isNaN(d.getTime())) return isoDate;
+        if (!isoDate || isNaN(d.getTime())) return "—";
         return d.toLocaleDateString("fr-FR", { day: "2-digit", month: "short" });
       }
 
@@ -508,7 +508,7 @@ const dashboard = getDashboardData();
           const visitors = Number(item.visitors || 0);
           const viewsHeightPercent = Math.max((views / maxViews) * 100, 4);
           const visitorsHeightPercent = Math.max((visitors / maxViews) * 100, 2);
-          const dateStr = formatDateLabel(item.key);
+          const dateStr = formatDateLabel(item.timestamp);
 
           const col = document.createElement("div");
           col.className = "flex-1 flex flex-col justify-end items-center h-full group relative cursor-pointer";
@@ -528,8 +528,8 @@ const dashboard = getDashboardData();
         });
 
         if (chartDates) {
-          const firstDate = formatDateLabel(timeseries[0].key);
-          const lastDate = formatDateLabel(timeseries[timeseries.length - 1].key);
+          const firstDate = formatDateLabel(timeseries[0].timestamp);
+          const lastDate = formatDateLabel(timeseries[timeseries.length - 1].timestamp);
           chartDates.innerHTML = `<span>${firstDate}</span><span>${lastDate}</span>`;
         }
       }
