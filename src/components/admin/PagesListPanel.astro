@@ -13,26 +13,58 @@ interface Props {
 const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = Astro.props;
 ---
 
-<div class="space-y-4" id="pages-admin-root" data-csrf-token={csrfToken}>
-  <AdminPanel noPadding>
-    <Fragment slot="header-actions">
-      <button type="button" id="pages-new-btn" class="astro-btn astro-btn-primary text-xs">+ Nouvelle page</button>
-      <button type="button" id="pages-refresh-btn" class="astro-btn astro-btn-secondary text-xs">
-        <span id="pages-refresh-icon">↻</span> <span id="pages-refresh-label">Actualiser</span>
-      </button>
-    </Fragment>
-    <div class="p-3.5 space-y-3">
-      <div id="pages-errors-wrap"></div>
-      <div role="search" class="flex items-center gap-2 px-3 py-2 bg-[#f6f7f7] dark:bg-[#161a1d] rounded-[3px] border border-[#dcdcde] dark:border-[#2c3338]">
+<div id="pages-admin-root" data-csrf-token={csrfToken}>
+  <!-- Source / sync info: secondary, collapsed by default -->
+  <p class="text-[11px] text-[#646970] dark:text-[#8c8f94] mb-2">
+    <button type="button" id="pages-source-toggle" class="text-[#2271b1] dark:text-[#72aee6] hover:underline cursor-pointer font-medium">
+      Source &amp; synchronisation
+    </button>
+  </p>
+  <div id="pages-source-panel" class="hidden mb-3 px-3 py-2 rounded-[3px] bg-[#f6f7f7] dark:bg-[#161a1d] border border-[#dcdcde] dark:border-[#2c3338] text-[11px] text-[#646970] dark:text-[#8c8f94] flex flex-wrap items-center gap-x-4 gap-y-1">
+    <span><strong class="font-semibold text-[#2c3338] dark:text-[#dcdcde]">Source :</strong> <code class="font-mono">src/content/blog/*.md</code></span>
+    <span>Synchronisation automatique Git &amp; GitHub</span>
+  </div>
+
+  <div id="pages-errors-wrap" class="mb-3"></div>
+
+  <!-- Toolbar: search + category filter + bulk actions, sticky -->
+  <div id="pages-toolbar" class="sticky top-8 z-20 bg-[#f0f0f1] dark:bg-[#101315] py-2 space-y-2">
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-[3px] bg-white dark:bg-[#1a1e22] border border-[#dcdcde] dark:border-[#2c3338] shadow-2xs">
+      <div role="search" class="flex-1 min-w-0 flex items-center gap-2 px-2.5 py-1.5 bg-[#f6f7f7] dark:bg-[#161a1d] rounded-[3px] border border-[#dcdcde] dark:border-[#2c3338]">
         <span class="text-[#8c8f94] text-xs" aria-hidden="true">🔍</span>
         <label for="pages-search-input" class="sr-only">Rechercher une page</label>
-        <input type="search" id="pages-search-input" placeholder="Rechercher par titre, chemin ou catégorie…" class="w-full text-xs bg-transparent border-0 focus:ring-0 text-[#1d2327] dark:text-white placeholder-[#8c8f94]" />
+        <input
+          type="search"
+          id="pages-search-input"
+          placeholder="Rechercher par titre, chemin ou catégorie…"
+          class="w-full text-xs bg-transparent border-0 focus:ring-0 text-[#1d2327] dark:text-white placeholder-[#8c8f94]"
+        />
       </div>
-      <div class="flex items-center justify-between text-xs text-[#646970] dark:text-[#8c8f94] px-0.5">
-        <span id="pages-count-label"></span>
-      </div>
-      <div id="pages-list-container" class="space-y-2"></div>
+      <label for="pages-filter-category" class="sr-only">Filtrer par catégorie</label>
+      <select
+        id="pages-filter-category"
+        class="px-2.5 py-1.5 text-xs rounded-[3px] border border-[#dcdcde] dark:border-[#2c3338] bg-white dark:bg-[#1a1e22] text-[#2c3338] dark:text-[#dcdcde] transition cursor-pointer"
+      >
+        <option value="">Toutes les catégories</option>
+      </select>
     </div>
+
+    <!-- Bulk actions bar -->
+    <div class="flex items-center gap-2 px-1 text-xs">
+      <label for="bulk-action-select" class="sr-only">Actions groupées</label>
+      <select id="bulk-action-select" class="px-2.5 py-1.5 text-xs rounded-[3px] border border-[#dcdcde] dark:border-[#2c3338] bg-white dark:bg-[#1a1e22] text-[#2c3338] dark:text-[#dcdcde] cursor-pointer">
+        <option value="">Actions groupées</option>
+        <option value="delete">Supprimer</option>
+      </select>
+      <button type="button" id="bulk-action-apply" class="astro-btn astro-btn-secondary text-xs">Appliquer</button>
+      <span id="pages-selection-label" class="text-[#646970] dark:text-[#8c8f94]"></span>
+      <span id="pages-count-label" class="ml-auto text-[#646970] dark:text-[#8c8f94]"></span>
+    </div>
+  </div>
+
+  <!-- List surface -->
+  <AdminPanel noPadding class="mt-1">
+    <div id="pages-list-container"><!-- Rendered client-side --></div>
   </AdminPanel>
 </div>
 
@@ -70,6 +102,23 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
   </div>
 </div>
 
+<!-- Bulk delete confirmation modal -->
+<div id="bulk-delete-modal" class="hidden fixed inset-0 z-150 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+  <div class="bg-white dark:bg-[#1a1e22] rounded-[3px] p-6 max-w-md w-full border border-[#c3c4c7] dark:border-[#2c3338] shadow-2xl space-y-4">
+    <h3 class="text-lg font-semibold text-[#b32d2e]">Supprimer <span id="bulk-delete-count">0</span> page(s) ?</h3>
+    <p class="text-xs text-[#646970] dark:text-[#8c8f94]">
+      Cette action supprime définitivement les fichiers source sur GitHub. Pour confirmer, tapez <strong class="text-[#1d2327] dark:text-white font-mono">SUPPRIMER</strong> ci-dessous :
+    </p>
+    <input id="bulk-delete-input" type="text" class="field-input" />
+    <div id="bulk-delete-error" class="hidden astro-notice astro-notice-error text-xs"></div>
+    <div id="bulk-delete-progress" class="hidden text-xs text-[#646970] dark:text-[#8c8f94]"></div>
+    <div class="flex items-center gap-2 justify-end pt-1">
+      <button type="button" id="bulk-delete-cancel" class="astro-btn astro-btn-secondary text-xs">Annuler</button>
+      <button type="button" id="bulk-delete-confirm" disabled class="astro-btn astro-btn-danger text-xs">Supprimer définitivement</button>
+    </div>
+  </div>
+</div>
+
 <script id="initial-pages-data" type="application/json" set:html={JSON.stringify(initialPages)}></script>
 <script id="initial-pages-errors" type="application/json" set:html={JSON.stringify(initialErrors)}></script>
 
@@ -86,6 +135,8 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
     publishDate: string;
     url: string;
   }
+
+  const PAGE_SIZE = 25;
 
   let pages: PageRow[] = [];
   try {
@@ -105,75 +156,261 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
   }
   try {
     showErrors(JSON.parse(document.getElementById('initial-pages-errors')?.textContent || '[]'));
-  } catch {}
+  } catch {
+    // ignore
+  }
+
+  document.getElementById('pages-source-toggle')?.addEventListener('click', () => {
+    document.getElementById('pages-source-panel')?.classList.toggle('hidden');
+  });
 
   let searchQuery = '';
+  let selectedCategory = '';
+  let sortField: 'title' | 'publishDate' | 'category' | null = null;
+  let sortDir: 'asc' | 'desc' = 'asc';
+  let page = 1;
+  const selected = new Set<string>(); // "collection:slug"
+
   const container = document.getElementById('pages-list-container');
   const countLabel = document.getElementById('pages-count-label');
+  const selectionLabel = document.getElementById('pages-selection-label');
   const searchInput = document.getElementById('pages-search-input') as HTMLInputElement | null;
+  const categorySelect = document.getElementById('pages-filter-category') as HTMLSelectElement | null;
   const refreshBtn = document.getElementById('pages-refresh-btn');
   const refreshIcon = document.getElementById('pages-refresh-icon');
   const refreshLabel = document.getElementById('pages-refresh-label');
+  const bulkActionSelect = document.getElementById('bulk-action-select') as HTMLSelectElement | null;
+  const bulkActionApply = document.getElementById('bulk-action-apply');
+
+  function rowKey(p: PageRow): string {
+    return `${p.collection}:${p.slug}`;
+  }
+
+  function populateCategoryFilter() {
+    if (!categorySelect) return;
+    const seen = new Set<string>();
+    for (const p of pages) if (p.category) seen.add(p.category);
+    const current = categorySelect.value;
+    categorySelect.innerHTML = '<option value="">Toutes les catégories</option>';
+    for (const cat of [...seen].sort((a, b) => a.localeCompare(b, 'fr'))) {
+      const opt = document.createElement('option');
+      opt.value = cat;
+      opt.textContent = cat;
+      categorySelect.appendChild(opt);
+    }
+    categorySelect.value = current;
+  }
 
   function formatDate(iso: string): string {
-    if (!iso) return '';
+    if (!iso) return '—';
     const d = new Date(iso);
     if (isNaN(d.getTime())) return iso;
     return d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' });
   }
 
-  function render() {
-    if (!container) return;
+  function escapeHtml(s: string): string {
+    return String(s || '').replace(/[<>&"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c] || c));
+  }
+
+  function getFiltered(): PageRow[] {
     const q = searchQuery.trim().toLowerCase();
-    const filtered = pages.filter((p) => {
-      if (!q) return true;
-      const hay = `${p.title} ${p.file} ${p.category} ${p.snippet}`.toLowerCase();
-      return hay.includes(q);
+    return pages.filter((p) => {
+      if (selectedCategory && p.category !== selectedCategory) return false;
+      if (q) {
+        const hay = `${p.title} ${p.url} ${p.file} ${p.category}`.toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      return true;
     });
+  }
 
-    if (countLabel) {
-      countLabel.textContent = filtered.length === pages.length
-        ? `${pages.length} page${pages.length > 1 ? 's' : ''}`
-        : `${filtered.length} page${filtered.length > 1 ? 's' : ''} sur ${pages.length}`;
-    }
+  function sortRows(rows: PageRow[]): PageRow[] {
+    if (!sortField) return rows;
+    const dir = sortDir === 'asc' ? 1 : -1;
+    return [...rows].sort((a, b) => {
+      const av = sortField === 'title' ? a.title : sortField === 'category' ? a.category : a.publishDate;
+      const bv = sortField === 'title' ? b.title : sortField === 'category' ? b.category : b.publishDate;
+      return av.localeCompare(bv) * dir;
+    });
+  }
 
+  function sortIndicator(field: string): string {
+    if (sortField !== field) return '<span class="text-[#c3c4c7] dark:text-[#50575e]">↕</span>';
+    return sortDir === 'asc' ? '<span class="text-[#2c3338] dark:text-[#dcdcde]">↑</span>' : '<span class="text-[#2c3338] dark:text-[#dcdcde]">↓</span>';
+  }
+
+  function rowHtml(p: PageRow, checked: boolean): string {
+    const key = rowKey(p);
+    return `
+      <tr class="border-b border-[#f0f0f1] dark:border-[#2c3338] last:border-0 hover:bg-[#f6f7f7]/70 dark:hover:bg-[#181d22] transition" data-row-key="${key}">
+        <td class="w-8 px-3 py-2 align-top">
+          <input type="checkbox" class="page-row-checkbox mt-0.5 cursor-pointer" data-key="${key}" aria-label="Sélectionner « ${escapeHtml(p.title)} »" ${checked ? 'checked' : ''} />
+        </td>
+        <td class="px-3 py-2 min-w-[220px]">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[13px] font-medium text-[#1d2327] dark:text-white">${escapeHtml(p.title)}</span>
+            ${p.draft ? '<span class="astro-badge astro-badge-muted">Brouillon</span>' : ''}
+          </div>
+          <div class="text-[11px] font-mono text-[#8c8f94] truncate mt-0.5" title="${escapeHtml(p.file)}">${escapeHtml(p.url)}</div>
+        </td>
+        <td class="px-3 py-2 text-[11px] text-[#646970] dark:text-[#8c8f94] whitespace-nowrap hidden md:table-cell">${escapeHtml(p.category) || '—'}</td>
+        <td class="px-3 py-2 text-[11px] text-[#646970] dark:text-[#8c8f94] font-mono whitespace-nowrap hidden sm:table-cell">${formatDate(p.publishDate)}</td>
+        <td class="px-3 py-2 text-right whitespace-nowrap">
+          <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="text-[11px] text-[#646970] dark:text-[#8c8f94] hover:text-[#2271b1] dark:hover:text-[#72aee6] hover:underline mr-3">Aperçu</a>
+          <a href="/admin/pages/${p.collection}/${p.slug}" class="text-[11px] font-semibold text-[#2271b1] dark:text-[#72aee6] hover:underline">Modifier</a>
+        </td>
+      </tr>
+    `;
+  }
+
+  function tableHead(): string {
+    return `
+      <thead class="bg-[#f6f7f7] dark:bg-[#161a1d] border-b border-[#dcdcde] dark:border-[#2c3338] text-[#646970] dark:text-[#8c8f94] uppercase text-[10px] tracking-wider">
+        <tr>
+          <th scope="col" class="w-8 px-3 py-2 font-semibold">
+            <input type="checkbox" class="select-all-checkbox cursor-pointer" aria-label="Tout sélectionner" />
+          </th>
+          <th scope="col" class="px-3 py-2 font-semibold">
+            <button type="button" class="sort-btn inline-flex items-center gap-1 hover:text-[#2c3338] dark:hover:text-[#dcdcde] cursor-pointer" data-sort="title">Page ${sortIndicator('title')}</button>
+          </th>
+          <th scope="col" class="px-3 py-2 font-semibold hidden md:table-cell">
+            <button type="button" class="sort-btn inline-flex items-center gap-1 hover:text-[#2c3338] dark:hover:text-[#dcdcde] cursor-pointer" data-sort="category">Catégorie ${sortIndicator('category')}</button>
+          </th>
+          <th scope="col" class="px-3 py-2 font-semibold hidden sm:table-cell">
+            <button type="button" class="sort-btn inline-flex items-center gap-1 hover:text-[#2c3338] dark:hover:text-[#dcdcde] cursor-pointer" data-sort="publishDate">Date ${sortIndicator('publishDate')}</button>
+          </th>
+          <th scope="col" class="px-3 py-2 font-semibold text-right">Actions</th>
+        </tr>
+      </thead>
+    `;
+  }
+
+  function emptyState(): string {
     if (pages.length === 0) {
-      container.innerHTML = `<div class="py-8 px-4 text-center text-xs text-[#646970] dark:text-[#8c8f94]"><p class="font-medium text-[#2c3338] dark:text-[#f0f0f1] mb-1">Aucune page trouvée</p><p>Aucun article Markdown n'a été trouvé.</p></div>`;
-      return;
-    }
-    if (filtered.length === 0) {
-      container.innerHTML = `<div class="py-6 px-4 text-center text-xs text-[#646970] dark:text-[#8c8f94]"><p>Aucune page ne correspond à votre recherche.</p></div>`;
-      return;
-    }
-
-    container.innerHTML = '';
-    for (const p of filtered) {
-      const row = document.createElement('div');
-      row.className = 'flex flex-col sm:flex-row sm:items-center gap-3 justify-between p-3 rounded-[3px] bg-white dark:bg-[#1a1e22] border border-[#dcdcde] dark:border-[#2c3338] hover:border-[#8c8f94] transition';
-      row.innerHTML = `
-        <div class="min-w-0 space-y-0.5">
-          <div class="flex items-center gap-2 flex-wrap">
-            <span class="text-sm font-semibold text-[#1d2327] dark:text-white truncate">${p.title}</span>
-            ${p.draft ? '<span class="astro-badge astro-badge-muted">Brouillon</span>' : '<span class="astro-badge astro-badge-success">Publié</span>'}
-          </div>
-          <div class="flex items-center gap-2 flex-wrap text-[11px] text-[#646970] dark:text-[#8c8f94]">
-            <span class="font-mono">${p.url}</span>
-            ${p.publishDate ? `<span>· ${formatDate(p.publishDate)}</span>` : ''}
-            ${p.category ? `<span>· ${p.category}</span>` : ''}
-          </div>
-          <div class="text-[10px] font-mono text-[#8c8f94]">${p.file}</div>
-        </div>
-        <div class="flex items-center gap-2 shrink-0">
-          <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="astro-btn astro-btn-secondary text-xs">Aperçu ↗</a>
-          <a href="/admin/pages/${p.collection}/${p.slug}" class="astro-btn astro-btn-primary text-xs">Modifier</a>
+      return `
+        <div class="p-10 text-center text-[#646970] dark:text-[#8c8f94] text-xs">
+          <p class="font-semibold text-sm text-[#2c3338] dark:text-[#dcdcde] mb-1">Aucune page</p>
+          <button type="button" id="empty-create-btn" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium cursor-pointer">Créer votre première page →</button>
         </div>
       `;
-      container.appendChild(row);
     }
+    return `
+      <div class="p-10 text-center text-[#646970] dark:text-[#8c8f94] text-xs space-y-2">
+        <p>Aucune page ne correspond à votre recherche.</p>
+        <button type="button" id="pages-reset-filters" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium cursor-pointer">Réinitialiser les filtres</button>
+      </div>
+    `;
+  }
+
+  function updateSelectionUI() {
+    if (selectionLabel) {
+      selectionLabel.textContent = selected.size > 0 ? `${selected.size} sélectionnée${selected.size > 1 ? 's' : ''}` : '';
+    }
+  }
+
+  function render() {
+    if (!container) return;
+
+    const filtered = getFiltered();
+    const isFiltered = filtered.length !== pages.length || searchQuery || selectedCategory;
+
+    if (countLabel) {
+      countLabel.textContent = isFiltered
+        ? `${filtered.length} page${filtered.length > 1 ? 's' : ''} trouvée${filtered.length > 1 ? 's' : ''} · filtrées depuis ${pages.length}`
+        : `${pages.length} page${pages.length > 1 ? 's' : ''}`;
+    }
+    updateSelectionUI();
+
+    if (pages.length === 0 || filtered.length === 0) {
+      container.innerHTML = emptyState();
+      document.getElementById('empty-create-btn')?.addEventListener('click', () => {
+        document.getElementById('pages-new-btn')?.dispatchEvent(new Event('click'));
+      });
+      document.getElementById('pages-reset-filters')?.addEventListener('click', () => {
+        searchQuery = '';
+        selectedCategory = '';
+        if (searchInput) searchInput.value = '';
+        if (categorySelect) categorySelect.value = '';
+        render();
+      });
+      return;
+    }
+
+    const sorted = sortRows(filtered);
+    const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+    if (page > totalPages) page = totalPages;
+    const start = (page - 1) * PAGE_SIZE;
+    const pageRows = sorted.slice(start, start + PAGE_SIZE);
+
+    let html = `<div class="overflow-x-auto"><table class="w-full text-left">${tableHead()}<tbody>`;
+    html += pageRows.map((p) => rowHtml(p, selected.has(rowKey(p)))).join('');
+    html += `</tbody></table></div>`;
+
+    if (totalPages > 1) {
+      html += `
+        <div class="flex items-center justify-between px-3 py-2 border-t border-[#dcdcde] dark:border-[#2c3338] text-[11px] text-[#646970] dark:text-[#8c8f94]">
+          <span>Page ${page} sur ${totalPages}</span>
+          <div class="flex items-center gap-1">
+            <button type="button" id="pages-prev-btn" ${page <= 1 ? 'disabled' : ''} class="astro-btn astro-btn-secondary text-[11px] disabled:opacity-40 disabled:pointer-events-none">‹ Précédent</button>
+            <button type="button" id="pages-next-btn" ${page >= totalPages ? 'disabled' : ''} class="astro-btn astro-btn-secondary text-[11px] disabled:opacity-40 disabled:pointer-events-none">Suivant ›</button>
+          </div>
+        </div>
+      `;
+    }
+
+    container.innerHTML = html;
+    wireRowEvents();
+    document.getElementById('pages-prev-btn')?.addEventListener('click', () => { page--; render(); });
+    document.getElementById('pages-next-btn')?.addEventListener('click', () => { page++; render(); });
+  }
+
+  function wireRowEvents() {
+    if (!container) return;
+
+    container.querySelectorAll<HTMLInputElement>('.page-row-checkbox').forEach((cb) => {
+      cb.addEventListener('change', () => {
+        const key = cb.getAttribute('data-key') || '';
+        if (cb.checked) selected.add(key);
+        else selected.delete(key);
+        updateSelectionUI();
+      });
+    });
+
+    container.querySelectorAll<HTMLInputElement>('.select-all-checkbox').forEach((cb) => {
+      cb.addEventListener('change', () => {
+        const rows = cb.closest('table')?.querySelectorAll<HTMLInputElement>('.page-row-checkbox') || [];
+        rows.forEach((rowCb) => {
+          rowCb.checked = cb.checked;
+          const key = rowCb.getAttribute('data-key') || '';
+          if (cb.checked) selected.add(key);
+          else selected.delete(key);
+        });
+        updateSelectionUI();
+      });
+    });
+
+    container.querySelectorAll<HTMLButtonElement>('.sort-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const field = btn.getAttribute('data-sort') as 'title' | 'publishDate' | 'category';
+        if (sortField === field) {
+          sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+        } else {
+          sortField = field;
+          sortDir = 'asc';
+        }
+        render();
+      });
+    });
   }
 
   searchInput?.addEventListener('input', (e) => {
     searchQuery = (e.target as HTMLInputElement).value;
+    page = 1;
+    render();
+  });
+  categorySelect?.addEventListener('change', (e) => {
+    selectedCategory = (e.target as HTMLSelectElement).value;
+    page = 1;
     render();
   });
 
@@ -188,6 +425,7 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
       if (!res.ok || data.error) throw new Error(data.error || "Erreur lors de l'actualisation.");
       pages = data.pages || [];
       showErrors(data.errors || []);
+      populateCategoryFilter();
       render();
     } catch (err: any) {
       showErrors([err.message || 'Impossible de joindre le serveur.']);
@@ -198,8 +436,89 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
     }
   });
 
-  // New page modal
+  // Bulk actions
   const csrfToken = (document.getElementById('pages-admin-root') as HTMLElement | null)?.dataset.csrfToken || '';
+  const bulkDeleteModal = document.getElementById('bulk-delete-modal');
+  const bulkDeleteCount = document.getElementById('bulk-delete-count');
+  const bulkDeleteInput = document.getElementById('bulk-delete-input') as HTMLInputElement | null;
+  const bulkDeleteError = document.getElementById('bulk-delete-error');
+  const bulkDeleteProgress = document.getElementById('bulk-delete-progress');
+  const bulkDeleteCancel = document.getElementById('bulk-delete-cancel');
+  const bulkDeleteConfirm = document.getElementById('bulk-delete-confirm') as HTMLButtonElement | null;
+
+  bulkActionApply?.addEventListener('click', () => {
+    const action = bulkActionSelect?.value || '';
+    if (!action) return;
+    if (selected.size === 0) {
+      showErrors(['Sélectionnez au moins une page pour appliquer une action groupée.']);
+      return;
+    }
+    if (action === 'delete') {
+      if (bulkDeleteCount) bulkDeleteCount.textContent = String(selected.size);
+      if (bulkDeleteInput) bulkDeleteInput.value = '';
+      bulkDeleteError?.classList.add('hidden');
+      bulkDeleteProgress?.classList.add('hidden');
+      if (bulkDeleteConfirm) bulkDeleteConfirm.disabled = true;
+      bulkDeleteModal?.classList.remove('hidden');
+      setTimeout(() => bulkDeleteInput?.focus(), 50);
+    }
+  });
+
+  bulkDeleteCancel?.addEventListener('click', () => bulkDeleteModal?.classList.add('hidden'));
+  bulkDeleteModal?.addEventListener('click', (e) => {
+    if (e.target === bulkDeleteModal) bulkDeleteModal.classList.add('hidden');
+  });
+  bulkDeleteInput?.addEventListener('input', () => {
+    if (bulkDeleteConfirm) bulkDeleteConfirm.disabled = bulkDeleteInput.value.trim() !== 'SUPPRIMER';
+  });
+
+  bulkDeleteConfirm?.addEventListener('click', async () => {
+    if (!bulkDeleteConfirm) return;
+    bulkDeleteConfirm.disabled = true;
+    bulkDeleteError?.classList.add('hidden');
+    const keys = [...selected];
+    let done = 0;
+    let failed = 0;
+
+    for (const key of keys) {
+      const [collection, slug] = key.split(':');
+      if (bulkDeleteProgress) {
+        bulkDeleteProgress.textContent = `Suppression ${done + 1} / ${keys.length}…`;
+        bulkDeleteProgress.classList.remove('hidden');
+      }
+      try {
+        const fileRes = await fetch(`/api/admin/pages/file?collection=${encodeURIComponent(collection)}&slug=${encodeURIComponent(slug)}`, { cache: 'no-store' });
+        const fileData = await fileRes.json();
+        if (!fileRes.ok || fileData.error) throw new Error(fileData.error || 'lecture impossible');
+
+        const delRes = await fetch('/api/admin/pages/file', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json', 'x-csrf-token': csrfToken },
+          body: JSON.stringify({ collection, slug, expectedVersion: fileData.version }),
+        });
+        const delData = await delRes.json();
+        if (!delRes.ok || delData.error) throw new Error(delData.error || 'suppression impossible');
+
+        pages = pages.filter((p) => rowKey(p) !== key);
+        selected.delete(key);
+        done++;
+      } catch {
+        failed++;
+      }
+    }
+
+    bulkDeleteProgress?.classList.add('hidden');
+    bulkDeleteModal?.classList.add('hidden');
+    if (bulkActionSelect) bulkActionSelect.value = '';
+    populateCategoryFilter();
+    render();
+
+    if (failed > 0) {
+      showErrors([`${done} page(s) supprimée(s), ${failed} échec(s). Rechargez et réessayez si nécessaire.`]);
+    }
+  });
+
+  // New page modal
   const newBtn = document.getElementById('pages-new-btn');
   const newModal = document.getElementById('pages-new-modal');
   const newCollection = document.getElementById('new-page-collection') as HTMLSelectElement | null;
@@ -279,5 +598,6 @@ const { initialPages = [], initialErrors = [], csrfToken, collections = [] } = A
     }
   });
 
+  populateCategoryFilter();
   render();
 </script>

@@ -19,9 +19,16 @@ const { pages, errors } = session ? await listPages() : { pages: [], errors: [] 
       <div>
         <AdminPageHeader
           title="Pages"
-          description="Articles du blog (Markdown). Les modifications sont enregistrées directement sur GitHub, qui déclenche le déploiement automatique."
+          description="Articles du blog (Markdown)."
           active="pages"
-        />
+        >
+          <Fragment slot="actions">
+            <button type="button" id="pages-new-btn" class="astro-btn astro-btn-primary text-xs">+ Nouvelle page</button>
+            <button type="button" id="pages-refresh-btn" class="astro-btn astro-btn-secondary text-xs">
+              <span id="pages-refresh-icon">↻</span> <span id="pages-refresh-label">Actualiser</span>
+            </button>
+          </Fragment>
+        </AdminPageHeader>
         <PagesListPanel initialPages={pages} initialErrors={errors} csrfToken={csrfToken} collections={PAGE_COLLECTIONS} />
       </div>
     ) : (
