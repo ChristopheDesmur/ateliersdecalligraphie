@@ -21,17 +21,17 @@ const { session } = authenticateRequest(Astro.request);
             <button
               id="add-faq-btn"
               type="button"
-              class="wp-btn wp-btn-primary text-xs"
+              class="astro-btn astro-btn-primary text-xs"
             >
               + Ajouter une question
             </button>
           </div>
         </AdminPageHeader>
 
-        <div id="faq-status" class="hidden mb-4 wp-notice" role="alert"></div>
+        <div id="faq-status" class="hidden mb-4 astro-notice" role="alert"></div>
 
         <!-- Filtres et recherche (Panel Astro Toolbar) -->
-        <div class="wp-panel p-2.5 mb-4 flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center justify-between text-xs">
+        <div class="astro-panel p-2.5 mb-4 flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center justify-between text-xs">
           <div class="w-full sm:w-72">
             <input
               type="search"
@@ -47,15 +47,15 @@ const { session } = authenticateRequest(Astro.request);
 
         <!-- Liste des FAQ groupées par catégories -->
         <div id="faq-list" class="space-y-4 mb-8">
-          <div class="wp-panel p-4 text-xs text-gray-500 dark:text-gray-400">Chargement des questions…</div>
+          <div class="astro-panel p-4 text-xs text-gray-500 dark:text-gray-400">Chargement des questions…</div>
         </div>
 
         <!-- Formulaire d'ajout / modification (Panel Astro) -->
-        <div id="faq-form-container" class="hidden wp-panel mb-10">
-          <div class="wp-panel-header">
-            <h2 id="faq-form-title" class="wp-panel-title">Ajouter une question</h2>
+        <div id="faq-form-container" class="hidden astro-panel mb-10">
+          <div class="astro-panel-header">
+            <h2 id="faq-form-title" class="astro-panel-title">Ajouter une question</h2>
           </div>
-          <div class="wp-panel-body">
+          <div class="astro-panel-body">
             <form id="faq-form">
               <input type="hidden" name="originalId" value="" />
 
@@ -189,14 +189,14 @@ const { session } = authenticateRequest(Astro.request);
                 <button
                   type="submit"
                   id="faq-save-btn"
-                  class="wp-btn wp-btn-primary"
+                  class="astro-btn astro-btn-primary"
                 >
                   Enregistrer
                 </button>
                 <button
                   type="button"
                   id="faq-cancel-btn"
-                  class="wp-btn wp-btn-secondary"
+                  class="astro-btn astro-btn-secondary"
                 >
                   Annuler
                 </button>
@@ -342,8 +342,8 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "wp-notice mb-4 " +
-      (kind === "success" ? "wp-notice-success" : "wp-notice-error");
+      "astro-notice mb-4 " +
+      (kind === "success" ? "astro-notice-success" : "astro-notice-error");
   }
 
   function renderCategoryFilters() {
@@ -359,8 +359,8 @@ const { session } = authenticateRequest(Astro.request);
       <button
         type="button"
         data-filter="all"
-        class="wp-btn text-xs py-0.5 px-2.5 ${
-          selectedCategoryFilter === "all" ? "wp-btn-primary" : "wp-btn-secondary"
+        class="astro-btn text-xs py-0.5 px-2.5 ${
+          selectedCategoryFilter === "all" ? "astro-btn-primary" : "astro-btn-secondary"
         }">
         Toutes (${allTotal})
       </button>
@@ -372,8 +372,8 @@ const { session } = authenticateRequest(Astro.request);
         <button
           type="button"
           data-filter="${cat}"
-          class="wp-btn text-xs py-0.5 px-2.5 ${
-            selectedCategoryFilter === cat ? "wp-btn-primary" : "wp-btn-secondary"
+          class="astro-btn text-xs py-0.5 px-2.5 ${
+            selectedCategoryFilter === cat ? "astro-btn-primary" : "astro-btn-secondary"
           }">
           ${cat} (${count})
         </button>
@@ -397,7 +397,7 @@ const { session } = authenticateRequest(Astro.request);
     if (!listEl) return;
     const allIds = Object.keys(faqs);
     if (allIds.length === 0) {
-      listEl.innerHTML = `<div class="wp-panel p-6 text-center text-xs text-gray-500 dark:text-gray-400">Aucune question dans la FAQ.</div>`;
+      listEl.innerHTML = `<div class="astro-panel p-6 text-center text-xs text-gray-500 dark:text-gray-400">Aucune question dans la FAQ.</div>`;
       return;
     }
 
@@ -421,7 +421,7 @@ const { session } = authenticateRequest(Astro.request);
     }
 
     if (filteredIds.length === 0) {
-      listEl.innerHTML = `<div class="wp-panel p-6 text-center text-xs text-gray-500 dark:text-gray-400">Aucune question ne correspond à votre recherche.</div>`;
+      listEl.innerHTML = `<div class="astro-panel p-6 text-center text-xs text-gray-500 dark:text-gray-400">Aucune question ne correspond à votre recherche.</div>`;
       return;
     }
 
@@ -447,15 +447,15 @@ const { session } = authenticateRequest(Astro.request);
     for (const cat of groupOrder) {
       const idsInCat = groups[cat];
       html += `
-        <div class="wp-panel overflow-hidden">
-          <div class="wp-panel-header flex items-center justify-between">
-            <h2 class="wp-panel-title flex items-center gap-2">
+        <div class="astro-panel overflow-hidden">
+          <div class="astro-panel-header flex items-center justify-between">
+            <h2 class="astro-panel-title flex items-center gap-2">
               <span>${cat}</span>
               <span class="text-xs font-normal text-gray-500 dark:text-gray-400">(${idsInCat.length})</span>
             </h2>
           </div>
-          <div class="wp-table-wrap border-0">
-            <table class="wp-table">
+          <div class="astro-table-wrap border-0">
+            <table class="astro-table">
               <thead>
                 <tr>
                   <th class="w-12 text-center">Ordre</th>
@@ -489,7 +489,7 @@ const { session } = authenticateRequest(Astro.request);
             <td class="text-center">
               ${
                 f.show_on_home
-                  ? `<span class="wp-badge wp-badge-success">Accueil</span>`
+                  ? `<span class="astro-badge astro-badge-success">Accueil</span>`
                   : '<span class="text-gray-400 dark:text-gray-500 text-xs">—</span>'
               }
             </td>
@@ -499,7 +499,7 @@ const { session } = authenticateRequest(Astro.request);
                   type="button"
                   data-move-up="${id}"
                   ${isFirst ? "disabled" : ""}
-                  class="wp-btn wp-btn-secondary px-1.5 py-0.5 text-xs disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed"
+                  class="astro-btn astro-btn-secondary px-1.5 py-0.5 text-xs disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed"
                   title="Monter"
                 >
                   ▲
@@ -508,7 +508,7 @@ const { session } = authenticateRequest(Astro.request);
                   type="button"
                   data-move-down="${id}"
                   ${isLast ? "disabled" : ""}
-                  class="wp-btn wp-btn-secondary px-1.5 py-0.5 text-xs disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed"
+                  class="astro-btn astro-btn-secondary px-1.5 py-0.5 text-xs disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed"
                   title="Descendre"
                 >
                   ▼
@@ -516,7 +516,7 @@ const { session } = authenticateRequest(Astro.request);
                 <button
                   type="button"
                   data-edit="${id}"
-                  class="wp-btn wp-btn-secondary px-2 py-0.5 text-xs"
+                  class="astro-btn astro-btn-secondary px-2 py-0.5 text-xs"
                 >
                   Modifier
                 </button>
@@ -656,7 +656,7 @@ const { session } = authenticateRequest(Astro.request);
     csrfToken = authData.csrfToken || "";
 
     if (!faqRes.ok) {
-      if (listEl) listEl.innerHTML = `<div class="wp-panel p-4 text-xs text-rose-500">${data.error}</div>`;
+      if (listEl) listEl.innerHTML = `<div class="astro-panel p-4 text-xs text-rose-500">${data.error}</div>`;
       return;
     }
 

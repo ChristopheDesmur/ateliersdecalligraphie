@@ -21,18 +21,18 @@ const { session } = authenticateRequest(Astro.request);
             <button
               id="add-venue-btn"
               type="button"
-              class="wp-btn wp-btn-primary text-xs"
+              class="astro-btn astro-btn-primary text-xs"
             >
               + Ajouter un lieu
             </button>
           </div>
         </AdminPageHeader>
 
-        <div id="venues-status" class="hidden mb-4 wp-notice" role="alert"></div>
+        <div id="venues-status" class="hidden mb-4 astro-notice" role="alert"></div>
 
         <!-- Table des lieux -->
-        <div class="wp-table-wrap mb-8">
-          <table class="wp-table">
+        <div class="astro-table-wrap mb-8">
+          <table class="astro-table">
             <thead>
               <tr>
                 <th>Lieu</th>
@@ -51,14 +51,14 @@ const { session } = authenticateRequest(Astro.request);
         </div>
 
         <!-- Formulaire d'ajout / modification -->
-        <div id="venue-form-container" class="hidden wp-panel mb-10">
-          <div class="wp-panel-header">
-            <h2 id="venue-form-title" class="wp-panel-title">Ajouter un lieu</h2>
+        <div id="venue-form-container" class="hidden astro-panel mb-10">
+          <div class="astro-panel-header">
+            <h2 id="venue-form-title" class="astro-panel-title">Ajouter un lieu</h2>
             <button type="button" id="venue-form-close-btn" class="text-xs text-[#646970] hover:text-[#2c3338] dark:hover:text-white cursor-pointer">
               Fermer
             </button>
           </div>
-          <div class="wp-panel-body">
+          <div class="astro-panel-body">
             <form id="venue-form">
               <input type="hidden" name="originalId" value="" />
 
@@ -102,10 +102,10 @@ const { session } = authenticateRequest(Astro.request);
               </div>
 
               <div class="mt-4 pt-3 border-t border-[#dcdcde] dark:border-[#2c3338] flex items-center gap-2">
-                <button type="submit" id="venue-save-btn" class="wp-btn wp-btn-primary text-xs cursor-pointer disabled:opacity-60">
+                <button type="submit" id="venue-save-btn" class="astro-btn astro-btn-primary text-xs cursor-pointer disabled:opacity-60">
                   Enregistrer le lieu
                 </button>
-                <button type="button" id="venue-cancel-btn" class="wp-btn text-xs cursor-pointer">
+                <button type="button" id="venue-cancel-btn" class="astro-btn text-xs cursor-pointer">
                   Annuler
                 </button>
               </div>
@@ -135,10 +135,10 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "mb-4 wp-notice " +
+      "mb-4 astro-notice " +
       (kind === "success"
-        ? "wp-notice-success text-[#00a32a] dark:text-[#4ac26b]"
-        : "wp-notice-error text-[#d63638] dark:text-[#ff8585]");
+        ? "astro-notice-success text-[#00a32a] dark:text-[#4ac26b]"
+        : "astro-notice-error text-[#d63638] dark:text-[#ff8585]");
   }
 
   function renderList() {

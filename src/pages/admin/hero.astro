@@ -18,15 +18,15 @@ const { session } = authenticateRequest(Astro.request);
           active="hero"
         />
 
-        <div id="hero-status" class="hidden mb-4 wp-notice" role="alert"></div>
+        <div id="hero-status" class="hidden mb-4 astro-notice" role="alert"></div>
 
         <form id="hero-form" class="space-y-4">
           <!-- Panneau 1 : Contenu textuel -->
-          <div class="wp-panel">
-            <div class="wp-panel-header">
-              <h2 class="wp-panel-title">Contenu</h2>
+          <div class="astro-panel">
+            <div class="astro-panel-header">
+              <h2 class="astro-panel-title">Contenu</h2>
             </div>
-            <div class="wp-panel-body space-y-3.5">
+            <div class="astro-panel-body space-y-3.5">
 
             <div>
               <label for="field-eyebrow" class="field-label">Sur-titre</label>
@@ -67,11 +67,11 @@ const { session } = authenticateRequest(Astro.request);
           </div>
 
           <!-- Panneau 2 : Liens & Boutons d'action (CTAs) -->
-          <div class="wp-panel">
-            <div class="wp-panel-header">
-              <h2 class="wp-panel-title">Liens & Boutons d'action (CTAs)</h2>
+          <div class="astro-panel">
+            <div class="astro-panel-header">
+              <h2 class="astro-panel-title">Liens & Boutons d'action (CTAs)</h2>
             </div>
-            <div class="wp-panel-body">
+            <div class="astro-panel-body">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Bouton principal -->
                 <div class="p-3 rounded-[3px] border border-[#dcdcde] dark:border-[#2c3338] bg-[#f9fafa] dark:bg-[#14171a] space-y-2.5">
@@ -133,9 +133,9 @@ const { session } = authenticateRequest(Astro.request);
           </div>
 
           <!-- Panneau 3 : Image du Hero -->
-          <div class="wp-panel">
-            <div class="wp-panel-header">
-              <h2 class="wp-panel-title">Image du hero</h2>
+          <div class="astro-panel">
+            <div class="astro-panel-header">
+              <h2 class="astro-panel-title">Image du hero</h2>
               <button
                 type="button"
                 id="remove-image-btn"
@@ -144,7 +144,7 @@ const { session } = authenticateRequest(Astro.request);
                 Retirer l'image
               </button>
             </div>
-            <div class="wp-panel-body">
+            <div class="astro-panel-body">
               <div class="flex flex-col sm:flex-row items-start gap-4">
                 <!-- Aperçu miniature -->
                 <div id="image-preview-container" class="shrink-0 w-36 h-28 rounded-[3px] overflow-hidden border border-[#c3c4c7] dark:border-[#2c3338] bg-[#f0f0f1] dark:bg-[#14171a] flex items-center justify-center">
@@ -224,7 +224,7 @@ const { session } = authenticateRequest(Astro.request);
                 type="submit"
                 id="hero-save-btn"
                 disabled
-                class="wp-btn wp-btn-primary text-xs"
+                class="astro-btn astro-btn-primary text-xs"
               >
                 Enregistrer
               </button>
@@ -232,7 +232,7 @@ const { session } = authenticateRequest(Astro.request);
                 type="button"
                 id="hero-cancel-btn"
                 disabled
-                class="wp-btn text-xs"
+                class="astro-btn text-xs"
               >
                 Annuler
               </button>
@@ -342,10 +342,10 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "mb-4 wp-notice " +
+      "mb-4 astro-notice " +
       (kind === "success"
-        ? "wp-notice-success text-[#00a32a] dark:text-[#4ac26b]"
-        : "wp-notice-error text-[#d63638] dark:text-[#ff8585]");
+        ? "astro-notice-success text-[#00a32a] dark:text-[#4ac26b]"
+        : "astro-notice-error text-[#d63638] dark:text-[#ff8585]");
   }
 
   function clearStatus() {

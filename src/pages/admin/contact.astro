@@ -18,13 +18,13 @@ const { session } = authenticateRequest(Astro.request);
           active="contact"
         />
 
-        <div id="contact-error" class="hidden mb-4 wp-notice wp-notice-error" role="alert"></div>
+        <div id="contact-error" class="hidden mb-4 astro-notice astro-notice-error" role="alert"></div>
 
-        <div class="wp-panel max-w-2xl mb-8">
-          <div class="wp-panel-header">
-            <h2 class="wp-panel-title">Coordonnées publiques</h2>
+        <div class="astro-panel max-w-2xl mb-8">
+          <div class="astro-panel-header">
+            <h2 class="astro-panel-title">Coordonnées publiques</h2>
           </div>
-          <div class="wp-panel-body">
+          <div class="astro-panel-body">
             <form id="contact-form">
               <div id="contact-fields" class="space-y-4">
                 <p class="text-xs text-gray-500 dark:text-gray-400">Chargement…</p>
@@ -35,7 +35,7 @@ const { session } = authenticateRequest(Astro.request);
                   type="submit"
                   id="contact-save-btn"
                   disabled
-                  class="wp-btn wp-btn-primary"
+                  class="astro-btn astro-btn-primary"
                 >
                   Enregistrer
                 </button>
@@ -43,7 +43,7 @@ const { session } = authenticateRequest(Astro.request);
                   type="button"
                   id="contact-cancel-btn"
                   disabled
-                  class="wp-btn wp-btn-secondary"
+                  class="astro-btn astro-btn-secondary"
                 >
                   Annuler
                 </button>
@@ -75,7 +75,7 @@ const { session } = authenticateRequest(Astro.request);
     if (!errorEl) return;
     errorEl.textContent = message;
     errorEl.classList.remove("hidden");
-    errorEl.className = "wp-notice wp-notice-error mb-4";
+    errorEl.className = "astro-notice astro-notice-error mb-4";
   }
   function clearError() {
     errorEl?.classList.add("hidden");

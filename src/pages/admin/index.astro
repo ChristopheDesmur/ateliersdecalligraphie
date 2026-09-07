@@ -12,19 +12,6 @@ const { session } = authenticateRequest(Astro.request);
 
 const dashboard = getDashboardData();
 
-const modules = [
-  { href: "/admin/hero", name: "Hero", desc: "Contenu principal affiché en haut de la page d'accueil." },
-  { href: "/admin/events", name: "Événements", desc: "Calendrier des cours, stages et interventions." },
-  { href: "/admin/products", name: "Galerie", desc: "Catalogue des calligraphies et œuvres originales disponibles." },
-  { href: "/admin/venues", name: "Lieux", desc: "Adresses et créneaux des cours hebdomadaires (Dojo, Miroirs du Ciel)." },
-  { href: "/admin/prices", name: "Tarifs", desc: "Cours collectifs, cours particuliers à domicile, interventions." },
-  { href: "/admin/institutions", name: "Institutions", desc: "Organismes partenaires référencés dans les événements." },
-  { href: "/admin/interventions", name: "Formats d'ateliers", desc: "Grilles des publics et formats sur la page « Ateliers de groupe »." },
-  { href: "/admin/testimonials", name: "Témoignages", desc: "Avis et retours d'expérience sur « Le calligraphe »." },
-  { href: "/admin/faq", name: "FAQ", desc: "Questions fréquentes et réponses avec variables dynamiques." },
-  { href: "/admin/contact", name: "Contact", desc: "Numéros de téléphone, e-mail et informations administratives." },
-  { href: "/admin/analytics", name: "Analytics", desc: "Statistiques d'audience et trafic Vercel Web Analytics." },
-];
 ---
 <Layout title="Tableau de bord — Administration" noindex={true}>
   <div>
@@ -38,18 +25,18 @@ const modules = [
         >
           <div slot="actions" class="flex items-center gap-2">
             <button
-              id="wp-toggle-welcome-btn"
+              id="astro-toggle-welcome-btn"
               type="button"
-              class="wp-btn text-xs hidden sm:inline-flex"
+              class="astro-btn text-xs hidden sm:inline-flex"
               title="Afficher ou masquer le panneau de bienvenue"
             >
               Panneau de bienvenue
             </button>
-            <a href="/admin/analytics" class="wp-btn text-xs">
+            <a href="/admin/analytics" class="astro-btn text-xs">
               <span>Audience</span>
               <span class="font-mono text-[10px]" aria-hidden="true">↗</span>
             </a>
-            <a href="/" target="_blank" rel="noopener noreferrer" class="wp-btn wp-btn-primary text-xs">
+            <a href="/" target="_blank" rel="noopener noreferrer" class="astro-btn astro-btn-primary text-xs">
               <span>Voir le site</span>
               <span class="font-mono text-[10px]" aria-hidden="true">↗</span>
             </a>
@@ -58,11 +45,11 @@ const modules = [
 
         <!-- 1. Astro Welcome Panel (Collapsible / Dismissible) -->
         <div
-          id="wp-welcome-panel"
-          class="wp-panel p-4 sm:p-5 bg-white dark:bg-[#1a1e22] border-l-4 border-l-[#2271b1] relative transition-all"
+          id="astro-welcome-panel"
+          class="astro-panel p-4 sm:p-5 bg-white dark:bg-[#1a1e22] border-l-4 border-l-[#2271b1] relative transition-all"
         >
           <button
-            id="wp-dismiss-welcome-btn"
+            id="astro-dismiss-welcome-btn"
             type="button"
             class="absolute top-3 right-3 text-[#646970] hover:text-[#1d2327] dark:text-[#8c8f94] dark:hover:text-white p-1 text-xs transition cursor-pointer"
             aria-label="Fermer le panneau de bienvenue"
@@ -91,7 +78,7 @@ const modules = [
                   Mettez à jour la vitrine principale ou vérifiez l'affichage public.
                 </p>
                 <div class="pt-1 flex flex-col gap-1.5 items-start">
-                  <a href="/admin/hero" class="wp-btn wp-btn-primary text-xs">
+                  <a href="/admin/hero" class="astro-btn astro-btn-primary text-xs">
                     Modifier le Hero d'accueil
                   </a>
                   <a href="/" target="_blank" rel="noopener noreferrer" class="text-[#2271b1] dark:text-[#72aee6] hover:underline text-xs flex items-center gap-1">
@@ -164,7 +151,7 @@ const modules = [
             {dashboard.summaryMetrics.map((metric) => (
               <a
                 href={metric.href}
-                class="wp-panel p-3 bg-white dark:bg-[#1a1e22] hover:border-[#2271b1] dark:hover:border-[#72aee6] transition flex flex-col justify-between group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2271b1] cursor-pointer"
+                class="astro-panel p-3 bg-white dark:bg-[#1a1e22] hover:border-[#2271b1] dark:hover:border-[#72aee6] transition flex flex-col justify-between group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2271b1] cursor-pointer"
               >
                 <div>
                   <div class="flex items-baseline justify-between gap-1">
@@ -172,12 +159,12 @@ const modules = [
                       {metric.count}
                     </span>
                     {metric.badge && (
-                      <span class={`wp-badge ${
+                      <span class={`astro-badge ${
                         metric.badge.variant === "success"
-                          ? "wp-badge-success"
+                          ? "astro-badge-success"
                           : metric.badge.variant === "warning"
                             ? "bg-[#fcf0db] text-[#996800] border-[#996800]/20"
-                            : "wp-badge-info"
+                            : "astro-badge-info"
                       } text-[10px] scale-90 origin-right`}>
                         {metric.badge.text}
                       </span>
@@ -200,7 +187,7 @@ const modules = [
 
         <!-- 3. Grille responsive des widgets opérationnels -->
         <!-- Desktop : 3 colonnes (2 colonnes gauche / 1 colonne droite) -->
-        <!-- Mobile : Ordre : Vue d'ensemble -> Trafic -> À traiter -> Actions rapides -> Résumé du contenu -> Modules -->
+        <!-- Mobile : Ordre : Vue d'ensemble -> Trafic -> À traiter -> Actions rapides -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
           <!-- Widget 0 : ÉVOLUTION DU TRAFIC (30 JOURS) -->
@@ -270,11 +257,11 @@ const modules = [
             >
               <div slot="header-actions">
                 {dashboard.pendingItems.length > 0 ? (
-                  <span class="wp-badge bg-[#fcf0db] text-[#996800] border-[#996800]/20 text-[11px]">
+                  <span class="astro-badge bg-[#fcf0db] text-[#996800] border-[#996800]/20 text-[11px]">
                     {dashboard.pendingItems.length} élément{dashboard.pendingItems.length > 1 ? "s" : ""}
                   </span>
                 ) : (
-                  <span class="wp-badge wp-badge-success text-[11px]">À jour</span>
+                  <span class="astro-badge astro-badge-success text-[11px]">À jour</span>
                 )}
               </div>
 
@@ -287,12 +274,12 @@ const modules = [
                           <span class="font-medium text-[#1d2327] dark:text-white">
                             {item.title}
                           </span>
-                          <span class={`wp-badge ${
+                          <span class={`astro-badge ${
                             item.severity === "warning"
                               ? "bg-[#fcf0db] text-[#996800] border-[#996800]/20"
                               : item.severity === "info"
-                                ? "wp-badge-info"
-                                : "wp-badge-muted"
+                                ? "astro-badge-info"
+                                : "astro-badge-muted"
                           } text-[10px]`}>
                             {item.count}
                           </span>
@@ -302,7 +289,7 @@ const modules = [
                         </p>
                       </div>
                       <div class="shrink-0 self-start sm:self-center">
-                        <a href={item.href} class="wp-btn text-xs py-1">
+                        <a href={item.href} class="astro-btn text-xs py-1">
                           {item.actionLabel}
                         </a>
                       </div>
@@ -354,91 +341,6 @@ const modules = [
             </AdminPanel>
           </div>
 
-          <!-- Widget E : RÉSUMÉ DU CONTENU -->
-          <div class="lg:col-span-2">
-            <AdminPanel
-              id="widget-content-summary"
-              title="Résumé du contenu"
-              description="Inventaire et répartition détaillée par type de contenu."
-              noPadding={true}
-              collapsible={true}
-            >
-              <div class="overflow-x-auto">
-                <table class="wp-table">
-                  <thead>
-                    <tr>
-                      <th class="w-1/3">Type de contenu</th>
-                      <th class="w-16 text-center">Total</th>
-                      <th>Détails & Répartition</th>
-                      <th class="text-right">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {dashboard.contentSummary.map((row) => (
-                      <tr>
-                        <td class="font-medium whitespace-nowrap">
-                          <a href={row.href} class="text-[#2271b1] dark:text-[#72aee6] hover:underline">
-                            {row.label}
-                          </a>
-                        </td>
-                        <td class="text-center font-semibold font-mono text-xs text-[#1d2327] dark:text-white">
-                          {row.total}
-                        </td>
-                        <td class="text-xs text-[#646970] dark:text-[#8c8f94]">
-                          <div class="flex items-center gap-1.5 flex-wrap">
-                            {row.breakdown.map((b) => (
-                              <span class={`wp-badge ${
-                                b.badgeVariant === "success"
-                                  ? "wp-badge-success"
-                                  : b.badgeVariant === "warning"
-                                    ? "bg-[#fcf0db] text-[#996800] border-[#996800]/20"
-                                    : "wp-badge-muted"
-                              } text-[10px]`}>
-                                {b.count} {b.label.toLowerCase()}
-                              </span>
-                            ))}
-                          </div>
-                        </td>
-                        <td class="text-right whitespace-nowrap">
-                          <a href={row.href} class="wp-btn text-[11px] py-0 px-2 min-h-[24px]">
-                            Gérer
-                          </a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </AdminPanel>
-          </div>
-
-          <!-- Widget F : TOUS LES MODULES CMS -->
-          <div class="lg:col-span-1">
-            <AdminPanel
-              id="widget-modules"
-              title="Modules d'administration"
-              description="Accès direct à toutes les rubriques."
-              collapsible={true}
-            >
-              <ul class="divide-y divide-[#f0f0f1] dark:divide-[#242a2f] text-xs">
-                {modules.map((m) => (
-                  <li class="py-1.5 flex items-center justify-between gap-2">
-                    <div class="min-w-0">
-                      <a href={m.href} class="font-medium text-[#2271b1] dark:text-[#72aee6] hover:underline">
-                        {m.name}
-                      </a>
-                      <p class="text-[10px] text-[#646970] dark:text-[#8c8f94] truncate">
-                        {m.desc}
-                      </p>
-                    </div>
-                    <a href={m.href} class="wp-btn text-[10px] py-0 px-1.5 min-h-[20px] shrink-0">
-                      Ouvrir
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </AdminPanel>
-          </div>
 
         </div>
       </div>
@@ -450,9 +352,9 @@ const modules = [
   <script is:inline>
     // Gestion du panneau de bienvenue Astro (masquer / afficher / persistance)
     (function () {
-      const welcomePanel = document.getElementById("wp-welcome-panel");
-      const dismissBtn = document.getElementById("wp-dismiss-welcome-btn");
-      const toggleBtn = document.getElementById("wp-toggle-welcome-btn");
+      const welcomePanel = document.getElementById("astro-welcome-panel");
+      const dismissBtn = document.getElementById("astro-dismiss-welcome-btn");
+      const toggleBtn = document.getElementById("astro-toggle-welcome-btn");
 
       if (!welcomePanel) return;
 
@@ -461,10 +363,10 @@ const modules = [
       function updateVisibility(hidden) {
         if (hidden) {
           welcomePanel.classList.add("hidden");
-          if (toggleBtn) toggleBtn.classList.remove("wp-btn-primary");
+          if (toggleBtn) toggleBtn.classList.remove("astro-btn-primary");
         } else {
           welcomePanel.classList.remove("hidden");
-          if (toggleBtn) toggleBtn.classList.add("wp-btn-primary");
+          if (toggleBtn) toggleBtn.classList.add("astro-btn-primary");
         }
       }
 
@@ -502,12 +404,12 @@ const modules = [
         collapsedPanels = [];
       }
 
-      const panels = document.querySelectorAll(".wp-panel.is-collapsible");
+      const panels = document.querySelectorAll(".astro-panel.is-collapsible");
       panels.forEach((panel) => {
         const panelId = panel.id;
-        const toggle = panel.querySelector(".wp-panel-toggle");
-        const body = panel.querySelector(".wp-panel-body");
-        const footer = panel.querySelector(".wp-panel-footer");
+        const toggle = panel.querySelector(".astro-panel-toggle");
+        const body = panel.querySelector(".astro-panel-body");
+        const footer = panel.querySelector(".astro-panel-footer");
         const svg = toggle?.querySelector("svg");
 
         if (!toggle || !body) return;

@@ -21,17 +21,17 @@ const { session } = authenticateRequest(Astro.request);
             <button
               id="add-institution-btn"
               type="button"
-              class="wp-btn wp-btn-primary text-xs"
+              class="astro-btn astro-btn-primary text-xs"
             >
               + Ajouter une institution
             </button>
           </div>
         </AdminPageHeader>
 
-        <div id="institutions-status" class="hidden mb-4 wp-notice" role="alert"></div>
+        <div id="institutions-status" class="hidden mb-4 astro-notice" role="alert"></div>
 
         <!-- Toolbar / Recherche -->
-        <div class="wp-panel p-2.5 mb-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 text-xs">
+        <div class="astro-panel p-2.5 mb-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 text-xs">
           <div class="flex items-center gap-2 flex-1 min-w-0">
             <label for="institutions-search" class="sr-only">Rechercher une institution</label>
             <input
@@ -51,7 +51,7 @@ const { session } = authenticateRequest(Astro.request);
 
         <div class="grid md:grid-cols-[14rem_1fr] gap-4 mb-8 items-start">
           <!-- Navigation par catégorie (desktop uniquement) -->
-          <div class="wp-panel p-2">
+          <div class="astro-panel p-2">
             <div class="px-2 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 mb-1">
               Catégories
             </div>
@@ -59,10 +59,10 @@ const { session } = authenticateRequest(Astro.request);
           </div>
 
           <!-- Liste des institutions sous forme de tableau Astro -->
-          <div class="wp-panel overflow-hidden">
-            <div id="panel-header" class="wp-panel-header flex items-center justify-between gap-3 text-xs"></div>
-            <div class="wp-table-wrap border-0">
-              <table class="wp-table">
+          <div class="astro-panel overflow-hidden">
+            <div id="panel-header" class="astro-panel-header flex items-center justify-between gap-3 text-xs"></div>
+            <div class="astro-table-wrap border-0">
+              <table class="astro-table">
                 <thead>
                   <tr>
                     <th>Organisme</th>
@@ -82,11 +82,11 @@ const { session } = authenticateRequest(Astro.request);
         </div>
 
         <!-- Formulaire d'ajout / modification (Panel Astro) -->
-        <div id="institution-form-container" class="hidden wp-panel mb-8">
-          <div class="wp-panel-header">
-            <h2 id="institution-form-title" class="wp-panel-title">Ajouter une institution</h2>
+        <div id="institution-form-container" class="hidden astro-panel mb-8">
+          <div class="astro-panel-header">
+            <h2 id="institution-form-title" class="astro-panel-title">Ajouter une institution</h2>
           </div>
-          <div class="wp-panel-body">
+          <div class="astro-panel-body">
             <form id="institution-form">
               <input type="hidden" name="originalId" value="" />
 
@@ -104,7 +104,7 @@ const { session } = authenticateRequest(Astro.request);
               <div class="mt-5 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div class="flex items-center justify-between mb-1.5">
                   <label class="field-label mb-0">Documents associés (brochures, programmes, liens externes)</label>
-                  <button type="button" id="add-document-row-btn" class="wp-btn wp-btn-secondary text-xs py-1 px-2.5">
+                  <button type="button" id="add-document-row-btn" class="astro-btn astro-btn-secondary text-xs py-1 px-2.5">
                     + Ajouter un document
                   </button>
                 </div>
@@ -115,10 +115,10 @@ const { session } = authenticateRequest(Astro.request);
               </div>
 
               <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center gap-2">
-                <button type="submit" id="institution-save-btn" class="wp-btn wp-btn-primary">
+                <button type="submit" id="institution-save-btn" class="astro-btn astro-btn-primary">
                   Enregistrer
                 </button>
-                <button type="button" id="institution-cancel-btn" class="wp-btn wp-btn-secondary">
+                <button type="button" id="institution-cancel-btn" class="astro-btn astro-btn-secondary">
                   Annuler
                 </button>
               </div>
@@ -165,8 +165,8 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "wp-notice mb-4 " +
-      (kind === "success" ? "wp-notice-success" : "wp-notice-error");
+      "astro-notice mb-4 " +
+      (kind === "success" ? "astro-notice-success" : "astro-notice-error");
   }
 
   function addDocumentRow(key = "", url = "") {
@@ -176,7 +176,7 @@ const { session } = authenticateRequest(Astro.request);
     row.innerHTML = `
       <input type="text" class="field-input doc-key sm:w-1/3 text-xs" placeholder="clé (ex. animation_2022)" value="${key}" />
       <input type="text" class="field-input doc-url flex-1 text-xs" placeholder="https://…" value="${url}" />
-      <button type="button" class="remove-document-row wp-btn wp-btn-danger text-xs py-1 px-2 shrink-0">Retirer</button>
+      <button type="button" class="remove-document-row astro-btn astro-btn-danger text-xs py-1 px-2 shrink-0">Retirer</button>
     `;
     row.querySelector(".remove-document-row")?.addEventListener("click", () => row.remove());
     documentsRows.appendChild(row);
@@ -253,8 +253,8 @@ const { session } = authenticateRequest(Astro.request);
           <div class="flex flex-wrap items-center justify-between gap-3">
             <span class="text-xs font-semibold text-rose-800 dark:text-rose-200">Supprimer définitivement « ${inst.name} » ?</span>
             <div class="flex items-center gap-2">
-              <button type="button" data-cancel-delete="${id}" class="wp-btn wp-btn-secondary text-xs py-1 px-2.5">Annuler</button>
-              <button type="button" data-confirm-delete="${id}" class="wp-btn wp-btn-danger text-xs py-1 px-2.5">Confirmer</button>
+              <button type="button" data-cancel-delete="${id}" class="astro-btn astro-btn-secondary text-xs py-1 px-2.5">Annuler</button>
+              <button type="button" data-confirm-delete="${id}" class="astro-btn astro-btn-danger text-xs py-1 px-2.5">Confirmer</button>
             </div>
           </div>
         </td>
@@ -277,11 +277,11 @@ const { session } = authenticateRequest(Astro.request);
         </td>
         <td class="text-xs">
           ${docCount > 0 
-            ? `<span class="wp-badge wp-badge-info">${docCount} doc${docCount > 1 ? "s" : ""}</span>` 
+            ? `<span class="astro-badge astro-badge-info">${docCount} doc${docCount > 1 ? "s" : ""}</span>` 
             : '<span class="text-gray-400 dark:text-gray-500 text-xs">0</span>'}
         </td>
         <td class="text-right">
-          <button type="button" data-edit="${id}" class="wp-btn wp-btn-secondary text-xs py-0.5 px-2">
+          <button type="button" data-edit="${id}" class="astro-btn astro-btn-secondary text-xs py-0.5 px-2">
             Modifier
           </button>
         </td>

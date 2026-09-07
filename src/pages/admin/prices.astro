@@ -18,14 +18,14 @@ const { session } = authenticateRequest(Astro.request);
           active="prices"
         />
 
-        <div id="prices-error" class="hidden mb-4 wp-notice wp-notice-error" role="alert"></div>
+        <div id="prices-error" class="hidden mb-4 astro-notice astro-notice-error" role="alert"></div>
 
         <form id="prices-form" class="space-y-4">
-          <div class="wp-panel">
-            <div class="wp-panel-header">
-              <h2 class="wp-panel-title">Grille tarifaire du site</h2>
+          <div class="astro-panel">
+            <div class="astro-panel-header">
+              <h2 class="astro-panel-title">Grille tarifaire du site</h2>
             </div>
-            <div class="wp-panel-body">
+            <div class="astro-panel-body">
               <div id="prices-fields" class="space-y-5">
                 <p class="text-xs text-gray-400">Chargement des tarifs…</p>
               </div>
@@ -38,7 +38,7 @@ const { session } = authenticateRequest(Astro.request);
                 type="submit"
                 id="prices-save-btn"
                 disabled
-                class="wp-btn wp-btn-primary text-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                class="astro-btn astro-btn-primary text-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Enregistrer les modifications
               </button>
@@ -46,7 +46,7 @@ const { session } = authenticateRequest(Astro.request);
                 type="button"
                 id="prices-cancel-btn"
                 disabled
-                class="wp-btn text-xs cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                class="astro-btn text-xs cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Annuler
               </button>

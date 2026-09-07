@@ -21,23 +21,23 @@ const { session } = authenticateRequest(Astro.request);
             <button
               id="add-intervention-btn"
               type="button"
-              class="wp-btn wp-btn-primary text-xs"
+              class="astro-btn astro-btn-primary text-xs"
             >
               + Ajouter un format
             </button>
           </div>
         </AdminPageHeader>
 
-        <div id="interventions-status" class="hidden mb-4 wp-notice" role="alert"></div>
+        <div id="interventions-status" class="hidden mb-4 astro-notice" role="alert"></div>
 
         <!-- Table Astro des formats -->
-        <div class="wp-panel mb-8 overflow-hidden">
-          <div class="wp-panel-header flex items-center justify-between">
-            <h2 class="wp-panel-title">Tous les formats</h2>
+        <div class="astro-panel mb-8 overflow-hidden">
+          <div class="astro-panel-header flex items-center justify-between">
+            <h2 class="astro-panel-title">Tous les formats</h2>
             <span id="interventions-count" class="text-xs text-gray-500 dark:text-gray-400"></span>
           </div>
-          <div class="wp-table-wrap border-0">
-            <table class="wp-table">
+          <div class="astro-table-wrap border-0">
+            <table class="astro-table">
               <thead>
                 <tr>
                   <th class="w-28">Public</th>
@@ -57,11 +57,11 @@ const { session } = authenticateRequest(Astro.request);
         </div>
 
         <!-- Formulaire d'ajout / modification (Panel Astro) -->
-        <div id="intervention-form-container" class="hidden wp-panel mb-8">
-          <div class="wp-panel-header">
-            <h2 id="intervention-form-title" class="wp-panel-title">Ajouter un format</h2>
+        <div id="intervention-form-container" class="hidden astro-panel mb-8">
+          <div class="astro-panel-header">
+            <h2 id="intervention-form-title" class="astro-panel-title">Ajouter un format</h2>
           </div>
-          <div class="wp-panel-body">
+          <div class="astro-panel-body">
             <form id="intervention-form">
               <input type="hidden" name="originalId" value="" />
 
@@ -90,10 +90,10 @@ const { session } = authenticateRequest(Astro.request);
               </div>
 
               <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center gap-2">
-                <button type="submit" id="intervention-save-btn" class="wp-btn wp-btn-primary">
+                <button type="submit" id="intervention-save-btn" class="astro-btn astro-btn-primary">
                   Enregistrer
                 </button>
-                <button type="button" id="intervention-cancel-btn" class="wp-btn wp-btn-secondary">
+                <button type="button" id="intervention-cancel-btn" class="astro-btn astro-btn-secondary">
                   Annuler
                 </button>
               </div>
@@ -123,8 +123,8 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "wp-notice mb-4 " +
-      (kind === "success" ? "wp-notice-success" : "wp-notice-error");
+      "astro-notice mb-4 " +
+      (kind === "success" ? "astro-notice-success" : "astro-notice-error");
   }
 
   function renderList() {
@@ -143,7 +143,7 @@ const { session } = authenticateRequest(Astro.request);
         return `
       <tr class="hover:bg-gray-50/60 dark:hover:bg-gray-800/40 transition-colors">
         <td class="text-xs">
-          <span class="wp-badge wp-badge-gray uppercase tracking-wider text-[10px] font-semibold">${item.eyebrow}</span>
+          <span class="astro-badge astro-badge-gray uppercase tracking-wider text-[10px] font-semibold">${item.eyebrow}</span>
         </td>
         <td>
           <div class="font-medium text-gray-900 dark:text-gray-100 text-xs">${item.title}</div>
@@ -161,7 +161,7 @@ const { session } = authenticateRequest(Astro.request);
           ${item.price_ref}
         </td>
         <td class="text-right">
-          <button type="button" data-edit="${id}" class="wp-btn wp-btn-secondary text-xs py-0.5 px-2">
+          <button type="button" data-edit="${id}" class="astro-btn astro-btn-secondary text-xs py-0.5 px-2">
             Modifier
           </button>
         </td>

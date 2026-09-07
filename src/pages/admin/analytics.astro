@@ -21,7 +21,7 @@ const { session } = authenticateRequest(Astro.request);
             <button
               id="analytics-refresh-btn"
               type="button"
-              class="wp-btn wp-btn-secondary text-xs flex items-center gap-1.5"
+              class="astro-btn astro-btn-secondary text-xs flex items-center gap-1.5"
               title="Actualiser les statistiques"
             >
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -33,10 +33,10 @@ const { session } = authenticateRequest(Astro.request);
         </AdminPageHeader>
 
         <!-- Message de statut / configuration -->
-        <div id="analytics-notice" class="hidden mb-4 wp-notice" role="alert"></div>
+        <div id="analytics-notice" class="hidden mb-4 astro-notice" role="alert"></div>
 
         <!-- Barre d'outils des périodes (Astro Toolbar) -->
-        <div class="wp-panel p-2.5 mb-5 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between text-xs">
+        <div class="astro-panel p-2.5 mb-5 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between text-xs">
           <div class="flex items-center gap-2 flex-wrap">
             <span class="font-medium text-gray-700 dark:text-gray-300">Période d'analyse :</span>
             <div id="range-selector" class="inline-flex rounded border border-[#c3c4c7] dark:border-[#50575e] overflow-hidden bg-white dark:bg-[#1d2327]">
@@ -55,7 +55,7 @@ const { session } = authenticateRequest(Astro.request);
         <div id="analytics-content" class="space-y-6 mb-10">
           <!-- Cartes récapitulatives (D'un coup d'œil) -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="wp-panel p-4">
+            <div class="astro-panel p-4">
               <div class="text-[11px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-semibold mb-1">
                 Visiteurs uniques
               </div>
@@ -63,7 +63,7 @@ const { session } = authenticateRequest(Astro.request);
               <p class="text-[11px] text-gray-400 dark:text-gray-500 mt-1">Nombre d'individus distincts</p>
             </div>
 
-            <div class="wp-panel p-4">
+            <div class="astro-panel p-4">
               <div class="text-[11px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-semibold mb-1">
                 Pages vues
               </div>
@@ -71,7 +71,7 @@ const { session } = authenticateRequest(Astro.request);
               <p class="text-[11px] text-gray-400 dark:text-gray-500 mt-1">Consultations totales de pages</p>
             </div>
 
-            <div class="wp-panel p-4">
+            <div class="astro-panel p-4">
               <div class="text-[11px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-semibold mb-1">
                 Pages / Visiteur
               </div>
@@ -79,7 +79,7 @@ const { session } = authenticateRequest(Astro.request);
               <p class="text-[11px] text-gray-400 dark:text-gray-500 mt-1">Moyenne de pages par visite</p>
             </div>
 
-            <div class="wp-panel p-4">
+            <div class="astro-panel p-4">
               <div class="text-[11px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-semibold mb-1">
                 Moyenne par jour
               </div>
@@ -89,9 +89,9 @@ const { session } = authenticateRequest(Astro.request);
           </div>
 
           <!-- Évolution du trafic dans le temps -->
-          <div class="wp-panel overflow-hidden">
-            <div class="wp-panel-header flex items-center justify-between">
-              <h2 class="wp-panel-title flex items-center gap-2">
+          <div class="astro-panel overflow-hidden">
+            <div class="astro-panel-header flex items-center justify-between">
+              <h2 class="astro-panel-title flex items-center gap-2">
                 <span>Évolution du trafic</span>
                 <span class="text-xs font-normal text-gray-500 dark:text-gray-400">(visiteurs et pages vues)</span>
               </h2>
@@ -116,13 +116,13 @@ const { session } = authenticateRequest(Astro.request);
           <!-- Grille 1 : Pages les plus vues & Référents -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Pages les plus vues -->
-            <div class="wp-panel overflow-hidden">
-              <div class="wp-panel-header flex items-center justify-between">
-                <h2 class="wp-panel-title">Pages les plus consultées</h2>
+            <div class="astro-panel overflow-hidden">
+              <div class="astro-panel-header flex items-center justify-between">
+                <h2 class="astro-panel-title">Pages les plus consultées</h2>
                 <span id="pages-count" class="text-xs text-gray-500 dark:text-gray-400"></span>
               </div>
-              <div class="wp-table-wrap border-0">
-                <table class="wp-table">
+              <div class="astro-table-wrap border-0">
+                <table class="astro-table">
                   <thead>
                     <tr>
                       <th>Chemin URL</th>
@@ -138,13 +138,13 @@ const { session } = authenticateRequest(Astro.request);
             </div>
 
             <!-- Référents / Sources de trafic -->
-            <div class="wp-panel overflow-hidden">
-              <div class="wp-panel-header flex items-center justify-between">
-                <h2 class="wp-panel-title">Sources de trafic (Référents)</h2>
+            <div class="astro-panel overflow-hidden">
+              <div class="astro-panel-header flex items-center justify-between">
+                <h2 class="astro-panel-title">Sources de trafic (Référents)</h2>
                 <span id="referrers-count" class="text-xs text-gray-500 dark:text-gray-400"></span>
               </div>
-              <div class="wp-table-wrap border-0">
-                <table class="wp-table">
+              <div class="astro-table-wrap border-0">
+                <table class="astro-table">
                   <thead>
                     <tr>
                       <th>Source / Domaine</th>
@@ -163,13 +163,13 @@ const { session } = authenticateRequest(Astro.request);
           <!-- Grille 2 : Pays & Appareils -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Pays -->
-            <div class="wp-panel overflow-hidden">
-              <div class="wp-panel-header flex items-center justify-between">
-                <h2 class="wp-panel-title">Origine géographique (Pays)</h2>
+            <div class="astro-panel overflow-hidden">
+              <div class="astro-panel-header flex items-center justify-between">
+                <h2 class="astro-panel-title">Origine géographique (Pays)</h2>
                 <span id="countries-count" class="text-xs text-gray-500 dark:text-gray-400"></span>
               </div>
-              <div class="wp-table-wrap border-0">
-                <table class="wp-table">
+              <div class="astro-table-wrap border-0">
+                <table class="astro-table">
                   <thead>
                     <tr>
                       <th>Pays</th>
@@ -185,13 +185,13 @@ const { session } = authenticateRequest(Astro.request);
             </div>
 
             <!-- Appareils -->
-            <div class="wp-panel overflow-hidden">
-              <div class="wp-panel-header flex items-center justify-between">
-                <h2 class="wp-panel-title">Appareils utilisés</h2>
+            <div class="astro-panel overflow-hidden">
+              <div class="astro-panel-header flex items-center justify-between">
+                <h2 class="astro-panel-title">Appareils utilisés</h2>
                 <span id="devices-count" class="text-xs text-gray-500 dark:text-gray-400"></span>
               </div>
-              <div class="wp-table-wrap border-0">
-                <table class="wp-table">
+              <div class="astro-table-wrap border-0">
+                <table class="astro-table">
                   <thead>
                     <tr>
                       <th>Appareil</th>
@@ -284,10 +284,10 @@ const { session } = authenticateRequest(Astro.request);
 
   function formatDevice(type: string): { label: string; badgeClass: string } {
     const t = (type || "").toLowerCase();
-    if (t === "desktop") return { label: "Ordinateur (Desktop)", badgeClass: "wp-badge-info" };
-    if (t === "mobile") return { label: "Téléphone portable (Mobile)", badgeClass: "wp-badge-success" };
-    if (t === "tablet") return { label: "Tablette", badgeClass: "wp-badge-warning" };
-    return { label: type || "Inconnu", badgeClass: "wp-badge-gray" };
+    if (t === "desktop") return { label: "Ordinateur (Desktop)", badgeClass: "astro-badge-info" };
+    if (t === "mobile") return { label: "Téléphone portable (Mobile)", badgeClass: "astro-badge-success" };
+    if (t === "tablet") return { label: "Tablette", badgeClass: "astro-badge-warning" };
+    return { label: type || "Inconnu", badgeClass: "astro-badge-gray" };
   }
 
   function formatDateRange(sinceStr: string, untilStr: string): string {
@@ -304,9 +304,9 @@ const { session } = authenticateRequest(Astro.request);
   function showNotice(msg: string, kind: "error" | "warning" | "success" = "warning") {
     if (!noticeEl) return;
     noticeEl.innerHTML = msg;
-    noticeEl.classList.remove("hidden", "wp-notice-error", "wp-notice-warning", "wp-notice-success");
+    noticeEl.classList.remove("hidden", "astro-notice-error", "astro-notice-warning", "astro-notice-success");
     noticeEl.classList.add(
-      kind === "error" ? "wp-notice-error" : kind === "success" ? "wp-notice-success" : "wp-notice-warning"
+      kind === "error" ? "astro-notice-error" : kind === "success" ? "astro-notice-success" : "astro-notice-warning"
     );
   }
 
@@ -573,7 +573,7 @@ const { session } = authenticateRequest(Astro.request);
           <tr class="hover:bg-gray-50/60 dark:hover:bg-gray-800/40 transition-colors">
             <td>
               <div class="flex items-center gap-2">
-                <span class="wp-badge ${badgeClass}">${label}</span>
+                <span class="astro-badge ${badgeClass}">${label}</span>
                 <span class="text-[11px] text-gray-400 font-mono">${pct}%</span>
               </div>
               <div class="w-full bg-gray-100 dark:bg-gray-800 h-1 rounded-full mt-1.5 overflow-hidden">

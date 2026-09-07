@@ -21,16 +21,16 @@ const { session } = authenticateRequest(Astro.request);
             <button
               id="add-event-btn"
               type="button"
-              class="wp-btn wp-btn-primary text-xs"
+              class="astro-btn astro-btn-primary text-xs"
             >
               + Ajouter un événement
             </button>
           </div>
         </AdminPageHeader>
 
-        <div id="events-status" class="hidden mb-4 wp-notice" role="alert"></div>
+        <div id="events-status" class="hidden mb-4 astro-notice" role="alert"></div>
 
-        <div class="wp-panel p-2 sm:p-2.5 mb-3 flex items-center justify-between gap-3 text-xs">
+        <div class="astro-panel p-2 sm:p-2.5 mb-3 flex items-center justify-between gap-3 text-xs">
           <div class="w-full max-w-sm">
             <label for="events-search" class="sr-only">Rechercher un événement</label>
             <input
@@ -48,14 +48,14 @@ const { session } = authenticateRequest(Astro.request);
         </div>
 
         <!-- Formulaire d'ajout / modification -->
-        <div id="event-form-container" class="hidden wp-panel mb-10">
-          <div class="wp-panel-header">
-            <h2 id="event-form-title" class="wp-panel-title">Ajouter un événement</h2>
+        <div id="event-form-container" class="hidden astro-panel mb-10">
+          <div class="astro-panel-header">
+            <h2 id="event-form-title" class="astro-panel-title">Ajouter un événement</h2>
             <button type="button" id="event-form-close-btn" class="text-xs text-[#646970] hover:text-[#2c3338] dark:hover:text-white cursor-pointer">
               Fermer
             </button>
           </div>
-          <div class="wp-panel-body">
+          <div class="astro-panel-body">
             <form id="event-form" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <input type="hidden" name="originalYear" value="" />
               <input type="hidden" name="originalIndex" value="" />
@@ -91,10 +91,10 @@ const { session } = authenticateRequest(Astro.request);
               </div>
 
               <div class="sm:col-span-2 flex items-center gap-2 pt-3 border-t border-[#dcdcde] dark:border-[#2c3338]">
-                <button type="submit" id="event-save-btn" class="wp-btn wp-btn-primary text-xs cursor-pointer disabled:opacity-60">
+                <button type="submit" id="event-save-btn" class="astro-btn astro-btn-primary text-xs cursor-pointer disabled:opacity-60">
                   Enregistrer l'événement
                 </button>
-                <button type="button" id="event-cancel-btn" class="wp-btn text-xs cursor-pointer">
+                <button type="button" id="event-cancel-btn" class="astro-btn text-xs cursor-pointer">
                   Annuler
                 </button>
               </div>
@@ -197,10 +197,10 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "mb-4 wp-notice " +
+      "mb-4 astro-notice " +
       (kind === "success"
-        ? "wp-notice-success text-[#00a32a] dark:text-[#4ac26b]"
-        : "wp-notice-error text-[#d63638] dark:text-[#ff8585]");
+        ? "astro-notice-success text-[#00a32a] dark:text-[#4ac26b]"
+        : "astro-notice-error text-[#d63638] dark:text-[#ff8585]");
   }
 
   function parseEventDate(dateStr: string): number {
@@ -247,7 +247,7 @@ const { session } = authenticateRequest(Astro.request);
           ${resolveLieuDisplay(ev.lieu)}
         </td>
         <td class="whitespace-nowrap">
-          <span class="wp-badge ${past ? "wp-badge-muted" : "wp-badge-success"}">
+          <span class="astro-badge ${past ? "astro-badge-muted" : "astro-badge-success"}">
             ${past ? "Passé" : "À venir"}
           </span>
         </td>
@@ -281,7 +281,7 @@ const { session } = authenticateRequest(Astro.request);
     }
 
     if (totalMatches === 0) {
-      listEl.innerHTML = `<div class="wp-panel p-4 text-center text-xs text-[#646970] dark:text-[#8c8f94]">Aucun résultat pour « ${searchInput?.value ?? ""} ».</div>`;
+      listEl.innerHTML = `<div class="astro-panel p-4 text-center text-xs text-[#646970] dark:text-[#8c8f94]">Aucun résultat pour « ${searchInput?.value ?? ""} ».</div>`;
       return;
     }
 
@@ -297,22 +297,22 @@ const { session } = authenticateRequest(Astro.request);
         const rows = indices.map((i) => eventRow(year, i, years[year][i])).join("");
         const collapsed = query ? false : isCollapsed(year);
         return `
-          <div class="wp-panel mb-3">
+          <div class="astro-panel mb-3">
             <button
               type="button"
-              class="year-toggle wp-panel-header w-full flex items-center justify-between text-left cursor-pointer hover:bg-[#f0f0f1] dark:hover:bg-[#21272c] transition"
+              class="year-toggle astro-panel-header w-full flex items-center justify-between text-left cursor-pointer hover:bg-[#f0f0f1] dark:hover:bg-[#21272c] transition"
               data-year="${year}"
               aria-expanded="${!collapsed}"
               aria-controls="year-${year}"
             >
-              <span class="wp-panel-title font-semibold text-xs text-[#1d2327] dark:text-white">Année ${year}</span>
+              <span class="astro-panel-title font-semibold text-xs text-[#1d2327] dark:text-white">Année ${year}</span>
               <span class="flex items-center gap-2 shrink-0">
                 <span class="text-xs text-[#646970] dark:text-[#8c8f94]">${indices.length} événement${indices.length > 1 ? "s" : ""}</span>
                 <span class="text-xs text-[#8c8f94]" aria-hidden="true">${collapsed ? "▸" : "▾"}</span>
               </span>
             </button>
             <div id="year-${year}" class="overflow-x-auto" ${collapsed ? "hidden" : ""}>
-              <table class="wp-table">
+              <table class="astro-table">
                 <thead>
                   <tr>
                     <th>Titre &amp; Actions</th>

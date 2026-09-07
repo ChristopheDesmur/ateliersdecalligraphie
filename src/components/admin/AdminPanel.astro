@@ -11,11 +11,11 @@ export interface Props {
 const { title, description, class: className = "", id, noPadding = false, collapsible = false } = Astro.props;
 ---
 
-<div id={id} class={`wp-panel ${collapsible ? "is-collapsible" : ""} ${className}`}>
+<div id={id} class={`astro-panel ${collapsible ? "is-collapsible" : ""} ${className}`}>
   {title && (
-    <div class="wp-panel-header select-none">
+    <div class="astro-panel-header select-none">
       <div class="min-w-0">
-        <h2 class="wp-panel-title">{title}</h2>
+        <h2 class="astro-panel-title">{title}</h2>
         {description && <p class="text-xs text-[#646970] dark:text-[#8c8f94] mt-0.5">{description}</p>}
       </div>
       <div class="flex items-center gap-2 shrink-0">
@@ -23,7 +23,7 @@ const { title, description, class: className = "", id, noPadding = false, collap
         {collapsible && (
           <button
             type="button"
-            class="wp-panel-toggle p-1 text-[#646970] hover:text-[#1d2327] dark:text-[#8c8f94] dark:hover:text-white transition focus:outline-none focus-visible:ring-1 focus-visible:ring-[#2271b1] cursor-pointer"
+            class="astro-panel-toggle p-1 text-[#646970] hover:text-[#1d2327] dark:text-[#8c8f94] dark:hover:text-white transition focus:outline-none focus-visible:ring-1 focus-visible:ring-[#2271b1] cursor-pointer"
             aria-expanded="true"
             title="Replier / Déplier ce bloc"
             aria-label="Replier ou déplier ce panneau"
@@ -36,7 +36,7 @@ const { title, description, class: className = "", id, noPadding = false, collap
       </div>
     </div>
   )}
-  <div class={noPadding ? "" : "wp-panel-body"}>
+  <div class={noPadding ? "" : "astro-panel-body"}>
     <slot />
   </div>
   {Astro.slots.has("footer") && (

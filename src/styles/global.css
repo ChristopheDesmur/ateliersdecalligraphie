@@ -49,26 +49,26 @@
 
 /* Astro-inspired back-office design system */
 .admin-shell {
-  --wp-admin-bg: #f0f0f1;
-  --wp-sidebar-bg: #1d2327;
-  --wp-sidebar-hover: #2c3338;
-  --wp-sidebar-active: #2271b1;
-  --wp-sidebar-text: #c3c4c7;
-  --wp-panel-bg: #ffffff;
-  --wp-border: #c3c4c7;
-  --wp-border-subtle: #dcdcde;
-  --wp-text: #2c3338;
-  --wp-text-muted: #646970;
-  --wp-link: #2271b1;
-  --wp-link-hover: #135e96;
-  --wp-primary: #2271b1;
-  --wp-primary-hover: #135e96;
+  --astro-admin-bg: #f0f0f1;
+  --astro-sidebar-bg: #1d2327;
+  --astro-sidebar-hover: #2c3338;
+  --astro-sidebar-active: #2271b1;
+  --astro-sidebar-text: #c3c4c7;
+  --astro-panel-bg: #ffffff;
+  --astro-border: #c3c4c7;
+  --astro-border-subtle: #dcdcde;
+  --astro-text: #2c3338;
+  --astro-text-muted: #646970;
+  --astro-link: #2271b1;
+  --astro-link-hover: #135e96;
+  --astro-primary: #2271b1;
+  --astro-primary-hover: #135e96;
 
   font-family: var(--admin-font-family);
   font-size: 13px;
   line-height: 1.4;
-  color: var(--wp-text);
-  background-color: var(--wp-admin-bg);
+  color: var(--astro-text);
+  background-color: var(--astro-admin-bg);
   overflow-x: hidden;
   max-width: 100vw;
   -webkit-font-smoothing: subpixel-antialiased;
@@ -76,23 +76,23 @@
 }
 
 .dark .admin-shell {
-  --wp-admin-bg: #121517;
-  --wp-sidebar-bg: #101315;
-  --wp-sidebar-hover: #1c2126;
-  --wp-sidebar-active: #2271b1;
-  --wp-sidebar-text: #c3c4c7;
-  --wp-panel-bg: #1a1e22;
-  --wp-border: #2c3338;
-  --wp-border-subtle: #242a2f;
-  --wp-text: #f0f0f1;
-  --wp-text-muted: #8c8f94;
-  --wp-link: #72aee6;
-  --wp-link-hover: #9ec5f0;
-  --wp-primary: #2271b1;
-  --wp-primary-hover: #135e96;
+  --astro-admin-bg: #121517;
+  --astro-sidebar-bg: #101315;
+  --astro-sidebar-hover: #1c2126;
+  --astro-sidebar-active: #2271b1;
+  --astro-sidebar-text: #c3c4c7;
+  --astro-panel-bg: #1a1e22;
+  --astro-border: #2c3338;
+  --astro-border-subtle: #242a2f;
+  --astro-text: #f0f0f1;
+  --astro-text-muted: #8c8f94;
+  --astro-link: #72aee6;
+  --astro-link-hover: #9ec5f0;
+  --astro-primary: #2271b1;
+  --astro-primary-hover: #135e96;
 
-  color: var(--wp-text);
-  background-color: var(--wp-admin-bg);
+  color: var(--astro-text);
+  background-color: var(--astro-admin-bg);
 }
 
 /* Ensure all admin elements use the Astro font stack */
@@ -111,7 +111,7 @@
 
 /* Form Controls */
 :where(.admin-shell) {
-  .field-input, .wp-input {
+  .field-input, .astro-input {
     width: 100%;
     min-height: 1.875rem; /* 30px */
     padding: 0.25rem 0.5rem;
@@ -124,19 +124,19 @@
     box-shadow: 0 0 0 transparent;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
-  .field-input:focus, .wp-input:focus {
+  .field-input:focus, .astro-input:focus {
     outline: none;
     border-color: #2271b1;
     box-shadow: 0 0 0 1px #2271b1;
   }
-  .field-label, .wp-label {
+  .field-label, .astro-label {
     display: block;
     font-size: 0.75rem; /* 12px */
     font-weight: 600;
     color: #2c3338;
     margin-bottom: 0.25rem;
   }
-  .field-help, .wp-help {
+  .field-help, .astro-help {
     font-size: 0.6875rem; /* 11px */
     color: #646970;
     margin-top: 0.25rem;
@@ -145,25 +145,25 @@
 }
 
 :where(.dark .admin-shell, .admin-shell.dark) {
-  .field-input, .wp-input {
+  .field-input, .astro-input {
     background-color: #1a1e22;
     border-color: #3f474e;
     color: #f0f0f1;
   }
-  .field-input:focus, .wp-input:focus {
+  .field-input:focus, .astro-input:focus {
     border-color: #72aee6;
     box-shadow: 0 0 0 1px #72aee6;
   }
-  .field-label, .wp-label {
+  .field-label, .astro-label {
     color: #dcdcde;
   }
-  .field-help, .wp-help {
+  .field-help, .astro-help {
     color: #8c8f94;
   }
 }
 
 /* Astro Buttons */
-.admin-shell :is(.wp-btn, .button) {
+.admin-shell :is(.astro-btn, .button) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -182,97 +182,97 @@
   transition: all 0.15s ease-in-out;
   text-decoration: none;
 }
-.admin-shell :is(.wp-btn:hover, .button:hover) {
+.admin-shell :is(.astro-btn:hover, .button:hover) {
   background: #f0f0f1;
   border-color: #50575e;
   color: #1d2327;
 }
-.admin-shell :is(.wp-btn:focus-visible, .button:focus-visible) {
+.admin-shell :is(.astro-btn:focus-visible, .button:focus-visible) {
   outline: none;
   border-color: #2271b1;
   box-shadow: 0 0 0 1px #2271b1;
 }
-.admin-shell :is(.wp-btn:disabled, .button:disabled) {
+.admin-shell :is(.astro-btn:disabled, .button:disabled) {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.admin-shell :is(.wp-btn-primary, .button-primary) {
+.admin-shell :is(.astro-btn-primary, .button-primary) {
   background: #2271b1 !important;
   border-color: #2271b1 !important;
   color: #ffffff !important;
 }
-.admin-shell :is(.wp-btn-primary:hover, .button-primary:hover) {
+.admin-shell :is(.astro-btn-primary:hover, .button-primary:hover) {
   background: #135e96 !important;
   border-color: #135e96 !important;
   color: #ffffff !important;
 }
 
-.admin-shell :is(.wp-btn-secondary, .button-secondary) {
+.admin-shell :is(.astro-btn-secondary, .button-secondary) {
   background: #f6f7f7;
   border-color: #c3c4c7;
   color: #2c3338;
 }
 
-.admin-shell :is(.wp-btn-danger, .button-danger) {
+.admin-shell :is(.astro-btn-danger, .button-danger) {
   color: #b32d2e;
   background: transparent;
   border-color: transparent;
 }
-.admin-shell :is(.wp-btn-danger:hover, .button-danger:hover) {
+.admin-shell :is(.astro-btn-danger:hover, .button-danger:hover) {
   background: #fbeaea;
   border-color: #b32d2e;
   color: #b32d2e;
 }
 
-.dark .admin-shell :is(.wp-btn, .button) {
+.dark .admin-shell :is(.astro-btn, .button) {
   background: #21262b;
   border-color: #384148;
   color: #dcdcde;
 }
-.dark .admin-shell :is(.wp-btn:hover, .button:hover) {
+.dark .admin-shell :is(.astro-btn:hover, .button:hover) {
   background: #293037;
   border-color: #4a545d;
   color: #ffffff;
 }
-.dark .admin-shell :is(.wp-btn-danger:hover, .button-danger:hover) {
+.dark .admin-shell :is(.astro-btn-danger:hover, .button-danger:hover) {
   background: #3b1919;
   border-color: #8c2828;
   color: #ff8585;
 }
 
 /* Astro Panels */
-.admin-shell .wp-panel {
-  background-color: var(--wp-panel-bg);
-  border: 1px solid var(--wp-border);
+.admin-shell .astro-panel {
+  background-color: var(--astro-panel-bg);
+  border: 1px solid var(--astro-border);
   border-radius: 3px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 }
-.admin-shell .wp-panel-header {
+.admin-shell .astro-panel-header {
   padding: 8px 12px;
-  border-bottom: 1px solid var(--wp-border-subtle);
+  border-bottom: 1px solid var(--astro-border-subtle);
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: #fafafa;
 }
-.dark .admin-shell .wp-panel-header {
+.dark .admin-shell .astro-panel-header {
   background: #161a1d;
 }
-.admin-shell .wp-panel-title {
+.admin-shell .astro-panel-title {
   font-size: 13px;
   font-weight: 600;
-  color: var(--wp-text);
+  color: var(--astro-text);
   margin: 0;
 }
-.admin-shell .wp-panel-body {
+.admin-shell .astro-panel-body {
   padding: 12px 14px;
 }
 
 /* Astro Notices */
-.admin-shell .wp-notice {
-  background: var(--wp-panel-bg);
-  border: 1px solid var(--wp-border);
+.admin-shell .astro-notice {
+  background: var(--astro-panel-bg);
+  border: 1px solid var(--astro-border);
   border-left-width: 4px;
   padding: 8px 12px;
   margin-bottom: 14px;
@@ -281,59 +281,59 @@
   border-radius: 2px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 }
-.admin-shell .wp-notice-success {
+.admin-shell .astro-notice-success {
   border-left-color: #00a32a;
 }
-.admin-shell .wp-notice-error {
+.admin-shell .astro-notice-error {
   border-left-color: #d63638;
 }
-.admin-shell .wp-notice-warning {
+.admin-shell .astro-notice-warning {
   border-left-color: #dba617;
 }
-.admin-shell .wp-notice-info {
+.admin-shell .astro-notice-info {
   border-left-color: #72aee6;
 }
 
 /* Astro Data Tables */
-.admin-shell .wp-table-wrap {
+.admin-shell .astro-table-wrap {
   width: 100%;
   overflow-x: auto;
-  border: 1px solid var(--wp-border);
-  background: var(--wp-panel-bg);
+  border: 1px solid var(--astro-border);
+  background: var(--astro-panel-bg);
   border-radius: 3px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 }
-.admin-shell .wp-table {
+.admin-shell .astro-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
   font-size: 13px;
 }
-.admin-shell .wp-table th {
+.admin-shell .astro-table th {
   padding: 8px 10px;
   font-size: 13px;
   font-weight: 600;
-  color: var(--wp-text);
+  color: var(--astro-text);
   background: #f6f7f7;
-  border-bottom: 1px solid var(--wp-border);
+  border-bottom: 1px solid var(--astro-border);
   white-space: nowrap;
 }
-.dark .admin-shell .wp-table th {
+.dark .admin-shell .astro-table th {
   background: #181d21;
 }
-.admin-shell .wp-table td {
+.admin-shell .astro-table td {
   padding: 8px 10px;
   vertical-align: middle;
-  border-bottom: 1px solid var(--wp-border-subtle);
-  color: var(--wp-text);
+  border-bottom: 1px solid var(--astro-border-subtle);
+  color: var(--astro-text);
 }
-.admin-shell .wp-table tr:last-child td {
+.admin-shell .astro-table tr:last-child td {
   border-bottom: none;
 }
-.admin-shell .wp-table tr:hover td {
+.admin-shell .astro-table tr:hover td {
   background-color: #f9fafa;
 }
-.dark .admin-shell .wp-table tr:hover td {
+.dark .admin-shell .astro-table tr:hover td {
   background-color: #1f252a;
 }
 .admin-shell .row-actions {
@@ -346,7 +346,7 @@
 }
 .admin-shell .row-actions a,
 .admin-shell .row-actions button {
-  color: var(--wp-link);
+  color: var(--astro-link);
   text-decoration: none;
   cursor: pointer;
   background: none;
@@ -356,7 +356,7 @@
 }
 .admin-shell .row-actions a:hover,
 .admin-shell .row-actions button:hover {
-  color: var(--wp-link-hover);
+  color: var(--astro-link-hover);
   text-decoration: underline;
 }
 .admin-shell .row-actions .delete-action,
@@ -373,7 +373,7 @@
 }
 
 /* Badges */
-.admin-shell .wp-badge {
+.admin-shell .astro-badge {
   display: inline-flex;
   align-items: center;
   padding: 1px 6px;
@@ -382,22 +382,22 @@
   font-weight: 600;
   line-height: 1.3;
 }
-.admin-shell .wp-badge-success {
+.admin-shell .astro-badge-success {
   background-color: #edfaef;
   color: #1a7f37;
   border: 1px solid #b4e8ba;
 }
-.admin-shell .wp-badge-muted {
+.admin-shell .astro-badge-muted {
   background-color: #f0f0f1;
   color: #646970;
   border: 1px solid #dcdcde;
 }
-.dark .admin-shell .wp-badge-success {
+.dark .admin-shell .astro-badge-success {
   background-color: #0f321d;
   color: #4ac26b;
   border-color: #1a7f37;
 }
-.dark .admin-shell .wp-badge-muted {
+.dark .admin-shell .astro-badge-muted {
   background-color: #242a2f;
   color: #8c8f94;
   border-color: #384148;

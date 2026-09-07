@@ -15,9 +15,9 @@ const { title, description, actionText, actionId, actionHref } = Astro.props;
   {description && <p class="text-xs text-[#646970] dark:text-[#8c8f94] max-w-md mx-auto mb-3">{description}</p>}
   {actionText && (
     actionHref ? (
-      <a href={actionHref} class="wp-btn wp-btn-primary text-xs">{actionText}</a>
+      <a href={actionHref} class="astro-btn astro-btn-primary text-xs">{actionText}</a>
     ) : (
-      <button type="button" id={actionId} class="wp-btn wp-btn-primary text-xs">{actionText}</button>
+      <button type="button" id={actionId} class="astro-btn astro-btn-primary text-xs">{actionText}</button>
     )
   )}
 </div>

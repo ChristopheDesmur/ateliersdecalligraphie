@@ -21,17 +21,17 @@ const { session } = authenticateRequest(Astro.request);
             <button
               id="add-product-btn"
               type="button"
-              class="wp-btn wp-btn-primary text-xs"
+              class="astro-btn astro-btn-primary text-xs"
             >
               + Ajouter une œuvre
             </button>
           </div>
         </AdminPageHeader>
 
-        <div id="products-status" class="hidden mb-4 wp-notice" role="alert"></div>
+        <div id="products-status" class="hidden mb-4 astro-notice" role="alert"></div>
 
         <!-- Toolbar / Recherche et filtres -->
-        <div class="wp-panel p-2 sm:p-2.5 mb-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 text-xs">
+        <div class="astro-panel p-2 sm:p-2.5 mb-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 text-xs">
           <div class="flex items-center gap-2 flex-1 min-w-0">
             <input
               type="search"
@@ -51,8 +51,8 @@ const { session } = authenticateRequest(Astro.request);
         </div>
 
         <!-- Table des œuvres -->
-        <div class="wp-table-wrap mb-8">
-          <table class="wp-table">
+        <div class="astro-table-wrap mb-8">
+          <table class="astro-table">
             <thead>
               <tr>
                 <th style="width: 48px;">Photo</th>
@@ -73,9 +73,9 @@ const { session } = authenticateRequest(Astro.request);
         </div>
 
         <!-- Formulaire d'ajout / modification -->
-        <div id="product-form-container" class="hidden wp-panel mb-10">
-          <div class="wp-panel-header">
-            <h2 id="product-form-title" class="wp-panel-title">Ajouter une œuvre</h2>
+        <div id="product-form-container" class="hidden astro-panel mb-10">
+          <div class="astro-panel-header">
+            <h2 id="product-form-title" class="astro-panel-title">Ajouter une œuvre</h2>
             <button
               type="button"
               id="product-form-close-btn"
@@ -84,7 +84,7 @@ const { session } = authenticateRequest(Astro.request);
               Fermer
             </button>
           </div>
-          <div class="wp-panel-body">
+          <div class="astro-panel-body">
             <form id="product-form" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <input type="hidden" name="originalId" value="" />
 
@@ -177,10 +177,10 @@ const { session } = authenticateRequest(Astro.request);
               </div>
 
               <div class="sm:col-span-2 flex items-center gap-2 pt-3 border-t border-[#dcdcde] dark:border-[#2c3338]">
-                <button type="submit" id="product-save-btn" class="wp-btn wp-btn-primary text-xs cursor-pointer disabled:opacity-60">
+                <button type="submit" id="product-save-btn" class="astro-btn astro-btn-primary text-xs cursor-pointer disabled:opacity-60">
                   Enregistrer l'œuvre
                 </button>
-                <button type="button" id="product-cancel-btn" class="wp-btn text-xs cursor-pointer">
+                <button type="button" id="product-cancel-btn" class="astro-btn text-xs cursor-pointer">
                   Annuler
                 </button>
               </div>
@@ -261,10 +261,10 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "mb-4 wp-notice " +
+      "mb-4 astro-notice " +
       (kind === "success"
-        ? "wp-notice-success text-[#00a32a] dark:text-[#4ac26b]"
-        : "wp-notice-error text-[#d63638] dark:text-[#ff8585]");
+        ? "astro-notice-success text-[#00a32a] dark:text-[#4ac26b]"
+        : "astro-notice-error text-[#d63638] dark:text-[#ff8585]");
   }
 
   function normalize(s: string): string {
@@ -322,7 +322,7 @@ const { session } = authenticateRequest(Astro.request);
             ${p.category || "—"}
           </td>
           <td class="whitespace-nowrap">
-            <span class="wp-badge ${isAvail ? "wp-badge-success" : "wp-badge-muted"}">
+            <span class="astro-badge ${isAvail ? "astro-badge-success" : "astro-badge-muted"}">
               ${p.availability || "—"}
             </span>
           </td>
