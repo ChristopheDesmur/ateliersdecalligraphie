@@ -13,9 +13,9 @@ const { session } = authenticateRequest(Astro.request);
     {session ? (
       <div>
         <AdminNav active="interventions" />
-        <div class="flex items-center justify-between mb-4 gap-4">
+        <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
           <div>
-            <h1 class="text-2xl font-serif font-bold text-gray-900 dark:text-white">Formats d'ateliers</h1>
+            <h1 class="text-xl sm:text-2xl font-serif font-bold text-gray-900 dark:text-white">Formats d'ateliers</h1>
             <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
               Les cartes « Choisissez votre format d'atelier selon votre public » affichées sur /atelier-de-groupe.
             </p>
@@ -36,12 +36,12 @@ const { session } = authenticateRequest(Astro.request);
         </div>
 
         <!-- Formulaire d'ajout / modification -->
-        <div id="intervention-form-container" class="hidden bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md p-5 sm:p-6 shadow-2xs mb-10">
+        <div id="intervention-form-container" class="hidden bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-2xs mb-10">
           <h2 id="intervention-form-title" class="font-serif font-bold text-lg text-gray-900 dark:text-white mb-4">Ajouter un format</h2>
           <form id="intervention-form">
             <input type="hidden" name="originalId" value="" />
 
-            <div class="grid sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label class="field-label">Sur-titre</label>
                 <input name="eyebrow" required class="field-input" placeholder="Secondaire" />
@@ -66,10 +66,10 @@ const { session } = authenticateRequest(Astro.request);
             </div>
 
             <div class="mt-6 pt-5 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3">
-              <button type="submit" id="intervention-save-btn" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition cursor-pointer disabled:opacity-60">
+              <button type="submit" id="intervention-save-btn" class="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition cursor-pointer disabled:opacity-60">
                 Enregistrer
               </button>
-              <button type="button" id="intervention-cancel-btn" class="px-5 py-2.5 rounded-xl text-gray-600 dark:text-gray-300 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer">
+              <button type="button" id="intervention-cancel-btn" class="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer">
                 Annuler
               </button>
             </div>
@@ -81,13 +81,6 @@ const { session } = authenticateRequest(Astro.request);
     )}
   </div>
 </Layout>
-
-<style>
-  :global(.field-label) { display: block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(75 85 99); margin-bottom: 0.35rem; }
-  :global(.dark .field-label) { color: rgb(209 213 219); }
-  :global(.field-input) { width: 100%; padding: 0.5rem 0.9rem; border-radius: 0.75rem; border: 1px solid rgb(209 213 219); background: white; color: rgb(17 24 39); font-size: 0.875rem; }
-  :global(.dark .field-input) { border-color: rgb(75 85 99); background: rgb(55 65 81); color: white; }
-</style>
 
 <script>
   let csrfToken = "";
@@ -105,7 +98,7 @@ const { session } = authenticateRequest(Astro.request);
     statusEl.textContent = message;
     statusEl.classList.remove("hidden");
     statusEl.className =
-      "mb-4 p-3 rounded-xl text-xs font-medium " +
+      "mb-4 p-2.5 rounded-md text-xs font-medium " +
       (kind === "success"
         ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
         : "bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800");
@@ -122,13 +115,13 @@ const { session } = authenticateRequest(Astro.request);
       .map((id) => {
         const item = interventions[id];
         return `
-      <div class="p-4 flex items-start justify-between gap-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800/60">
+      <div class="p-3 sm:p-4 flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4 border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800">
         <div class="min-w-0">
           <p class="text-[11px] uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">${item.eyebrow}</p>
           <p class="font-semibold text-sm text-gray-900 dark:text-white">${item.title}</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">${item.href} · ${item.price_ref}</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5 break-all sm:break-normal">${item.href} · ${item.price_ref}</p>
         </div>
-        <div class="flex gap-2 shrink-0">
+        <div class="flex items-center gap-3 shrink-0 pt-1 sm:pt-0">
           <button data-edit="${id}" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer">Modifier</button>
           <button data-delete="${id}" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer">Supprimer</button>
         </div>

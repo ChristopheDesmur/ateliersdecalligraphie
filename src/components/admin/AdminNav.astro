@@ -21,12 +21,12 @@ const currentLabel = labels[active] || "Administration";
 ---
 
 {active !== "dashboard" && (
-  <nav aria-label="Fil d'Ariane" class="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 mb-3 select-none">
-    <a href="/admin" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium">
+  <nav aria-label="Fil d'Ariane" class="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 mb-3 select-none flex-wrap">
+    <a href="/admin" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium shrink-0">
       Administration
     </a>
-    <span class="text-gray-400 dark:text-gray-600" aria-hidden="true">/</span>
-    <span class="text-gray-800 dark:text-gray-200 font-semibold" aria-current="page">
+    <span class="text-gray-400 dark:text-gray-600 shrink-0" aria-hidden="true">/</span>
+    <span class="text-gray-800 dark:text-gray-200 font-semibold truncate" aria-current="page">
       {currentLabel}
     </span>
   </nav>

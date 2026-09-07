@@ -276,8 +276,15 @@ const makeTitle = !title
           max-width: 14px !important;
           max-height: 14px !important;
         }
-        #admin-sidebar {
-          width: 14rem;
+        @media (min-width: 1024px) {
+          #admin-sidebar:not(.collapsed) {
+            width: 14rem;
+          }
+        }
+        @media (min-width: 768px) {
+          #admin-sidebar.collapsed {
+            width: 3.5rem !important;
+          }
         }
       </style>
     )}
@@ -292,33 +299,38 @@ const makeTitle = !title
 
     {isAdmin ? (
       <div class="admin-shell min-h-screen flex flex-col flex-1">
-        <header class="sticky top-0 z-40 h-10 w-full bg-[#1d2327] dark:bg-[#111215] text-[#c3c4c7] border-b border-[#2c3338] dark:border-gray-800 px-3 sm:px-4 flex items-center justify-between text-xs select-none shadow-2xs">
-          <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <header class="sticky top-0 z-40 h-11 w-full bg-[#1d2327] dark:bg-[#111215] text-[#c3c4c7] border-b border-[#2c3338] dark:border-gray-800 px-2.5 sm:px-4 flex items-center justify-between text-xs select-none shadow-2xs">
+          <div class="flex items-center gap-1.5 sm:gap-2.5 min-w-0">
             {hasAdminSession && (
               <button
                 type="button"
                 id="admin-mobile-toggle"
-                class="md:hidden p-1.5 -ml-1 text-[#c3c4c7] hover:text-white rounded hover:bg-[#2c3338] transition cursor-pointer"
-                aria-label="Afficher le menu d'administration"
+                class="md:hidden p-2 text-[#c3c4c7] hover:text-white rounded hover:bg-[#2c3338] transition cursor-pointer min-w-[40px] min-h-[40px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                aria-label="Menu d'administration"
                 aria-expanded="false"
+                aria-controls="admin-sidebar"
               >
-                <svg width="16" height="16" class="w-4 h-4" style="width:16px;height:16px;display:block;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <svg width="18" height="18" class="w-4.5 h-4.5" style="width:18px;height:18px;min-width:18px;display:block;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
               </button>
             )}
 
-            <a href="/admin" class="font-serif font-bold text-sm text-white tracking-tight hover:text-indigo-300 transition truncate flex items-center gap-1.5">
-              <span>Ateliers de calligraphie</span>
+            <a href="/admin" class="font-serif font-bold text-xs sm:text-sm text-white tracking-tight hover:text-indigo-300 transition truncate flex items-center gap-1.5">
+              <span class="truncate">Ateliers de calligraphie</span>
             </a>
 
             <span class="text-[#50575e] hidden sm:inline select-none" aria-hidden="true">|</span>
+
+            <span class="hidden sm:inline-block text-[10px] uppercase font-mono tracking-wider text-indigo-400 font-semibold">
+              Administration
+            </span>
 
             <a
               href="/"
               target="_blank"
               rel="noopener noreferrer"
-              class="hidden sm:inline-flex items-center gap-1 text-[11px] text-[#c3c4c7] hover:text-white transition"
+              class="hidden md:inline-flex items-center gap-1 text-[11px] text-[#c3c4c7] hover:text-white transition ml-2"
               title="Voir le site public (s'ouvre dans un nouvel onglet)"
             >
               <span>Voir le site</span>
@@ -326,21 +338,23 @@ const makeTitle = !title
             </a>
           </div>
 
-          <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div class="flex items-center gap-1 sm:gap-2 shrink-0">
             <a
               href="/"
               target="_blank"
               rel="noopener noreferrer"
-              class="sm:hidden inline-flex items-center gap-1 text-[11px] text-[#c3c4c7] hover:text-white transition"
+              class="md:hidden inline-flex items-center gap-1 text-[11px] text-[#c3c4c7] hover:text-white px-2 py-1 rounded hover:bg-[#2c3338] transition min-h-[36px] flex items-center"
+              title="Voir le site public"
             >
-              <span>Voir le site</span>
+              <span class="hidden xs:inline">Voir le site</span>
+              <span class="xs:hidden">Site</span>
               <span class="font-mono text-[10px]" aria-hidden="true">↗</span>
             </a>
 
             <button
               type="button"
               id="theme-toggle"
-              class="p-1 rounded text-[#c3c4c7] hover:text-white hover:bg-[#2c3338] transition cursor-pointer"
+              class="p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center rounded text-[#c3c4c7] hover:text-white hover:bg-[#2c3338] transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-400"
               aria-label="Basculer le mode sombre"
               title="Basculer le mode sombre"
             >
@@ -356,45 +370,51 @@ const makeTitle = !title
               <button
                 id="admin-logout-btn"
                 type="button"
-                class="text-[11px] text-[#c3c4c7] hover:text-rose-400 px-2 py-0.5 rounded hover:bg-[#2c3338] transition cursor-pointer"
+                class="text-[11px] text-[#c3c4c7] hover:text-rose-400 px-2 py-1 rounded hover:bg-[#2c3338] transition cursor-pointer min-h-[36px] flex items-center focus:outline-none focus:ring-2 focus:ring-rose-400"
+                title="Se déconnecter"
               >
-                Se déconnecter
+                <span class="hidden sm:inline">Se déconnecter</span>
+                <span class="sm:hidden flex items-center gap-1">
+                  <svg width="15" height="15" class="w-3.5 h-3.5" style="width:15px;height:15px;display:block;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                  </svg>
+                </span>
               </button>
             )}
           </div>
         </header>
 
         {hasAdminSession ? (
-          <div class="flex-1 flex min-h-[calc(100vh-2.5rem)] relative">
+          <div class="flex-1 flex min-h-[calc(100vh-2.75rem)] relative">
             <div
               id="admin-sidebar-overlay"
-              class="fixed inset-0 bg-black/60 z-40 md:hidden hidden backdrop-blur-xs transition-opacity"
+              class="fixed inset-0 bg-black/60 z-40 md:hidden hidden backdrop-blur-xs transition-opacity duration-200"
               aria-hidden="true"
             ></div>
 
             <aside
               id="admin-sidebar"
-              class="fixed inset-y-0 left-0 z-50 md:static w-56 bg-[#1d2327] dark:bg-[#111215] text-[#c3c4c7] border-r border-[#2c3338] dark:border-gray-800 flex flex-col shrink-0 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out md:min-h-[calc(100vh-2.5rem)] md:sticky md:top-10 md:self-start md:h-[calc(100vh-2.5rem)] overflow-y-auto select-none"
+              class="fixed inset-y-0 left-0 z-50 md:static w-72 max-w-[85vw] md:w-56 bg-[#1d2327] dark:bg-[#111215] text-[#c3c4c7] border-r border-[#2c3338] dark:border-gray-800 flex flex-col shrink-0 transform -translate-x-full md:translate-x-0 transition-all duration-200 ease-in-out md:min-h-[calc(100vh-2.75rem)] md:sticky md:top-11 md:self-start md:h-[calc(100vh-2.75rem)] overflow-y-auto select-none shadow-2xl md:shadow-none"
               aria-label="Navigation de l'administration"
             >
-              <div class="px-4 py-3.5 border-b border-[#2c3338] dark:border-gray-800 flex items-center justify-between">
-                <div>
+              <div class="px-4 py-3 border-b border-[#2c3338] dark:border-gray-800 flex items-center justify-between">
+                <div class="sidebar-header-text min-w-0">
                   <div class="text-[10px] uppercase font-mono tracking-widest text-indigo-400 font-semibold">Administration</div>
-                  <div class="font-serif font-bold text-sm text-white tracking-tight leading-tight">Ateliers de calligraphie</div>
+                  <div class="font-serif font-bold text-sm text-white tracking-tight leading-tight truncate">Ateliers de calligraphie</div>
                 </div>
                 <button
                   id="admin-sidebar-close"
                   type="button"
-                  class="md:hidden text-gray-400 hover:text-white p-1 rounded cursor-pointer"
+                  class="md:hidden text-gray-400 hover:text-white p-2 -mr-1 rounded cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-400"
                   aria-label="Fermer le menu"
                 >
-                  <svg width="16" height="16" class="w-4 h-4" style="width:16px;height:16px;display:block;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <svg width="18" height="18" class="w-4.5 h-4.5" style="width:18px;height:18px;display:block;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
 
-              <nav class="flex-1 py-2">
+              <nav class="flex-1 py-2 overflow-y-auto">
                 <ul class="space-y-0.5 text-xs font-medium">
                   {adminNavItems.map((item) => {
                     const isActive = currentAdminTab === item.id;
@@ -403,13 +423,15 @@ const makeTitle = !title
                         <a
                           href={item.href}
                           aria-current={isActive ? "page" : undefined}
-                          class={isActive
-                            ? "flex items-center gap-2.5 px-3.5 py-2 bg-indigo-600 dark:bg-indigo-700 text-white font-semibold border-l-4 border-white dark:border-indigo-300 transition-colors"
-                            : "flex items-center gap-2.5 px-3.5 py-2 text-[#c3c4c7] hover:text-white hover:bg-[#2c3338] dark:hover:bg-gray-800 border-l-4 border-transparent transition-colors"
-                          }
+                          title={item.label}
+                          class={`nav-link min-h-[44px] sm:min-h-[38px] flex items-center gap-3 px-3.5 py-2 transition-colors ${
+                            isActive
+                              ? "bg-indigo-600 dark:bg-indigo-700 text-white font-semibold border-l-4 border-white dark:border-indigo-300"
+                              : "text-[#c3c4c7] hover:text-white hover:bg-[#2c3338] dark:hover:bg-gray-800 border-l-4 border-transparent"
+                          }`}
                         >
                           <span class="shrink-0 text-current inline-flex items-center justify-center w-4 h-4" style="width:16px;height:16px;min-width:16px;line-height:0;" set:html={item.svg} />
-                          <span class="truncate">{item.label}</span>
+                          <span class="nav-label truncate">{item.label}</span>
                         </a>
                       </li>
                     );
@@ -417,17 +439,43 @@ const makeTitle = !title
                 </ul>
               </nav>
 
-              <div class="p-3 border-t border-[#2c3338] dark:border-gray-800 text-[11px] text-gray-500 font-mono text-center">
-                Ateliers de calligraphie · CMS
+              <!-- Mobile-only footer link -->
+              <div class="md:hidden p-3 border-t border-[#2c3338] dark:border-gray-800">
+                <a
+                  href="/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="min-h-[44px] flex items-center justify-between px-3 py-2 rounded text-xs text-indigo-300 hover:text-white hover:bg-[#2c3338] transition font-medium"
+                >
+                  <span>Voir le site public</span>
+                  <span class="font-mono text-xs" aria-hidden="true">↗</span>
+                </a>
+                <div class="mt-2 text-[10px] text-gray-500 font-mono text-center">
+                  Ateliers de calligraphie · CMS
+                </div>
               </div>
+
+              <!-- Tablet/Desktop Collapse Toggle button -->
+              <button
+                type="button"
+                id="admin-sidebar-collapse-btn"
+                class="hidden md:flex items-center gap-2.5 w-full px-3.5 py-3 text-xs text-[#8c8f94] hover:text-white hover:bg-[#2c3338] border-t border-[#2c3338] dark:border-gray-800 transition-colors cursor-pointer shrink-0"
+                aria-label="Réduire le menu"
+                title="Réduire le menu"
+              >
+                <svg id="collapse-icon" width="16" height="16" class="collapse-icon w-4 h-4 shrink-0 transition-transform duration-200" style="width:16px;height:16px;display:block;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                </svg>
+                <span class="nav-label truncate">Réduire le menu</span>
+              </button>
             </aside>
 
-            <main id="main-content" class="flex-1 min-w-0 bg-[#f0f0f1] dark:bg-[#0c0d10] p-4 sm:p-6 lg:p-8 flex flex-col">
-              <div class="flex-1 min-w-0">
+            <main id="main-content" class="flex-1 min-w-0 bg-[#f0f0f1] dark:bg-[#0c0d10] p-3 sm:p-5 lg:p-8 flex flex-col">
+              <div class="flex-1 min-w-0 w-full max-w-5xl">
                 <slot />
               </div>
 
-              <footer class="mt-12 pt-4 border-t border-gray-300 dark:border-gray-800 text-xs text-gray-500 dark:text-gray-400 flex flex-col sm:flex-row items-center justify-between gap-2">
+              <footer class="mt-8 sm:mt-12 pt-4 border-t border-gray-300 dark:border-gray-800 text-xs text-gray-500 dark:text-gray-400 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
                 <div>Merci de faire confiance à <strong class="font-medium text-gray-700 dark:text-gray-300">Ateliers de calligraphie</strong>.</div>
                 <div class="flex items-center gap-3">
                   <span class="text-gray-400 dark:text-gray-600">Espace d'administration</span>
@@ -438,7 +486,7 @@ const makeTitle = !title
             </main>
           </div>
         ) : (
-          <main id="main-content" class="flex-1 flex items-center justify-center p-4 min-h-[calc(100vh-2.5rem)] bg-[#f0f0f1] dark:bg-[#0c0d10]">
+          <main id="main-content" class="flex-1 flex items-center justify-center p-4 min-h-[calc(100vh-2.75rem)] bg-[#f0f0f1] dark:bg-[#0c0d10]">
             <slot />
           </main>
         )}
@@ -491,17 +539,26 @@ const makeTitle = !title
       const sidebar = document.getElementById('admin-sidebar');
       const overlay = document.getElementById('admin-sidebar-overlay');
       const sidebarClose = document.getElementById('admin-sidebar-close');
+      const collapseBtn = document.getElementById('admin-sidebar-collapse-btn');
+
+      function isMobile() {
+        return window.innerWidth < 768;
+      }
 
       function openSidebar() {
         sidebar?.classList.remove('-translate-x-full');
         overlay?.classList.remove('hidden');
         mobileToggle?.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+        sidebarClose?.focus();
       }
 
       function closeSidebar() {
         sidebar?.classList.add('-translate-x-full');
         overlay?.classList.add('hidden');
         mobileToggle?.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        mobileToggle?.focus();
       }
 
       mobileToggle?.addEventListener('click', () => {
@@ -512,6 +569,63 @@ const makeTitle = !title
 
       overlay?.addEventListener('click', closeSidebar);
       sidebarClose?.addEventListener('click', closeSidebar);
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isMobile() && !sidebar?.classList.contains('-translate-x-full')) {
+          closeSidebar();
+        }
+      });
+
+      // Focus trap inside mobile drawer
+      sidebar?.addEventListener('keydown', (e) => {
+        if (!isMobile() || sidebar.classList.contains('-translate-x-full')) return;
+        if (e.key === 'Tab') {
+          const focusables = sidebar.querySelectorAll('a, button:not([disabled])');
+          if (focusables.length === 0) return;
+          const first = focusables[0] as HTMLElement;
+          const last = focusables[focusables.length - 1] as HTMLElement;
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      });
+
+      // Tablet / Desktop sidebar collapse toggle
+      function setSidebarCollapsed(collapsed: boolean) {
+        if (!sidebar) return;
+        if (collapsed) {
+          sidebar.classList.add('collapsed');
+          collapseBtn?.setAttribute('aria-label', 'Déplier le menu');
+          collapseBtn?.setAttribute('title', 'Déplier le menu');
+          const label = collapseBtn?.querySelector('.nav-label');
+          if (label) label.textContent = 'Déplier le menu';
+        } else {
+          sidebar.classList.remove('collapsed');
+          collapseBtn?.setAttribute('aria-label', 'Réduire le menu');
+          collapseBtn?.setAttribute('title', 'Réduire le menu');
+          const label = collapseBtn?.querySelector('.nav-label');
+          if (label) label.textContent = 'Réduire le menu';
+        }
+      }
+
+      collapseBtn?.addEventListener('click', () => {
+        const isCollapsed = sidebar?.classList.contains('collapsed');
+        const next = !isCollapsed;
+        setSidebarCollapsed(next);
+        localStorage.setItem('admin_sidebar_collapsed', next ? '1' : '0');
+      });
+
+      // Initial check for collapse preference
+      const savedCollapsed = localStorage.getItem('admin_sidebar_collapsed');
+      if (savedCollapsed === '1') {
+        setSidebarCollapsed(true);
+      } else if (savedCollapsed === null && window.innerWidth >= 768 && window.innerWidth < 1024) {
+        setSidebarCollapsed(true);
+      }
     </script>
   </body>
 </html>

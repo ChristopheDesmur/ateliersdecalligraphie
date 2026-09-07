@@ -13,10 +13,10 @@ const { session } = authenticateRequest(Astro.request);
     {session ? (
       <div>
         <AdminNav active="faq" />
-        <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
+        <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
           <div>
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Foire aux questions (FAQ)</h1>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Foire aux questions (FAQ)</h1>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
               Gérez les questions fréquentes affichées sur <a href="/faq" target="_blank" class="text-indigo-600 dark:text-indigo-400 hover:underline">/faq</a> et le teaser de la page d'accueil.
             </p>
           </div>
@@ -29,10 +29,10 @@ const { session } = authenticateRequest(Astro.request);
           </button>
         </div>
 
-        <div id="faq-status" class="hidden mb-4 p-3 rounded-md text-xs font-medium"></div>
+        <div id="faq-status" class="hidden mb-4 p-2.5 rounded-md text-xs font-medium"></div>
 
         <!-- Filtres et recherche -->
-        <div class="mb-6 p-4 rounded-md bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 flex flex-col sm:flex-row gap-3 items-center justify-between shadow-xs">
+        <div class="mb-6 p-3 sm:p-4 rounded-md bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between shadow-xs">
           <div class="w-full sm:w-72">
             <input
               type="search"
@@ -52,13 +52,13 @@ const { session } = authenticateRequest(Astro.request);
         </div>
 
         <!-- Formulaire d'ajout / modification -->
-        <div id="faq-form-container" class="hidden bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-5 sm:p-6 shadow-xs mb-12">
+        <div id="faq-form-container" class="hidden bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs mb-12">
           <h2 id="faq-form-title" class="font-bold text-gray-900 dark:text-white mb-4 text-base">Ajouter une question</h2>
           <form id="faq-form">
             <input type="hidden" name="originalId" value="" />
 
             <div class="space-y-4">
-              <div class="grid sm:grid-cols-3 gap-4">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                 <div class="sm:col-span-2">
                   <label class="field-label" for="faq-category-select">Catégorie</label>
                   <div class="space-y-2">
@@ -447,7 +447,7 @@ const { session } = authenticateRequest(Astro.request);
 
         html += `
           <div class="p-3.5 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-[#1e2327] hover:border-gray-400 dark:hover:border-gray-600 transition shadow-xs">
-            <div class="flex items-start justify-between gap-4">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
               <div class="flex items-start gap-3 min-w-0">
                 <span class="shrink-0 w-5 h-5 rounded-md bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-semibold flex items-center justify-center mt-0.5" title="Ordre d'affichage">
                   ${f.order ?? idx + 1}
@@ -465,7 +465,7 @@ const { session } = authenticateRequest(Astro.request);
                 </div>
               </div>
 
-              <div class="flex items-center gap-1 shrink-0">
+              <div class="flex items-center gap-1.5 shrink-0 pt-1 sm:pt-0 self-end sm:self-start">
                 <button
                   data-move-up="${id}"
                   ${isFirst ? "disabled" : ""}

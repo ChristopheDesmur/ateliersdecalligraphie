@@ -13,8 +13,8 @@ const { session } = authenticateRequest(Astro.request);
     {session ? (
       <div>
         <AdminNav active="products" />
-        <div class="flex items-center justify-between mb-6">
-          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Galerie</h1>
+        <div class="flex flex-wrap items-center justify-between mb-4 gap-3">
+          <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Galerie</h1>
           <button
             id="add-product-btn"
             type="button"
@@ -24,16 +24,16 @@ const { session } = authenticateRequest(Astro.request);
           </button>
         </div>
 
-        <div id="products-status" class="hidden mb-4 p-3 rounded-md text-xs font-medium"></div>
+        <div id="products-status" class="hidden mb-4 p-2.5 rounded-md text-xs font-medium"></div>
 
-        <div id="products-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+        <div id="products-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-10">
           <p class="text-sm text-gray-400">Chargement…</p>
         </div>
 
         <!-- Formulaire d'ajout / modification -->
-        <div id="product-form-container" class="hidden bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-5 sm:p-6 shadow-xs">
+        <div id="product-form-container" class="hidden bg-white dark:bg-[#1e2327] border border-gray-300 dark:border-gray-700 rounded-md p-4 sm:p-6 shadow-xs mb-10">
           <h2 id="product-form-title" class="font-bold text-gray-900 dark:text-white mb-4 text-base">Ajouter une œuvre</h2>
-          <form id="product-form" class="grid sm:grid-cols-2 gap-4">
+          <form id="product-form" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <input type="hidden" name="originalId" value="" />
 
             <div class="sm:col-span-2">
@@ -225,7 +225,7 @@ const { session } = authenticateRequest(Astro.request);
         <div class="p-3">
           <p class="font-semibold text-sm text-gray-900 dark:text-white truncate">${p.title}</p>
           <p class="text-xs text-gray-500 dark:text-gray-400">${p.availability} · ${p.id}</p>
-          <div class="mt-2 flex gap-2">
+          <div class="mt-2 flex items-center gap-3">
             <button data-edit="${i}" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer">Modifier</button>
             <button data-delete="${i}" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer">Supprimer</button>
           </div>
