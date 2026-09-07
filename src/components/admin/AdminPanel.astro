@@ -5,20 +5,34 @@ export interface Props {
   class?: string;
   id?: string;
   noPadding?: boolean;
+  collapsible?: boolean;
 }
 
-const { title, description, class: className = "", id, noPadding = false } = Astro.props;
+const { title, description, class: className = "", id, noPadding = false, collapsible = false } = Astro.props;
 ---
 
-<div id={id} class={`wp-panel ${className}`}>
+<div id={id} class={`wp-panel ${collapsible ? "is-collapsible" : ""} ${className}`}>
   {title && (
-    <div class="wp-panel-header">
+    <div class="wp-panel-header select-none">
       <div class="min-w-0">
         <h2 class="wp-panel-title">{title}</h2>
         {description && <p class="text-xs text-[#646970] dark:text-[#8c8f94] mt-0.5">{description}</p>}
       </div>
       <div class="flex items-center gap-2 shrink-0">
         <slot name="header-actions" />
+        {collapsible && (
+          <button
+            type="button"
+            class="wp-panel-toggle p-1 text-[#646970] hover:text-[#1d2327] dark:text-[#8c8f94] dark:hover:text-white transition focus:outline-none focus-visible:ring-1 focus-visible:ring-[#2271b1] cursor-pointer"
+            aria-expanded="true"
+            title="Replier / Déplier ce bloc"
+            aria-label="Replier ou déplier ce panneau"
+          >
+            <svg class="w-3.5 h-3.5 transform transition-transform duration-150 rotate-180" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   )}

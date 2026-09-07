@@ -6,20 +6,24 @@ import AdminPageHeader from "@/components/admin/AdminPageHeader.astro";
 import AdminPanel from "@/components/admin/AdminPanel.astro";
 import LoginGate from "@/components/admin/LoginGate.astro";
 import { authenticateRequest } from "@/lib/admin/auth";
+import { getDashboardData } from "@/lib/admin/dashboard";
 
 const { session } = authenticateRequest(Astro.request);
 
+const dashboard = getDashboardData();
+
 const modules = [
   { href: "/admin/hero", name: "Hero", desc: "Contenu principal affiché en haut de la page d'accueil." },
-  { href: "/admin/prices", name: "Tarifs", desc: "Cours collectifs, cours particuliers à domicile, interventions." },
-  { href: "/admin/products", name: "Galerie", desc: "Catalogue des calligraphies et œuvres originales disponibles." },
   { href: "/admin/events", name: "Événements", desc: "Calendrier des cours, stages et interventions." },
+  { href: "/admin/products", name: "Galerie", desc: "Catalogue des calligraphies et œuvres originales disponibles." },
   { href: "/admin/venues", name: "Lieux", desc: "Adresses et créneaux des cours hebdomadaires (Dojo, Miroirs du Ciel)." },
+  { href: "/admin/prices", name: "Tarifs", desc: "Cours collectifs, cours particuliers à domicile, interventions." },
   { href: "/admin/institutions", name: "Institutions", desc: "Organismes partenaires référencés dans les événements." },
   { href: "/admin/interventions", name: "Formats d'ateliers", desc: "Grilles des publics et formats sur la page « Ateliers de groupe »." },
   { href: "/admin/testimonials", name: "Témoignages", desc: "Avis et retours d'expérience sur « Le calligraphe »." },
   { href: "/admin/faq", name: "FAQ", desc: "Questions fréquentes et réponses avec variables dynamiques." },
   { href: "/admin/contact", name: "Contact", desc: "Numéros de téléphone, e-mail et informations administratives." },
+  { href: "/admin/analytics", name: "Analytics", desc: "Statistiques d'audience et trafic Vercel Web Analytics." },
 ];
 ---
 <Layout title="Tableau de bord — Administration" noindex={true}>
@@ -28,143 +32,421 @@ const modules = [
       <div class="space-y-4">
         <AdminPageHeader
           title="Tableau de bord"
-          description="Bienvenue dans l'espace d'administration. Gérez l'ensemble des contenus du site depuis ce panneau de contrôle."
+          description="Vue d'ensemble et état opérationnel du site."
           active="dashboard"
           breadcrumbs={false}
         >
-          <div slot="actions">
-            <a href="/" target="_blank" rel="noopener noreferrer" class="wp-btn text-xs">
+          <div slot="actions" class="flex items-center gap-2">
+            <button
+              id="wp-toggle-welcome-btn"
+              type="button"
+              class="wp-btn text-xs hidden sm:inline-flex"
+              title="Afficher ou masquer le panneau de bienvenue"
+            >
+              Panneau de bienvenue
+            </button>
+            <a href="/admin/analytics" class="wp-btn text-xs">
+              <span>Audience</span>
+              <span class="font-mono text-[10px]" aria-hidden="true">↗</span>
+            </a>
+            <a href="/" target="_blank" rel="noopener noreferrer" class="wp-btn wp-btn-primary text-xs">
               <span>Voir le site</span>
               <span class="font-mono text-[10px]" aria-hidden="true">↗</span>
             </a>
           </div>
         </AdminPageHeader>
 
-        <!-- WordPress Welcome Panel -->
-        <div class="wp-panel p-4 sm:p-5 bg-white dark:bg-[#1a1e22] border-l-4 border-l-[#2271b1]">
-          <div class="max-w-3xl">
+        <!-- 1. WordPress Welcome Panel (Collapsible / Dismissible) -->
+        <div
+          id="wp-welcome-panel"
+          class="wp-panel p-4 sm:p-5 bg-white dark:bg-[#1a1e22] border-l-4 border-l-[#2271b1] relative transition-all"
+        >
+          <button
+            id="wp-dismiss-welcome-btn"
+            type="button"
+            class="absolute top-3 right-3 text-[#646970] hover:text-[#1d2327] dark:text-[#8c8f94] dark:hover:text-white p-1 text-xs transition cursor-pointer"
+            aria-label="Fermer le panneau de bienvenue"
+            title="Masquer ce panneau"
+          >
+            <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+
+          <div class="max-w-5xl">
             <h2 class="text-base font-semibold text-[#1d2327] dark:text-white mb-1">
-              Bienvenue dans l'administration d'Ateliers de calligraphie
+              Bienvenue dans votre tableau de bord WordPress
             </h2>
-            <p class="text-xs text-[#646970] dark:text-[#8c8f94] mb-3.5 leading-relaxed">
-              Nous avons rassemblé quelques liens pour vous aider à démarrer rapidement avec la mise à jour des contenus.
+            <p class="text-xs text-[#646970] dark:text-[#8c8f94] mb-4 leading-relaxed">
+              Nous avons rassemblé les métriques clés, les contenus à traiter et les raccourcis prioritaires pour administrer facilement le site.
             </p>
-            <div class="flex items-center gap-2 flex-wrap">
-              <a href="/admin/hero" class="wp-btn wp-btn-primary text-xs">
-                Modifier le Hero d'accueil
-              </a>
-              <a href="/admin/events" class="wp-btn text-xs">
-                Ajouter un événement
-              </a>
-              <a href="/admin/products" class="wp-btn text-xs">
-                Gérer la galerie
-              </a>
-              <a href="/admin/prices" class="wp-btn text-xs">
-                Modifier les tarifs
-              </a>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-[#f0f0f1] dark:border-[#242a2f] text-xs">
+              <!-- Colonne 1 : Pour commencer -->
+              <div class="space-y-2">
+                <h3 class="font-semibold text-[#1d2327] dark:text-white text-xs uppercase tracking-wider text-[11px]">
+                  Pour commencer
+                </h3>
+                <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">
+                  Mettez à jour la vitrine principale ou vérifiez l'affichage public.
+                </p>
+                <div class="pt-1 flex flex-col gap-1.5 items-start">
+                  <a href="/admin/hero" class="wp-btn wp-btn-primary text-xs">
+                    Modifier le Hero d'accueil
+                  </a>
+                  <a href="/" target="_blank" rel="noopener noreferrer" class="text-[#2271b1] dark:text-[#72aee6] hover:underline text-xs flex items-center gap-1">
+                    <span>Visiter le site en direct</span>
+                    <span aria-hidden="true" class="text-[10px]">↗</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Colonne 2 : Prochaines étapes -->
+              <div class="space-y-2">
+                <h3 class="font-semibold text-[#1d2327] dark:text-white text-xs uppercase tracking-wider text-[11px]">
+                  Prochaines étapes
+                </h3>
+                <ul class="space-y-1.5 text-xs">
+                  <li>
+                    <a href="/admin/events" class="text-[#2271b1] dark:text-[#72aee6] hover:underline flex items-center gap-1.5">
+                      <span class="text-[#2271b1] dark:text-[#72aee6] font-bold">+</span>
+                      <span>Planifier un événement ou stage</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/admin/products" class="text-[#2271b1] dark:text-[#72aee6] hover:underline flex items-center gap-1.5">
+                      <span class="text-[#2271b1] dark:text-[#72aee6] font-bold">+</span>
+                      <span>Ajouter une œuvre dans la galerie</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/admin/prices" class="text-[#2271b1] dark:text-[#72aee6] hover:underline flex items-center gap-1.5">
+                      <span class="text-[#8c8f94] dark:text-[#646970]">✎</span>
+                      <span>Ajuster les tarifs des cours</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Colonne 3 : Plus d'actions -->
+              <div class="space-y-2">
+                <h3 class="font-semibold text-[#1d2327] dark:text-white text-xs uppercase tracking-wider text-[11px]">
+                  Plus d'actions
+                </h3>
+                <ul class="space-y-1.5 text-xs">
+                  <li>
+                    <a href="/admin/faq" class="text-[#2271b1] dark:text-[#72aee6] hover:underline">
+                      Gérer la foire aux questions (FAQ)
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/admin/institutions" class="text-[#2271b1] dark:text-[#72aee6] hover:underline">
+                      Administrer les institutions partenaires
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/admin/contact" class="text-[#2271b1] dark:text-[#72aee6] hover:underline">
+                      Vérifier les coordonnées de contact
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- 2-column WordPress dashboard widgets -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <!-- Left Column -->
-          <div class="space-y-4">
-            <!-- Widget: D'un coup d'œil -->
-            <AdminPanel title="D'un coup d'œil">
-              <div class="space-y-2.5 text-xs text-[#2c3338] dark:text-[#dcdcde]">
-                <div class="grid grid-cols-2 gap-2 pb-3 border-b border-[#dcdcde] dark:border-[#242a2f]">
-                  <div>
-                    <a href="/admin/products" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
-                      Galerie & Calligraphies
-                    </a>
-                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Œuvres disponibles</p>
+        <!-- 2. Vue d'ensemble : Cartes de statistiques clés (4 à 8 métriques réelles) -->
+        <div>
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-[#646970] dark:text-[#8c8f94] mb-2 select-none">
+            Vue d'ensemble
+          </h2>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
+            {dashboard.summaryMetrics.map((metric) => (
+              <a
+                href={metric.href}
+                class="wp-panel p-3 bg-white dark:bg-[#1a1e22] hover:border-[#2271b1] dark:hover:border-[#72aee6] transition flex flex-col justify-between group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2271b1] cursor-pointer"
+              >
+                <div>
+                  <div class="flex items-baseline justify-between gap-1">
+                    <span class="text-2xl sm:text-3xl font-semibold tracking-tight text-[#1d2327] dark:text-white group-hover:text-[#2271b1] dark:group-hover:text-[#72aee6] transition font-sans">
+                      {metric.count}
+                    </span>
+                    {metric.badge && (
+                      <span class={`wp-badge ${
+                        metric.badge.variant === "success"
+                          ? "wp-badge-success"
+                          : metric.badge.variant === "warning"
+                            ? "bg-[#fcf0db] text-[#996800] border-[#996800]/20"
+                            : "wp-badge-info"
+                      } text-[10px] scale-90 origin-right`}>
+                        {metric.badge.text}
+                      </span>
+                    )}
                   </div>
-                  <div>
-                    <a href="/admin/events" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
-                      Calendrier
-                    </a>
-                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Cours & stages à venir</p>
-                  </div>
-                  <div>
-                    <a href="/admin/venues" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
-                      Lieux hebdomadaires
-                    </a>
-                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Dojo Zen & Miroirs du Ciel</p>
-                  </div>
-                  <div>
-                    <a href="/admin/prices" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
-                      Tarification
-                    </a>
-                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Trimestres & interventions</p>
+                  <div class="text-xs font-medium text-[#2c3338] dark:text-[#dcdcde] mt-1 group-hover:text-[#2271b1] dark:group-hover:text-[#72aee6] transition truncate">
+                    {metric.label}
                   </div>
                 </div>
-                <div class="pt-1 text-[11px] text-[#646970] dark:text-[#8c8f94] flex items-center justify-between">
-                  <span>Ateliers de calligraphie — Christophe Desmur</span>
-                  <span class="wp-badge wp-badge-success">En ligne</span>
+                {metric.hint && (
+                  <div class="text-[11px] text-[#646970] dark:text-[#8c8f94] mt-2 pt-1.5 border-t border-[#f0f0f1] dark:border-[#242a2f] truncate flex items-center justify-between">
+                    <span>{metric.hint}</span>
+                    <span class="opacity-0 group-hover:opacity-100 transition text-[#2271b1] dark:text-[#72aee6] text-[10px]" aria-hidden="true">→</span>
+                  </div>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- 3. Grille responsive des widgets opérationnels -->
+        <!-- Desktop : 3 colonnes (2 colonnes gauche / 1 colonne droite) -->
+        <!-- Mobile : Ordre recommandé : Vue d'ensemble -> À traiter -> Activité récente -> Actions rapides -> État du site -> Résumé -> Modules -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+          <!-- Widget A : À TRAITER (Items needing attention) -->
+          <!-- Desktop: col 1-2, row 1 | Mobile: ordre 2 -->
+          <div class="lg:col-span-2 lg:col-start-1">
+            <AdminPanel
+              id="widget-pending"
+              title="À traiter"
+              description="Points d'attention et éléments nécessitant une action ou vérification."
+              collapsible={true}
+            >
+              <div slot="header-actions">
+                {dashboard.pendingItems.length > 0 ? (
+                  <span class="wp-badge bg-[#fcf0db] text-[#996800] border-[#996800]/20 text-[11px]">
+                    {dashboard.pendingItems.length} élément{dashboard.pendingItems.length > 1 ? "s" : ""}
+                  </span>
+                ) : (
+                  <span class="wp-badge wp-badge-success text-[11px]">À jour</span>
+                )}
+              </div>
+
+              {dashboard.pendingItems.length > 0 ? (
+                <ul class="divide-y divide-[#f0f0f1] dark:divide-[#242a2f] text-xs">
+                  {dashboard.pendingItems.map((item) => (
+                    <li class="py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                      <div class="min-w-0">
+                        <div class="flex items-center gap-2">
+                          <span class="font-medium text-[#1d2327] dark:text-white">
+                            {item.title}
+                          </span>
+                          <span class={`wp-badge ${
+                            item.severity === "warning"
+                              ? "bg-[#fcf0db] text-[#996800] border-[#996800]/20"
+                              : item.severity === "info"
+                                ? "wp-badge-info"
+                                : "wp-badge-muted"
+                          } text-[10px]`}>
+                            {item.count}
+                          </span>
+                        </div>
+                        <p class="text-xs text-[#646970] dark:text-[#8c8f94] mt-0.5">
+                          {item.description}
+                        </p>
+                      </div>
+                      <div class="shrink-0 self-start sm:self-center">
+                        <a href={item.href} class="wp-btn text-xs py-1">
+                          {item.actionLabel}
+                        </a>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div class="py-4 text-center text-xs text-[#646970] dark:text-[#8c8f94] space-y-1">
+                  <div class="text-[#00a32a] text-base" aria-hidden="true">✓</div>
+                  <p class="font-medium text-[#1d2327] dark:text-white">
+                    Tous les contenus sont à jour
+                  </p>
+                  <p class="text-[11px]">
+                    Aucune action en attente ou élément incomplet détecté.
+                  </p>
                 </div>
+              )}
+            </AdminPanel>
+          </div>
+
+          <!-- Widget B : ACTIONS RAPIDES -->
+          <!-- Desktop: col 3, row 1 | Mobile: ordre 4 -->
+          <div class="lg:col-span-1 lg:col-start-3 lg:row-start-1">
+            <AdminPanel
+              id="widget-quickactions"
+              title="Actions rapides"
+              description="Raccourcis de création et d'édition fréquents."
+              collapsible={true}
+            >
+              <div class="space-y-2">
+                {dashboard.quickActions.map((action) => (
+                  <a
+                    href={action.href}
+                    class={`block p-2 border transition rounded-none text-xs group ${
+                      action.isPrimary
+                        ? "border-[#2271b1] bg-[#f0f6fc] dark:bg-[#162a3e] hover:bg-[#e7f1fb]"
+                        : "border-[#dcdcde] dark:border-[#242a2f] bg-white dark:bg-[#1a1e22] hover:bg-[#f6f7f7] dark:hover:bg-[#20252a]"
+                    }`}
+                  >
+                    <div class="font-medium text-[#1d2327] dark:text-white group-hover:text-[#2271b1] dark:group-hover:text-[#72aee6] flex items-center justify-between">
+                      <span>{action.label}</span>
+                      <span class="text-[#2271b1] dark:text-[#72aee6] text-[11px]" aria-hidden="true">→</span>
+                    </div>
+                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94] mt-0.5 leading-snug">
+                      {action.description}
+                    </p>
+                  </a>
+                ))}
               </div>
             </AdminPanel>
+          </div>
 
-            <!-- Widget: Actions courantes -->
-            <AdminPanel title="Actions courantes & Raccourcis">
+          <!-- Widget C : ACTIVITÉ RÉCENTE -->
+          <!-- Desktop: col 1-2, row 2 | Mobile: ordre 3 -->
+          <div class="lg:col-span-2 lg:col-start-1 lg:row-start-2">
+            <AdminPanel
+              id="widget-activity"
+              title="Activité récente"
+              description="Derniers événements datés et retours d'expérience référencés."
+              collapsible={true}
+            >
+              {dashboard.recentActivity.length > 0 ? (
+                <div class="divide-y divide-[#f0f0f1] dark:divide-[#242a2f] text-xs">
+                  {dashboard.recentActivity.map((item) => (
+                    <div class="py-2.5 flex items-start justify-between gap-3">
+                      <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2 flex-wrap">
+                          <a
+                            href={item.href}
+                            class="font-medium text-[#2271b1] dark:text-[#72aee6] hover:underline"
+                          >
+                            {item.title}
+                          </a>
+                          <span class="wp-badge wp-badge-muted text-[10px]">
+                            {item.type}
+                          </span>
+                          {item.status && (
+                            <span class={`wp-badge ${
+                              item.statusVariant === "success"
+                                ? "wp-badge-success"
+                                : item.statusVariant === "warning"
+                                  ? "bg-[#fcf0db] text-[#996800] border-[#996800]/20"
+                                  : "wp-badge-muted"
+                            } text-[10px]`}>
+                              {item.status}
+                            </span>
+                          )}
+                        </div>
+                        {item.details && (
+                          <p class="text-[11px] text-[#646970] dark:text-[#8c8f94] mt-0.5 capitalize truncate">
+                            {item.details}
+                          </p>
+                        )}
+                      </div>
+                      <span class="text-[11px] text-[#646970] dark:text-[#8c8f94] whitespace-nowrap shrink-0 pt-0.5 font-mono">
+                        {item.date}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p class="py-3 text-xs text-[#646970] dark:text-[#8c8f94] text-center">
+                  Aucune activité récente enregistrée.
+                </p>
+              )}
+            </AdminPanel>
+          </div>
+
+          <!-- Widget D : ÉTAT DU SITE & INTÉGRATIONS -->
+          <!-- Desktop: col 3, row 2 | Mobile: ordre 5 -->
+          <div class="lg:col-span-1 lg:col-start-3 lg:row-start-2">
+            <AdminPanel
+              id="widget-health"
+              title="État du site & Intégrations"
+              description="Vérifications de santé opérationnelle."
+              collapsible={true}
+            >
               <ul class="divide-y divide-[#f0f0f1] dark:divide-[#242a2f] text-xs">
-                <li class="py-2 flex items-center justify-between gap-3">
-                  <div>
-                    <a href="/admin/hero" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
-                      Changer l'image ou l'accroche d'accueil
-                    </a>
-                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Sur-titre, H1, introduction et image du hero</p>
-                  </div>
-                  <a href="/admin/hero" class="wp-btn text-[11px] shrink-0">Modifier</a>
-                </li>
-                <li class="py-2 flex items-center justify-between gap-3">
-                  <div>
-                    <a href="/admin/events" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
-                      Planifier une nouvelle séance ou un stage
-                    </a>
-                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Dates, horaires, lieu et programme</p>
-                  </div>
-                  <a href="/admin/events" class="wp-btn text-[11px] shrink-0">Planifier</a>
-                </li>
-                <li class="py-2 flex items-center justify-between gap-3">
-                  <div>
-                    <a href="/admin/contact" class="text-[#2271b1] dark:text-[#72aee6] hover:underline font-medium">
-                      Vérifier les coordonnées de contact
-                    </a>
-                    <p class="text-[11px] text-[#646970] dark:text-[#8c8f94]">Téléphones, courriel, agrément Coop A Dom</p>
-                  </div>
-                  <a href="/admin/contact" class="wp-btn text-[11px] shrink-0">Vérifier</a>
-                </li>
+                {dashboard.systemHealth.map((h) => (
+                  <li class="py-2 flex items-center justify-between gap-2">
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1.5">
+                        <span
+                          class={`inline-block w-2 h-2 rounded-full shrink-0 ${
+                            h.status === "ok"
+                              ? "bg-[#00a32a]"
+                              : h.status === "warning"
+                                ? "bg-[#dba617]"
+                                : "bg-[#2271b1]"
+                          }`}
+                          aria-hidden="true"
+                        ></span>
+                        <span class="font-medium text-[#1d2327] dark:text-white truncate">
+                          {h.label}
+                        </span>
+                      </div>
+                      <p class="text-[11px] text-[#646970] dark:text-[#8c8f94] mt-0.5 truncate pl-3.5">
+                        {h.value}
+                      </p>
+                    </div>
+                    {h.action && h.href && (
+                      <a href={h.href} class="wp-btn text-[11px] py-0 px-2 min-h-[22px] shrink-0">
+                        {h.action}
+                      </a>
+                    )}
+                  </li>
+                ))}
               </ul>
             </AdminPanel>
           </div>
 
-          <!-- Right Column -->
-          <div class="space-y-4">
-            <!-- Widget: Tous les modules CMS -->
-            <AdminPanel title="Modules d'administration (10)" noPadding={true}>
+          <!-- Widget E : RÉSUMÉ DU CONTENU -->
+          <!-- Desktop: col 1-2, row 3 | Mobile: ordre 6 -->
+          <div class="lg:col-span-2 lg:col-start-1 lg:row-start-3">
+            <AdminPanel
+              id="widget-content-summary"
+              title="Résumé du contenu"
+              description="Inventaire et répartition détaillée par type de contenu."
+              noPadding={true}
+              collapsible={true}
+            >
               <div class="overflow-x-auto">
                 <table class="wp-table">
                   <thead>
                     <tr>
-                      <th>Module</th>
-                      <th>Description</th>
+                      <th class="w-1/3">Type de contenu</th>
+                      <th class="w-16 text-center">Total</th>
+                      <th>Détails & Répartition</th>
                       <th class="text-right">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {modules.map((m) => (
+                    {dashboard.contentSummary.map((row) => (
                       <tr>
                         <td class="font-medium whitespace-nowrap">
-                          <a href={m.href} class="text-[#2271b1] dark:text-[#72aee6] hover:underline">
-                            {m.name}
+                          <a href={row.href} class="text-[#2271b1] dark:text-[#72aee6] hover:underline">
+                            {row.label}
                           </a>
                         </td>
-                        <td class="text-xs text-[#646970] dark:text-[#8c8f94]">{m.desc}</td>
+                        <td class="text-center font-semibold font-mono text-xs text-[#1d2327] dark:text-white">
+                          {row.total}
+                        </td>
+                        <td class="text-xs text-[#646970] dark:text-[#8c8f94]">
+                          <div class="flex items-center gap-1.5 flex-wrap">
+                            {row.breakdown.map((b) => (
+                              <span class={`wp-badge ${
+                                b.badgeVariant === "success"
+                                  ? "wp-badge-success"
+                                  : b.badgeVariant === "warning"
+                                    ? "bg-[#fcf0db] text-[#996800] border-[#996800]/20"
+                                    : "wp-badge-muted"
+                              } text-[10px]`}>
+                                {b.count} {b.label.toLowerCase()}
+                              </span>
+                            ))}
+                          </div>
+                        </td>
                         <td class="text-right whitespace-nowrap">
-                          <a href={m.href} class="wp-btn text-[11px] py-0 px-2 min-h-[24px]">
-                            Ouvrir
+                          <a href={row.href} class="wp-btn text-[11px] py-0 px-2 min-h-[24px]">
+                            Gérer
                           </a>
                         </td>
                       </tr>
@@ -173,33 +455,146 @@ const modules = [
                 </table>
               </div>
             </AdminPanel>
+          </div>
 
-            <!-- Widget: Système & Déploiement -->
-            <AdminPanel title="Environnement & Informations">
-              <div class="space-y-2 text-xs text-[#646970] dark:text-[#8c8f94]">
-                <div class="flex items-center justify-between py-1 border-b border-[#f0f0f1] dark:border-[#242a2f]">
-                  <span>Moteur</span>
-                  <span class="text-[#2c3338] dark:text-[#dcdcde] font-mono text-[11px]">Astro 5 (SSR Vercel)</span>
-                </div>
-                <div class="flex items-center justify-between py-1 border-b border-[#f0f0f1] dark:border-[#242a2f]">
-                  <span>Stockage des données</span>
-                  <span class="text-[#2c3338] dark:text-[#dcdcde] font-mono text-[11px]">YAML versionné (Git)</span>
-                </div>
-                <div class="flex items-center justify-between py-1 border-b border-[#f0f0f1] dark:border-[#242a2f]">
-                  <span>Design system admin</span>
-                  <span class="text-[#2c3338] dark:text-[#dcdcde]">WordPress wp-admin</span>
-                </div>
-                <div class="flex items-center justify-between py-1">
-                  <span>Authentification</span>
-                  <span class="text-[#2c3338] dark:text-[#dcdcde]">Session sécurisée</span>
-                </div>
-              </div>
+          <!-- Widget F : TOUS LES MODULES CMS -->
+          <!-- Desktop: col 3, row 3 | Mobile: ordre 7 -->
+          <div class="lg:col-span-1 lg:col-start-3 lg:row-start-3">
+            <AdminPanel
+              id="widget-modules"
+              title="Modules d'administration"
+              description="Accès direct à toutes les rubriques."
+              collapsible={true}
+            >
+              <ul class="divide-y divide-[#f0f0f1] dark:divide-[#242a2f] text-xs">
+                {modules.map((m) => (
+                  <li class="py-1.5 flex items-center justify-between gap-2">
+                    <div class="min-w-0">
+                      <a href={m.href} class="font-medium text-[#2271b1] dark:text-[#72aee6] hover:underline">
+                        {m.name}
+                      </a>
+                      <p class="text-[10px] text-[#646970] dark:text-[#8c8f94] truncate">
+                        {m.desc}
+                      </p>
+                    </div>
+                    <a href={m.href} class="wp-btn text-[10px] py-0 px-1.5 min-h-[20px] shrink-0">
+                      Ouvrir
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </AdminPanel>
           </div>
+
         </div>
       </div>
     ) : (
       <LoginGate />
     )}
   </div>
+
+  <script is:inline>
+    // Gestion du panneau de bienvenue WordPress (masquer / afficher / persistance)
+    (function () {
+      const welcomePanel = document.getElementById("wp-welcome-panel");
+      const dismissBtn = document.getElementById("wp-dismiss-welcome-btn");
+      const toggleBtn = document.getElementById("wp-toggle-welcome-btn");
+
+      if (!welcomePanel) return;
+
+      const STORAGE_KEY = "wp_dashboard_welcome_dismissed";
+
+      function updateVisibility(hidden) {
+        if (hidden) {
+          welcomePanel.classList.add("hidden");
+          if (toggleBtn) toggleBtn.classList.remove("wp-btn-primary");
+        } else {
+          welcomePanel.classList.remove("hidden");
+          if (toggleBtn) toggleBtn.classList.add("wp-btn-primary");
+        }
+      }
+
+      const isDismissed = localStorage.getItem(STORAGE_KEY) === "1";
+      if (isDismissed) {
+        updateVisibility(true);
+      }
+
+      if (dismissBtn) {
+        dismissBtn.addEventListener("click", () => {
+          localStorage.setItem(STORAGE_KEY, "1");
+          updateVisibility(true);
+        });
+      }
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener("click", () => {
+          const currentlyHidden = welcomePanel.classList.contains("hidden");
+          const willHide = !currentlyHidden;
+          if (willHide) {
+            localStorage.setItem(STORAGE_KEY, "1");
+          } else {
+            localStorage.removeItem(STORAGE_KEY);
+          }
+          updateVisibility(willHide);
+        });
+      }
+
+      // Gestion des panneaux repliables (collapsible widgets)
+      const COLLAPSED_STORAGE_KEY = "wp_dashboard_collapsed_panels";
+      let collapsedPanels = [];
+      try {
+        collapsedPanels = JSON.parse(localStorage.getItem(COLLAPSED_STORAGE_KEY) || "[]");
+      } catch (e) {
+        collapsedPanels = [];
+      }
+
+      const panels = document.querySelectorAll(".wp-panel.is-collapsible");
+      panels.forEach((panel) => {
+        const panelId = panel.id;
+        const toggle = panel.querySelector(".wp-panel-toggle");
+        const body = panel.querySelector(".wp-panel-body");
+        const footer = panel.querySelector(".wp-panel-footer");
+        const svg = toggle?.querySelector("svg");
+
+        if (!toggle || !body) return;
+
+        function setCollapsed(collapsed) {
+          if (collapsed) {
+            body.classList.add("hidden");
+            if (footer) footer.classList.add("hidden");
+            toggle.setAttribute("aria-expanded", "false");
+            if (svg) svg.classList.remove("rotate-180");
+          } else {
+            body.classList.remove("hidden");
+            if (footer) footer.classList.remove("hidden");
+            toggle.setAttribute("aria-expanded", "true");
+            if (svg) svg.classList.add("rotate-180");
+          }
+        }
+
+        // Restaurer l'état sauvegardé
+        if (panelId && collapsedPanels.includes(panelId)) {
+          setCollapsed(true);
+        }
+
+        toggle.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const isCurrentlyCollapsed = body.classList.contains("hidden");
+          const willCollapse = !isCurrentlyCollapsed;
+          setCollapsed(willCollapse);
+
+          if (panelId) {
+            if (willCollapse) {
+              if (!collapsedPanels.includes(panelId)) collapsedPanels.push(panelId);
+            } else {
+              collapsedPanels = collapsedPanels.filter((id) => id !== panelId);
+            }
+            try {
+              localStorage.setItem(COLLAPSED_STORAGE_KEY, JSON.stringify(collapsedPanels));
+            } catch (err) {}
+          }
+        });
+      });
+    })();
+  </script>
 </Layout>
