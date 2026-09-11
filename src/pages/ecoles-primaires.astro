@@ -419,39 +419,46 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
   </div>
 
   <script>
-    const yearButtons = document.querySelectorAll(".year-btn");
-    const yearSections = document.querySelectorAll(".year-section");
-    const olderDetails = document.getElementById("older-years-details") as HTMLDetailsElement | null;
+    function initYearTabs() {
+      const yearButtons = document.querySelectorAll<HTMLElement>(".year-btn");
+      const yearSections = document.querySelectorAll<HTMLElement>(".year-section");
+      const olderDetails = document.getElementById("older-years-details") as HTMLDetailsElement | null;
 
-    yearButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const year = btn.getAttribute("data-year");
-        if (!year) return;
+      yearButtons.forEach((btn) => {
+        if (btn.dataset.tabInit) return;
+        btn.dataset.tabInit = "true";
 
-        // Bascule de la section active
-        yearSections.forEach((sec) => {
-          const isMatch = sec.getAttribute("data-year") === year;
-          sec.classList.toggle("hidden", !isMatch);
-        });
+        btn.addEventListener("click", () => {
+          const year = btn.getAttribute("data-year");
+          if (!year) return;
 
-        // Mise à jour de l’apparence des boutons et de aria-pressed
-        yearButtons.forEach((b) => {
-          const isSelected = b.getAttribute("data-year") === year;
-          b.setAttribute("aria-pressed", isSelected ? "true" : "false");
-          if (isSelected) {
-            b.classList.add("bg-gray-900", "text-white", "dark:bg-gray-100", "dark:text-gray-900", "shadow-xs");
-            b.classList.remove("bg-gray-100", "text-gray-700", "bg-gray-50", "dark:bg-gray-800", "dark:text-gray-300", "dark:bg-gray-700/60");
-          } else {
-            b.classList.remove("bg-gray-900", "text-white", "dark:bg-gray-100", "dark:text-gray-900", "shadow-xs");
-            b.classList.add("bg-gray-100", "text-gray-700", "dark:bg-gray-800", "dark:text-gray-300");
+          // Bascule de la section active
+          yearSections.forEach((sec) => {
+            const isMatch = sec.getAttribute("data-year") === year;
+            sec.classList.toggle("hidden", !isMatch);
+          });
+
+          // Mise à jour de l’apparence des boutons et de aria-pressed
+          yearButtons.forEach((b) => {
+            const isSelected = b.getAttribute("data-year") === year;
+            b.setAttribute("aria-pressed", isSelected ? "true" : "false");
+            if (isSelected) {
+              b.classList.add("bg-gray-900", "text-white", "dark:bg-gray-100", "dark:text-gray-900", "shadow-xs");
+              b.classList.remove("bg-gray-100", "text-gray-700", "bg-gray-50", "dark:bg-gray-800", "dark:text-gray-300", "dark:bg-gray-700/60");
+            } else {
+              b.classList.remove("bg-gray-900", "text-white", "dark:bg-gray-100", "dark:text-gray-900", "shadow-xs");
+              b.classList.add("bg-gray-100", "text-gray-700", "dark:bg-gray-800", "dark:text-gray-300");
+            }
+          });
+
+          // Fermeture automatique du menu déroulant si un bouton interne a été cliqué
+          if (olderDetails && olderDetails.contains(btn)) {
+            olderDetails.removeAttribute("open");
           }
         });
-
-        // Fermeture automatique du menu déroulant si un bouton interne a été cliqué
-        if (olderDetails && olderDetails.contains(btn)) {
-          olderDetails.removeAttribute("open");
-        }
       });
-    });
+    }
+
+    document.addEventListener("astro:page-load", initYearTabs);
   </script>
 </Base>

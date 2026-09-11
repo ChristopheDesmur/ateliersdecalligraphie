@@ -843,17 +843,22 @@ const institutionalReferences = [
 
   <!-- Script interactif du sélecteur d’année dans l’archive -->
   <script>
-    const yearSelect = document.getElementById("archive-year-select");
-    const yearSections = document.querySelectorAll(".archive-year-section");
+    function initArchiveSelect() {
+      const yearSelect = document.getElementById("archive-year-select") as HTMLSelectElement | null;
+      const yearSections = document.querySelectorAll<HTMLElement>(".archive-year-section");
 
-    if (yearSelect) {
-      yearSelect.addEventListener("change", (e) => {
-        const target = e.target;
-        const selectedYear = target ? (target as HTMLSelectElement).value : "";
-        yearSections.forEach((sec) => {
-          sec.classList.toggle("hidden", (sec as HTMLElement).dataset.year !== selectedYear);
+      if (yearSelect && !yearSelect.dataset.init) {
+        yearSelect.dataset.init = "true";
+        yearSelect.addEventListener("change", (e) => {
+          const target = e.target;
+          const selectedYear = target ? (target as HTMLSelectElement).value : "";
+          yearSections.forEach((sec) => {
+            sec.classList.toggle("hidden", sec.dataset.year !== selectedYear);
+          });
         });
-      });
+      }
     }
+
+    document.addEventListener("astro:page-load", initArchiveSelect);
   </script>
 </Base>\n
