@@ -8,12 +8,12 @@ import { authenticateRequest } from "@/lib/admin/auth";
 
 const { session } = authenticateRequest(Astro.request);
 ---
-<Layout title="Administration — Formats d'ateliers" noindex={true}>
+<Layout title="Administration — Formats" noindex={true}>
   <div>
     {session ? (
       <div>
         <AdminPageHeader
-          title="Formats d'ateliers"
+          title="Formats"
           description="Les cartes « Choisissez votre format d'atelier selon votre public » affichées sur /atelier-de-groupe."
           active="interventions"
         >

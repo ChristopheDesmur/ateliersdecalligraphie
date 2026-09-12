@@ -8,12 +8,12 @@ import { authenticateRequest } from "@/lib/admin/auth";
 
 const { session } = authenticateRequest(Astro.request);
 ---
-<Layout title="Administration — Événements" noindex={true}>
+<Layout title="Administration — Cours" noindex={true}>
   <div>
     {session ? (
       <div>
         <AdminPageHeader
-          title="Événements"
+          title="Cours"
           description="Calendrier des cours, stages et interventions passés et à venir."
           active="events"
         >
@@ -78,7 +78,7 @@ const { session } = authenticateRequest(Astro.request);
                   <option value="" disabled selected>— Sélectionner un lieu —</option>
                 </select>
                 <p class="field-help">
-                  Lieu introuvable ? Ajoutez-le d'abord dans <a href="/admin/institutions" class="text-[#2271b1] dark:text-[#72aee6] hover:underline">Institutions</a>.
+                  Lieu introuvable ? Ajoutez-le d'abord dans <a href="/admin/institutions" class="text-[#2271b1] dark:text-[#72aee6] hover:underline">Organismes</a>.
                 </p>
               </div>
               <div class="sm:col-span-2">
@@ -233,7 +233,7 @@ const { session } = authenticateRequest(Astro.request);
           <div class="row-actions">
             ${
               past
-                ? `<span class="text-[11px] text-[#8c8f94]">Événement passé (archivé)</span>`
+                ? `<span class="text-[11px] text-[#8c8f94]">Cours passé (archivé)</span>`
                 : `<button type="button" data-edit-year="${year}" data-edit-index="${i}">Modifier</button>
                    <span class="text-[#8c8f94]">|</span>
                    <button type="button" data-delete-year="${year}" data-delete-index="${i}" class="delete-action">Supprimer</button>`
@@ -410,7 +410,7 @@ const { session } = authenticateRequest(Astro.request);
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
-      showStatus("Événement supprimé et site republié.", "success");
+      showStatus("Cours supprimé et site republié.", "success");
       await load();
     } catch (err: any) {
       showStatus(err.message, "error");
@@ -472,7 +472,7 @@ const { session } = authenticateRequest(Astro.request);
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
-      showStatus("Événement enregistré et site republié.", "success");
+      showStatus("Cours enregistré et site republié.", "success");
       closeForm();
       await load();
     } catch (err: any) {

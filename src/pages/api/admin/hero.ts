@@ -21,7 +21,7 @@ export const GET: APIRoute = async ({ request }) => {
     const doc = parseDocument(yamlContent);
     return new Response(JSON.stringify({ hero: doc.toJSON() }), { status: 200, headers: NO_CACHE_HEADERS });
   } catch (err: any) {
-    return new Response(JSON.stringify({ error: err.message || "Erreur de lecture du Hero." }), { status: 500, headers: NO_CACHE_HEADERS });
+    return new Response(JSON.stringify({ error: err.message || "Erreur de lecture de l'En-tête." }), { status: 500, headers: NO_CACHE_HEADERS });
   }
 };
 
@@ -38,7 +38,7 @@ export const POST: APIRoute = async ({ request }) => {
     const body = await request.json();
     const heroInput = body?.hero;
     if (!heroInput || typeof heroInput !== "object") {
-      throw new Error("Données du Hero invalides.");
+      throw new Error("Données de l'En-tête invalides.");
     }
 
     const eyebrow = String(heroInput.eyebrow ?? "").trim();
@@ -86,9 +86,9 @@ export const POST: APIRoute = async ({ request }) => {
       doc.delete("image");
     }
 
-    const result = await saveTextFile(HERO_PATH, doc.toString(), "Mise à jour du Hero de la page d'accueil (admin)");
+    const result = await saveTextFile(HERO_PATH, doc.toString(), "Mise à jour de l'En-tête de la page d'accueil (admin)");
     return new Response(JSON.stringify({ success: true, hero: doc.toJSON(), ...result }), { status: 200, headers: NO_CACHE_HEADERS });
   } catch (err: any) {
-    return new Response(JSON.stringify({ error: err.message || "Erreur lors de l'enregistrement du Hero." }), { status: 400, headers: NO_CACHE_HEADERS });
+    return new Response(JSON.stringify({ error: err.message || "Erreur lors de l'enregistrement de l'En-tête." }), { status: 400, headers: NO_CACHE_HEADERS });
   }
 };

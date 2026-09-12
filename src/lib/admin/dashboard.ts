@@ -176,7 +176,7 @@ export function getDashboardData(): DashboardData {
 
       summaryMetrics.push({
         id: "events",
-        label: "Événements",
+        label: "Cours",
         count: total,
         href: "/admin/events",
         hint: upcoming > 0 ? `${upcoming} à venir` : `${total} enregistrés`,
@@ -185,7 +185,7 @@ export function getDashboardData(): DashboardData {
 
       contentSummary.push({
         id: "events",
-        label: "Événements & Cours",
+        label: "Cours",
         total,
         breakdown: [
           { label: "À venir", count: upcoming, badgeVariant: "success" },
@@ -197,7 +197,7 @@ export function getDashboardData(): DashboardData {
       if (upcoming > 0) {
         pendingItems.push({
           id: "events-upcoming",
-          title: "Événements programmés",
+          title: "Cours programmés",
           count: upcoming,
           description: `${upcoming} séance${upcoming > 1 ? "s" : ""} ou atelier${upcoming > 1 ? "s" : ""} planifié${upcoming > 1 ? "s" : ""} dans l'agenda.`,
           href: "/admin/events",
@@ -209,9 +209,9 @@ export function getDashboardData(): DashboardData {
       if (missingDetails > 0) {
         pendingItems.push({
           id: "events-details",
-          title: "Événements sans descriptif",
+          title: "Cours sans descriptif",
           count: missingDetails,
-          description: `${missingDetails} événement${missingDetails > 1 ? "s" : ""} sans détails complémentaires.`,
+          description: `${missingDetails} cours sans détails complémentaires.`,
           href: "/admin/events",
           severity: "neutral",
           actionLabel: "Compléter",
@@ -227,7 +227,7 @@ export function getDashboardData(): DashboardData {
         recentActivity.push({
           id: `ev-${ev.timestamp}-${ev.titre}`,
           title: ev.titre,
-          type: "Événement",
+          type: "Cours",
           date: formatDate(ev.from),
           details: ev.lieu ? (ev.lieu.length > 50 ? ev.lieu.slice(0, 47) + "…" : ev.lieu) : undefined,
           href: "/admin/events",
@@ -310,7 +310,7 @@ export function getDashboardData(): DashboardData {
     }
   }
 
-  // 3. Institutions inspection
+  // 3. Organismes inspection
   const institutionsFile = resolveFilePath([
     "src/data/institutions.yaml",
     "src/content/institutions.yaml",
@@ -331,7 +331,7 @@ export function getDashboardData(): DashboardData {
 
       summaryMetrics.push({
         id: "institutions",
-        label: "Institutions",
+        label: "Organismes",
         count: total,
         href: "/admin/institutions",
         hint: `${withDocs} avec document`,
@@ -339,7 +339,7 @@ export function getDashboardData(): DashboardData {
 
       contentSummary.push({
         id: "institutions",
-        label: "Institutions partenaires",
+        label: "Organismes partenaires",
         total,
         breakdown: [
           { label: "Partenaires référencés", count: total, badgeVariant: "info" },
@@ -483,7 +483,7 @@ export function getDashboardData(): DashboardData {
     }
   }
 
-  // 7. Formats d'ateliers inspection
+  // 7. Formats inspection
   const interventionsFile = resolveFilePath([
     "src/data/interventions.yaml",
     "src/content/interventions.yaml",
@@ -496,7 +496,7 @@ export function getDashboardData(): DashboardData {
       const total = Object.keys(data).length;
       contentSummary.push({
         id: "interventions",
-        label: "Formats d'ateliers",
+        label: "Formats",
         total,
         breakdown: [
           { label: "Publics ciblés", count: total, badgeVariant: "info" },
@@ -521,7 +521,7 @@ export function getDashboardData(): DashboardData {
     });
   }
 
-  // 9. Hero inspection
+  // 9. En-tête inspection
   const heroFile = resolveFilePath([
     "src/data/hero.yaml",
   ]);
@@ -530,7 +530,7 @@ export function getDashboardData(): DashboardData {
     entitiesPresent.push("hero");
     quickActions.push({
       id: "edit-hero",
-      label: "Modifier le Hero d'accueil",
+      label: "Modifier l'En-tête d'accueil",
       description: "Titre principal, accroche et visuel en page d'accueil",
       href: "/admin/hero",
     });

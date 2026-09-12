@@ -91,7 +91,7 @@ export const POST: APIRoute = async ({ request }) => {
       const year = String(body.year || "");
       const index = Number(body.index);
       const list = data[year];
-      if (!list || !list[index]) throw new Error("Événement introuvable.");
+      if (!list || !list[index]) throw new Error("Cours introuvable.");
       const removed = list[index];
       if (isLockedPastEvent(removed.to)) {
         throw new Error("Cet événement est passé et ne peut plus être supprimé.");
@@ -108,7 +108,7 @@ export const POST: APIRoute = async ({ request }) => {
       const originalYear = String(body.originalYear || "");
       const originalIndex = Number(body.originalIndex);
       const existingList = data[originalYear];
-      if (!existingList || !existingList[originalIndex]) throw new Error("Événement introuvable.");
+      if (!existingList || !existingList[originalIndex]) throw new Error("Cours introuvable.");
       if (isLockedPastEvent(existingList[originalIndex].to)) {
         throw new Error("Cet événement est passé et ne peut plus être modifié.");
       }

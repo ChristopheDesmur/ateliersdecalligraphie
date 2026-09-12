@@ -8,12 +8,12 @@ import { authenticateRequest } from "@/lib/admin/auth";
 
 const { session } = authenticateRequest(Astro.request);
 ---
-<Layout title="Administration — Hero" noindex={true}>
+<Layout title="Administration — En-tête" noindex={true}>
   <div class="max-w-4xl">
     {session ? (
       <div>
         <AdminPageHeader
-          title="Hero"
+          title="En-tête"
           description="Contenu principal affiché en haut de la page d'accueil."
           active="hero"
         />
@@ -374,7 +374,7 @@ const { session } = authenticateRequest(Astro.request);
     const imageLocation = String(fd.get("image_location") || "");
 
     if (previewEyebrow) previewEyebrow.textContent = eyebrow || "Sur-titre";
-    if (previewTitle) previewTitle.textContent = title || "Titre du Hero";
+    if (previewTitle) previewTitle.textContent = title || "Titre de l'En-tête";
     if (previewIntro) previewIntro.textContent = intro || "Texte d'introduction…";
 
     if (previewPrimaryBtn) {
@@ -555,7 +555,7 @@ const { session } = authenticateRequest(Astro.request);
       if (cancelBtn) cancelBtn.disabled = true;
       updateLivePreview();
     } catch (err: any) {
-      showStatus(err.message || "Erreur de chargement du Hero.", "error");
+      showStatus(err.message || "Erreur de chargement de l'En-tête.", "error");
     }
   }
 
@@ -609,7 +609,7 @@ const { session } = authenticateRequest(Astro.request);
       isDirty = false;
       saveStatus.dataset.state = "saved";
       saveStatus.textContent = "Enregistré ✓";
-      showStatus("Contenu du Hero enregistré et synchronisé.", "success");
+      showStatus("Contenu de l'En-tête enregistré et synchronisé.", "success");
 
       window.setTimeout(() => {
         if (saveStatus.dataset.state === "saved") {

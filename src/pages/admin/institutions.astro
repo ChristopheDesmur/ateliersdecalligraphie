@@ -8,13 +8,13 @@ import { authenticateRequest } from "@/lib/admin/auth";
 
 const { session } = authenticateRequest(Astro.request);
 ---
-<Layout title="Administration — Institutions" noindex={true}>
+<Layout title="Administration — Organismes" noindex={true}>
   <div>
     {session ? (
       <div>
         <AdminPageHeader
-          title="Institutions"
-          description="Organismes, institutions et partenaires référencés depuis les événements et pages du site."
+          title="Organismes"
+          description="Organismes référencés depuis les activités et pages du site."
           active="institutions"
         >
           <div slot="actions">
