@@ -56,10 +56,10 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
     <!-- ================================================================= -->
     <!-- 1. HERO SECTION (EDITORIAL & RESTRAINED)                          -->
     <!-- ================================================================= -->
-    <header class="py-6 sm:py-10 border-b border-gray-100 dark:border-gray-800" aria-labelledby="article-title">
+    <header class="py-6 sm:py-10 border-b border-warm-grey" aria-labelledby="article-title">
       <div class="max-w-3xl">
         <!-- Eyebrow -->
-        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-3">
+        <p class="eyebrow">
           Shodō · La voie du pinceau
         </p>
 
@@ -75,7 +75,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
         </p>
 
         <!-- Author / Editorial Metadata -->
-        <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+        <div class="mt-6 pt-8 border-t border-warm-grey flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
           <span class="font-medium text-gray-900 dark:text-gray-200">Christophe Desmur</span>
           <span aria-hidden="true">•</span>
           <span>Calligraphie chinoise & Culture asiatique</span>
@@ -93,16 +93,16 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
             <span aria-hidden="true">📖</span>
             <span>Sommaire de l’article</span>
           </span>
-          <span class="text-xs text-indigo-600 dark:text-indigo-400 group-open:hidden">Afficher</span>
-          <span class="text-xs text-indigo-600 dark:text-indigo-400 hidden group-open:inline">Masquer</span>
+          <span class="meta text-xs group-open:hidden">Afficher</span>
+          <span class="meta text-xs hidden group-open:inline">Masquer</span>
         </summary>
         <nav aria-label="Sommaire mobile" class="mt-4 pt-3 border-t border-gray-200/60 dark:border-gray-700/50">
-          <ol class="space-y-2 text-xs text-gray-600 dark:text-gray-300">
-            <li><a href="#histoire-transmission" class="hover:text-indigo-600 dark:hover:text-indigo-400">01 · De la Chine au Japon, à la Corée et au Viêtnam</a></li>
-            <li><a href="#traditions-locales" class="hover:text-indigo-600 dark:hover:text-indigo-400">02 · Des traditions propres à chaque culture</a></li>
-            <li><a href="#voie-spirituelle" class="hover:text-indigo-600 dark:hover:text-indigo-400">03 · Plus qu’un art, une voie spirituelle</a></li>
-            <li><a href="#silence-geste" class="hover:text-indigo-600 dark:hover:text-indigo-400">04 · Du silence au geste</a></li>
-            <li><a href="#pratiquer-lyon" class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium text-indigo-600 dark:text-indigo-400">Pratiquer à Lyon →</a></li>
+          <ol class="text-sm">
+            <li><a href="#histoire-transmission" class="toc-link">01 · De la Chine au Japon, à la Corée et au Viêtnam</a></li>
+            <li><a href="#traditions-locales" class="toc-link">02 · Des traditions propres à chaque culture</a></li>
+            <li><a href="#voie-spirituelle" class="toc-link">03 · Plus qu’un art, une voie spirituelle</a></li>
+            <li><a href="#silence-geste" class="toc-link">04 · Du silence au geste</a></li>
+            <li><a href="#pratiquer-lyon" class="toc-link">Pratiquer à Lyon →</a></li>
           </ol>
         </nav>
       </details>
@@ -117,9 +117,9 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
       <article class="lg:col-span-8 max-w-prose space-y-12 text-gray-800 dark:text-gray-200">
 
         <!-- CONCEPT HIGHLIGHT : SHODŌ 書道 -->
-        <div class="p-6 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50">
+        <div class="border-l border-vermilion pl-5">
           <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-3">
-            <span class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400">Concept</span>
+            <span class="eyebrow">Concept</span>
             <span class="font-serif text-2xl sm:text-3xl text-gray-950 dark:text-gray-100 font-medium">SHODŌ · 書道</span>
             <span class="text-sm text-gray-600 dark:text-gray-400 italic">«&nbsp;La voie du pinceau&nbsp;»</span>
           </div>
@@ -132,7 +132,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
         <!-- SECTION 1 : HISTOIRE & TRANSMISSION                           -->
         <!-- ============================================================= -->
         <section id="histoire-transmission" aria-labelledby="heading-transmission" class="space-y-4">
-          <h2 id="heading-transmission" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          <h2 id="heading-transmission" class="h-section">
             De la Chine au Japon, à la Corée et au Viêtnam
           </h2>
 
@@ -164,7 +164,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
         <!-- SECTION 2 : TRADITIONS PROPRES                                -->
         <!-- ============================================================= -->
         <section id="traditions-locales" aria-labelledby="heading-traditions" class="space-y-4">
-          <h2 id="heading-traditions" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          <h2 id="heading-traditions" class="h-section">
             Des traditions de calligraphie propres à chaque culture
           </h2>
 
@@ -185,7 +185,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
         <!-- EDITORIAL PAUSE : GRANDE IMAGE SHODO                          -->
         <!-- ============================================================= -->
         <div class="my-10 sm:my-14 -mx-4 sm:mx-0">
-          <figure class="overflow-hidden rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-md bg-gray-50 dark:bg-gray-800">
+          <figure class="ink-frame">
             <img
               src="/assets/shodo-voie-pinceau.webp"
               alt="Shodo, la voie du pinceau — tracé spontané de caractères à l’encre de Chine"
@@ -204,7 +204,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
         <!-- SECTION 3 : UNE VOIE SPIRITUELLE                              -->
         <!-- ============================================================= -->
         <section id="voie-spirituelle" aria-labelledby="heading-spirituelle" class="space-y-4">
-          <h2 id="heading-spirituelle" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          <h2 id="heading-spirituelle" class="h-section">
             Plus qu’un art, une voie spirituelle
           </h2>
 
@@ -217,7 +217,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
           </p>
 
           <!-- Comparaison Shufa et Shodo -->
-          <div class="mt-6 p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+          <div class="border-t border-warm-grey pt-5">
             <h3 class="font-serif font-medium text-lg text-gray-950 dark:text-gray-100 mb-4">
               Shūfǎ chinois et Shodō japonais : convergences et singularités
             </h3>
@@ -245,13 +245,13 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
         <!-- SECTION 4 : DU SILENCE AU GESTE                               -->
         <!-- ============================================================= -->
         <section id="silence-geste" aria-labelledby="heading-geste" class="space-y-6">
-          <h2 id="heading-geste" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          <h2 id="heading-geste" class="h-section">
             Du silence au geste
           </h2>
 
           <!-- Sub-moment: L’immobilité -->
           <div class="space-y-3">
-            <h3 class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+            <h3 class="eyebrow">
               L’immobilité et le silence
             </h3>
             <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
@@ -261,7 +261,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
 
           <!-- Sub-moment: La posture (Hokkai jo in) -->
           <div class="space-y-3">
-            <h3 class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+            <h3 class="eyebrow">
               La posture d’assise et le mudra (Hokkai jō-in)
             </h3>
             <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
@@ -270,7 +270,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
           </div>
 
           <!-- Photo démonstration Christophe Desmur -->
-          <figure class="my-6 overflow-hidden rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm bg-gray-50 dark:bg-gray-800">
+          <figure class="my-6 ink-frame">
             <img
               src="/assets/christophe-desmur-calligraphie-dedicace.webp"
               alt="Christophe Desmur, calligraphe, traçant des caractères traditionnels au pinceau"
@@ -286,7 +286,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
 
           <!-- Sub-moment: L’élan et la surgie de la calligraphie -->
           <div class="space-y-3">
-            <h3 class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+            <h3 class="eyebrow">
               L’élan créateur
             </h3>
             <p class="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
@@ -303,38 +303,38 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
       <aside class="hidden lg:block lg:col-span-4 sticky top-8 space-y-6" aria-label="Sommaire et repères">
         
         <!-- Boîte Sommaire -->
-        <div class="p-6 rounded-2xl bg-gray-50/90 dark:bg-gray-800/60 border border-gray-200/80 dark:border-gray-700/70 shadow-xs">
+        <div class="border-t border-warm-grey pt-5">
           <p class="text-xs font-semibold tracking-wider uppercase text-gray-500 dark:text-gray-400 mb-4">
             Sur cette page
           </p>
           <nav aria-label="Sommaire de l’article">
-            <ol class="space-y-3 text-xs leading-relaxed">
+            <ol class="text-sm">
               <li>
-                <a href="#histoire-transmission" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-baseline gap-2">
-                  <span class="font-mono text-gray-400 text-[11px]">01</span>
+                <a href="#histoire-transmission" class="toc-link items-baseline gap-2">
+                  <span class="numeral text-[0.8rem]">01</span>
                   <span>De la Chine aux pays voisins</span>
                 </a>
               </li>
               <li>
-                <a href="#traditions-locales" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-baseline gap-2">
-                  <span class="font-mono text-gray-400 text-[11px]">02</span>
+                <a href="#traditions-locales" class="toc-link items-baseline gap-2">
+                  <span class="numeral text-[0.8rem]">02</span>
                   <span>Des traditions propres à chaque culture</span>
                 </a>
               </li>
               <li>
-                <a href="#voie-spirituelle" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-baseline gap-2">
-                  <span class="font-mono text-gray-400 text-[11px]">03</span>
+                <a href="#voie-spirituelle" class="toc-link items-baseline gap-2">
+                  <span class="numeral text-[0.8rem]">03</span>
                   <span>Plus qu’un art, une voie spirituelle</span>
                 </a>
               </li>
               <li>
-                <a href="#silence-geste" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-baseline gap-2">
-                  <span class="font-mono text-gray-400 text-[11px]">04</span>
+                <a href="#silence-geste" class="toc-link items-baseline gap-2">
+                  <span class="numeral text-[0.8rem]">04</span>
                   <span>Du silence au geste</span>
                 </a>
               </li>
               <li class="pt-2 border-t border-gray-200/60 dark:border-gray-700/50">
-                <a href="#pratiquer-lyon" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline flex items-baseline gap-2">
+                <a href="#pratiquer-lyon" class="toc-link items-baseline gap-2 text-ink">
                   <span>Pratiquer à Lyon &rarr;</span>
                 </a>
               </li>
@@ -343,11 +343,11 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
         </div>
 
         <!-- Boîte Christophe Desmur & Pratique -->
-        <div class="p-6 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/70 shadow-xs text-xs space-y-3">
+        <div class="border-t border-warm-grey pt-5 text-xs space-y-3">
           <p class="font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
             L’enseignant
           </p>
-          <p class="font-serif font-medium text-base text-gray-950 dark:text-gray-100">
+          <p class="font-serif text-xl leading-snug text-ink mt-1.5">
             Christophe Desmur
           </p>
           <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -367,13 +367,13 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
     <!-- ================================================================= -->
     <!-- 5. END-OF-ARTICLE CTA                                             -->
     <!-- ================================================================= -->
-    <section class="mt-8 pt-10 border-t border-gray-100 dark:border-gray-800" aria-labelledby="cta-exploration">
-      <div class="rounded-3xl p-6 sm:p-10 bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60">
+    <section class="section border-t border-warm-grey" aria-labelledby="cta-exploration">
+      <div class="band section">
         <div class="max-w-2xl">
-          <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
+          <p class="eyebrow">
             Transmission & Expérience
           </p>
-          <h2 id="cta-exploration" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          <h2 id="cta-exploration" class="h-section">
             Envie d’explorer la calligraphie ?
           </h2>
           <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 mt-3 leading-relaxed">
@@ -383,13 +383,13 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
           <div class="mt-6 flex flex-wrap items-center gap-3">
             <a
               href="/cours-collectifs"
-              class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs sm:text-sm transition shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+              class="btn btn-ink">
               Découvrir les cours collectifs &rarr;
             </a>
 
             <a
               href={contactMailHref}
-              class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium text-xs sm:text-sm border border-gray-200 dark:border-gray-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+              class="btn btn-line">
               Me contacter
             </a>
           </div>
@@ -400,12 +400,12 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
     <!-- ================================================================= -->
     <!-- 6. PRATIQUER À LYON (LIEUX & CRÉNEAUX)                            -->
     <!-- ================================================================= -->
-    <section id="pratiquer-lyon" class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="pratique-heading">
+    <section id="pratiquer-lyon" class="section border-t border-warm-grey" aria-labelledby="pratique-heading">
       <div class="max-w-2xl mb-8">
-        <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
+        <p class="eyebrow">
           Ateliers réguliers
         </p>
-        <h2 id="pratique-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+        <h2 id="pratique-heading" class="h-section">
           Pratiquer à Lyon
         </h2>
         <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
@@ -416,9 +416,9 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         <!-- Lieu 1 : Dojo Zen -->
-        <div class="p-6 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+        <div class="border-t border-warm-grey pt-5 flex flex-col justify-between">
           <div>
-            <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+            <span class="eyebrow">
               Lundi soir
             </span>
             <h3 class="font-serif font-medium text-xl text-gray-950 dark:text-gray-100 mt-1 mb-2">
@@ -434,16 +434,16 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
           </div>
 
           <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/60">
-            <a href="/cours-collectifs" class="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+            <a href="/cours-collectifs" class="link-arrow text-sm">
               Modalités et inscriptions &rarr;
             </a>
           </div>
         </div>
 
         <!-- Lieu 2 : Miroirs du Ciel -->
-        <div class="p-6 rounded-2xl bg-white dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+        <div class="border-t border-warm-grey pt-5 flex flex-col justify-between">
           <div>
-            <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+            <span class="eyebrow">
               Mercredi matin
             </span>
             <h3 class="font-serif font-medium text-xl text-gray-950 dark:text-gray-100 mt-1 mb-2">
@@ -459,7 +459,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
           </div>
 
           <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/60">
-            <a href="/cours-collectifs" class="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline">
+            <a href="/cours-collectifs" class="link-arrow text-sm">
               Modalités et inscriptions &rarr;
             </a>
           </div>
@@ -471,9 +471,9 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
       <div class="mt-6 p-4 rounded-xl bg-gray-50/80 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/50 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-600 dark:text-gray-300">
         <span>Une question sur la pratique ou l’organisation ?</span>
         <div class="flex items-center gap-4 font-medium">
-          <a href={`tel:${telHref(contact.mobile)}`} class="hover:text-indigo-600 dark:hover:text-indigo-400">📱 {contact.mobile}</a>
-          <a href={`tel:${telHref(contact.landline)}`} class="hover:text-indigo-600 dark:hover:text-indigo-400">📞 {contact.landline}</a>
-          <a href={contactMailHref} class="text-indigo-600 dark:text-indigo-400 underline">✉️ Écrire un e-mail</a>
+          <a href={`tel:${telHref(contact.mobile)}`} class="text-ink tabular-nums hover:text-soft-ink inline-flex items-center min-h-10">{contact.mobile}</a>
+          <a href={`tel:${telHref(contact.landline)}`} class="text-ink tabular-nums hover:text-soft-ink inline-flex items-center min-h-10">{contact.landline}</a>
+          <a href={contactMailHref} class="text-ink underline decoration-warm-grey underline-offset-4 hover:decoration-current inline-flex items-center min-h-10">Écrire un e-mail</a>
         </div>
       </div>
     </section>
@@ -483,41 +483,50 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
     <!-- ================================================================= -->
     <section class="mt-14 max-w-4xl" aria-labelledby="faq-shodo-heading">
       <div class="mb-6">
-        <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
+        <span class="eyebrow">
           Repères & Pratique
         </span>
-        <h2 id="faq-shodo-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-1">
+        <h2 id="faq-shodo-heading" class="h-section">
           Questions fréquentes sur le Shodō et la voie du pinceau
         </h2>
       </div>
 
-      <div class="space-y-4">
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-950 dark:text-gray-100 text-base list-none">
+      <div>
+        <details class="faq group border-b border-warm-grey first:border-t">
+          <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 font-serif text-xl leading-snug text-ink">
             <span>Faut-il pratiquer les arts martiaux ou le zen pour débuter le Shodō ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+            <span class="relative h-3.5 w-3.5 shrink-0" aria-hidden="true">
+              <span class="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-ink"></span>
+              <span class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-ink transition-transform duration-300 group-open:scale-y-0"></span>
+            </span>
           </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p class="body-copy pb-6 -mt-1 pr-10">
             Non, aucune pratique préalable n’est nécessaire. Bien que le Shodō partage avec les arts martiaux (Budō) le sens de la posture, de la verticalité et de la respiration ventrale, l’apprentissage au pinceau est doux et accessible à toute personne curieuse de découvrir cet art du trait.
           </p>
         </details>
 
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-950 dark:text-gray-100 text-base list-none">
+        <details class="faq group border-b border-warm-grey first:border-t">
+          <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 font-serif text-xl leading-snug text-ink">
             <span>Trace-t-on des caractères chinois ou des caractères japonais ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+            <span class="relative h-3.5 w-3.5 shrink-0" aria-hidden="true">
+              <span class="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-ink"></span>
+              <span class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-ink transition-transform duration-300 group-open:scale-y-0"></span>
+            </span>
           </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p class="body-copy pb-6 -mt-1 pr-10">
             Historiquement, le Shodō s’est constitué par l’apprentissage des caractères chinois (nommés <em>kanji</em> au Japon). Durant les cours à Lyon, vous étudiez les idéogrammes traditionnels fondamentaux et leurs styles classiques, qui constituent la matrice commune à toute la calligraphie d’Asie orientale.
           </p>
         </details>
 
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-950 dark:text-gray-100 text-base list-none">
+        <details class="faq group border-b border-warm-grey first:border-t">
+          <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 font-serif text-xl leading-snug text-ink">
             <span>Où et quand pratiquer le Shodō à Lyon ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+            <span class="relative h-3.5 w-3.5 shrink-0" aria-hidden="true">
+              <span class="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-ink"></span>
+              <span class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-ink transition-transform duration-300 group-open:scale-y-0"></span>
+            </span>
           </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p class="body-copy pb-6 -mt-1 pr-10">
             La pratique a lieu chaque semaine à la Croix-Rousse : le lundi soir de {formatTimeTypographic(dojo.time_start)} à {formatTimeTypographic(dojo.time_end)} au {dojo.name} (11, rue Dumenge) et le mercredi matin de {formatTimeTypographic(miroirs.time_start)} à {formatTimeTypographic(miroirs.time_end)} chez Miroirs du Ciel (9, rue de Belfort). Une première séance d’essai sans engagement est proposée.
           </p>
         </details>
@@ -532,17 +541,30 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20calligr
         À découvrir également
       </p>
       <div class="flex flex-wrap items-center gap-4 text-xs font-medium">
-        <a href="/calligraphie-zen" class="text-indigo-600 dark:text-indigo-400 hover:underline">Calligraphie zen</a>
-        <span class="text-gray-300 dark:text-gray-700">•</span>
-        <a href="/cours-individuel-a-domicile" class="text-indigo-600 dark:text-indigo-400 hover:underline">Cours particuliers à domicile</a>
-        <span class="text-gray-300 dark:text-gray-700">•</span>
-        <a href="/cours-de-chinois" class="text-indigo-600 dark:text-indigo-400 hover:underline">Cours de langue chinoise</a>
-        <span class="text-gray-300 dark:text-gray-700">•</span>
-        <a href="/galerie" class="text-indigo-600 dark:text-indigo-400 hover:underline">Œuvres à vendre</a>
+        <a href="/calligraphie-zen" class="underline decoration-warm-grey underline-offset-4 hover:decoration-current">Calligraphie zen</a>
+        <span class="text-warm-grey" aria-hidden="true">·</span>
+        <a href="/cours-individuel-a-domicile" class="underline decoration-warm-grey underline-offset-4 hover:decoration-current">Cours particuliers à domicile</a>
+        <span class="text-warm-grey" aria-hidden="true">·</span>
+        <a href="/cours-de-chinois" class="underline decoration-warm-grey underline-offset-4 hover:decoration-current">Cours de langue chinoise</a>
+        <span class="text-warm-grey" aria-hidden="true">·</span>
+        <a href="/galerie" class="underline decoration-warm-grey underline-offset-4 hover:decoration-current">Œuvres à vendre</a>
       </div>
     </footer>
 
     <RelatedPages current="/shodo-voie-pinceau" />
 
   </div>
+  <style>
+    .toc-link {
+      display: flex;
+      min-height: 2.5rem;
+      align-items: center;
+      padding-block: 0.3rem;
+      color: var(--color-soft-ink);
+      transition: color 0.2s;
+    }
+    .toc-link:hover {
+      color: var(--color-ink);
+    }
+  </style>
 </Layout>

@@ -1,4 +1,6 @@
 ---
+import FAQAccordion from "@/components/editorial/FAQAccordion.astro";
+
 const faqs = [
   {
     question: "Comment acheter une calligraphie chinoise originale à vendre ?",
@@ -36,33 +38,20 @@ const faqSchema = {
 };
 ---
 
-<section class="mt-20 pt-12 border-t border-gray-100 dark:border-gray-800" aria-labelledby="faq-heading">
-  <div class="max-w-3xl mb-8">
-    <span class="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
-      Questions fréquentes
-    </span>
-    <h2 id="faq-heading" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
-      Tout savoir sur l’acquisition d’une œuvre
-    </h2>
-    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-serif mt-2 leading-relaxed">
-      Quelques repères pour vous accompagner dans la découverte et l’acquisition d’une calligraphie originale.
-    </p>
-  </div>
-
-  <div class="space-y-4 max-w-3xl">
-    {faqs.map((faq) => (
-      <details class="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-800/80 p-5 transition [&_svg]:open:-rotate-180">
-        <summary class="flex cursor-pointer items-center justify-between gap-4 font-serif text-lg font-medium text-gray-900 dark:text-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg">
-          <span>{faq.question}</span>
-          <svg class="h-5 w-5 shrink-0 text-gray-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-          </svg>
-        </summary>
-        <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-serif pt-2 border-t border-gray-100 dark:border-gray-700/60">
-          {faq.answer}
-        </p>
-      </details>
-    ))}
+<section class="section border-t border-warm-grey" aria-labelledby="faq-heading">
+  <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
+    <div class="lg:col-span-4">
+      <p class="eyebrow mb-4">Questions fréquentes</p>
+      <h2 id="faq-heading" class="h-section">
+        Tout savoir sur l’acquisition d’une œuvre
+      </h2>
+      <p class="lede mt-5">
+        Quelques repères pour vous accompagner dans la découverte et l’acquisition d’une calligraphie originale.
+      </p>
+    </div>
+    <div class="lg:col-span-8">
+      <FAQAccordion items={faqs} openFirst />
+    </div>
   </div>
 </section>
 

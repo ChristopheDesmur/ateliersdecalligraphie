@@ -22,19 +22,19 @@ const breadcrumbSchema = {
 };
 ---
 
-<nav aria-label="Fil d’Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
-  <ol class="flex items-center gap-1.5 flex-wrap">
+<nav aria-label="Fil d’Ariane" class="meta text-xs mb-8">
+  <ol class="flex items-center gap-2 flex-wrap">
     {items.map((item, index) => {
       const isLast = index === items.length - 1;
       return (
-        <li class="flex items-center gap-1.5">
-          {index > 0 && <span aria-hidden="true" class="text-gray-400 dark:text-gray-600">/</span>}
+        <li class="flex items-center gap-2">
+          {index > 0 && <span aria-hidden="true" class="text-warm-grey">/</span>}
           {item.href && !isLast ? (
-            <a href={item.href} class="hover:underline hover:text-gray-900 dark:hover:text-gray-200 transition-colors">
+            <a href={item.href} class="underline decoration-warm-grey underline-offset-4 hover:decoration-current">
               {item.label}
             </a>
           ) : (
-            <span aria-current={isLast ? "page" : undefined} class={isLast ? "text-gray-900 dark:text-gray-100 font-medium" : "text-gray-500"}>
+            <span aria-current={isLast ? "page" : undefined} class={isLast ? "text-ink" : undefined}>
               {item.label}
             </span>
           )}

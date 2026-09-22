@@ -31,24 +31,24 @@ const editorialLinks = [
 ].filter((p) => p.href !== current);
 ---
 
-<nav class="mt-16 pt-10 border-t border-gray-200 dark:border-gray-800" aria-label="Pour aller plus loin">
-  <h2 class="text-xs uppercase tracking-widest font-semibold text-gray-500 dark:text-gray-400 mb-6">
+<nav class="mt-16 pt-10 border-t border-warm-grey" aria-label="Pour aller plus loin">
+  <h2 class="eyebrow mb-8">
     Pour aller plus loin
   </h2>
 
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 text-sm">
     <!-- Groupe 1 : Autres publics -->
     <div>
-      <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3 text-sm">
+      <h3 class="eyebrow mb-3">
         Pour d’autres publics
       </h3>
-      <ul class="space-y-2">
+      <ul>
         {audienceLinks.map((link) => (
           <li>
             <a
               href={link.href}
-              class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition flex items-center gap-1.5">
-              <span class="text-gray-400 select-none">&rarr;</span>
+              class="related-link">
+              <span class="text-warm-grey select-none" aria-hidden="true">&rarr;</span>
               <span>{link.label}</span>
             </a>
           </li>
@@ -58,16 +58,16 @@ const editorialLinks = [
 
     <!-- Groupe 2 : Cours & Formules à Lyon -->
     <div>
-      <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3 text-sm">
+      <h3 class="eyebrow mb-3">
         Formules & Pratique à Lyon
       </h3>
-      <ul class="space-y-2">
+      <ul>
         {generalLinks.map((link) => (
           <li>
             <a
               href={link.href}
-              class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition flex items-center gap-1.5">
-              <span class="text-gray-400 select-none">&rarr;</span>
+              class="related-link">
+              <span class="text-warm-grey select-none" aria-hidden="true">&rarr;</span>
               <span>{link.label}</span>
             </a>
           </li>
@@ -77,16 +77,16 @@ const editorialLinks = [
 
     <!-- Groupe 3 : Culture & Découverte -->
     <div>
-      <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3 text-sm">
+      <h3 class="eyebrow mb-3">
         Culture & Découverte
       </h3>
-      <ul class="space-y-2">
+      <ul>
         {editorialLinks.map((link) => (
           <li>
             <a
               href={link.href}
-              class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition flex items-center gap-1.5">
-              <span class="text-gray-400 select-none">&rarr;</span>
+              class="related-link">
+              <span class="text-warm-grey select-none" aria-hidden="true">&rarr;</span>
               <span>{link.label}</span>
             </a>
           </li>
@@ -95,3 +95,23 @@ const editorialLinks = [
     </div>
   </div>
 </nav>
+
+<style>
+  .related-link {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    min-height: 2.5rem;
+    padding-block: 0.35rem;
+    color: var(--color-soft-ink);
+    transition: color 0.2s;
+  }
+  .related-link:hover {
+    color: var(--color-ink);
+  }
+  .related-link:hover span:last-child {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--color-warm-grey);
+  }
+</style>

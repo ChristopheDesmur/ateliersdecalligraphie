@@ -3,6 +3,9 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Cta from "@/components/cta.astro";
 import RelatedPages from "@/components/related-pages.astro";
+import EditorialSection from "@/components/editorial/EditorialSection.astro";
+import EditorialLink from "@/components/editorial/EditorialLink.astro";
+import FAQAccordion from "@/components/editorial/FAQAccordion.astro";
 import { prices } from "@/data/prices";
 import { contact, telHref } from "@/data/contact";
 import { venues, formatTimeTypographic } from "@/data/venues";
@@ -43,6 +46,57 @@ const locations = [
       url: "https://arts-martiaux-lyon.fr/calligraphie/",
     },
   },
+];
+const courseFaqs = [
+  {
+    question: "Faut-il savoir parler ou lire le chinois pour participer ?",
+    answer: "Non, absolument aucun prérequis de langue ou d’écriture n’est nécessaire. La calligraphie chinoise est d’abord un art du geste, de la posture et du souffle. Le sens, l’histoire et l’ordre des traits de chaque caractère sont expliqués pas à pas au fur et à mesure de votre progression.",
+  },
+  {
+    question: "Peut-on intégrer les cours en cours d’année ?",
+    answer: "Oui, les inscriptions sont possibles tout au long de l’année selon les places disponibles. Comme les groupes sont restreints (2 à 8 personnes), Christophe Desmur accompagne chaque participant selon son propre niveau, qu’il s’agisse d’une initiation complète ou d’un perfectionnement.",
+  },
+  {
+    question: "Le matériel est-il réellement fourni lors des séances ?",
+    answer: "Oui, vous n’avez aucun matériel à acheter pour débuter. Pinceaux traditionnels en poils naturels (loup, chèvre), bâtons d’encre de Chine, pierres à encre et papiers absorbants sont mis à votre disposition à chaque cours. Si vous souhaitez pratiquer chez vous, Christophe pourra vous conseiller sur le choix des outils.",
+  },
+  {
+    question: "Quelle est la différence entre le créneau du Dojo Zen et celui de Miroirs du Ciel ?",
+    answer: `Le créneau du lundi soir (${formatTimeTypographic(dojo.time_start)} – ${formatTimeTypographic(dojo.time_end)}) au ${dojo.name} offre un cadre traditionnel, sobre et silencieux particulièrement propice à l’intériorisation après le travail. Le créneau du mercredi matin (${formatTimeTypographic(miroirs.time_start)} – ${formatTimeTypographic(miroirs.time_end)}) à la boutique Miroirs du Ciel propose une atmosphère lumineuse et conviviale. Le programme et la qualité d’enseignement sont identiques.`,
+  },
+  {
+    question: `Comment fonctionne le tarif de ${prices.cours_collectifs.trimestre} € par trimestre ?`,
+    answer: `La cotisation trimestrielle de ${prices.cours_collectifs.trimestre} € couvre ${prices.cours_collectifs.seances} cours hebdomadaires avec le matériel inclus. Ce tarif ne bénéficie pas de crédit d’impôt, celui-ci étant réservé aux cours particuliers dispensés à domicile via Coop A Dom. Un tarif adapté et accessible pour une pratique artistique et culturelle de qualité à Lyon.`,
+  },
+  {
+    question: "Quel est l’âge minimum pour participer aux cours collectifs ?",
+    answer: "Les cours hebdomadaires adultes accueillent les jeunes dès l’âge de 14 à 15 ans. Pour les enfants plus jeunes (écoles primaires et collèges), des ateliers spécifiques adaptés au rythme scolaire sont organisés tout au long de l’année.",
+  },
+];
+
+const sessionSteps = [
+  {
+    title: "La posture corporelle et la concentration",
+    text: "Une assise équilibrée favorise l’ouverture de la cage thoracique et la détente des épaules. L’immobilité attentive précède l’élan créatif.",
+  },
+  {
+    title: "La préparation de l’encre de Chine",
+    text: "Frotter le bâton d’encre sur la pierre avec un peu d’eau est un rituel d’intériorisation. On observe la texture et la profondeur du noir qui naît sous nos yeux.",
+  },
+  {
+    title: "Le maniement du pinceau et les traits fondamentaux",
+    html: "Tenue verticale du pinceau, pression, levée, terminaison : vous apprenez les 8 traits fondamentaux (le caractère <em>Yong</em> 永) qui composent l’ensemble de l’écriture chinoise.",
+  },
+  {
+    title: "L’exploration des styles classiques",
+    html: "Du style régulier (<em>Kaishu</em>, clair et structuré) au style courant (<em>Xingshu</em>, fluide et expressif) puis cursif (<em>Caoshu</em>), chacun avance selon sa sensibilité.",
+  },
+];
+
+const practicalFacts = [
+  { label: "Effectif", value: "2 à 8", note: "Participants par séance pour préserver la qualité de l’accompagnement individuel." },
+  { label: "Matériel", value: "100 % fourni", note: "Pinceaux, bâtons d’encre de Chine, pierres à encre et papiers chinois mis à disposition." },
+  { label: "Niveau requis", value: "Tous niveaux", note: "Aucune notion de langue chinoise ni de pratique artistique préalable n’est nécessaire." },
 ];
 ---
 
@@ -158,100 +212,77 @@ const locations = [
 
   <Container>
     <!-- Fil d’Ariane -->
-    <nav aria-label="Fil d’Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
-      <ol class="flex items-center gap-1.5 flex-wrap">
-        <li><a href="/" class="hover:underline">Accueil</a></li>
-        <li aria-hidden="true">/</li>
-        <li><span class="text-gray-500">Calligraphie chinoise</span></li>
-        <li aria-hidden="true">/</li>
-        <li aria-current="page" class="text-gray-800 dark:text-gray-200 font-medium">Cours collectifs à Lyon</li>
+    <nav aria-label="Fil d’Ariane" class="meta text-xs mb-8">
+      <ol class="flex items-center gap-2 flex-wrap">
+        <li><a href="/" class="underline decoration-warm-grey underline-offset-4 hover:decoration-current">Accueil</a></li>
+        <li aria-hidden="true" class="text-warm-grey">/</li>
+        <li>Calligraphie chinoise</li>
+        <li aria-hidden="true" class="text-warm-grey">/</li>
+        <li aria-current="page" class="text-ink">Cours collectifs à Lyon</li>
       </ol>
     </nav>
 
     <!-- En-tête de page -->
-    <header class="max-w-3xl">
-      <span class="text-indigo-600 dark:text-indigo-400 uppercase tracking-widest text-xs font-semibold">
+    <header class="max-w-3xl pb-14 sm:pb-20">
+      <p class="eyebrow eyebrow-mark mb-5">
         Pratique hebdomadaire à Lyon 4<sup>e</sup>
-      </span>
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mt-2 text-gray-900 dark:text-gray-100 leading-tight">
+      </p>
+      <h1 class="h-section">
         Cours collectifs de calligraphie chinoise à Lyon
       </h1>
-      <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
+      <p class="lede mt-6">
         Chaque semaine à la Croix-Rousse, Christophe Desmur vous guide dans l’apprentissage du pinceau, du souffle et du tracé des caractères chinois traditionnels. Un atelier à taille humaine, ouvert à tous.
       </p>
-      <div class="mt-6 flex flex-wrap items-center gap-3">
-        <a
-          href="#trial-heading"
-          class="px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm transition shadow-xs">
-          Séance d’essai sans engagement &darr;
-        </a>
-        <a
-          href="#schedule-heading"
-          class="px-5 py-2.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 font-medium text-sm transition">
-          Voir les créneaux & lieux &darr;
-        </a>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+        <a href="#trial-heading" class="btn btn-ink">Séance d’essai sans engagement</a>
+        <a href="#schedule-heading" class="btn btn-line">Voir les créneaux &amp; lieux</a>
       </div>
     </header>
 
-    <!-- Tableau récapitulatif scannable -->
-    <section class="mt-12" aria-labelledby="schedule-heading">
-      <h2 id="schedule-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+    <!-- Lieux & horaires : entrées éditoriales -->
+    <section class="section border-t border-warm-grey scroll-mt-24" aria-labelledby="schedule-heading">
+      <h2 id="schedule-heading" class="h-section mb-12">
         Lieux et horaires des séances
       </h2>
 
-      <div class="grid md:grid-cols-2 gap-6">
+      <div class="grid gap-14 md:grid-cols-2 md:gap-10 lg:gap-16">
         {locations.map((loc) => (
-          <article class="bg-gray-50 dark:bg-gray-800/80 rounded-2xl p-6 sm:p-7 border border-gray-200 dark:border-gray-700 shadow-xs flex flex-col justify-between">
-            <div>
-              <div class="flex items-start justify-between gap-3 mb-2">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 dark:bg-indigo-900/60 text-indigo-800 dark:text-indigo-300">
-                  {loc.day}
-                </span>
-                <span class="text-sm font-bold text-gray-900 dark:text-gray-100" set:html={loc.time} />
-              </div>
-
-              <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mt-3">
-                {loc.name}
-              </h3>
-              <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">
-                {loc.address}
-              </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5" set:html={loc.district} />
-
-              <p class="text-sm text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
-                {loc.atmosphere}
-              </p>
-
-              <div class="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400 space-y-1.5">
-                <div><strong class="text-gray-700 dark:text-gray-300">Accès TCL :</strong> {loc.access}</div>
-                {loc.externalLink && (
-                  <p>
-                    <a
-                      href={loc.externalLink.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 hover:underline font-medium">
-                      <span>{loc.externalLink.label}</span>
-                      <span aria-hidden="true">↗</span>
-                    </a>
-                  </p>
-                )}
-              </div>
+          <article data-reveal class="flex flex-col">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-warm-grey pb-3">
+              <p class="eyebrow">{loc.day}</p>
+              <p class="font-sans text-[0.95rem] font-medium text-ink tabular-nums" set:html={loc.time} />
             </div>
 
-            <div class="mt-6">
-              <div class="w-full h-44 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 mb-4">
-                <iframe
-                  class="w-full h-full border-0"
-                  src={loc.mapEmbed}
-                  loading="lazy"
-                  title={`Plan d’accès Google Maps pour ${loc.name}`}
-                  referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
+            <h3 class="h-item mt-5">{loc.name}</h3>
+            <p class="meta mt-1">{loc.address}</p>
+            <p class="meta" set:html={loc.district} />
+
+            <p class="body-copy mt-4">{loc.atmosphere}</p>
+
+            <dl class="meta mt-5 border-t border-warm-grey pt-4">
+              <dt class="inline font-medium text-ink">Accès TCL :</dt>
+              <dd class="inline"> {loc.access}</dd>
+            </dl>
+            {loc.externalLink && (
+              <p class="mt-1">
+                <EditorialLink href={loc.externalLink.url} external label={loc.externalLink.label} class="text-sm" />
+              </p>
+            )}
+
+            <div class="mt-6 ink-frame h-48">
+              <iframe
+                class="w-full h-full border-0"
+                src={loc.mapEmbed}
+                loading="lazy"
+                title={`Plan d’accès Google Maps pour ${loc.name}`}
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+
+            <div class="mt-5">
               <a
                 href={`mailto:${contact.email}?subject=Demande%20d’inscription%20cours%20collectif`}
-                class="block w-full text-center py-2.5 px-4 bg-gray-900 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white rounded-lg font-medium text-sm transition">
+                class="btn btn-line w-full">
                 Réserver une séance ({loc.day.toLowerCase()})
               </a>
             </div>
@@ -260,244 +291,153 @@ const locations = [
       </div>
     </section>
 
-    <!-- Détails pratiques en grille -->
-    <section class="mt-16 bg-white dark:bg-gray-800/40 rounded-2xl p-6 sm:p-10 border border-gray-200 dark:border-gray-700" aria-labelledby="practical-heading">
-      <h2 id="practical-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-8">
-        Informations pratiques & Modalités
+    <!-- Tarif & modalités : présentation éditoriale, prix visible -->
+    <section class="section border-t border-warm-grey scroll-mt-24" aria-labelledby="practical-heading">
+      <h2 id="practical-heading" class="h-section mb-12">
+        Informations pratiques &amp; modalités
       </h2>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
-        <div class="border-l-2 border-indigo-600 pl-4">
-          <h3 class="font-bold text-gray-900 dark:text-gray-100 mb-1">Tarif</h3>
-          <p class="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400">{prices.cours_collectifs.trimestre} €</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Par trimestre, pour {prices.cours_collectifs.seances} cours hebdomadaires (matériel inclus).</p>
+      <div data-reveal class="grid gap-x-10 gap-y-6 border-t border-ink/80 py-8 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <h3 class="label-caps">Cours collectif hebdomadaire</h3>
+          <p class="font-serif text-2xl text-soft-ink mt-1.5">Lyon 4<sup>e</sup> · séance de 2 heures</p>
         </div>
-
-        <div class="border-l-2 border-indigo-600 pl-4">
-          <h3 class="font-bold text-gray-900 dark:text-gray-100 mb-1">Effectif</h3>
-          <p class="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400">2 à 8</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Participants par séance pour préserver la qualité de l’accompagnement individuel.</p>
+        <div class="lg:col-span-4">
+          <p class="font-serif text-5xl leading-none text-ink">{prices.cours_collectifs.trimestre}&nbsp;€</p>
+          <p class="meta mt-2">
+            Par trimestre, pour {prices.cours_collectifs.seances} cours hebdomadaires (matériel inclus).
+          </p>
+          <p class="meta mt-1">
+            Ce tarif n’ouvre pas droit au crédit d’impôt, réservé aux cours à domicile.
+          </p>
         </div>
-
-        <div class="border-l-2 border-indigo-600 pl-4">
-          <h3 class="font-bold text-gray-900 dark:text-gray-100 mb-1">Matériel</h3>
-          <p class="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400">100 % fourni</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pinceaux, bâtons d’encre de Chine, pierres à encre et papiers chinois mis à disposition.</p>
-        </div>
-
-        <div class="border-l-2 border-indigo-600 pl-4">
-          <h3 class="font-bold text-gray-900 dark:text-gray-100 mb-1">Niveau requis</h3>
-          <p class="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400">Tous niveaux</p>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Aucune notion de langue chinoise ni de pratique artistique préalable n’est nécessaire.</p>
+        <div class="lg:col-span-4 flex flex-col items-start gap-2 lg:items-end">
+          <a href="#trial-heading" class="btn btn-ink">Essayer une séance</a>
+          <EditorialLink href="/tarifs" label="Voir tous les tarifs" />
         </div>
       </div>
+
+      <dl class="grid border-b border-warm-grey sm:grid-cols-3">
+        {practicalFacts.map((fact) => (
+          <div class="border-t border-warm-grey py-6 sm:pr-8">
+            <dt class="eyebrow">{fact.label}</dt>
+            <dd>
+              <p class="font-serif text-2xl text-ink mt-1.5">{fact.value}</p>
+              <p class="meta mt-1.5">{fact.note}</p>
+            </dd>
+          </div>
+        ))}
+      </dl>
     </section>
 
-    <!-- Déroulement d’un cours -->
-    <section class="mt-16 max-w-4xl" aria-labelledby="session-heading">
-      <h2 id="session-heading" class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        Comment se déroule une séance de calligraphie ?
-      </h2>
-      <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
-        La calligraphie chinoise traditionnelle n’est pas un simple exercice d’écriture : c’est un art du geste, de la posture et du souffle. Chaque séance est rythmée de manière progressive pour vous permettre de vous détendre et de canaliser votre attention.
-      </p>
-
-      <div class="space-y-6">
-        <div class="flex gap-4 items-start">
-          <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
-            1
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              La posture corporelle et la concentration
-            </h3>
-            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1 leading-relaxed">
-              Une assise équilibrée favorise l’ouverture de la cage thoracique et la détente des épaules. L’immobilité attentive précède l’élan créatif.
-            </p>
-          </div>
+    <!-- Déroulement d’une séance -->
+    <section class="section border-t border-warm-grey" aria-labelledby="session-heading">
+      <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
+        <div data-reveal class="lg:col-span-5">
+          <h2 id="session-heading" class="h-section">
+            Comment se déroule une séance de calligraphie ?
+          </h2>
+          <p class="lede mt-6">
+            La calligraphie chinoise traditionnelle n’est pas un simple exercice d’écriture : c’est un art du geste, de la posture et du souffle. Chaque séance est rythmée de manière progressive pour vous permettre de vous détendre et de canaliser votre attention.
+          </p>
         </div>
 
-        <div class="flex gap-4 items-start">
-          <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
-            2
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              La préparation de l’encre de Chine
-            </h3>
-            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1 leading-relaxed">
-              Frotter le bâton d’encre sur la pierre avec un peu d’eau est un rituel d’intériorisation. On observe la texture et la profondeur du noir qui naît sous nos yeux.
-            </p>
-          </div>
-        </div>
-
-        <div class="flex gap-4 items-start">
-          <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
-            3
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              Le maniement du pinceau et les traits fondamentaux
-            </h3>
-            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1 leading-relaxed">
-              Tenue verticale du pinceau, pression, levée, terminaison : vous apprenez les 8 traits fondamentaux (le caractère <em>Yong</em> 永) qui composent l’ensemble de l’écriture chinoise.
-            </p>
-          </div>
-        </div>
-
-        <div class="flex gap-4 items-start">
-          <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
-            4
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              L’exploration des styles classiques
-            </h3>
-            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1 leading-relaxed">
-              Du style régulier (<em>Kaishu</em>, clair et structuré) au style courant (<em>Xingshu</em>, fluide et expressif) puis cursif (<em>Caoshu</em>), chacun avance selon sa sensibilité.
-            </p>
-          </div>
-        </div>
+        <ol class="lg:col-span-7 border-t border-warm-grey">
+          {sessionSteps.map((step, i) => (
+            <li data-reveal class="grid grid-cols-[2.75rem_1fr] gap-x-4 border-b border-warm-grey py-6">
+              <span class="numeral pt-1" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+              <div>
+                <h3 class="font-serif text-xl sm:text-2xl leading-snug text-ink">{step.title}</h3>
+                {step.html
+                  ? <p class="body-copy mt-2" set:html={step.html} />
+                  : <p class="body-copy mt-2">{step.text}</p>}
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
 
     <!-- L’enseignant : Christophe Desmur -->
-    <section class="mt-16 max-w-4xl p-6 sm:p-8 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-      <div class="flex flex-col sm:flex-row gap-6 items-start">
-        <img
-          src="/assets/christophe-desmur-calligraphie-chinoise.webp"
-          alt="Christophe Desmur, professeur de calligraphie chinoise à Lyon"
-          width="120"
-          height="120"
-          loading="lazy"
-          decoding="async"
-          class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-indigo-600/30 shrink-0"
-        />
-        <div>
-          <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
-            Votre enseignant
-          </span>
-          <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mt-1">
-            Christophe Desmur
-          </h2>
-          <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
+    <section class="section border-t border-warm-grey" aria-labelledby="teacher-heading">
+      <div data-reveal class="grid gap-8 sm:grid-cols-12 sm:gap-10 items-start">
+        <div class="sm:col-span-4 lg:col-span-3">
+          <div class="ink-frame aspect-[4/5] max-w-[220px]">
+            <img
+              src="/assets/christophe-desmur-calligraphie-chinoise.webp"
+              alt="Christophe Desmur, professeur de calligraphie chinoise à Lyon"
+              width="800"
+              height="567"
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+        <div class="sm:col-span-8 lg:col-span-7">
+          <p class="eyebrow mb-3">Votre enseignant</p>
+          <h2 id="teacher-heading" class="h-item">Christophe Desmur</h2>
+          <p class="body-copy mt-4">
             Diplômé en langue et civilisation chinoises et titulaire d’un Master de traduction littéraire chinois-français (Université Jean Moulin Lyon 3), Christophe Desmur enseigne la calligraphie chinoise et le Shodō à Lyon depuis plus de 25 ans. Sa pédagogie allie rigueur du geste traditionnel, bienveillance et attention individualisée.
           </p>
-          <a href="/le-calligraphe" class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
-            <span>Découvrir son parcours complet, ses diplômes et ses expositions</span>
-            <span>&rarr;</span>
-          </a>
+          <div class="mt-4">
+            <EditorialLink href="/le-calligraphe" label="Découvrir son parcours complet, ses diplômes et ses expositions" />
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Première séance d’essai -->
-    <section class="mt-16 p-8 bg-indigo-50/70 dark:bg-gray-800 rounded-2xl border border-indigo-200 dark:border-indigo-900/60 max-w-4xl" aria-labelledby="trial-heading">
-      <h2 id="trial-heading" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-        Comment se passe votre première séance ?
-      </h2>
-      <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-4">
-        Il est tout à fait possible de venir participer à un premier cours sans engagement pour faire l’expérience du maniement du pinceau et rencontrer Christophe Desmur.
-      </p>
-      <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300 mb-6">
-        <li class="flex items-center gap-2">
-          <span class="text-indigo-600 dark:text-indigo-400 font-bold">✓</span> Venez simplement dans une tenue confortable.
-        </li>
-        <li class="flex items-center gap-2">
-          <span class="text-indigo-600 dark:text-indigo-400 font-bold">✓</span> Tout le matériel est prêt sur votre table à votre arrivée.
-        </li>
-        <li class="flex items-center gap-2">
-          <span class="text-indigo-600 dark:text-indigo-400 font-bold">✓</span> Christophe adapte ses explications dès vos premiers coups de pinceau.
-        </li>
-      </ul>
+    <section class="section border-t border-warm-grey scroll-mt-24" aria-labelledby="trial-heading">
+      <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
+        <div data-reveal class="lg:col-span-5">
+          <p class="eyebrow eyebrow-mark mb-5">Première séance</p>
+          <h2 id="trial-heading" class="h-section">
+            Comment se passe votre première séance ?
+          </h2>
+        </div>
+        <div data-reveal class="lg:col-span-7">
+          <p class="body-copy">
+            Il est tout à fait possible de venir participer à un premier cours sans engagement pour faire l’expérience du maniement du pinceau et rencontrer Christophe Desmur.
+          </p>
+          <ul class="mt-6 border-t border-warm-grey">
+            <li class="flex items-baseline gap-3 border-b border-warm-grey py-3.5">
+              <span class="h-px w-4 shrink-0 translate-y-[-0.3em] bg-soft-ink" aria-hidden="true"></span>
+              <span>Venez simplement dans une tenue confortable.</span>
+            </li>
+            <li class="flex items-baseline gap-3 border-b border-warm-grey py-3.5">
+              <span class="h-px w-4 shrink-0 translate-y-[-0.3em] bg-soft-ink" aria-hidden="true"></span>
+              <span>Tout le matériel est prêt sur votre table à votre arrivée.</span>
+            </li>
+            <li class="flex items-baseline gap-3 border-b border-warm-grey py-3.5">
+              <span class="h-px w-4 shrink-0 translate-y-[-0.3em] bg-soft-ink" aria-hidden="true"></span>
+              <span>Christophe adapte ses explications dès vos premiers coups de pinceau.</span>
+            </li>
+          </ul>
 
-      <div class="flex flex-wrap gap-4 items-center">
-        <a
-          href={`mailto:${contact.email}?subject=Demande%20de%20première%20séance%20d’essai`}
-          class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg text-sm transition">
-          Prendre contact pour une séance d’essai
-        </a>
-        <a
-          href={`tel:${telHref(contact.mobile)}`}
-          class="px-5 py-3 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg text-sm hover:bg-white dark:hover:bg-gray-700 transition">
-          📱 {contact.mobile}
-        </a>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+            <a
+              href={`mailto:${contact.email}?subject=Demande%20de%20première%20séance%20d’essai`}
+              class="btn btn-ink">
+              Prendre contact pour une séance d’essai
+            </a>
+            <a href={`tel:${telHref(contact.mobile)}`} class="btn btn-line tabular-nums" aria-label={`Appeler Christophe Desmur au ${contact.mobile}`}>
+              {contact.mobile}
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Foire aux questions : Cours collectifs -->
-    <section class="mt-16 max-w-4xl" aria-labelledby="faq-heading">
-      <div class="mb-8">
-        <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
-          Questions fréquentes
-        </span>
-        <h2 id="faq-heading" class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mt-1">
-          Tout savoir avant de rejoindre nos cours
-        </h2>
-      </div>
-
-      <div class="space-y-4">
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
-            <span>Faut-il savoir parler ou lire le chinois pour participer ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
-          </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            Non, absolument aucun prérequis de langue ou d’écriture n’est nécessaire. La calligraphie chinoise est d’abord un art du geste, de la posture et du souffle. Le sens, l’histoire et l’ordre des traits de chaque caractère sont expliqués pas à pas au fur et à mesure de votre progression.
-          </p>
-        </details>
-
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
-            <span>Peut-on intégrer les cours en cours d’année ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
-          </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            Oui, les inscriptions sont possibles tout au long de l’année selon les places disponibles. Comme les groupes sont restreints (2 à 8 personnes), Christophe Desmur accompagne chaque participant selon son propre niveau, qu’il s’agisse d’une initiation complète ou d’un perfectionnement.
-          </p>
-        </details>
-
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
-            <span>Le matériel est-il réellement fourni lors des séances ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
-          </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            Oui, vous n’avez aucun matériel à acheter pour débuter. Pinceaux traditionnels en poils naturels (loup, chèvre), bâtons d’encre de Chine, pierres à encre et papiers absorbants sont mis à votre disposition à chaque cours. Si vous souhaitez pratiquer chez vous, Christophe pourra vous conseiller sur le choix des outils.
-          </p>
-        </details>
-
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
-            <span>Quelle est la différence entre le créneau du Dojo Zen et celui de Miroirs du Ciel ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
-          </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            Le créneau du lundi soir ({formatTimeTypographic(dojo.time_start)} – {formatTimeTypographic(dojo.time_end)}) au {dojo.name} offre un cadre traditionnel, sobre et silencieux particulièrement propice à l’intériorisation après le travail. Le créneau du mercredi matin ({formatTimeTypographic(miroirs.time_start)} – {formatTimeTypographic(miroirs.time_end)}) à la boutique Miroirs du Ciel propose une atmosphère lumineuse et conviviale. Le programme et la qualité d’enseignement sont identiques.
-          </p>
-        </details>
-
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
-            <span>Comment fonctionne le tarif de {prices.cours_collectifs.trimestre} € par trimestre ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
-          </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            La cotisation trimestrielle de {prices.cours_collectifs.trimestre} € couvre {prices.cours_collectifs.seances} cours hebdomadaires avec le matériel inclus. Ce tarif ne bénéficie pas de crédit d’impôt, celui-ci étant réservé aux cours particuliers dispensés à domicile via Coop A Dom. Un tarif adapté et accessible pour une pratique artistique et culturelle de qualité à Lyon.
-          </p>
-        </details>
-
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
-            <span>Quel est l’âge minimum pour participer aux cours collectifs ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
-          </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-            Les cours hebdomadaires adultes accueillent les jeunes dès l’âge de 14 à 15 ans. Pour les enfants plus jeunes (écoles primaires et collèges), des ateliers spécifiques adaptés au rythme scolaire sont organisés tout au long de l’année.
-          </p>
-        </details>
-      </div>
-    </section>
+    <!-- Foire aux questions : cours collectifs -->
+    <EditorialSection
+      id="faq"
+      eyebrow="Questions fréquentes"
+      title="Tout savoir avant de rejoindre nos cours"
+      layout="split"
+      class="border-t border-warm-grey">
+      <FAQAccordion items={courseFaqs} openFirst />
+    </EditorialSection>
 
     <RelatedPages current="/cours-collectifs" />
 

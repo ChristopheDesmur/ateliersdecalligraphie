@@ -11,17 +11,16 @@ const isSold = artwork.availability === "Vendue";
 ---
 
 <article
-  class="artwork-card group bg-white dark:bg-gray-800/90 rounded-2xl overflow-hidden border border-gray-200/90 dark:border-gray-800 shadow-2xs hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+  class="artwork-card group flex flex-col"
   data-availability={artwork.availability}
   data-category={artwork.category}>
-  
+
   <a
     href={`/galerie/${artwork.slug}`}
-    class="block focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 rounded-t-2xl overflow-hidden"
+    class="block"
     aria-label={`Découvrir la calligraphie ${artwork.character} — ${artwork.frenchMeaning}`}>
-    
-    <!-- Zone image avec fond sobre préservant le format d’origine sans recadrage -->
-    <div class="h-72 sm:h-80 bg-stone-50 dark:bg-stone-900/50 p-6 flex items-center justify-center border-b border-gray-100 dark:border-gray-800/80 relative">
+    <!-- Fond papier : l’œuvre garde son format d’origine, sans recadrage -->
+    <div class="ink-frame flex items-center justify-center p-[8%] aspect-square">
       <img
         src={artwork.src}
         alt={artwork.alt}
@@ -29,83 +28,45 @@ const isSold = artwork.availability === "Vendue";
         height={artwork.height}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
-        class="max-h-full max-w-full object-contain group-hover:scale-103 transition-transform duration-500 ease-out drop-shadow-xs"
+        class="max-h-full max-w-full object-contain mix-blend-multiply dark:mix-blend-normal"
       />
-
-      <!-- Pastille de statut commercial en coin -->
-      {isSold ? (
-        <span class="absolute top-3.5 right-3.5 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider rounded-md bg-stone-200/90 dark:bg-stone-800 text-stone-700 dark:text-stone-300">
-          Vendue
-        </span>
-      ) : (
-        <span class="absolute top-3.5 right-3.5 px-2.5 py-1 text-[11px] font-medium tracking-wide rounded-md bg-emerald-50/95 dark:bg-emerald-950/85 text-emerald-800 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/80">
-          Disponible à l’acquisition
-        </span>
-      )}
     </div>
   </a>
 
   <!-- Informations sur l’œuvre -->
-  <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
-    <div>
-      <div class="flex items-center justify-between gap-2">
-        <span class="text-[11px] font-semibold uppercase tracking-widest text-stone-500 dark:text-stone-400">
-          {artwork.category}
-        </span>
-        {artwork.style && (
-          <span class="text-[11px] text-gray-400 dark:text-gray-500 hidden sm:inline">
-            {artwork.style}
-          </span>
-        )}
-      </div>
-
-      <h3 class="mt-2 text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
-        <a
-          href={`/galerie/${artwork.slug}`}
-          class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-          {artwork.character}
-        </a>
-      </h3>
-
-      <p class="mt-1 text-sm font-serif italic text-gray-600 dark:text-gray-300">
-        {artwork.frenchMeaning}
-      </p>
-
-      <p class="mt-2.5 text-xs text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-2">
-        {artwork.description}
-      </p>
+  <div class="mt-5 flex flex-1 flex-col border-t border-warm-grey pt-4">
+    <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      <p class="eyebrow">{artwork.category}</p>
+      {artwork.style && <p class="meta text-xs">{artwork.style}</p>}
     </div>
 
-    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs">
-      <div class="flex flex-col">
-        <span class="text-[11px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-sans">
-          Tarif
-        </span>
-        <span class="text-sm font-semibold text-gray-900 dark:text-gray-100 mt-0.5">
-          {isSold ? "Vendue" : artwork.price}
-        </span>
-      </div>
+    <h3 class="font-serif text-4xl leading-none text-ink mt-3" lang="zh-Hant">
+      <a href={`/galerie/${artwork.slug}`} class="hover:text-soft-ink transition-colors">
+        {artwork.character}
+      </a>
+    </h3>
 
-      <div class="flex items-center gap-3">
-        <span class="flex items-center gap-1.5 font-medium">
-          {isSold ? (
-            <span class="text-stone-500 dark:text-stone-400">Vendue</span>
-          ) : (
-            <span class="text-emerald-700 dark:text-emerald-400 inline-flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true"></span>
-              Disponible à l’acquisition
-            </span>
-          )}
-        </span>
+    <p class="font-serif text-lg text-soft-ink mt-2 leading-snug">
+      {artwork.frenchMeaning}
+    </p>
 
-        <a
-          href={`/galerie/${artwork.slug}`}
-          class="inline-flex items-center gap-1 font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors group-hover:translate-x-0.5"
-          aria-label={`Détails et acquisition de l’œuvre ${artwork.character}`}>
-          <span>Détails & acquisition</span>
-          <span aria-hidden="true">&rarr;</span>
-        </a>
-      </div>
+    <p class="meta mt-3 line-clamp-2">
+      {artwork.description}
+    </p>
+
+    <div class="mt-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+      <p class="meta">
+        <span class="text-ink">{isSold ? "Vendue" : "Disponible à l’acquisition"}</span>
+        {!isSold && <span> · {artwork.price}</span>}
+      </p>
+
+      <a
+        href={`/galerie/${artwork.slug}`}
+        class="link-arrow text-sm"
+        aria-label={`Détails et acquisition de l’œuvre ${artwork.character}`}>
+        <span>Détails &amp; acquisition</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
     </div>
   </div>
 </article>
