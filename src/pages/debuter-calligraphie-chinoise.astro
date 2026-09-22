@@ -92,7 +92,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
     </nav>
 
     <!-- Header éditorial -->
-    <header class="py-6 sm:py-10 border-b border-gray-100 dark:border-gray-800" aria-labelledby="guide-title">
+    <header class="py-6 sm:py-10 border-b border-warm-grey" aria-labelledby="guide-title">
       <div class="max-w-3xl">
         <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-3">
           Guide d’initiation · Christophe Desmur
@@ -108,17 +108,17 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
         <div class="mt-6 flex flex-wrap gap-3">
           <a
             href="#tresors"
-            class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs sm:text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+            class="btn btn-line text-sm">
             1. Les 4 Trésors du lettré &darr;
           </a>
           <a
             href="#posture"
-            class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs sm:text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+            class="btn btn-line text-sm">
             2. Tenue & Posture &darr;
           </a>
           <a
             href="#yong"
-            class="px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs sm:text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+            class="btn btn-line text-sm">
             3. Les 8 traits (永) &darr;
           </a>
         </div>
@@ -126,12 +126,12 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
     </header>
 
     <!-- SECTION 1 : LES 4 TRÉSORS DU LETTRÉ -->
-    <section id="tresors" class="py-12 border-b border-gray-100 dark:border-gray-800" aria-labelledby="heading-tresors">
+    <section id="tresors" class="section border-t border-warm-grey" aria-labelledby="heading-tresors">
       <div class="max-w-3xl mb-8">
-        <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+        <span class="eyebrow">
           Les outils traditionnels
         </span>
-        <h2 id="heading-tresors" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-1">
+        <h2 id="heading-tresors" class="h-section">
           Les Quatre Trésors du lettré (Wénfáng Sìbǎo 文房四宝)
         </h2>
         <p class="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -141,7 +141,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
 
       <div class="grid sm:grid-cols-2 gap-6">
         <!-- 1. Le Pinceau -->
-        <article class="p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 flex flex-col justify-between">
+        <article class="border-t border-warm-grey pt-5 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
               <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">01 · L’outil</span>
@@ -155,7 +155,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
         </article>
 
         <!-- 2. L’Encre -->
-        <article class="p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 flex flex-col justify-between">
+        <article class="border-t border-warm-grey pt-5 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
               <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">02 · La matière</span>
@@ -169,7 +169,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
         </article>
 
         <!-- 3. La Pierre à encre -->
-        <article class="p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 flex flex-col justify-between">
+        <article class="border-t border-warm-grey pt-5 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
               <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">03 · La matrice</span>
@@ -183,7 +183,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
         </article>
 
         <!-- 4. Le Papier Xuan -->
-        <article class="p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 flex flex-col justify-between">
+        <article class="border-t border-warm-grey pt-5 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
               <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">04 · Le support</span>
@@ -197,7 +197,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
         </article>
       </div>
 
-      <div class="mt-6 p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60 text-xs sm:text-sm text-gray-700 dark:text-gray-300 flex items-start gap-3">
+      <div class="mt-6 border-l border-vermilion pl-5">
         <span class="text-indigo-600 dark:text-indigo-400 font-bold text-base" aria-hidden="true">💡</span>
         <span>
           <strong>Bon à savoir pour vos premiers pas :</strong> Lors de nos cours hebdomadaires et particuliers à Lyon, la totalité de ce matériel traditionnel authentique est mise à votre disposition. Vous n’avez pas besoin d’acheter de fournitures pour débuter.
@@ -206,13 +206,13 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
     </section>
 
     <!-- SECTION 2 : POSTURE ET TENUE DU PINCEAU -->
-    <section id="posture" class="py-12 border-b border-gray-100 dark:border-gray-800" aria-labelledby="heading-posture">
+    <section id="posture" class="section border-t border-warm-grey" aria-labelledby="heading-posture">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         <div class="lg:col-span-7 space-y-4">
-          <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+          <span class="eyebrow">
             Le corps et l’outil
           </span>
-          <h2 id="heading-posture" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          <h2 id="heading-posture" class="h-section">
             La tenue verticale du pinceau et la posture du corps
           </h2>
           <p class="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -221,19 +221,19 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
 
           <ul class="space-y-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
             <li class="flex items-start gap-2.5">
-              <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+              <span class="h-px w-3 shrink-0 translate-y-[0.7em] bg-soft-ink" aria-hidden="true"></span>
               <span><strong>Le pouce et l’index</strong> pincent le manche à mi-hauteur pour lui donner sa verticalité.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+              <span class="h-px w-3 shrink-0 translate-y-[0.7em] bg-soft-ink" aria-hidden="true"></span>
               <span><strong>Le majeur et l’annulaire</strong> soutiennent l’arrière de la tige pour stabiliser l’angle.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+              <span class="h-px w-3 shrink-0 translate-y-[0.7em] bg-soft-ink" aria-hidden="true"></span>
               <span><strong>Le poignet est suspendu :</strong> il ne repose jamais sur la table. Le coude est dégagé, libérant l’épaule et tout le haut du corps.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+              <span class="h-px w-3 shrink-0 translate-y-[0.7em] bg-soft-ink" aria-hidden="true"></span>
               <span><strong>L’assise :</strong> dos droit, bassin légèrement basculé vers l’avant, pieds ancrés à plat sur le sol et respiration ventrale libre.</span>
             </li>
           </ul>
@@ -247,19 +247,19 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
             height="400"
             loading="lazy"
             decoding="async"
-            class="w-full h-auto rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm object-cover"
+            class="w-full h-auto object-cover"
           />
         </div>
       </div>
     </section>
 
     <!-- SECTION 3 : LES 8 TRAITS DU CARACTÈRE YONG -->
-    <section id="yong" class="py-12 border-b border-gray-100 dark:border-gray-800" aria-labelledby="heading-yong">
+    <section id="yong" class="section border-t border-warm-grey" aria-labelledby="heading-yong">
       <div class="max-w-3xl mb-8">
-        <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+        <span class="eyebrow">
           La grammaire du tracé
         </span>
-        <h2 id="heading-yong" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-1">
+        <h2 id="heading-yong" class="h-section">
           Les 8 traits fondamentaux : le principe du caractère Yong (永字八法)
         </h2>
         <p class="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -268,7 +268,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-        <div class="md:col-span-4 p-6 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 text-center">
+        <div class="md:col-span-4 border-t border-warm-grey pt-6">
           <img
             src="/assets/yong.webp"
             alt="Caractère chinois Yong 永 et les huit traits fondamentaux"
@@ -276,7 +276,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
             height="320"
             loading="lazy"
             decoding="async"
-            class="mx-auto w-48 h-48 object-contain mb-4 rounded-xl"
+            class="mx-auto w-48 h-48 object-contain mb-4"
           />
           <span class="font-serif text-2xl font-bold text-gray-900 dark:text-gray-100">永 · Yǒng</span>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Éternité · La matrice universelle</p>
@@ -284,35 +284,35 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
 
         <div class="md:col-span-8">
           <ol class="grid sm:grid-cols-2 gap-3 text-xs sm:text-sm">
-            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+            <li class="border-b border-warm-grey py-3">
               <strong class="text-indigo-700 dark:text-indigo-400">1. Ce (侧) · Le point (Diǎn 点) :</strong>
               <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Poser le pinceau avec appui franc, semblable à une goutte suspendue.</span>
             </li>
-            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+            <li class="border-b border-warm-grey py-3">
               <strong class="text-indigo-700 dark:text-indigo-400">2. Le (勒) · L’horizontal (Héng 横) :</strong>
               <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Attaque dosée, progression tendue de gauche à droite, terminaison ronde.</span>
             </li>
-            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+            <li class="border-b border-warm-grey py-3">
               <strong class="text-indigo-700 dark:text-indigo-400">3. Nu (努) · Le vertical (Shù 竖) :</strong>
               <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Colonne vertébrale du caractère, descendant avec force et rectitude.</span>
             </li>
-            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+            <li class="border-b border-warm-grey py-3">
               <strong class="text-indigo-700 dark:text-indigo-400">4. Di (趯) · Le crochet (Gōu 钩) :</strong>
               <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Impulsion vive vers le haut et la gauche, comme un ressort relâché.</span>
             </li>
-            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+            <li class="border-b border-warm-grey py-3">
               <strong class="text-indigo-700 dark:text-indigo-400">5. Ce (策) · Le trait montant (Tí 提) :</strong>
               <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Élancement du bas-gauche vers le haut-droit avec pointe effilée.</span>
             </li>
-            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+            <li class="border-b border-warm-grey py-3">
               <strong class="text-indigo-700 dark:text-indigo-400">6. Lüe (掠) · La courbe descendante gauche (Piě 撇) :</strong>
               <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Balayage régulier et gracieux, aminci progressivement vers le bas.</span>
             </li>
-            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+            <li class="border-b border-warm-grey py-3">
               <strong class="text-indigo-700 dark:text-indigo-400">7. Zhuo (啄) · Le trait court (Duǎnpiě 短撇) :</strong>
               <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Coup de bec rapide et précis, vif comme l’éclair.</span>
             </li>
-            <li class="p-3.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/80">
+            <li class="border-b border-warm-grey py-3">
               <strong class="text-indigo-700 dark:text-indigo-400">8. Zhe (磔) · L’appui descendant droit (Nà 捺) :</strong>
               <span class="text-gray-600 dark:text-gray-300 block mt-0.5">Descente progressive, écrasement au pied du trait puis sortie en pointe effilée.</span>
             </li>
@@ -322,7 +322,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
     </section>
 
     <!-- SECTION 4 : FAUT-IL PARLER CHINOIS & SHODO -->
-    <section class="py-12 border-b border-gray-100 dark:border-gray-800" aria-labelledby="heading-questions">
+    <section class="section border-t border-warm-grey" aria-labelledby="heading-questions">
       <div class="grid sm:grid-cols-2 gap-8">
         <div class="space-y-3">
           <h3 id="heading-questions" class="text-xl font-serif font-medium text-gray-950 dark:text-gray-100">
@@ -351,13 +351,13 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
     </section>
 
     <!-- SECTION 5 : PASSER À LA PRATIQUE À LYON -->
-    <section class="py-12 border-b border-gray-100 dark:border-gray-800" aria-labelledby="heading-pratique">
-      <div class="rounded-3xl p-6 sm:p-10 bg-indigo-50/70 dark:bg-gray-800/80 border border-indigo-100 dark:border-indigo-900/60">
+    <section class="section border-t border-warm-grey" aria-labelledby="heading-pratique">
+      <div class="band section">
         <div class="max-w-2xl mb-8">
           <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-300">
             Passer de la théorie à la pratique
           </span>
-          <h2 id="heading-pratique" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-1">
+          <h2 id="heading-pratique" class="h-section">
             Rejoignez un atelier de calligraphie à Lyon
           </h2>
           <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mt-2 leading-relaxed">
@@ -366,10 +366,10 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
         </div>
 
         <div class="grid sm:grid-cols-2 gap-6">
-          <div class="p-6 rounded-2xl bg-white dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 flex flex-col justify-between">
+          <div class="border-t border-warm-grey pt-5 flex flex-col justify-between">
             <div>
-              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">En groupe</span>
-              <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1">Cours collectifs hebdomadaires</h3>
+              <span class="eyebrow">En groupe</span>
+              <h3 class="font-serif text-xl leading-snug text-ink mt-1">Cours collectifs hebdomadaires</h3>
               <p class="text-xs text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
                 Au {dojo.name} (lundi soir) ou chez Miroirs du Ciel (mercredi matin) à la Croix-Rousse. {prices.cours_collectifs.trimestre}&nbsp;€/trimestre, matériel fourni.
               </p>
@@ -381,10 +381,10 @@ const contactMailHref = `mailto:${contact.email}?subject=Renseignement%20d%C3%A9
             </a>
           </div>
 
-          <div class="p-6 rounded-2xl bg-white dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 flex flex-col justify-between">
+          <div class="border-t border-warm-grey pt-5 flex flex-col justify-between">
             <div>
-              <span class="text-xs font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">À domicile</span>
-              <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1">Cours particuliers sur mesure</h3>
+              <span class="eyebrow">À domicile</span>
+              <h3 class="font-serif text-xl leading-snug text-ink mt-1">Cours particuliers sur mesure</h3>
               <p class="text-xs text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
                 Christophe se déplace chez vous à Lyon et son agglomération. {prices.cours_individuel_domicile.ttc_heure}&nbsp;€ TTC/h avec {prices.cours_individuel_domicile.reduction_impot_pct}&nbsp;% de crédit d’impôt (Coop A Dom).
               </p>

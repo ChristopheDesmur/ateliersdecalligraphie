@@ -75,7 +75,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
     <!-- ================================================================= -->
     <!-- 1. HERO SECTION                                                   -->
     <!-- ================================================================= -->
-    <header class="py-6 sm:py-10 border-b border-gray-100 dark:border-gray-800" aria-labelledby="hero-title">
+    <header class="py-6 sm:py-10 border-b border-warm-grey" aria-labelledby="hero-title">
       <div class="max-w-3xl">
         <!-- Eyebrow -->
         <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-3">
@@ -98,12 +98,12 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
         <div class="mt-8 flex flex-wrap items-center gap-3.5">
           <a
             href="#approche"
-            class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm transition shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500">
+            class="btn btn-ink">
             Découvrir les cours
           </a>
           <a
             href="#contact"
-            class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 font-medium text-sm transition border border-gray-200 dark:border-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400">
+            class="btn btn-line">
             Me contacter
           </a>
         </div>
@@ -111,15 +111,15 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
         <!-- Reassurance list -->
         <ul class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800/80 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-gray-600 dark:text-gray-400 font-medium">
           <li class="flex items-center gap-1.5">
-            <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+            <span class="h-px w-3 shrink-0 translate-y-[0.7em] bg-soft-ink" aria-hidden="true"></span>
             <span>Initiation & soutien sur demande</span>
           </li>
           <li class="flex items-center gap-1.5">
-            <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+            <span class="h-px w-3 shrink-0 translate-y-[0.7em] bg-soft-ink" aria-hidden="true"></span>
             <span>Dojo Zen & Miroirs du Ciel (Lyon 4<sup>e</sup>)</span>
           </li>
           <li class="flex items-center gap-1.5">
-            <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
+            <span class="h-px w-3 shrink-0 translate-y-[0.7em] bg-soft-ink" aria-hidden="true"></span>
             <span>Enseigné par Christophe Desmur</span>
           </li>
         </ul>
@@ -129,12 +129,12 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
     <!-- ================================================================= -->
     <!-- 2. DEUX FAÇONS D’ABORDER LE CHINOIS (TWO LEARNING DIMENSIONS)     -->
     <!-- ================================================================= -->
-    <section id="approche" class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="dimensions-title">
+    <section id="approche" class="section border-t border-warm-grey" aria-labelledby="dimensions-title">
       <div class="max-w-2xl mb-8 sm:mb-10">
         <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-1">
           Parcours pédagogiques
         </p>
-        <h2 id="dimensions-title" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+        <h2 id="dimensions-title" class="h-section">
           Deux façons d’aborder le chinois
         </h2>
         <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
@@ -144,10 +144,10 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Dimension 1 : Apprendre le chinois -->
-        <div class="p-6 sm:p-7 rounded-2xl bg-gray-50/70 dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/60 flex flex-col justify-between">
+        <div class="border-t border-warm-grey pt-6 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-md border border-indigo-100 dark:border-indigo-900/40">
+              <span class="eyebrow">
                 Langue & Accompagnement
               </span>
             </div>
@@ -173,7 +173,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
             </ul>
           </div>
           <div class="mt-6 pt-4 border-t border-gray-200/60 dark:border-gray-700/50">
-            <a href="#contact" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1">
+            <a href="#contact" class="link-arrow text-sm">
               <span>Demander un accompagnement linguistique</span>
               <span aria-hidden="true">→</span>
             </a>
@@ -181,10 +181,10 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
         </div>
 
         <!-- Dimension 2 : Découvrir le chinois par le pinceau -->
-        <div class="p-6 sm:p-7 rounded-2xl bg-gray-50/70 dark:bg-gray-800/40 border border-gray-200/70 dark:border-gray-700/60 flex flex-col justify-between">
+        <div class="border-t border-warm-grey pt-6 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-md border border-indigo-100 dark:border-indigo-900/40">
+              <span class="eyebrow">
                 Pinceau & Idéogrammes
               </span>
             </div>
@@ -210,7 +210,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
             </ul>
           </div>
           <div class="mt-6 pt-4 border-t border-gray-200/60 dark:border-gray-700/50">
-            <a href="#lieux" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1">
+            <a href="#lieux" class="link-arrow text-sm">
               <span>Voir les créneaux hebdomadaires</span>
               <span aria-hidden="true">→</span>
             </a>
@@ -222,14 +222,14 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
     <!-- ================================================================= -->
     <!-- 3. APPRENDRE EN ÉCRIVANT (PEDAGOGICAL APPROACH + IMAGE)           -->
     <!-- ================================================================= -->
-    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="approach-title">
+    <section class="section border-t border-warm-grey" aria-labelledby="approach-title">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         <!-- Colonne texte (7 colonnes) -->
         <div class="lg:col-span-7">
           <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-1">
             Démarche pédagogique
           </p>
-          <h2 id="approach-title" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+          <h2 id="approach-title" class="h-section">
             Apprendre en écrivant
           </h2>
           <div class="mt-5 space-y-4 text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -244,7 +244,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
             </p>
           </div>
 
-          <div class="mt-6 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200/70 dark:border-gray-700/60 flex items-start gap-3">
+          <div class="mt-6 border-l border-warm-grey pl-5">
             <span class="text-base text-indigo-600 dark:text-indigo-400 mt-0.5" aria-hidden="true">💡</span>
             <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
               <strong class="text-gray-900 dark:text-gray-100 font-semibold">Une transmission adaptée à chacun :</strong> que vous partiez de zéro ou que vous ayez déjà des notions de chinois, l’apprentissage au pinceau s’ajuste à votre rythme personnel.
@@ -254,7 +254,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
 
         <!-- Colonne image (5 colonnes) -->
         <div class="lg:col-span-5">
-          <figure class="rounded-2xl overflow-hidden border border-gray-200/80 dark:border-gray-700/80 bg-gray-100 dark:bg-gray-800 shadow-sm">
+          <figure class="ink-frame">
             <img
               src="/assets/cours-de-chinois.webp"
               alt="Cours de chinois et calligraphie traditionnelle à Lyon avec Christophe Desmur"
@@ -274,12 +274,12 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
     <!-- ================================================================= -->
     <!-- 4. LIRE LES GRANDS TEXTES CHINOIS (CLASSICAL TEXTS)               -->
     <!-- ================================================================= -->
-    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="classics-title">
+    <section class="section border-t border-warm-grey" aria-labelledby="classics-title">
       <div class="max-w-3xl mb-10">
         <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-1">
           Immersion littéraire & philosophique
         </p>
-        <h2 id="classics-title" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+        <h2 id="classics-title" class="h-section">
           Lire les grands textes chinois
         </h2>
         <p class="text-base text-gray-700 dark:text-gray-300 mt-3 leading-relaxed">
@@ -289,8 +289,8 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
 
       <!-- Séquence en 3 étapes : Déchiffrer / Comprendre / Calligraphier -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
-          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-serif font-bold text-sm mb-3">
+        <div class="border-t border-warm-grey pt-5">
+          <span class="numeral block mb-2">
             1
           </span>
           <h3 class="font-serif text-lg font-medium text-gray-950 dark:text-gray-100">
@@ -301,8 +301,8 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
           </p>
         </div>
 
-        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
-          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-serif font-bold text-sm mb-3">
+        <div class="border-t border-warm-grey pt-5">
+          <span class="numeral block mb-2">
             2
           </span>
           <h3 class="font-serif text-lg font-medium text-gray-950 dark:text-gray-100">
@@ -313,8 +313,8 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
           </p>
         </div>
 
-        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
-          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-serif font-bold text-sm mb-3">
+        <div class="border-t border-warm-grey pt-5">
+          <span class="numeral block mb-2">
             3
           </span>
           <h3 class="font-serif text-lg font-medium text-gray-950 dark:text-gray-100">
@@ -328,13 +328,13 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
 
       <!-- Textes proposés / étudiés -->
       <div class="mt-10 pt-8 border-t border-gray-100 dark:border-gray-800">
-        <h3 class="text-xl sm:text-2xl font-serif font-medium text-gray-950 dark:text-gray-100 mb-6">
+        <h3 class="h-item mb-6">
           Textes étudiés
         </h3>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
           <!-- Daodejing -->
-          <div class="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+          <div class="border-t border-warm-grey pt-5 flex flex-col justify-between">
             <div>
               <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
                 Philosophie taoïste
@@ -356,7 +356,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
           </div>
 
           <!-- Liezi -->
-          <div class="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+          <div class="border-t border-warm-grey pt-5 flex flex-col justify-between">
             <div>
               <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
                 Apologues & Sagesse
@@ -378,7 +378,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
           </div>
 
           <!-- Xinjing -->
-          <div class="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+          <div class="border-t border-warm-grey pt-5 flex flex-col justify-between">
             <div>
               <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
                 Tradition bouddhique
@@ -400,7 +400,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
           </div>
 
           <!-- Poésie des dynasties Tang et Song -->
-          <div class="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+          <div class="border-t border-warm-grey pt-5 flex flex-col justify-between">
             <div>
               <span class="text-[11px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
                 Poésie classique
@@ -427,12 +427,12 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
     <!-- ================================================================= -->
     <!-- 5. POUR QUI ? (AUDIENCE GUIDANCE)                                 -->
     <!-- ================================================================= -->
-    <section class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="audience-title">
+    <section class="section border-t border-warm-grey" aria-labelledby="audience-title">
       <div class="max-w-2xl mb-8">
         <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-1">
           Publics & Profils
         </p>
-        <h2 id="audience-title" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+        <h2 id="audience-title" class="h-section">
           À qui s’adressent ces cours ?
         </h2>
         <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
@@ -441,8 +441,8 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
-          <span class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+        <div class="border-t border-warm-grey pt-5">
+          <span class="eyebrow">
             Débutants
           </span>
           <h3 class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-1">
@@ -453,8 +453,8 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
           </p>
         </div>
 
-        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
-          <span class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+        <div class="border-t border-warm-grey pt-5">
+          <span class="eyebrow">
             Apprenants
           </span>
           <h3 class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-1">
@@ -465,8 +465,8 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
           </p>
         </div>
 
-        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
-          <span class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+        <div class="border-t border-warm-grey pt-5">
+          <span class="eyebrow">
             Calligraphes
           </span>
           <h3 class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-1">
@@ -477,8 +477,8 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
           </p>
         </div>
 
-        <div class="p-5 rounded-xl bg-gray-50/60 dark:bg-gray-800/40 border border-gray-200/60 dark:border-gray-700/60">
-          <span class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-300">
+        <div class="border-t border-warm-grey pt-5">
+          <span class="eyebrow">
             Culture & Zen
           </span>
           <h3 class="font-serif text-base font-medium text-gray-950 dark:text-gray-100 mt-1">
@@ -494,12 +494,12 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
     <!-- ================================================================= -->
     <!-- 6. OÙ SUIVRE LES COURS ? (LOCATIONS & SCHEDULES)                  -->
     <!-- ================================================================= -->
-    <section id="lieux" class="py-12 sm:py-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="locations-title">
+    <section id="lieux" class="section border-t border-warm-grey" aria-labelledby="locations-title">
       <div class="max-w-2xl mb-8 sm:mb-10">
         <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-1">
           Lieux & Horaires
         </p>
-        <h2 id="locations-title" class="text-2xl sm:text-3xl font-serif font-medium text-gray-950 dark:text-gray-100">
+        <h2 id="locations-title" class="h-section">
           Où suivre les cours ?
         </h2>
         <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
@@ -509,10 +509,10 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Lieu 1 : Dojo Zen de Lyon -->
-        <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+        <div class="border-t border-warm-grey pt-6 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-800 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-md border border-indigo-100 dark:border-indigo-900/40">
+              <span class="eyebrow">
                 Lundi soir
               </span>
               <span class="text-xs font-semibold text-gray-900 dark:text-gray-100 font-mono">
@@ -524,7 +524,6 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
               Dojo Zen de Lyon
             </h3>
             <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1 flex items-start gap-1.5">
-              <span class="text-gray-400 dark:text-gray-500 shrink-0 mt-0.5" aria-hidden="true">📍</span>
               <span>11, rue Dumenge, 69004 Lyon (Croix-Rousse)</span>
             </p>
 
@@ -538,7 +537,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
           </div>
 
           <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-between">
-            <a href="/cours-collectifs" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1">
+            <a href="/cours-collectifs" class="link-arrow text-sm">
               <span>Détails & tarifs des cours collectifs</span>
               <span aria-hidden="true">→</span>
             </a>
@@ -546,10 +545,10 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
         </div>
 
         <!-- Lieu 2 : Boutique Miroirs du Ciel -->
-        <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200/80 dark:border-gray-700/80 shadow-xs flex flex-col justify-between">
+        <div class="border-t border-warm-grey pt-6 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-xs font-semibold uppercase tracking-wider text-indigo-800 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 px-2.5 py-1 rounded-md border border-indigo-100 dark:border-indigo-900/40">
+              <span class="eyebrow">
                 Mercredi matin
               </span>
               <span class="text-xs font-semibold text-gray-900 dark:text-gray-100 font-mono">
@@ -561,7 +560,6 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
               Boutique Miroirs du Ciel
             </h3>
             <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1 flex items-start gap-1.5">
-              <span class="text-gray-400 dark:text-gray-500 shrink-0 mt-0.5" aria-hidden="true">📍</span>
               <span>9, rue de Belfort, 69004 Lyon (Croix-Rousse)</span>
             </p>
 
@@ -575,7 +573,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
           </div>
 
           <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/50 flex items-center justify-between">
-            <a href="/cours-collectifs" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1">
+            <a href="/cours-collectifs" class="link-arrow text-sm">
               <span>Détails & tarifs des cours collectifs</span>
               <span aria-hidden="true">→</span>
             </a>
@@ -600,7 +598,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
     <!-- ================================================================= -->
     <!-- 7. SECTION CONTACT & CTA                                          -->
     <!-- ================================================================= -->
-    <section id="contact" class="my-14 sm:my-20 rounded-2xl bg-gray-50/90 dark:bg-gray-800/60 border border-gray-200/80 dark:border-gray-700/80 p-8 sm:p-12 text-center" aria-labelledby="cta-title">
+    <section id="contact" class="section band my-14 sm:my-20" aria-labelledby="cta-title">
       <div class="max-w-2xl mx-auto">
         <p class="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400 mb-2">
           Renseignements & Inscriptions
@@ -621,23 +619,23 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
           </a>
           <a
             href="/cours-collectifs#trial-heading"
-            class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 font-medium text-sm transition border border-gray-200 dark:border-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400">
+            class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 font-medium text-sm transition border border-warm-grey focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400">
             Essayer un cours
           </a>
         </div>
 
         <!-- Coordinates -->
         <div class="mt-8 pt-6 border-t border-gray-200/80 dark:border-gray-700/60 flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-          <a href={`tel:${telHref(contact.mobile)}`} class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition inline-flex items-center gap-1.5 py-1">
-            <span aria-hidden="true">📱</span> {contact.mobile}
+          <a href={`tel:${telHref(contact.mobile)}`} class="inline-flex items-center min-h-10 text-ink tabular-nums hover:text-soft-ink transition-colors">
+            {contact.mobile}
           </a>
-          <span class="text-gray-300 dark:text-gray-700 hidden sm:inline" aria-hidden="true">•</span>
-          <a href={`tel:${telHref(contact.landline)}`} class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition inline-flex items-center gap-1.5 py-1">
-            <span aria-hidden="true">📞</span> {contact.landline}
+          <span class="text-warm-grey hidden sm:inline" aria-hidden="true">·</span>
+          <a href={`tel:${telHref(contact.landline)}`} class="inline-flex items-center min-h-10 text-ink tabular-nums hover:text-soft-ink transition-colors">
+            {contact.landline}
           </a>
-          <span class="text-gray-300 dark:text-gray-700 hidden sm:inline" aria-hidden="true">•</span>
+          <span class="text-warm-grey hidden sm:inline" aria-hidden="true">·</span>
           <span class="inline-flex items-center gap-1.5 py-1">
-            <span aria-hidden="true">📍</span> Lyon 4<sup>e</sup> (Croix-Rousse)
+            Lyon 4<sup>e</sup> (Croix-Rousse)
           </span>
         </div>
       </div>

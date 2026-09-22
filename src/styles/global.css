@@ -760,6 +760,30 @@
     transform: translateX(4px);
   }
 
+  /* Sélecteurs d'année / de filtre : état marqué par le trait, pas par la seule couleur */
+  .year-btn,
+  .year-toggle {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: 0.25rem;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-soft-ink);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s var(--ease-ink), border-color 0.2s var(--ease-ink);
+  }
+  .year-btn:hover,
+  .year-toggle:hover {
+    color: var(--color-ink);
+  }
+  .year-btn.is-active,
+  .year-btn[aria-pressed="true"] {
+    color: var(--color-ink);
+    border-bottom-color: var(--color-vermilion);
+  }
+
   /* Bande pleine largeur sans débordement horizontal */
   .band {
     background: var(--color-paper-deep);

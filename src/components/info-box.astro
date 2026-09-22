@@ -58,10 +58,10 @@ const miroirs = venues["miroirs-du-ciel"];
 
     <div class="space-y-1.5 pt-1">
       <a href={`tel:${telHref(contact.mobile)}`} class="flex items-center gap-2 text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 py-1 transition font-medium">
-        <span aria-hidden="true">📱</span> {contact.mobile}
+        {contact.mobile}
       </a>
       <a href={`tel:${telHref(contact.landline)}`} class="flex items-center gap-2 text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 py-1 transition font-medium">
-        <span aria-hidden="true">📞</span> {contact.landline}
+        {contact.landline}
       </a>
     </div>
 

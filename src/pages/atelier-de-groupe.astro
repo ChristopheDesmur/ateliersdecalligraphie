@@ -87,11 +87,11 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
       <div class="lg:col-span-6 flex flex-col">
         <h1
           id="hero-title"
-          class="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 leading-tight">
+          class="h-section">
           Ateliers de groupe de calligraphie chinoise à Lyon
         </h1>
 
-        <p class="text-lg sm:text-xl font-serif italic text-indigo-800 dark:text-indigo-300 mt-3">
+        <p class="lede italic mt-5">
           Des formules adaptées pour chaque public, établissement et collectivité à Lyon
         </p>
 
@@ -103,11 +103,11 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
             width="576"
             height="384"
             loading="eager"
-            class="w-full h-auto rounded-xl shadow-xs border border-gray-200 dark:border-gray-800 object-cover"
+            class="w-full h-auto object-cover"
            decoding="async"/>
         </div>
 
-        <p class="text-base text-gray-600 dark:text-gray-300 mt-5 leading-relaxed">
+        <p class="body-copy mt-6">
           L’amplitude horaire idéale pour un atelier de groupe est de une à trois heures selon le public visé. Christophe Desmur se déplace directement au sein de votre établissement à Lyon et dans sa région avec tout le matériel nécessaire (pinceaux, encre de Chine, pierres et papier traditionnel).
         </p>
 
@@ -115,14 +115,14 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
         <div class="mt-8 hidden lg:flex flex-wrap items-center gap-4">
           <a
             href={contactMailHref}
-            class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-xs">
+            class="btn btn-ink">
             Demander un projet d’atelier
           </a>
           <a
             href={`tel:${telHref(contact.mobile)}`}
-            class="inline-flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+            class="btn btn-line tabular-nums"
             aria-label={`Contacter Christophe Desmur au ${contact.mobile}`}>
-            📱 {contact.mobile}
+            {contact.mobile}
           </a>
         </div>
       </div>
@@ -135,76 +135,76 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
           width="576"
           height="384"
           loading="eager"
-          class="w-full h-auto rounded-xl shadow-xs border border-gray-200 dark:border-gray-800 object-cover"
+          class="w-full h-auto object-cover"
          decoding="async"/>
       </div>
 
     </header>
 
     <!-- Informations clés (Grille sobre, scannable et non-SaaS) -->
-    <section class="mt-10 sm:mt-14 py-6 border-y border-gray-200 dark:border-gray-800" aria-label="Informations pratiques">
+    <section class="mt-10 sm:mt-14 py-8 border-y border-warm-grey" aria-label="Informations pratiques">
       <dl class="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
         <div>
-          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+          <dt class="eyebrow">
             Durée
           </dt>
-          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+          <dd class="mt-2 font-serif text-xl leading-snug text-ink">
             De 1 à 3 heures selon formule
           </dd>
         </div>
 
         <div>
-          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+          <dt class="eyebrow">
             Effectif
           </dt>
-          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+          <dd class="mt-2 font-serif text-xl leading-snug text-ink">
             2 à 12 personnes (jusqu’à 30 en école)
           </dd>
         </div>
 
         <div>
-          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+          <dt class="eyebrow">
             Tarifs
           </dt>
-          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+          <dd class="mt-2 font-serif text-xl leading-snug text-ink">
             De {prices.interventions.ht_heure_standard} € à {prices.interventions.ht_heure_entreprises} € HT / heure
           </dd>
         </div>
 
         <div>
-          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+          <dt class="eyebrow">
             Matériel
           </dt>
-          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+          <dd class="mt-2 font-serif text-xl leading-snug text-ink">
             100 % fourni et apporté sur place
           </dd>
         </div>
       </dl>
 
       <!-- CTA Principal mobile (après les informations clés) -->
-      <div class="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800 lg:hidden flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+      <div class="mt-6 pt-6 border-t border-warm-grey lg:hidden flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
         <a
           href={contactMailHref}
-          class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-xs text-center">
+          class="btn btn-ink">
           Demander un projet d’atelier
         </a>
         <a
           href={`tel:${telHref(contact.mobile)}`}
-          class="inline-flex items-center justify-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition py-2 text-center">
-          📱 {contact.mobile}
+          class="btn btn-line tabular-nums">
+          {contact.mobile}
         </a>
       </div>
     </section>
 
     <!-- Programme commun des ateliers -->
     <section class="mt-12 sm:mt-16" aria-labelledby="programme-heading">
-      <h2 id="programme-heading" class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+      <h2 id="programme-heading" class="h-item mb-8">
         Au programme de nos interventions
       </h2>
 
-      <ol class="grid sm:grid-cols-3 gap-6 sm:gap-8 border-b border-gray-200 dark:border-gray-800 pb-12">
+      <ol class="grid sm:grid-cols-3 gap-6 sm:gap-8 border-b border-warm-grey pb-12">
         <li class="flex flex-col">
-          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+          <span class="numeral text-2xl mb-3 select-none" aria-hidden="true">
             01
           </span>
           <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
@@ -213,7 +213,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
         </li>
 
         <li class="flex flex-col">
-          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+          <span class="numeral text-2xl mb-3 select-none" aria-hidden="true">
             02
           </span>
           <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
@@ -222,7 +222,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
         </li>
 
         <li class="flex flex-col">
-          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+          <span class="numeral text-2xl mb-3 select-none" aria-hidden="true">
             03
           </span>
           <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
@@ -234,7 +234,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
 
     <!-- Grille des formats d’ateliers par public -->
     <section class="mt-12 sm:mt-16" aria-labelledby="formats-heading">
-      <h2 id="formats-heading" class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+      <h2 id="formats-heading" class="h-item mb-8">
         Choisissez votre format d’atelier selon votre public
       </h2>
 
@@ -242,19 +242,19 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
         {interventions.map((item) => (
           <a
             href={item.href}
-            class="group p-5 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition flex flex-col justify-between bg-white dark:bg-gray-800/40">
+            class="group border-t border-warm-grey pt-5 flex flex-col justify-between">
             <div>
               <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
                 {item.eyebrow}
               </span>
-              <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mt-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+              <h3 class="font-serif text-xl leading-snug text-ink mt-1 group-hover:text-soft-ink transition-colors">
                 {item.title}
               </h3>
               <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
                 {item.description}
               </p>
             </div>
-            <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+            <div class="mt-4 pt-3 border-t border-warm-grey flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
               <span>{item.rate} € HT / h</span>
               <span class="font-semibold group-hover:translate-x-0.5 transition-transform text-indigo-600 dark:text-indigo-400">Découvrir &rarr;</span>
             </div>
@@ -269,58 +269,73 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
         <span class="text-xs uppercase tracking-wider font-semibold text-indigo-600 dark:text-indigo-400">
           Organisation & Logistique
         </span>
-        <h2 id="faq-groupe-heading" class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mt-1">
+        <h2 id="faq-groupe-heading" class="h-section">
           Questions fréquentes sur les ateliers de groupe
         </h2>
       </div>
 
       <div class="space-y-4">
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
+        <details class="faq group border-b border-warm-grey first:border-t">
+          <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 font-serif text-xl leading-snug text-ink">
             <span>Fournissez-vous l’ensemble du matériel de calligraphie pour tous les participants ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+            <span class="relative h-3.5 w-3.5 shrink-0" aria-hidden="true">
+              <span class="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-ink"></span>
+              <span class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-ink transition-transform duration-300 group-open:scale-y-0"></span>
+            </span>
           </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p class="body-copy pb-6 -mt-1 pr-10">
             Oui, Christophe Desmur arrive sur place avec tout le nécessaire pour l’ensemble des inscrits : pinceaux traditionnels en poils naturels, bâtons d’encre et encre fluide adaptée, pierres à encre, papiers absorbants et feutres de protection pour vos tables de travail. Vous n’avez rien à préparer en amont.
           </p>
         </details>
 
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
+        <details class="faq group border-b border-warm-grey first:border-t">
+          <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 font-serif text-xl leading-snug text-ink">
             <span>Quelles sont les conditions matérielles nécessaires dans nos locaux ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+            <span class="relative h-3.5 w-3.5 shrink-0" aria-hidden="true">
+              <span class="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-ink"></span>
+              <span class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-ink transition-transform duration-300 group-open:scale-y-0"></span>
+            </span>
           </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p class="body-copy pb-6 -mt-1 pr-10">
             Une salle calme et lumineuse équipée de tables et de chaises adaptées au nombre de participants, ainsi qu’un accès à un point d’eau à proximité (pour humidifier et rincer les pinceaux en fin de séance).
           </p>
         </details>
 
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
+        <details class="faq group border-b border-warm-grey first:border-t">
+          <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 font-serif text-xl leading-snug text-ink">
             <span>Quelles sont les modalités administratives et de facturation (entreprises, établissements publics) ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+            <span class="relative h-3.5 w-3.5 shrink-0" aria-hidden="true">
+              <span class="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-ink"></span>
+              <span class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-ink transition-transform duration-300 group-open:scale-y-0"></span>
+            </span>
           </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p class="body-copy pb-6 -mt-1 pr-10">
             Un devis clair et détaillé vous est transmis gratuitement avant toute intervention. Les prestations font l’objet d’une facture officielle avec numéro de SIRET. Nous acceptons les bons de commande administratifs et les règlements via Chorus Pro pour les établissements scolaires et publics.
           </p>
         </details>
 
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
+        <details class="faq group border-b border-warm-grey first:border-t">
+          <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 font-serif text-xl leading-snug text-ink">
             <span>Dans quel périmètre géographique intervenez-vous ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+            <span class="relative h-3.5 w-3.5 shrink-0" aria-hidden="true">
+              <span class="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-ink"></span>
+              <span class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-ink transition-transform duration-300 group-open:scale-y-0"></span>
+            </span>
           </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p class="body-copy pb-6 -mt-1 pr-10">
             Christophe Desmur se déplace dans l’ensemble de la métropole de Lyon et du département du Rhône. Pour des interventions dans l’Ain, l’Isère ou d’autres départements de la région Auvergne-Rhône-Alpes, des frais de déplacement calculés au plus juste sont convenus lors du devis.
           </p>
         </details>
 
-        <details class="group p-5 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
-          <summary class="flex justify-between items-center cursor-pointer font-semibold text-gray-900 dark:text-gray-100 text-base list-none">
+        <details class="faq group border-b border-warm-grey first:border-t">
+          <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 font-serif text-xl leading-snug text-ink">
             <span>Peut-on adapter le contenu de l’atelier au projet pédagogique ou à un événement ?</span>
-            <span class="text-indigo-600 dark:text-indigo-400 transition-transform group-open:rotate-180">▾</span>
+            <span class="relative h-3.5 w-3.5 shrink-0" aria-hidden="true">
+              <span class="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-ink"></span>
+              <span class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-ink transition-transform duration-300 group-open:scale-y-0"></span>
+            </span>
           </summary>
-          <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p class="body-copy pb-6 -mt-1 pr-10">
             Tout à fait. Les ateliers peuvent s’articuler autour d’une thématique précise : découverte de la civilisation chinoise, Nouvel An lunaire, poésie des Tang, atelier zen et détente en entreprise, ou encore initiation au dessin à l’encre (Sumi-e) pour les enfants.
           </p>
         </details>
@@ -328,12 +343,12 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
     </section>
 
     <!-- Encart cours collectifs particuliers -->
-    <section class="mt-12 sm:mt-16 p-6 sm:p-8 rounded-2xl bg-indigo-50/60 dark:bg-gray-800/50 border border-indigo-100 dark:border-gray-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6" aria-label="Cours pour les particuliers">
+    <section class="mt-12 sm:mt-16 border-t border-ink/80 pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6" aria-label="Cours pour les particuliers">
       <div>
-        <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-300">
+        <span class="eyebrow">
           Vous êtes un particulier ?
         </span>
-        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mt-1">
+        <h3 class="h-item">
           Cours collectifs réguliers à Lyon
         </h3>
         <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 max-w-xl leading-relaxed">
@@ -342,7 +357,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
       </div>
       <a
         href="/cours-collectifs"
-        class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-indigo-600 hover:bg-indigo-700 text-white transition shrink-0">
+        class="btn btn-ink shrink-0">
         Voir les cours à Lyon &rarr;
       </a>
     </section>

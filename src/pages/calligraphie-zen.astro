@@ -572,7 +572,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20d’informati
         <div class="flex items-center gap-4 font-medium">
           <a href={`tel:${telHref(contact.mobile)}`} class="text-ink tabular-nums hover:text-soft-ink inline-flex items-center min-h-10">{contact.mobile}</a>
           <a href={`tel:${telHref(contact.landline)}`} class="text-ink tabular-nums hover:text-soft-ink inline-flex items-center min-h-10">{contact.landline}</a>
-          <a href={contactMailHref} class="text-indigo-600 dark:text-indigo-400 underline">✉️ {contact.email}</a>
+          <a href={contactMailHref} class="text-ink underline decoration-warm-grey underline-offset-4 hover:decoration-current underline">{contact.email}</a>
         </div>
       </div>
     </section>

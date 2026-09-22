@@ -32,9 +32,9 @@ publishedBlogEntries.sort(function (a, b) {
   <Container>
     <nav aria-label="Fil d’Ariane" class="text-xs text-gray-500 dark:text-gray-400 mb-6">
       <ol class="flex items-center gap-1.5 flex-wrap">
-        <li><a href="/" class="hover:underline">Accueil</a></li>
-        <li aria-hidden="true">/</li>
-        <li aria-current="page" class="text-gray-800 dark:text-gray-200 font-medium">Articles & Traductions</li>
+        <li><a href="/" class="underline decoration-warm-grey underline-offset-4 hover:decoration-current">Accueil</a></li>
+        <li aria-hidden="true" class="text-warm-grey">/</li>
+        <li aria-current="page" class="text-ink">Articles &amp; Traductions</li>
       </ol>
     </nav>
 
@@ -44,39 +44,40 @@ publishedBlogEntries.sort(function (a, b) {
         Calligraphie chinoise, philosophie du geste, traductions d’auteurs chinois (Lu Yin, Zeng Jixin) et écrits par Christophe Desmur.
       </Fragment>
     </Sectionhead>
-    <section class="mt-16">
-      <ul class="grid gap-16 max-w-4xl mx-auto">
+    <section class="mt-14">
+      <ul class="grid max-w-4xl border-t border-warm-grey">
         {
           publishedBlogEntries.map((blogPostEntry, index) => (
-            <li>
-              <a href={`/${blogPostEntry.slug}`}>
-                <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
-                  <Picture
-                    src={blogPostEntry.data.image.src}
-                    alt={blogPostEntry.data.image.alt}
-                    sizes="(max-width: 800px) 100vw, 800px"
-                    width={800}
-                    height={600}
-                    loading={index <= 2 ? "eager" : "lazy"}
-                    decoding={index <= 2 ? "sync" : "async"}
-                    class="w-full rounded-md object-cover object-center bg-white"
-                  />
+            <li class="border-b border-warm-grey">
+              <a href={`/${blogPostEntry.slug}`} class="group block py-8">
+                <div class="grid md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-5 md:gap-10 items-center">
+                  <div class="ink-frame aspect-[4/3] w-full">
+                    <Picture
+                      src={blogPostEntry.data.image.src}
+                      alt={blogPostEntry.data.image.alt}
+                      sizes="(max-width: 800px) 100vw, 800px"
+                      width={800}
+                      height={600}
+                      loading={index <= 2 ? "eager" : "lazy"}
+                      decoding={index <= 2 ? "sync" : "async"}
+                      class="h-full w-full object-cover object-center"
+                    />
+                  </div>
                   <div>
-                    <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
+                    <span class="eyebrow">
                       {blogPostEntry.data.category}
                     </span>
 
-                    <h2 class="text-3xl font-semibold leading-snug tracking-tight mt-1 ">
+                    <h2 class="font-serif text-2xl sm:text-3xl font-medium leading-snug text-ink mt-2 group-hover:text-soft-ink transition-colors">
                       {blogPostEntry.data.title}
                     </h2>
 
-                    <div class="flex gap-2 mt-3">
-                      <span class="text-gray-400">
+                    <div class="meta flex flex-wrap gap-2 mt-3">
+                      <span>
                         {blogPostEntry.data.author}
                       </span>
-                      <span class="text-gray-400">• </span>
+                      <span class="text-warm-grey" aria-hidden="true">·</span>
                       <time
-                        class="text-gray-400"
                         datetime={blogPostEntry.data.publishDate.toISOString()}>
                         {blogPostEntry.data.publishDate.toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" })}
                       </time>

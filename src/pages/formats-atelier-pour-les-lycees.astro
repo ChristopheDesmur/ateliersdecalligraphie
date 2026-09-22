@@ -59,11 +59,11 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
       <div class="lg:col-span-6 flex flex-col">
         <h1
           id="hero-title"
-          class="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 leading-tight">
+          class="h-section">
           Ateliers de calligraphie chinoise pour lycées
         </h1>
 
-        <p class="text-lg sm:text-xl font-serif italic text-indigo-800 dark:text-indigo-300 mt-3">
+        <p class="lede italic mt-5">
           Mes formats d’atelier pour les lycées sur la pause méridienne ou le temps scolaire
         </p>
 
@@ -75,11 +75,11 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
             width="421"
             height="541"
             loading="eager"
-            class="w-full h-auto max-w-sm mx-auto rounded-xl shadow-xs border border-gray-200 dark:border-gray-800 object-cover"
+            class="w-full h-auto max-w-sm mx-auto object-cover"
            decoding="async"/>
         </div>
 
-        <p class="text-base text-gray-600 dark:text-gray-300 mt-5 leading-relaxed">
+        <p class="body-copy mt-6">
           L’apprentissage de la calligraphie chinoise en lycée offre aux élèves une ouverture culturelle concrète et un temps de concentration précieux. Christophe Desmur intervient directement au sein des lycées de Lyon et de la région avec tout le matériel nécessaire.
         </p>
 
@@ -87,14 +87,14 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
         <div class="mt-8 hidden lg:flex flex-wrap items-center gap-4">
           <a
             href={contactMailHref}
-            class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-xs">
+            class="btn btn-ink">
             Organiser un atelier
           </a>
           <a
             href={`tel:${telHref(contact.mobile)}`}
-            class="inline-flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+            class="btn btn-line tabular-nums"
             aria-label={`Contacter Christophe Desmur au ${contact.mobile}`}>
-            📱 {contact.mobile}
+            {contact.mobile}
           </a>
         </div>
       </div>
@@ -107,76 +107,76 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
           width="421"
           height="541"
           loading="eager"
-          class="w-full h-auto max-w-sm mx-auto rounded-xl shadow-xs border border-gray-200 dark:border-gray-800 object-cover"
+          class="w-full h-auto max-w-sm mx-auto object-cover"
          decoding="async"/>
       </div>
 
     </header>
 
     <!-- Informations clés (Grille sobre, scannable et non-SaaS) -->
-    <section class="mt-10 sm:mt-14 py-6 border-y border-gray-200 dark:border-gray-800" aria-label="Informations pratiques">
+    <section class="mt-10 sm:mt-14 py-8 border-y border-warm-grey" aria-label="Informations pratiques">
       <dl class="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
         <div>
-          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+          <dt class="eyebrow">
             Créneaux
           </dt>
-          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+          <dd class="mt-2 font-serif text-xl leading-snug text-ink">
             Pause méridienne ou temps scolaire
           </dd>
         </div>
 
         <div>
-          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+          <dt class="eyebrow">
             Durée
           </dt>
-          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+          <dd class="mt-2 font-serif text-xl leading-snug text-ink">
             30&nbsp;min, 45&nbsp;min, 1&nbsp;h ou 2&nbsp;h
           </dd>
         </div>
 
         <div>
-          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+          <dt class="eyebrow">
             Participants
           </dt>
-          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+          <dd class="mt-2 font-serif text-xl leading-snug text-ink">
             De 6 à 12 élèves par groupe
           </dd>
         </div>
 
         <div>
-          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+          <dt class="eyebrow">
             Tarif
           </dt>
-          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+          <dd class="mt-2 font-serif text-xl leading-snug text-ink">
             60 euros HT par heure
           </dd>
         </div>
       </dl>
 
       <!-- CTA Principal mobile (après les informations clés) -->
-      <div class="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800 lg:hidden flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+      <div class="mt-6 pt-6 border-t border-warm-grey lg:hidden flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
         <a
           href={contactMailHref}
-          class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-xs text-center">
+          class="btn btn-ink">
           Organiser un atelier
         </a>
         <a
           href={`tel:${telHref(contact.mobile)}`}
-          class="inline-flex items-center justify-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition py-2 text-center">
-          📱 {contact.mobile}
+          class="btn btn-line tabular-nums">
+          {contact.mobile}
         </a>
       </div>
     </section>
 
     <!-- Programme de l’atelier -->
     <section class="mt-12 sm:mt-16" aria-labelledby="programme-heading">
-      <h2 id="programme-heading" class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+      <h2 id="programme-heading" class="h-item mb-8">
         Au programme
       </h2>
 
-      <ol class="grid sm:grid-cols-3 gap-6 sm:gap-8 border-b border-gray-200 dark:border-gray-800 pb-12">
+      <ol class="grid sm:grid-cols-3 gap-6 sm:gap-8 border-b border-warm-grey pb-12">
         <li class="flex flex-col">
-          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+          <span class="numeral text-2xl mb-3 select-none" aria-hidden="true">
             01
           </span>
           <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
@@ -185,7 +185,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
         </li>
 
         <li class="flex flex-col">
-          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+          <span class="numeral text-2xl mb-3 select-none" aria-hidden="true">
             02
           </span>
           <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
@@ -194,7 +194,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
         </li>
 
         <li class="flex flex-col">
-          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+          <span class="numeral text-2xl mb-3 select-none" aria-hidden="true">
             03
           </span>
           <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
@@ -206,13 +206,13 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
 
     <!-- Objectifs pédagogiques & Enseignements -->
     <section class="mt-12 sm:mt-16" aria-labelledby="objectifs-heading">
-      <h2 id="objectifs-heading" class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+      <h2 id="objectifs-heading" class="h-item mb-8">
         Objectifs pédagogiques & Projets de lycée
       </h2>
 
       <div class="grid sm:grid-cols-2 gap-6 text-sm sm:text-base">
-        <div class="p-5 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/30">
-          <h3 class="font-bold text-gray-900 dark:text-gray-100 text-base mb-2">
+        <div class="border-t border-warm-grey pt-5">
+          <h3 class="font-serif text-xl leading-snug text-ink mb-2">
             Classes de chinois (LV2 / LV3)
           </h3>
           <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
@@ -220,8 +220,8 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
           </p>
         </div>
 
-        <div class="p-5 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/30">
-          <h3 class="font-bold text-gray-900 dark:text-gray-100 text-base mb-2">
+        <div class="border-t border-warm-grey pt-5">
+          <h3 class="font-serif text-xl leading-snug text-ink mb-2">
             Arts plastiques & Enseignement artistique
           </h3>
           <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
@@ -229,8 +229,8 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
           </p>
         </div>
 
-        <div class="p-5 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/30">
-          <h3 class="font-bold text-gray-900 dark:text-gray-100 text-base mb-2">
+        <div class="border-t border-warm-grey pt-5">
+          <h3 class="font-serif text-xl leading-snug text-ink mb-2">
             Projets interdisciplinaires (Histoire & Philosophie)
           </h3>
           <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
@@ -238,8 +238,8 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
           </p>
         </div>
 
-        <div class="p-5 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/30">
-          <h3 class="font-bold text-gray-900 dark:text-gray-100 text-base mb-2">
+        <div class="border-t border-warm-grey pt-5">
+          <h3 class="font-serif text-xl leading-snug text-ink mb-2">
             Clubs culturels, MDL & FSE
           </h3>
           <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">

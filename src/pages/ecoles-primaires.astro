@@ -169,11 +169,11 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
       <div class="lg:col-span-6 flex flex-col">
         <h1
           id="hero-title"
-          class="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 leading-tight">
+          class="h-section">
           Ateliers de calligraphie et culture chinoise pour enfants
         </h1>
 
-        <p class="text-lg sm:text-xl font-serif italic text-indigo-800 dark:text-indigo-300 mt-3">
+        <p class="lede italic mt-5">
           Mes formats d’atelier pour les écoles primaires sur le temps scolaire
         </p>
 
@@ -185,11 +185,11 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
             width="1500"
             height="1049"
             loading="eager"
-            class="w-full h-auto rounded-xl shadow-xs border border-gray-200 dark:border-gray-800 object-cover"
+            class="w-full h-auto object-cover"
            decoding="async"/>
         </div>
 
-        <p class="text-base text-gray-600 dark:text-gray-300 mt-5 leading-relaxed">
+        <p class="body-copy mt-6">
           Christophe Desmur se déplace directement dans votre école primaire à Lyon et dans sa région avec tout le matériel nécessaire pour faire découvrir aux élèves le tracé au pinceau, l’encre de Chine et les bases de la langue chinoise.
         </p>
 
@@ -197,14 +197,14 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
         <div class="mt-8 hidden lg:flex flex-wrap items-center gap-4">
           <a
             href={contactMailHref}
-            class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-xs">
+            class="btn btn-ink">
             Organiser un atelier
           </a>
           <a
             href={`tel:${telHref(contact.mobile)}`}
-            class="inline-flex items-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+            class="btn btn-line tabular-nums"
             aria-label={`Contacter Christophe Desmur au ${contact.mobile}`}>
-            📱 {contact.mobile}
+            {contact.mobile}
           </a>
         </div>
       </div>
@@ -217,85 +217,85 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
           width="1500"
           height="1049"
           loading="eager"
-          class="w-full h-auto rounded-xl shadow-xs border border-gray-200 dark:border-gray-800 object-cover"
+          class="w-full h-auto object-cover"
          decoding="async"/>
       </div>
 
     </header>
 
     <!-- Informations clés (Grille sobre, scannable et non-SaaS) -->
-    <section class="mt-10 sm:mt-14 py-6 border-y border-gray-200 dark:border-gray-800" aria-label="Informations pratiques">
+    <section class="mt-10 sm:mt-14 py-8 border-y border-warm-grey" aria-label="Informations pratiques">
       <dl class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8">
         <div>
-          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+          <dt class="eyebrow">
             Jours
           </dt>
-          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+          <dd class="mt-2 font-serif text-xl leading-snug text-ink">
             Du lundi au vendredi
           </dd>
         </div>
 
         <div>
-          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+          <dt class="eyebrow">
             Horaires
           </dt>
-          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+          <dd class="mt-2 font-serif text-xl leading-snug text-ink">
             Entre 10 et 16&nbsp;h
           </dd>
         </div>
 
         <div>
-          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+          <dt class="eyebrow">
             Durée
           </dt>
-          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+          <dd class="mt-2 font-serif text-xl leading-snug text-ink">
             Atelier de deux à trois heures minimum
           </dd>
         </div>
 
         <div>
-          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+          <dt class="eyebrow">
             Participants
           </dt>
-          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+          <dd class="mt-2 font-serif text-xl leading-snug text-ink">
             30 enfants maximum
           </dd>
         </div>
 
         <div class="col-span-2 sm:col-span-1">
-          <dt class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">
+          <dt class="eyebrow">
             Tarif
           </dt>
-          <dd class="mt-1 text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100">
+          <dd class="mt-2 font-serif text-xl leading-snug text-ink">
             60 euros HT l’heure
           </dd>
         </div>
       </dl>
 
       <!-- CTA Principal mobile (après les informations clés) -->
-      <div class="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800 lg:hidden flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+      <div class="mt-6 pt-6 border-t border-warm-grey lg:hidden flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
         <a
           href={contactMailHref}
-          class="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-xs text-center">
+          class="btn btn-ink">
           Organiser un atelier
         </a>
         <a
           href={`tel:${telHref(contact.mobile)}`}
-          class="inline-flex items-center justify-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition py-2 text-center">
-          📱 {contact.mobile}
+          class="btn btn-line tabular-nums">
+          {contact.mobile}
         </a>
       </div>
     </section>
 
     <!-- Programme de l’atelier -->
     <section class="mt-12 sm:mt-16" aria-labelledby="programme-heading">
-      <h2 id="programme-heading" class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+      <h2 id="programme-heading" class="h-item mb-8">
         Au programme
       </h2>
 
-      <ol class="grid sm:grid-cols-3 gap-6 sm:gap-8 border-b border-gray-200 dark:border-gray-800 pb-12">
+      <ol class="grid sm:grid-cols-3 gap-6 sm:gap-8 border-b border-warm-grey pb-12">
         <li class="flex flex-col">
-          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+          <span class="numeral text-2xl mb-3 select-none" aria-hidden="true">
             01
           </span>
           <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
@@ -304,7 +304,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
         </li>
 
         <li class="flex flex-col">
-          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+          <span class="numeral text-2xl mb-3 select-none" aria-hidden="true">
             02
           </span>
           <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
@@ -313,7 +313,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
         </li>
 
         <li class="flex flex-col">
-          <span class="font-serif text-2xl sm:text-3xl text-indigo-700 dark:text-indigo-400 font-bold mb-2 select-none" aria-hidden="true">
+          <span class="numeral text-2xl mb-3 select-none" aria-hidden="true">
             03
           </span>
           <p class="text-sm sm:text-base text-gray-800 dark:text-gray-200 font-medium leading-snug">
@@ -326,10 +326,10 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
     <!-- Interventions passées (Présentation sobre et scannable) -->
     <section class="mt-12 sm:mt-16" aria-labelledby="past-interventions-heading">
       <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-6">
-        <h2 id="past-interventions-heading" class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
+        <h2 id="past-interventions-heading" class="h-item mb-8">
           Interventions passées
         </h2>
-        <span class="text-xs text-gray-500 dark:text-gray-400">
+        <span class="meta text-xs">
           Historique des projets en milieu scolaire
         </span>
       </div>
@@ -340,10 +340,7 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
           {recentYears.map(([year], idx) => (
             <button
               type="button"
-              class={`year-btn px-3 py-1.5 rounded-md text-xs font-medium transition cursor-pointer
-                ${idx === 0
-                  ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 shadow-xs"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"}`}
+              class={`year-btn${idx === 0 ? " is-active" : ""}`}
               data-year={year}
               aria-pressed={idx === 0 ? "true" : "false"}
             >
@@ -353,15 +350,15 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
 
           <!-- Menu déroulant accessible pour les années antérieures (2008 à 2021) -->
           <details id="older-years-details" class="relative inline-block">
-            <summary class="px-3 py-1.5 rounded-md text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 cursor-pointer list-none inline-flex items-center gap-1 select-none">
+            <summary class="year-toggle cursor-pointer list-none inline-flex items-center gap-1 select-none">
               <span>Voir les années précédentes</span>
               <span class="text-[10px] text-gray-500 dark:text-gray-400" aria-hidden="true">▼</span>
             </summary>
-            <div class="absolute left-0 top-full mt-1.5 z-20 p-2.5 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 flex flex-wrap gap-1.5 max-w-xs sm:max-w-md">
+            <div class="absolute left-0 top-full mt-1.5 z-20 p-3 bg-paper border border-warm-grey shadow-xl flex flex-wrap gap-2 max-w-xs sm:max-w-md">
               {olderYears.map(([year]) => (
                 <button
                   type="button"
-                  class="year-btn px-2.5 py-1 rounded text-xs font-medium bg-gray-50 text-gray-700 hover:bg-gray-200 dark:bg-gray-700/60 dark:text-gray-300 dark:hover:bg-gray-600 transition cursor-pointer"
+                  class="year-btn"
                   data-year={year}
                   aria-pressed="false"
                 >
@@ -380,11 +377,11 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
           class={`year-section ${idx === 0 ? "" : "hidden"}`}
           data-year={year}
         >
-          <div class="border-b border-gray-200 dark:border-gray-800 pb-2 mb-4 flex items-center justify-between">
-            <h3 class="font-bold text-gray-900 dark:text-gray-100 text-base">
+          <div class="border-b border-warm-grey pb-2 mb-4 flex items-center justify-between">
+            <h3 class="font-serif text-xl leading-snug text-ink mb-2">
               Année {year}
             </h3>
-            <span class="text-xs text-gray-500 dark:text-gray-400">
+            <span class="meta text-xs">
               {events.length} établissement{events.length > 1 ? "s" : ""}
             </span>
           </div>
@@ -443,11 +440,9 @@ const contactMailHref = `mailto:${contact.email}?subject=Organisation%20d’un%2
             const isSelected = b.getAttribute("data-year") === year;
             b.setAttribute("aria-pressed", isSelected ? "true" : "false");
             if (isSelected) {
-              b.classList.add("bg-gray-900", "text-white", "dark:bg-gray-100", "dark:text-gray-900", "shadow-xs");
-              b.classList.remove("bg-gray-100", "text-gray-700", "bg-gray-50", "dark:bg-gray-800", "dark:text-gray-300", "dark:bg-gray-700/60");
+              b.classList.add("is-active");
             } else {
-              b.classList.remove("bg-gray-900", "text-white", "dark:bg-gray-100", "dark:text-gray-900", "shadow-xs");
-              b.classList.add("bg-gray-100", "text-gray-700", "dark:bg-gray-800", "dark:text-gray-300");
+              b.classList.remove("is-active");
             }
           });
 
