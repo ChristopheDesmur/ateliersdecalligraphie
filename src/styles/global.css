@@ -7,6 +7,16 @@
 @theme {
   --font-serif: 'Cormorant Garamond', Georgia, Cambria, serif;
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Encre, papier, geste — palette du site public (bg-paper, text-ink, …) */
+  --color-paper: #F7F4EC;
+  --color-paper-deep: #EFEBE1;
+  --color-ink: #171717;
+  --color-soft-ink: #5E5A52;
+  --color-warm-grey: #D8D3C8;
+  --color-vermilion: #9D2B20;
+
+  --container-editorial: 1200px;
 }
 
 @layer base {
@@ -476,3 +486,328 @@
 
 
 
+
+/* ============================================================
+   Site public — « Encre, papier, geste »
+   ------------------------------------------------------------
+   Les pages publiques utilisent massivement les échelles Tailwind
+   `gray-*` et `indigo-*`. Plutôt que de réécrire chaque classe, on
+   les redéfinit ici sur <body class="site"> : le gris devient un gris
+   chaud de papier, l'indigo devient l'encre. Le vermillon reste un
+   accent rare (navigation active, repères, un CTA). L'admin, hors
+   de `.site`, conserve la palette Tailwind d'origine.
+   ============================================================ */
+
+.site {
+  --color-gray-50: #F3F0E8;
+  --color-gray-100: #EAE6DC;
+  --color-gray-200: #D8D3C8;
+  --color-gray-300: #C2BCB0;
+  --color-gray-400: #8F897E;
+  --color-gray-500: #6E695F;
+  --color-gray-600: #5E5A52;
+  --color-gray-700: #45413B;
+  --color-gray-800: #2B2926;
+  --color-gray-900: #1F1D1B;
+  --color-gray-950: #171717;
+
+  --color-indigo-50: #F1EDE4;
+  --color-indigo-100: #E7E2D7;
+  --color-indigo-200: #D8D3C8;
+  --color-indigo-300: #CFC8BA;
+  --color-indigo-400: #BDB5A6;
+  --color-indigo-500: #5E5A52;
+  --color-indigo-600: #2B2926;
+  --color-indigo-700: #4F4B44;
+  --color-indigo-800: #1F1D1B;
+  --color-indigo-900: #3A3732;
+  --color-indigo-950: #171717;
+
+  --color-stone-50: #F3F0E8;
+  --color-white: #FCFAF5;
+
+  /* Angles sobres, ombres quasi absentes */
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 3px;
+  --radius-xl: 3px;
+  --radius-2xl: 4px;
+  --radius-3xl: 4px;
+  --shadow-2xs: none;
+  --shadow-xs: none;
+  --shadow-sm: 0 1px 2px rgb(23 23 23 / 0.04);
+  --shadow-md: 0 2px 10px rgb(23 23 23 / 0.06);
+  --shadow-xl: 0 12px 32px rgb(23 23 23 / 0.08);
+
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --section-space: clamp(4rem, 9vw, 7.5rem);
+  --ease-ink: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-feature-settings: "kern", "liga";
+  text-rendering: optimizeLegibility;
+}
+
+.dark .site {
+  --color-paper: #151412;
+  --color-paper-deep: #1C1B18;
+  --color-ink: #ECE8DF;
+  --color-soft-ink: #ABA597;
+  --color-warm-grey: #3A3732;
+  --color-vermilion: #D8705F;
+  --color-white: #1F1D1B;
+}
+
+.site ::selection {
+  background: color-mix(in srgb, var(--color-vermilion) 18%, transparent);
+}
+
+/* Focus visible, cohérent sur tout le site */
+.site :where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-vermilion);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.site :where(h1, h2, h3) {
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+.site :where(p) {
+  text-wrap: pretty;
+}
+
+@layer components {
+  /* Conteneur éditorial ~1200px */
+  .wrap {
+    width: 100%;
+    max-width: calc(var(--container-editorial) + 2 * var(--gutter));
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .section {
+    padding-block: var(--section-space);
+  }
+
+  /* Métadonnées en capitales, discrètes */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    color: var(--color-soft-ink);
+  }
+
+  /* Petit repère vermillon devant un sur-titre */
+  .eyebrow-mark::before {
+    content: "";
+    display: inline-block;
+    width: 1.5rem;
+    height: 1px;
+    margin-right: 0.75rem;
+    vertical-align: 0.3em;
+    background: var(--color-vermilion);
+  }
+
+  /* Intitulé en capitales (ex. offres numérotées) */
+  .label-caps {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--color-ink);
+  }
+
+  .display {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(2.6rem, 1.6rem + 4.6vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .h-section {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.4rem);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    color: var(--color-ink);
+  }
+
+  .h-item {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 1.25rem + 0.9vw, 1.9rem);
+    line-height: 1.15;
+    color: var(--color-ink);
+  }
+
+  .lede {
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 1.1rem + 0.45vw, 1.45rem);
+    line-height: 1.55;
+    color: var(--color-soft-ink);
+    max-width: 36rem;
+  }
+
+  .body-copy {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-soft-ink);
+    max-width: 34rem;
+  }
+
+  .meta {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-soft-ink);
+  }
+
+  .numeral {
+    font-family: var(--font-serif);
+    font-variant-numeric: lining-nums tabular-nums;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    color: var(--color-soft-ink);
+  }
+
+  .rule {
+    border: 0;
+    border-top: 1px solid var(--color-warm-grey);
+  }
+
+  /* Boutons : rectangles d'encre, zone de tap ≥ 48px */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.6rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.25s var(--ease-ink), color 0.25s var(--ease-ink), border-color 0.25s var(--ease-ink);
+  }
+
+  .btn-ink {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .btn-ink:hover {
+    background: color-mix(in srgb, var(--color-ink) 82%, var(--color-paper));
+  }
+
+  .btn-line {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+    background: transparent;
+  }
+  .btn-line:hover {
+    background: color-mix(in srgb, var(--color-ink) 6%, transparent);
+  }
+
+  /* À réserver à un seul CTA majeur par page */
+  .btn-accent {
+    background: var(--color-vermilion);
+    color: #FCFAF5;
+  }
+  .btn-accent:hover {
+    background: color-mix(in srgb, var(--color-vermilion) 85%, black);
+  }
+  .dark .btn-accent {
+    color: #151412;
+  }
+
+  /* Lien éditorial : texte + flèche qui avance légèrement */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--color-warm-grey);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.35em;
+    transition: text-decoration-color 0.25s var(--ease-ink);
+  }
+  .link-arrow .arrow {
+    display: inline-block;
+    transition: transform 0.3s var(--ease-ink);
+  }
+  .link-arrow:hover {
+    text-decoration-color: currentColor;
+  }
+  .link-arrow:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  /* Bande pleine largeur sans débordement horizontal */
+  .band {
+    background: var(--color-paper-deep);
+    box-shadow: 0 0 0 100vmax var(--color-paper-deep);
+    clip-path: inset(0 -100vmax);
+  }
+}
+
+/* Apparition discrète au défilement (activée seulement si JS actif) */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.9s var(--ease-ink), transform 0.9s var(--ease-ink);
+}
+.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Images : légère révélation, survol très calme */
+.ink-frame {
+  overflow: hidden;
+  background: var(--color-paper-deep);
+}
+.ink-frame img {
+  transition: transform 1.2s var(--ease-ink);
+}
+a:hover .ink-frame img,
+.ink-frame:hover img {
+  transform: scale(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .site *,
+  .site *::before,
+  .site *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  a:hover .ink-frame img,
+  .ink-frame:hover img,
+  .link-arrow:hover .arrow {
+    transform: none;
+  }
+}

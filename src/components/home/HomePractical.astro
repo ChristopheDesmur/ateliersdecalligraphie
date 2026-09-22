@@ -1,0 +1,58 @@
+---
+// HomePractical.astro - Informations pratiques : questions fréquentes & lieux à Lyon.
+import { homeFaqs } from "@/data/faq";
+import { venues, formatTimeCompactShort } from "@/data/venues";
+import { prices } from "@/data/prices";
+import { contact, telHref } from "@/data/contact";
+import FAQAccordion from "@/components/editorial/FAQAccordion.astro";
+import LocationBlock from "@/components/editorial/LocationBlock.astro";
+import EditorialLink from "@/components/editorial/EditorialLink.astro";
+
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+const locations = Object.values(venues).map((v) => ({
+  name: v.name,
+  address: v.address,
+  schedule: `${capitalize(v.day)} · ${formatTimeCompactShort(v.time_start)}–${formatTimeCompactShort(v.time_end)}`,
+}));
+---
+
+<section id="infos-pratiques" class="section border-t border-warm-grey scroll-mt-24" aria-label="Informations pratiques">
+  <div class="grid gap-16 lg:grid-cols-12 lg:gap-16">
+    <div data-reveal class="lg:col-span-7">
+      <p class="eyebrow mb-4">Repères pratiques</p>
+      <h2 id="home-faq-heading" class="h-section mb-8">Questions fréquentes</h2>
+      <FAQAccordion items={homeFaqs} schema openFirst />
+      <div class="mt-6">
+        <EditorialLink href="/faq" label="Toutes les questions fréquentes" />
+      </div>
+    </div>
+
+    <div data-reveal class="lg:col-span-5">
+      <p class="eyebrow mb-4">Lyon 4<sup>e</sup> · Croix-Rousse</p>
+      <h2 id="locations-heading" class="h-section mb-8">Ateliers à Lyon</h2>
+      <LocationBlock locations={locations} />
+
+      <p class="meta mt-5">
+        {prices.cours_collectifs.trimestre} € par trimestre pour {prices.cours_collectifs.seances} cours · matériel fourni · tous niveaux
+      </p>
+
+      <div class="mt-4 flex flex-col items-start">
+        <EditorialLink href="/cours-collectifs" label="Voir les horaires et modalités" />
+        <EditorialLink href="/tarifs" label="Tous les tarifs" />
+      </div>
+
+      <div class="mt-10 border-t border-warm-grey pt-6">
+        <p class="eyebrow mb-3">Contact direct</p>
+        <ul class="space-y-1 text-[0.95rem] text-ink">
+          <li><a href={`mailto:${contact.email}`} class="inline-block py-1.5 underline decoration-warm-grey underline-offset-4 hover:decoration-current">{contact.email}</a></li>
+          <li>
+            <a href={`tel:${telHref(contact.mobile)}`} class="inline-block py-1.5 tabular-nums hover:text-soft-ink">{contact.mobile}</a>
+            <span class="mx-2 text-warm-grey" aria-hidden="true">·</span>
+            <a href={`tel:${telHref(contact.landline)}`} class="inline-block py-1.5 tabular-nums hover:text-soft-ink">{contact.landline}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

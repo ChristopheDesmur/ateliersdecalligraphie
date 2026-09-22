@@ -1,0 +1,32 @@
+---
+// FAQAccordion.astro - Questions/réponses en <details> natifs (clavier & lecteurs d'écran).
+import { createFaqSchema } from "@/data/faq";
+
+export interface Props {
+  items: { question: string; answer: string }[];
+  schema?: boolean;
+  openFirst?: boolean;
+}
+
+const { items, schema = false, openFirst = false } = Astro.props;
+
+// Typographie française : espace insécable devant ? ! : ; (évite « ? » orphelin)
+const nbsp = (text: string) => text.replace(/ ([?!:;»])/g, "\u00a0$1").replace(/« /g, "«\u00a0");
+---
+
+<div class="border-t border-warm-grey">
+  {items.map((faq, index) => (
+    <details class="faq group border-b border-warm-grey" open={openFirst && index === 0}>
+      <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 font-serif text-xl sm:text-[1.35rem] leading-snug text-ink [&::-webkit-details-marker]:hidden">
+        <span>{nbsp(faq.question)}</span>
+        <span class="relative h-3.5 w-3.5 shrink-0" aria-hidden="true">
+          <span class="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-ink"></span>
+          <span class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-ink transition-transform duration-300 group-open:scale-y-0"></span>
+        </span>
+      </summary>
+      <p class="body-copy pb-6 -mt-1 pr-10">{nbsp(faq.answer)}</p>
+    </details>
+  ))}
+</div>
+
+{schema && <script type="application/ld+json" set:html={JSON.stringify(createFaqSchema(items))} />}

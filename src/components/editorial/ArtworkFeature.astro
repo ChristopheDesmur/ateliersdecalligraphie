@@ -1,0 +1,41 @@
+---
+// ArtworkFeature.astro - Œuvre présentée comme pièce de galerie (pas une fiche produit).
+import type { Artwork } from "@/data/artworks";
+
+export interface Props {
+  artwork: Artwork;
+  aspect?: string;
+  class?: string;
+}
+
+const { artwork, aspect = "1 / 1", class: className } = Astro.props;
+const href = `/galerie/${artwork.slug}`;
+const available = artwork.availability === "Disponible";
+---
+
+<article data-reveal class:list={["group", className]}>
+  <a href={href} class="block" aria-label={`${artwork.character} — ${artwork.frenchMeaning} : voir l’œuvre`}>
+    <div class="ink-frame flex items-center justify-center p-[8%]" style={`aspect-ratio: ${aspect};`}>
+      <img
+        src={artwork.src}
+        alt={artwork.alt}
+        width={artwork.width}
+        height={artwork.height}
+        loading="lazy"
+        decoding="async"
+        class="max-h-full max-w-full object-contain mix-blend-multiply dark:mix-blend-normal"
+      />
+    </div>
+  </a>
+  <div class="mt-5 flex items-start justify-between gap-6 border-t border-warm-grey pt-4">
+    <div class="min-w-0">
+      <h3 class="font-serif text-4xl leading-none text-ink" lang="zh-Hant">
+        <a href={href} class="hover:text-soft-ink transition-colors">{artwork.character}</a>
+      </h3>
+      <p class="mt-2 font-serif text-lg text-soft-ink leading-snug">{artwork.frenchMeaning}</p>
+    </div>
+    <p class="eyebrow shrink-0 pt-1 text-right">
+      {available ? "Disponible" : "Vendue"}
+    </p>
+  </div>
+</article>

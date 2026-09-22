@@ -6,57 +6,50 @@ const customMailHref = `mailto:${contact.email}?subject=Demande%20de%20calligrap
 
 <section
   id="calligraphie-personnalisee"
-  class="mt-20 rounded-3xl bg-stone-900 text-white p-8 sm:p-12 lg:p-14 border border-stone-800 scroll-mt-12"
+  class="section band mt-20 scroll-mt-12"
   aria-labelledby="custom-heading">
-  
-  <div class="max-w-3xl">
-    <span class="text-xs font-semibold uppercase tracking-widest text-indigo-400">
-      Création sur mesure & Commandes
-    </span>
 
-    <h2 id="custom-heading" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-white mt-3">
+  <div class="max-w-3xl">
+    <p class="eyebrow eyebrow-mark mb-5">
+      Création sur mesure & Commandes
+    </p>
+
+    <h2 id="custom-heading" class="h-section">
       Vous recherchez une calligraphie personnalisée ?
     </h2>
 
-    <p class="mt-4 text-sm sm:text-base text-stone-300 font-serif leading-relaxed">
+    <p class="lede mt-6">
       Vous souhaitez faire réaliser un caractère, un prénom, un mot ou une expression particulière ? Christophe Desmur peut créer une calligraphie originale selon votre demande, avec l’assurance d’un tracé traditionnel respectueux de l’esprit et de l’étymologie des sinogrammes.
     </p>
 
     <!-- Distinction claire : Œuvres disponibles vs Commandes sur mesure -->
-    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans">
-      <div class="p-4 rounded-xl bg-white/5 border border-white/10">
-        <strong class="text-white block mb-1 text-sm font-serif">Œuvres originales à vendre</strong>
-        <p class="text-stone-300 leading-relaxed">
+    <dl class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-10 border-t border-warm-grey">
+      <div class="border-b border-warm-grey py-5">
+        <dt class="font-serif text-xl text-ink">Œuvres originales à vendre</dt>
+        <dd class="meta mt-1.5">
           Pièces uniques déjà réalisées, visibles dans la collection ci-dessus, disponibles immédiatement pour une acquisition directe.
-        </p>
+        </dd>
       </div>
-
-      <div class="p-4 rounded-xl bg-white/5 border border-white/10">
-        <strong class="text-white block mb-1 text-sm font-serif">Calligraphies sur mesure</strong>
-        <p class="text-stone-300 leading-relaxed">
+      <div class="border-b border-warm-grey py-5">
+        <dt class="font-serif text-xl text-ink">Calligraphies sur mesure</dt>
+        <dd class="meta mt-1.5">
           Création personnalisée d’après votre choix de sinogramme, devise, poème classique ou prénom transcrit.
-        </p>
+        </dd>
       </div>
-    </div>
+    </dl>
 
-    <div class="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-      <a
-        href={customMailHref}
-        class="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded-xl transition shadow-md flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
-        <span>✉️</span>
-        <span>Demander une calligraphie personnalisée</span>
+    <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
+      <a href={customMailHref} class="btn btn-ink">
+        Demander une calligraphie personnalisée
       </a>
-
-      <a
-        href="/le-calligraphe"
-        class="px-5 py-3.5 bg-white/10 hover:bg-white/20 text-white text-sm font-medium rounded-xl transition border border-white/20 flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+      <a href="/le-calligraphe" class="link-arrow">
         <span>Découvrir le calligraphe Christophe Desmur</span>
-        <span aria-hidden="true">&rarr;</span>
+        <span class="arrow" aria-hidden="true">→</span>
       </a>
     </div>
 
-    <p class="text-xs text-stone-400 mt-5">
-      Vous pouvez également joindre Christophe Desmur par téléphone au <a href={`tel:${telHref(contact.mobile)}`} class="text-stone-200 underline">{contact.mobile}</a> ou au <a href={`tel:${telHref(contact.landline)}`} class="text-stone-200 underline">{contact.landline}</a> pour échanger de vive voix sur votre projet.
+    <p class="meta mt-6">
+      Vous pouvez également joindre Christophe Desmur par téléphone au <a href={`tel:${telHref(contact.mobile)}`} class="underline underline-offset-4 hover:text-ink">{contact.mobile}</a> ou au <a href={`tel:${telHref(contact.landline)}`} class="underline underline-offset-4 hover:text-ink">{contact.landline}</a> pour échanger de vive voix sur votre projet.
     </p>
   </div>
 </section>

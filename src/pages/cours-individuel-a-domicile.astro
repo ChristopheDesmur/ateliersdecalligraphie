@@ -341,38 +341,32 @@ const contactMailHref = `mailto:${contact.email}?subject=Demande%20de%20cours%20
     <!-- ================================================================= -->
     <!-- 6. CONTACT / CTA CONVERSION                                       -->
     <!-- ================================================================= -->
-    <section id="contact" class="my-10 sm:my-14 rounded-3xl bg-gray-950 text-white p-8 sm:p-12 border border-gray-800 text-center" aria-labelledby="contact-heading">
-      <div class="max-w-2xl mx-auto">
-        <p class="text-indigo-400 uppercase tracking-widest text-xs font-semibold">
+    <section id="contact" class="section band my-10 sm:my-14" aria-labelledby="contact-heading">
+      <div class="max-w-3xl">
+        <p class="eyebrow eyebrow-mark mb-5">
           Premier contact
         </p>
 
-        <h2 id="contact-heading" class="text-2xl sm:text-3xl lg:text-4xl font-serif font-medium text-white mt-2 leading-tight">
+        <h2 id="contact-heading" class="h-section">
           Vous souhaitez apprendre la calligraphie chinoise chez vous à Lyon ?
         </h2>
 
-        <p class="text-stone-300 font-serif text-sm sm:text-base mt-3 leading-relaxed">
+        <p class="lede mt-6">
           Contactez directement Christophe Desmur pour échanger sur vos souhaits, convenir d’un premier créneau ou poser vos questions sur l’agrément fiscal.
         </p>
 
-        <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3.5">
-          <a
-            href={contactMailHref}
-            class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white inline-flex items-center justify-center gap-2">
-            <span>✉️</span>
-            <span>Demander un cours à domicile</span>
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+          <a href={contactMailHref} class="btn btn-accent">
+            Demander un cours à domicile
           </a>
 
-          <a
-            href={`tel:${telHref(contact.mobile)}`}
-            class="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition border border-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white inline-flex items-center justify-center gap-2">
-            <span>📱</span>
-            <span>{contact.mobile}</span>
+          <a href={`tel:${telHref(contact.mobile)}`} class="btn btn-line tabular-nums" aria-label={`Appeler Christophe Desmur au ${contact.mobile}`}>
+            {contact.mobile}
           </a>
         </div>
 
-        <p class="text-xs text-stone-400 mt-5 font-sans">
-          Également joignable au <a href={`tel:${telHref(contact.landline)}`} class="underline hover:text-white">{contact.landline}</a> ou par courriel à <a href={`mailto:${contact.email}`} class="underline hover:text-white">{contact.email}</a>.
+        <p class="meta mt-6">
+          Également joignable au <a href={`tel:${telHref(contact.landline)}`} class="underline underline-offset-4 hover:text-ink">{contact.landline}</a> ou par courriel à <a href={`mailto:${contact.email}`} class="underline underline-offset-4 hover:text-ink">{contact.email}</a>.
         </p>
       </div>
     </section>

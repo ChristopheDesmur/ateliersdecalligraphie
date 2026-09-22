@@ -1,7 +1,9 @@
 ---
+// Le <main> du layout fournit déjà la grille éditoriale (.wrap, ~1200px) :
+// ce conteneur ne rajoute donc pas de marges internes.
 const { class: className } = Astro.props;
 ---
 
-<div class:list={["max-w-(--breakpoint-xl) mx-auto px-5", className]}>
+<div class:list={["w-full", className]}>
   <slot />
 </div>

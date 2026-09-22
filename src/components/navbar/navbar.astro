@@ -1,105 +1,87 @@
 ---
-import Container from "../container.astro";
 import Dropdown from "./dropdown.astro";
 import { Astronav, MenuItems } from "astro-navbar";
 
+// Navigation principale par intention. Les pages secondaires (publics
+// spécifiques, tarifs, textes) restent accessibles par liens contextuels
+// (RelatedPages, pages parentes) et dans le pied de page.
 const menuitems = [
   {
-    title: "Cours",
+    title: "Calligraphie",
     path: "#",
     children: [
-      { title: "Cours collectifs à Lyon", path: "/cours-collectifs" },
-      { title: "Tarifs des cours", path: "/tarifs" },
+      { title: "Ateliers", path: "/cours-collectifs" },
+      { title: "Cours individuels", path: "/cours-individuel-a-domicile" },
+      { title: "Interventions", path: "/atelier-de-groupe" },
+      { title: "Œuvres", path: "/galerie" },
     ],
-  },
-  {
-    title: "Cours individuels",
-    path: "/cours-individuel-a-domicile",
-  },
-  {
-    title: "Interventions",
-    path: "#",
-    children: [
-      { title: "Vue d’ensemble des ateliers", path: "/atelier-de-groupe" },
-      { title: "Écoles primaires", path: "/ecoles-primaires" },
-      { title: "Collèges", path: "/colleges" },
-      { title: "Lycées", path: "/formats-atelier-pour-les-lycees" },
-      { title: "Universités et grandes écoles", path: "/universites-et-grandes-ecoles" },
-      { title: "Comités d’entreprise (CSE)", path: "/comites-entreprise" },
-      { title: "Maisons de retraite & EHPAD", path: "/maisons-de-retraite" },
-    ],
-  },
-  {
-    title: "Œuvres à vendre",
-    path: "/galerie",
   },
   {
     title: "Découvrir",
     path: "#",
     children: [
-      { title: "Guide : débuter la calligraphie", path: "/debuter-calligraphie-chinoise" },
-      { title: "La voie du pinceau (Shodo)", path: "/shodo-voie-pinceau" },
-      { title: "Calligraphie zen", path: "/calligraphie-zen" },
-      { title: "Foire aux questions (FAQ)", path: "/faq" },
-      { title: "Cours de langue chinoise", path: "/cours-de-chinois" },
-      { title: "Traductions littéraires", path: "/traductions" },
+      { title: "La pratique", path: "/shodo-voie-pinceau" },
+      { title: "Guide pour débuter", path: "/debuter-calligraphie-chinoise" },
+      { title: "Christophe Desmur", path: "/le-calligraphe" },
+      { title: "FAQ", path: "/faq" },
     ],
-  },
-  {
-    title: "À propos",
-    path: "/le-calligraphe",
   },
   {
     title: "Contact",
     path: "/contact",
   },
 ];
+
+const current = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (path: string) =>
+  path !== "#" && (current === path || current.startsWith(`${path}/`));
 ---
 
-<Container>
-  <header class="flex flex-col lg:flex-row justify-between items-center my-3 sm:my-4 border-b border-gray-100 dark:border-gray-800 pb-3 sm:pb-4">
+<header class="wrap">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between py-4 sm:py-5 border-b border-warm-grey">
     <Astronav>
       <div class="flex w-full lg:w-auto items-center justify-between gap-2">
-        <a href="/" class="text-base sm:text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded py-1 shrink-0">
-          <span class="font-serif font-bold text-gray-950 dark:text-gray-100">Calligraphie </span>
-          <span class="hidden sm:inline text-gray-500 dark:text-gray-400 font-sans text-sm sm:text-base">chinoise Lyon</span>
+        <a href="/" class="group inline-flex min-h-11 items-baseline gap-2 shrink-0" aria-label="Calligraphie chinoise Lyon — accueil">
+          <span class="font-serif text-[1.3rem] min-[360px]:text-[1.45rem] sm:text-[1.6rem] font-medium leading-none text-ink">Calligraphie</span>
+          <span class="hidden sm:inline eyebrow text-[0.65rem]">chinoise · Lyon</span>
         </a>
-        <div class="flex items-center gap-2 lg:hidden">
-          <a
-            href="/cours-collectifs#trial-heading"
-            class="px-3 py-1.5 min-h-[36px] inline-flex items-center justify-center rounded-lg bg-indigo-600 text-white text-xs font-medium hover:bg-indigo-700 active:scale-98 transition shadow-2xs whitespace-nowrap">
+        <div class="flex items-center gap-1 lg:hidden">
+          <a href="/cours-collectifs#trial-heading" class="btn btn-ink min-h-11 px-3 py-2 text-[0.8rem] whitespace-nowrap">
             Essayer un cours
           </a>
           <button
-            class="astronav-toggle p-2 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition"
-            aria-label="Ouvrir le menu"
+            id="astronav-menu"
+            class="inline-flex h-11 w-11 items-center justify-center text-ink"
+            aria-label="Menu"
+            aria-controls="site-menu"
             aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+              <line x1="4" y1="8" x2="20" y2="8"></line>
+              <line x1="4" y1="16" x2="20" y2="16"></line>
             </svg>
           </button>
         </div>
       </div>
-      <MenuItems class="hidden w-full lg:w-auto mt-3 lg:mt-0 lg:flex">
-        <ul class="flex flex-col lg:flex-row lg:items-center lg:gap-1 text-sm font-medium">
+      <MenuItems id="site-menu" class="hidden w-full lg:w-auto mt-2 lg:mt-0 lg:flex lg:items-center">
+        <ul class="flex flex-col lg:flex-row lg:items-center lg:gap-2 text-[0.95rem]">
           {
             menuitems.map((item, index) => (
               <>
                 {item.children && (
                   <Dropdown
                     title={item.title}
-                    children={item.children}
+                    children={item.children.map((c) => ({ ...c, active: isActive(c.path) }))}
+                    active={item.children.some((c) => isActive(c.path))}
                     lastItem={index === menuitems.length - 1}
                   />
                 )}
 
                 {!item.children && (
-                  <li>
+                  <li class="border-b border-warm-grey lg:border-0">
                     <a
                       href={item.path}
-                      class="flex lg:px-2.5 py-2 items-center text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg transition">
+                      aria-current={isActive(item.path) ? "page" : undefined}
+                      class="nav-link flex min-h-12 lg:min-h-11 items-center lg:px-3 text-ink hover:text-soft-ink transition-colors">
                       <span>{item.title}</span>
                     </a>
                   </li>
@@ -108,29 +90,51 @@ const menuitems = [
             ))
           }
         </ul>
-        <div class="lg:ml-3 mt-3 lg:mt-0 flex items-center gap-2 pt-3 lg:pt-0 border-t lg:border-t-0 border-gray-100 dark:border-gray-800">
-          <a
-            href="/cours-collectifs#trial-heading"
-            class="w-full lg:w-auto text-center px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 transition whitespace-nowrap shadow-xs">
+        <div class="lg:ml-5 mt-5 lg:mt-0 flex items-center gap-2 pb-4 lg:pb-0">
+          <a href="/cours-collectifs#trial-heading" class="btn btn-ink hidden lg:inline-flex min-h-11 py-2 px-5 text-sm whitespace-nowrap">
             Essayer un cours
           </a>
           <button
             id="theme-toggle"
             aria-label="Basculer le mode sombre/clair"
-            class="p-2 rounded-lg text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition">
-            <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+            class="inline-flex h-11 w-11 items-center justify-center text-soft-ink hover:text-ink transition-colors">
+            <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="hidden" aria-hidden="true">
               <circle cx="12" cy="12" r="5"></circle>
               <line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
               <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
               <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
               <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
             </svg>
-            <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
             </svg>
           </button>
         </div>
       </MenuItems>
     </Astronav>
-  </header>
-</Container>
+  </div>
+</header>
+
+<script>
+  // astro-navbar bascule la classe `hidden` du menu ; on reflète l'état pour les lecteurs d'écran.
+  function syncMenuState() {
+    const button = document.getElementById("astronav-menu");
+    const menu = document.getElementById("site-menu");
+    if (!button || !menu) return;
+    const update = () => button.setAttribute("aria-expanded", String(!menu.classList.contains("hidden")));
+    new MutationObserver(update).observe(menu, { attributes: true, attributeFilter: ["class"] });
+    update();
+  }
+  document.addEventListener("astro:page-load", syncMenuState);
+</script>
+
+<style>
+  /* Rubrique active : un trait vermillon sous le libellé (pas seulement la couleur) */
+  .nav-link[aria-current="page"] span,
+  :global(.nav-trigger[data-active] > span:first-child) {
+    text-decoration: underline;
+    text-decoration-color: var(--color-vermilion);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.5em;
+  }
+</style>

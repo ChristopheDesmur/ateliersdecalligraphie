@@ -1,191 +1,105 @@
 ---
-// HomePractice.astro - La pratique : concepts clés, équilibre, bienfaits et public
+// HomePractice.astro - La pratique (geste, concentration, expression) puis
+// une section courte « accessible à tous ».
+import ImageTextSection from "@/components/editorial/ImageTextSection.astro";
+import EditorialLink from "@/components/editorial/EditorialLink.astro";
+
+const concepts = [
+  { title: "Le geste", text: "Apprendre à maîtriser le pinceau." },
+  { title: "La concentration", text: "Trouver son rythme et son attention." },
+  { title: "L’expression", text: "Faire vivre le caractère sur le papier." },
+];
+
+const points = [
+  "Débutants bienvenus",
+  "Geste & attention",
+  "Créativité & expression",
+  "Découverte de la culture chinoise",
+];
 ---
 
-<section class="py-14 sm:py-20 border-b border-gray-100 dark:border-gray-800" aria-labelledby="practice-heading">
-  <!-- 1. Plus qu’une écriture, une pratique -->
-  <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-    <p class="text-xs font-semibold uppercase tracking-widest text-indigo-700 dark:text-indigo-400">
-      L’art du pinceau
-    </p>
-    <h2 id="practice-heading" class="text-3xl sm:text-4xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
-      Plus qu’une écriture, une pratique
-    </h2>
-    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-serif mt-2.5 leading-relaxed">
-      En calligraphie chinoise, le geste, la respiration et la concentration participent pleinement à l’expression du caractère.
-    </p>
+<ImageTextSection
+  id="practice"
+  image={{
+    src: "/assets/un-pinceau-repose-a-cote-d-un-texte-calligraphie-sur-du-papier-blanc.webp",
+    alt: "Un pinceau repose à côté de caractères chinois tracés à l’encre sur papier blanc",
+    width: 800,
+    height: 1200,
+    position: "50% 40%",
+  }}
+  aspect="4 / 5">
+  <p class="eyebrow mb-4">L’art du pinceau</p>
+  <h2 id="practice-heading" class="h-section">Plus qu’une écriture, une pratique</h2>
+  <p class="lede mt-5">
+    En calligraphie chinoise, le geste, la respiration et la concentration participent pleinement à l’expression du caractère.
+  </p>
+
+  <ol class="mt-10 grid gap-6 border-t border-warm-grey pt-6 sm:grid-cols-3 sm:gap-6 md:grid-cols-1 lg:grid-cols-3">
+    {concepts.map((c, i) => (
+      <li class="sm:border-l sm:border-warm-grey sm:pl-5 md:border-l-0 md:pl-0 lg:border-l lg:pl-5 first:border-l-0 first:pl-0">
+        <span class="numeral text-vermilion" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+        <h3 class="font-serif text-[1.35rem] leading-tight text-ink mt-1">{c.title}</h3>
+        <p class="meta mt-1.5">{c.text}</p>
+      </li>
+    ))}
+  </ol>
+
+  <blockquote class="mt-10 font-serif text-xl sm:text-2xl italic leading-snug text-ink">
+    « Chaque caractère devient un exercice d’équilibre entre mouvement, espace et énergie. »
+  </blockquote>
+
+  <div class="mt-8">
+    <EditorialLink href="/shodo-voie-pinceau" label="Découvrir la pratique" />
   </div>
+</ImageTextSection>
 
-  <!-- 3 concepts fondamentaux -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-    
-    <!-- Le geste -->
-    <div class="bg-stone-50/80 dark:bg-gray-800/80 rounded-2xl p-6 border border-stone-200/80 dark:border-gray-700/70 text-center">
-      <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
-        01 · Le geste
-      </span>
-      <h3 class="text-xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
-        Maîtriser le pinceau
-      </h3>
-      <p class="text-sm text-gray-600 dark:text-gray-300 font-serif mt-2 leading-relaxed">
-        Apprendre à maîtriser le pinceau.
-      </p>
-    </div>
-
-    <!-- La concentration -->
-    <div class="bg-stone-50/80 dark:bg-gray-800/80 rounded-2xl p-6 border border-stone-200/80 dark:border-gray-700/70 text-center">
-      <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
-        02 · La concentration
-      </span>
-      <h3 class="text-xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
-        Rythme et attention
-      </h3>
-      <p class="text-sm text-gray-600 dark:text-gray-300 font-serif mt-2 leading-relaxed">
-        Trouver son rythme et son attention.
-      </p>
-    </div>
-
-    <!-- L’expression -->
-    <div class="bg-stone-50/80 dark:bg-gray-800/80 rounded-2xl p-6 border border-stone-200/80 dark:border-gray-700/70 text-center">
-      <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
-        03 · L’expression
-      </span>
-      <h3 class="text-xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-2">
-        La vie sur le papier
-      </h3>
-      <p class="text-sm text-gray-600 dark:text-gray-300 font-serif mt-2 leading-relaxed">
-        Faire vivre le caractère sur le papier.
-      </p>
-    </div>
-
-  </div>
-
-  <div class="mt-7 text-center">
-    <a
-      href="/shodo-voie-pinceau"
-      class="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
-      <span>Découvrir la pratique</span>
-      <span aria-hidden="true">&rarr;</span>
-    </a>
-  </div>
-
-  <!-- 2. Affirmation visuelle : équilibre mouvement, espace et énergie -->
-  <div class="my-8 max-w-3xl mx-auto text-center px-4 py-5 rounded-2xl bg-white dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700/60 shadow-2xs">
-    <p class="text-base sm:text-lg font-serif italic text-gray-800 dark:text-gray-200 leading-relaxed">
-      « Chaque caractère devient un exercice d’équilibre entre mouvement, espace et énergie. »
-    </p>
-  </div>
-
-  <!-- Pont éditorial : Le geste, entre mouvement et immobilité -->
-  <div class="mb-12 max-w-2xl mx-auto p-5 sm:p-6 rounded-2xl bg-stone-50/80 dark:bg-gray-800/50 border border-stone-200/70 dark:border-gray-700/60 text-center">
-    <h3 class="text-lg sm:text-xl font-serif font-medium text-gray-950 dark:text-gray-100">
+<!-- Note : le geste et l'assise (contenu existant conservé, en aparté discret) -->
+<aside class="pb-16 sm:pb-20 -mt-4" aria-labelledby="gesture-note-heading">
+  <div data-reveal class="grid gap-4 border-t border-warm-grey pt-6 md:grid-cols-12 md:gap-10">
+    <h3 id="gesture-note-heading" class="font-serif text-xl text-ink md:col-span-4">
       Le geste, entre mouvement et immobilité
     </h3>
-    <p class="mt-2.5 text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-serif leading-relaxed">
-      Le travail du pinceau engage le corps tout entier : posture, respiration, rythme et attention participent au geste calligraphique. Cette attention au corps et à la posture peut aussi faire écho à d’autres pratiques traditionnelles de l’assise. À Montpellier, Myokan confectionne des zafus selon une méthode transmise dans la tradition du zen Soto, destinés notamment à la pratique du zazen.
-    </p>
-    <div class="mt-4">
-      <a
-        href="https://myokan.fr/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
-        <span>Découvrir les zafus artisanaux de Myokan</span>
-        <span aria-hidden="true">↗</span>
-      </a>
+    <div class="md:col-span-8 lg:col-span-7">
+      <p class="meta leading-relaxed">
+        Le travail du pinceau engage le corps tout entier : posture, respiration, rythme et attention participent au geste calligraphique. Cette attention au corps et à la posture peut aussi faire écho à d’autres pratiques traditionnelles de l’assise. À Montpellier, Myokan confectionne des zafus selon une méthode transmise dans la tradition du zen Soto, destinés notamment à la pratique du zazen.
+      </p>
+      <EditorialLink href="https://myokan.fr/" external label="Découvrir les zafus artisanaux de Myokan" class="mt-2 text-sm" />
     </div>
   </div>
+</aside>
 
-  <!-- 3. Accessible à tous, bienfaits & public -->
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-5xl mx-auto items-stretch">
-    
-    <!-- Accessibilité & Bienfaits (7 cols) -->
-    <div class="lg:col-span-7 bg-white dark:bg-gray-800/90 rounded-2xl p-6 sm:p-8 border border-gray-200/90 dark:border-gray-700/80 shadow-2xs flex flex-col justify-between">
-      <div>
-        <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
-          Accessibilité
-        </span>
-        <h3 class="text-2xl font-serif font-medium text-gray-950 dark:text-gray-100 mt-1.5">
-          Une pratique accessible à tous
-        </h3>
-        <p class="text-sm text-gray-600 dark:text-gray-300 font-serif mt-2.5 leading-relaxed">
-          Pas besoin de parler chinois pour commencer. La calligraphie s’apprend par le geste, l’observation et la répétition.
-        </p>
+<!-- Une pratique accessible à tous -->
+<section id="accessible" class="section border-t border-warm-grey" aria-labelledby="accessible-heading">
+  <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
+    <div data-reveal class="lg:col-span-5">
+      <p class="eyebrow mb-4">Accessibilité</p>
+      <h2 id="accessible-heading" class="h-section">Une pratique accessible à tous</h2>
+    </div>
+    <div data-reveal class="lg:col-span-7">
+      <p class="font-serif text-2xl sm:text-[1.75rem] leading-snug text-ink">
+        Pas besoin de parler chinois pour commencer.
+      </p>
+      <p class="body-copy mt-3">
+        La calligraphie s’apprend par le geste, l’observation et la répétition.
+      </p>
 
-        <!-- 4 bienfaits compacts -->
-        <div class="mt-5 grid grid-cols-2 gap-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-serif">
-          <div class="flex items-center gap-2 p-2 rounded-lg bg-stone-50 dark:bg-gray-700/50">
-            <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
-            <span>Calme & concentration</span>
-          </div>
-          <div class="flex items-center gap-2 p-2 rounded-lg bg-stone-50 dark:bg-gray-700/50">
-            <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
-            <span>Geste & respiration</span>
-          </div>
-          <div class="flex items-center gap-2 p-2 rounded-lg bg-stone-50 dark:bg-gray-700/50">
-            <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
-            <span>Créativité & expression</span>
-          </div>
-          <div class="flex items-center gap-2 p-2 rounded-lg bg-stone-50 dark:bg-gray-700/50">
-            <span class="text-indigo-600 dark:text-indigo-400 font-bold" aria-hidden="true">✓</span>
-            <span>Découverte de la culture chinoise</span>
-          </div>
-        </div>
+      <ul class="mt-8 grid grid-cols-1 border-t border-warm-grey sm:grid-cols-2">
+        {points.map((p) => (
+          <li class="flex items-baseline gap-3 border-b border-warm-grey py-4 sm:odd:pr-6 text-ink">
+            <span class="h-px w-4 shrink-0 translate-y-[-0.3em] bg-soft-ink" aria-hidden="true"></span>
+            <span>{p}</span>
+          </li>
+        ))}
+      </ul>
 
-        <p class="mt-4 text-xs font-semibold text-indigo-700 dark:text-indigo-400">
-          Débutants bienvenus.
-        </p>
-      </div>
+      <p class="meta mt-6">
+        Enfants · Adolescents · Adultes · Seniors — cours réguliers, découverte, écoles, entreprises et institutions.
+      </p>
 
-      <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/60">
-        <a
-          href="/cours-collectifs#trial-heading"
-          class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-          <span>Comment se déroule un atelier ?</span>
-          <span aria-hidden="true">&rarr;</span>
-        </a>
+      <div class="mt-4 flex flex-wrap gap-x-8">
+        <EditorialLink href="/cours-collectifs#trial-heading" label="Comment se déroule un atelier ?" />
+        <EditorialLink href="/debuter-calligraphie-chinoise" label="Guide pour débuter" />
       </div>
     </div>
-
-    <!-- Audience : Pour qui & Pour quelles occasions (5 cols) -->
-    <div class="lg:col-span-5 bg-stone-50/90 dark:bg-gray-800/60 rounded-2xl p-6 sm:p-8 border border-stone-200/80 dark:border-gray-700/70 flex flex-col justify-between">
-      <div>
-        <span class="text-xs uppercase tracking-wider font-semibold text-indigo-700 dark:text-indigo-400">
-          Public & Contextes
-        </span>
-
-        <!-- Pour qui ? -->
-        <div class="mt-3">
-          <h4 class="text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-gray-100 font-sans">
-            Pour qui ?
-          </h4>
-          <p class="mt-1 text-sm font-serif text-gray-700 dark:text-gray-300">
-            Enfants &bull; Adolescents &bull; Adultes &bull; Seniors
-          </p>
-        </div>
-
-        <div class="my-4 border-t border-stone-200 dark:border-gray-700/60"></div>
-
-        <!-- Pour quelles occasions ? -->
-        <div>
-          <h4 class="text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-gray-100 font-sans">
-            Pour quelles occasions ?
-          </h4>
-          <p class="mt-1 text-sm font-serif text-gray-700 dark:text-gray-300">
-            Cours réguliers &bull; Découverte &bull; Écoles &bull; Entreprises &bull; Institutions
-          </p>
-        </div>
-      </div>
-
-      <div class="mt-6 pt-4 border-t border-stone-200 dark:border-gray-700/60">
-        <a
-          href="/atelier-de-groupe"
-          class="inline-flex items-center gap-1.5 text-xs font-medium text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
-          <span>En savoir plus sur les interventions adaptées</span>
-          <span aria-hidden="true">&rarr;</span>
-        </a>
-      </div>
-    </div>
-
   </div>
 </section>

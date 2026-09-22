@@ -8,87 +8,88 @@ const dojo = venues["dojo-zen-de-lyon"];
 const miroirs = venues["miroirs-du-ciel"];
 ---
 
-<footer class="mt-20 border-t border-gray-200 dark:border-gray-800 bg-gray-50/60 dark:bg-gray-900/60 pt-14 pb-12 text-sm text-gray-600 dark:text-gray-400" aria-label="Pied de page">
-  <div class="mx-auto max-w-[1300px] px-4 sm:px-6">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+<footer class="pb-12 text-sm text-soft-ink" aria-label="Pied de page">
+  <div class="wrap">
+    <div class="border-t border-ink/80 pt-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-x-10 gap-y-12">
       
       <!-- Colonne 1 : Identité & Contact local Lyon -->
-      <div class="space-y-4">
+      <div class="space-y-5 lg:col-span-3">
         <div>
-          <h3 class="font-serif text-xl font-medium text-gray-950 dark:text-gray-100">
+          <h3 class="font-serif text-3xl font-medium text-ink">
             Christophe Desmur
           </h3>
-          <p class="text-xs font-semibold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 mt-0.5">
+          <p class="eyebrow mt-2">
             Calligraphie chinoise à Lyon
           </p>
-          <p class="text-xs text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+          <p class="text-sm mt-3 leading-relaxed max-w-xs">
             Enseignement traditionnel au pinceau, encre de Chine et transmission culturelle.
           </p>
         </div>
         
-        <div class="space-y-2 text-xs text-gray-700 dark:text-gray-300">
+        <div class="space-y-3 text-sm">
           <p>
-            <strong class="text-gray-900 dark:text-gray-100">{dojo.name} :</strong><br />
+            <strong class="font-medium text-ink">{dojo.name} :</strong><br />
             {dojo.address} ({dojo.district})
           </p>
           <p>
-            <strong class="text-gray-900 dark:text-gray-100">{miroirs.name} :</strong><br />
+            <strong class="font-medium text-ink">{miroirs.name} :</strong><br />
             {miroirs.address}
           </p>
         </div>
 
-        <div class="pt-3 border-t border-gray-200 dark:border-gray-800 space-y-2 text-xs">
+        <div class="pt-4 border-t border-warm-grey text-sm">
           <p>
-            <a href={`tel:${telHref(contact.mobile)}`} class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition inline-flex items-center gap-1.5 py-1">
-              <span aria-hidden="true">📱</span> {contact.mobile}
+            <a href={`tel:${telHref(contact.mobile)}`} class="text-ink hover:text-soft-ink tabular-nums transition inline-flex items-center min-h-10">
+              {contact.mobile}
             </a>
           </p>
           <p>
-            <a href={`tel:${telHref(contact.landline)}`} class="hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition inline-flex items-center gap-1.5 py-1">
-              <span aria-hidden="true">📞</span> {contact.landline}
+            <a href={`tel:${telHref(contact.landline)}`} class="text-ink hover:text-soft-ink tabular-nums transition inline-flex items-center min-h-10">
+              {contact.landline}
             </a>
           </p>
           <p>
-            <a href={`mailto:${contact.email}`} class="hover:text-indigo-600 dark:hover:text-indigo-400 underline transition inline-flex items-center gap-1.5 py-1">
-              <span aria-hidden="true">✉️</span> {contact.email}
+            <a href={`mailto:${contact.email}`} class="text-ink underline decoration-warm-grey underline-offset-4 hover:decoration-current transition inline-flex items-center min-h-10">
+              {contact.email}
             </a>
           </p>
         </div>
       </div>
 
       <!-- Colonne 2 : Cours & Tarifs -->
-      <div>
-        <h3 class="text-base font-bold text-gray-900 dark:text-gray-100 mb-3">
+      <div class="lg:col-span-3">
+        <h3 class="eyebrow mb-4">
           Cours & Formules
         </h3>
-        <ul class="space-y-2 text-xs">
+        <ul class="space-y-1 text-sm">
           <li>
-            <a href="/cours-collectifs" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/cours-collectifs" class="footer-link">
               Cours collectifs hebdomadaires (Lyon 4<sup>e</sup>)
             </a>
           </li>
           <li>
-            <a href="/cours-individuel-a-domicile" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/cours-individuel-a-domicile" class="footer-link">
               Cours individuels à domicile ({prices.cours_individuel_domicile.reduction_impot_pct} % crédit d’impôt)
             </a>
           </li>
           <li>
-            <a href="/tarifs" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/tarifs" class="footer-link">
               Grille tarifaire détaillée
             </a>
           </li>
           <li>
-            <a href="/cours-collectifs#trial-heading" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/cours-collectifs#trial-heading" class="footer-link">
               Première séance d’essai
             </a>
           </li>
           <li>
-            <a href="/cours-de-chinois" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/cours-de-chinois" class="footer-link">
               Cours de langue chinoise & sinogrammes
             </a>
           </li>
           <li>
-            <a href="/contact" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium">
+            <a href="/contact" class="footer-link">
               Contacter Christophe Desmur
             </a>
           </li>
@@ -96,43 +97,43 @@ const miroirs = venues["miroirs-du-ciel"];
       </div>
 
       <!-- Colonne 3 : Établissements & Groupes -->
-      <div>
-        <h3 class="text-base font-bold text-gray-900 dark:text-gray-100 mb-3">
+      <div class="lg:col-span-3">
+        <h3 class="eyebrow mb-4">
           Pour les structures
         </h3>
-        <ul class="space-y-2 text-xs">
+        <ul class="space-y-1 text-sm">
           <li>
-            <a href="/atelier-de-groupe" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/atelier-de-groupe" class="footer-link">
               Vue d’ensemble des ateliers de groupe
             </a>
           </li>
           <li>
-            <a href="/ecoles-primaires" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/ecoles-primaires" class="footer-link">
               Écoles primaires & enfants (Sumi-e)
             </a>
           </li>
           <li>
-            <a href="/colleges" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/colleges" class="footer-link">
               Collèges (temps scolaire)
             </a>
           </li>
           <li>
-            <a href="/formats-atelier-pour-les-lycees" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/formats-atelier-pour-les-lycees" class="footer-link">
               Lycées (pause méridienne & projets)
             </a>
           </li>
           <li>
-            <a href="/universites-et-grandes-ecoles" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/universites-et-grandes-ecoles" class="footer-link">
               Universités & Grandes écoles
             </a>
           </li>
           <li>
-            <a href="/comites-entreprise" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/comites-entreprise" class="footer-link">
               Comités d’entreprise (CSE) & cohésion
             </a>
           </li>
           <li>
-            <a href="/maisons-de-retraite" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/maisons-de-retraite" class="footer-link">
               Maisons de retraite & résidences seniors (EHPAD)
             </a>
           </li>
@@ -140,58 +141,58 @@ const miroirs = venues["miroirs-du-ciel"];
       </div>
 
       <!-- Colonne 4 : Découverte & Culture -->
-      <div>
-        <h3 class="text-base font-bold text-gray-900 dark:text-gray-100 mb-3">
+      <div class="lg:col-span-3">
+        <h3 class="eyebrow mb-4">
           Découvrir & Culture
         </h3>
-        <ul class="space-y-2 text-xs">
+        <ul class="space-y-1 text-sm">
           <li>
-            <a href="/le-calligraphe" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/le-calligraphe" class="footer-link">
               Christophe Desmur (parcours & diplômes)
             </a>
           </li>
           <li>
-            <a href="/debuter-calligraphie-chinoise" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium">
+            <a href="/debuter-calligraphie-chinoise" class="footer-link">
               Guide pour débuter la calligraphie (matériel & Yong)
             </a>
           </li>
           <li>
-            <a href="/galerie" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/galerie" class="footer-link">
               Œuvres à vendre (calligraphies originales)
             </a>
           </li>
           <li>
-            <a href="/shodo-voie-pinceau" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/shodo-voie-pinceau" class="footer-link">
               La voie du pinceau (Shodo)
             </a>
           </li>
           <li>
-            <a href="/calligraphie-zen" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/calligraphie-zen" class="footer-link">
               Calligraphie zen & tradition
             </a>
           </li>
           <li>
-            <a href="/faq" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium">
+            <a href="/faq" class="footer-link">
               Foire aux questions (FAQ)
             </a>
           </li>
           <li>
-            <a href="/traductions" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition font-medium">
+            <a href="/traductions" class="footer-link">
               Traductions littéraires (sommaire & études)
             </a>
           </li>
           <li>
-            <a href="/pere-nouvelle" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/pere-nouvelle" class="footer-link">
               Nouvelle « Père » de Lu Yin (1924)
             </a>
           </li>
           <li>
-            <a href="/zeng-jixin-la-guerre-entre-les-rats-et-les-hommes-nouvelle" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/zeng-jixin-la-guerre-entre-les-rats-et-les-hommes-nouvelle" class="footer-link">
               Nouvelle « La Guerre des rats » de Zeng Jixin
             </a>
           </li>
           <li>
-            <a href="/blog" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+            <a href="/blog" class="footer-link">
               Index de tous les articles et textes
             </a>
           </li>
@@ -201,13 +202,30 @@ const miroirs = venues["miroirs-du-ciel"];
     </div>
 
     <!-- Mentions de bas de page -->
-    <div class="mt-14 pt-6 border-t border-gray-200/80 dark:border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-400 dark:text-gray-500">
+    <div class="mt-16 pt-6 border-t border-warm-grey flex flex-col sm:flex-row justify-between sm:items-center gap-3 text-xs text-soft-ink">
       <p>
         © {new Date().getFullYear()} Christophe Desmur — Calligraphie chinoise à Lyon. Tous droits réservés.
       </p>
-      <p class="text-center sm:text-right text-[11px]">
+      <p class="sm:text-right">
         Services à domicile agréés Coop A Dom n° {contact.coop_a_dom_agrement} (CGI art. 199 sexdecies).
       </p>
     </div>
+    </div>
   </div>
 </footer>
+
+<style>
+  .footer-link {
+    display: inline-block;
+    padding-block: 0.4rem;
+    line-height: 1.4;
+    color: var(--color-soft-ink);
+    transition: color 0.2s;
+  }
+  .footer-link:hover {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--color-warm-grey);
+  }
+</style>

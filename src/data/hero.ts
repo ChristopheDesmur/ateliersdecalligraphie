@@ -33,7 +33,7 @@ export const defaultHero: HeroData = {
     url: "/cours-collectifs",
   },
   secondary_cta: {
-    label: "Voir les œuvres disponibles",
+    label: "Voir les œuvres",
     url: "/galerie",
   },
   image: {

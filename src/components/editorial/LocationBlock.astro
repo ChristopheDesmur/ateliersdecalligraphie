@@ -1,0 +1,30 @@
+---
+// LocationBlock.astro - Lieux de pratique en entrées éditoriales (pas de cartes).
+export interface LocationEntry {
+  name: string;
+  address: string;
+  schedule?: string;
+  note?: string;
+}
+
+export interface Props {
+  locations: LocationEntry[];
+}
+
+const { locations } = Astro.props;
+---
+
+<ul class="border-t border-warm-grey">
+  {locations.map((loc) => (
+    <li class="grid gap-1 border-b border-warm-grey py-6 sm:grid-cols-[1fr_auto] sm:gap-x-8">
+      <h3 class="font-serif text-2xl leading-tight text-ink">{loc.name}</h3>
+      {loc.schedule && (
+        <p class="order-last sm:order-none sm:row-span-2 sm:text-right font-sans text-[0.95rem] font-medium text-ink tabular-nums mt-2 sm:mt-1">
+          {loc.schedule}
+        </p>
+      )}
+      <p class="meta">{loc.address}</p>
+      {loc.note && <p class="meta">{loc.note}</p>}
+    </li>
+  ))}
+</ul>

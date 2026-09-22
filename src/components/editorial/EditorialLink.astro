@@ -1,0 +1,21 @@
+---
+// EditorialLink.astro - Lien texte souligné avec flèche discrète
+export interface Props {
+  href: string;
+  label?: string;
+  external?: boolean;
+  class?: string;
+  [x: string]: any;
+}
+
+const { href, label, external = false, class: className, ...rest } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={["link-arrow", className]}
+  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+  {...rest}>
+  <span>{label}<slot /></span>
+  <span class="arrow" aria-hidden="true">{external ? "↗" : "→"}</span>
+</a>

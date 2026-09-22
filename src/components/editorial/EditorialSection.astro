@@ -1,0 +1,40 @@
+---
+// EditorialSection.astro - Section éditoriale : sur-titre, titre, chapô, contenu.
+// layout="split" place l'en-tête dans une colonne étroite à gauche (desktop).
+export interface Props {
+  id: string;
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  layout?: "stack" | "split";
+  band?: boolean;
+  class?: string;
+}
+
+const { id, eyebrow, title, intro, layout = "stack", band = false, class: className } = Astro.props;
+const headingId = `${id}-heading`;
+---
+
+<section
+  id={id}
+  class:list={["section scroll-mt-24", band && "band", className]}
+  aria-labelledby={headingId}>
+  <div
+    class:list={[
+      layout === "split" && "grid gap-10 lg:grid-cols-12 lg:gap-12",
+    ]}>
+    <header
+      data-reveal
+      class:list={[
+        layout === "split" ? "lg:col-span-4" : "max-w-3xl mb-12 sm:mb-16",
+      ]}>
+      {eyebrow && <p class="eyebrow mb-4">{eyebrow}</p>}
+      <h2 id={headingId} class="h-section">{title}</h2>
+      {intro && <p class="lede mt-5">{intro}</p>}
+      <slot name="header" />
+    </header>
+    <div class:list={[layout === "split" && "lg:col-span-8"]}>
+      <slot />
+    </div>
+  </div>
+</section>

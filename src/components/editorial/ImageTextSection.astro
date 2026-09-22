@@ -1,0 +1,55 @@
+---
+// ImageTextSection.astro - Composition asymétrique grande image + texte.
+export interface ImageProps {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  position?: string;
+}
+
+export interface Props {
+  id: string;
+  image: ImageProps;
+  caption?: string;
+  reverse?: boolean;
+  aspect?: string;
+  eager?: boolean;
+  class?: string;
+}
+
+const { id, image, caption, reverse = false, aspect = "4 / 5", eager = false, class: className } = Astro.props;
+---
+
+<section id={id} class:list={["section scroll-mt-24", className]} aria-labelledby={`${id}-heading`}>
+  <div class="grid gap-10 md:grid-cols-12 md:gap-10 lg:gap-16 items-center">
+    <figure
+      data-reveal
+      class:list={[
+        "md:col-span-6 lg:col-span-6",
+        reverse ? "md:order-2 md:row-start-1 lg:col-start-7" : "",
+      ]}>
+      <div class="ink-frame" style={`aspect-ratio: ${aspect};`}>
+        <img
+          src={image.src}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
+          loading={eager ? "eager" : "lazy"}
+          decoding="async"
+          class="h-full w-full object-cover"
+          style={image.position ? `object-position: ${image.position};` : undefined}
+        />
+      </div>
+      {caption && <figcaption class="meta mt-3 font-serif italic text-[0.95rem]">{caption}</figcaption>}
+    </figure>
+    <div
+      data-reveal
+      class:list={[
+        "md:col-span-6",
+        reverse ? "md:order-1 md:row-start-1 lg:col-start-1 lg:col-span-5" : "lg:col-start-7 lg:col-span-6 lg:pl-6",
+      ]}>
+      <slot />
+    </div>
+  </div>
+</section>

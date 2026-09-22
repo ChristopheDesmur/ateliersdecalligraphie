@@ -1,0 +1,45 @@
+---
+// OfferList.astro - Liste éditoriale numérotée (offres, parcours).
+import EditorialLink from "./EditorialLink.astro";
+
+export interface OfferItem {
+  title: string;
+  meta?: string;
+  description: string;
+  detail?: string;
+  href: string;
+  cta: string;
+}
+
+export interface Props {
+  items: OfferItem[];
+  label?: string;
+}
+
+const { items, label } = Astro.props;
+---
+
+<ol class="border-t border-ink/80" aria-label={label}>
+  {items.map((item, i) => (
+    <li
+      data-reveal
+      class="group grid grid-cols-[2.75rem_1fr] sm:grid-cols-[4rem_1fr] lg:grid-cols-12 gap-x-4 lg:gap-x-8 gap-y-3 py-8 sm:py-10 border-b border-warm-grey">
+      <span class="numeral pt-1.5 lg:col-span-1" aria-hidden="true">
+        {String(i + 1).padStart(2, "0")}
+      </span>
+      <div class="lg:col-span-4">
+        <h3 class="label-caps">
+          <a href={item.href} class="hover:text-soft-ink transition-colors">{item.title}</a>
+        </h3>
+        {item.meta && <p class="font-serif text-xl sm:text-2xl text-soft-ink mt-1.5 leading-snug">{item.meta}</p>}
+      </div>
+      <div class="col-start-2 lg:col-start-auto lg:col-span-4">
+        <p class="body-copy">{item.description}</p>
+        {item.detail && <p class="meta mt-2 italic font-serif text-base">{item.detail}</p>}
+      </div>
+      <div class="col-start-2 lg:col-start-auto lg:col-span-3 lg:text-right">
+        <EditorialLink href={item.href} label={item.cta} />
+      </div>
+    </li>
+  ))}
+</ol>

@@ -1,5 +1,6 @@
 ---
-// HomeHero.astro - Hero épuré, visuel et orienté conversion
+// HomeHero.astro - Hero éditorial : quoi, où, avec qui, comment commencer.
+// Contenu éditable depuis l'admin (src/data/hero.yaml).
 import { hero as defaultHero, type HeroData } from "@/data/hero";
 
 export interface Props {
@@ -12,87 +13,108 @@ const eyebrow = hero.eyebrow || "Calligraphie chinoise · Lyon";
 const title = hero.title || "Découvrez l’art de la calligraphie chinoise";
 const intro = hero.intro || "Christophe Desmur vous accompagne dans la découverte du pinceau, du geste et des caractères chinois, à travers des ateliers collectifs et des cours individuels.";
 const primaryCta = hero.primary_cta || { label: "Découvrir les cours", url: "/cours-collectifs" };
-const secondaryCta = hero.secondary_cta || { label: "Voir les œuvres disponibles", url: "/galerie" };
+const secondaryCta = hero.secondary_cta || { label: "Voir les œuvres", url: "/galerie" };
 const image = hero.image;
+const hasImage = Boolean(image?.src);
 ---
 
-<section class="pt-4 sm:pt-8 pb-12 sm:pb-16 border-b border-gray-100 dark:border-gray-800" aria-labelledby="hero-title">
-  <div class={`grid ${image?.src ? "lg:grid-cols-12" : "lg:grid-cols-1"} gap-8 lg:gap-12 items-center`}>
-    
-    <div class={`${image?.src ? "lg:col-span-7" : "max-w-3xl mx-auto text-center"} flex flex-col justify-center`}>
-      <!-- Eyebrow -->
-      <p class="text-xs uppercase tracking-widest font-semibold text-indigo-700 dark:text-indigo-400 mb-3">
-        {eyebrow}
-      </p>
+<section class:list={["hero pt-6 pb-16 sm:pt-10 sm:pb-24", !hasImage && "hero--text"]} aria-labelledby="hero-title">
+  <p class="hero-eyebrow eyebrow eyebrow-mark">{eyebrow}</p>
 
-      <!-- H1 -->
-      <h1
-        id="hero-title"
-        class="text-4xl sm:text-5xl lg:text-6xl font-serif font-medium tracking-tight text-gray-950 dark:text-white leading-[1.14]">
-        {title}
-      </h1>
+  <h1 id="hero-title" class="hero-title display">{title}</h1>
 
-      <!-- Supporting copy -->
-      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300 font-serif mt-4 sm:mt-5 leading-relaxed max-w-xl">
-        {intro}
-      </p>
-
-      <!-- CTAs -->
-      <div class={`mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 ${!image?.src ? "justify-center" : ""}`}>
-        {primaryCta.label && (
-          <a
-            href={primaryCta.url || "/cours-collectifs"}
-            class="px-6 py-3.5 rounded-xl bg-gray-950 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-950 dark:hover:bg-white text-sm font-medium transition text-center shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
-            {primaryCta.label}
-          </a>
-        )}
-        {secondaryCta.label && (
-          <a
-            href={secondaryCta.url || "/galerie"}
-            class="px-6 py-3.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm font-medium transition text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
-            {secondaryCta.label}
-          </a>
-        )}
+  {hasImage && (
+    <figure class="hero-media">
+      <div class="ink-frame hero-frame">
+        <img
+          src={image!.src}
+          alt={image!.alt || "Christophe Desmur traçant une calligraphie chinoise au pinceau et à l’encre de Chine à Lyon"}
+          width={image!.width || 1536}
+          height={image!.height || 1024}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="h-full w-full object-cover"
+        />
       </div>
+      {(image!.caption || image!.location) && (
+        <figcaption class="mt-3 flex flex-wrap justify-between gap-x-6 gap-y-1 font-serif italic text-[0.95rem] text-soft-ink">
+          {image!.caption && <span>{image!.caption}</span>}
+          {image!.location && <span class="not-italic eyebrow">{image!.location}</span>}
+        </figcaption>
+      )}
+    </figure>
+  )}
 
-      <!-- Trust line -->
-      <div class={`mt-6 pt-5 border-t border-gray-100 dark:border-gray-800 flex items-center flex-wrap gap-x-2.5 gap-y-1 text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-sans ${!image?.src ? "justify-center" : ""}`}>
-        <span class="inline-flex items-center gap-1.5 font-medium text-gray-700 dark:text-gray-300">
-          <span class="text-indigo-600 dark:text-indigo-400 text-xs font-bold" aria-hidden="true">✓</span>
-          <span>Débutants bienvenus</span>
-        </span>
-        <span class="text-gray-300 dark:text-gray-600" aria-hidden="true">•</span>
-        <span class="font-medium text-gray-700 dark:text-gray-300">Enfants & adultes</span>
-        <span class="text-gray-300 dark:text-gray-600" aria-hidden="true">•</span>
-        <span class="font-medium text-gray-700 dark:text-gray-300">Lyon</span>
-      </div>
+  <div class="hero-body">
+    <p class="lede">{intro}</p>
+
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+      {primaryCta.label && (
+        <a href={primaryCta.url || "/cours-collectifs"} class="btn btn-ink">{primaryCta.label}</a>
+      )}
+      {secondaryCta.label && (
+        <a href={secondaryCta.url || "/galerie"} class="btn btn-line">{secondaryCta.label}</a>
+      )}
     </div>
 
-    <!-- Image de Christophe en pratique réelle -->
-    {image?.src && (
-      <div class="lg:col-span-5 relative mt-2 lg:mt-0">
-        <div class="relative mx-auto max-w-lg lg:max-w-none">
-          <div class="overflow-hidden rounded-2xl sm:rounded-3xl border border-gray-200/90 dark:border-gray-800 shadow-sm bg-stone-50 dark:bg-gray-800">
-            <img
-              src={image.src}
-              alt={image.alt || "Christophe Desmur traçant une calligraphie chinoise au pinceau et à l’encre de Chine à Lyon"}
-              width={image.width || 1536}
-              height={image.height || 1024}
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
-              class="w-full h-auto aspect-4/3 object-cover"
-            />
-            {(image.caption || image.location) && (
-              <div class="py-2.5 px-4 bg-stone-50 dark:bg-stone-900 text-xs text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-800 flex justify-between items-center font-serif">
-                <span>{image.caption || "Le geste de l’encre & la tenue du pinceau"}</span>
-                <span class="text-stone-500 dark:text-stone-400">{image.location || "Lyon Croix-Rousse"}</span>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    )}
-
+    <ul class="hero-facts meta mt-10 flex flex-wrap gap-x-3 gap-y-1 border-t border-warm-grey pt-5 tracking-wide" aria-label="En bref">
+      <li>Débutants bienvenus</li>
+      <li>Enfants &amp; adultes</li>
+      <li>Lyon</li>
+    </ul>
   </div>
 </section>
+
+<style>
+  /* Mobile : titre, image, puis texte et actions. Desktop : texte à gauche, grande image à droite. */
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "eyebrow"
+      "title"
+      "media"
+      "body";
+    row-gap: 1.5rem;
+  }
+  .hero-eyebrow { grid-area: eyebrow; }
+  .hero-title { grid-area: title; }
+  .hero-media { grid-area: media; margin-top: 0.75rem; }
+  .hero-body { grid-area: body; margin-top: 0.5rem; }
+
+  .hero-frame { aspect-ratio: 4 / 3; }
+  .hero-frame img { object-position: 72% 50%; }
+
+  @media (min-width: 1024px) {
+    .hero {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-template-areas:
+        "eyebrow eyebrow eyebrow eyebrow eyebrow media media media media media media media"
+        "title   title   title   title   title   media media media media media media media"
+        "body    body    body    body    body    media media media media media media media";
+      grid-template-rows: auto auto 1fr;
+      column-gap: 3rem;
+      row-gap: 2rem;
+      align-items: start;
+    }
+    .hero-eyebrow { align-self: end; padding-top: 2rem; }
+    .hero-media { margin-top: 0; }
+    .hero-body { margin-top: 0; }
+    .hero-frame { aspect-ratio: 1 / 1; }
+    .hero-frame img { object-position: 80% 50%; }
+  }
+
+  .hero-facts li { white-space: nowrap; }
+  .hero-facts li:not(:last-child)::after {
+    content: "·";
+    margin-left: 0.75rem;
+    color: var(--color-warm-grey);
+  }
+
+  .hero--text {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "eyebrow" "title" "body";
+    max-width: 48rem;
+  }
+</style>

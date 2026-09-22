@@ -1,0 +1,32 @@
+---
+// CTASection.astro - Invitation finale, calme, sur bande papier.
+export interface CTA {
+  label: string;
+  href: string;
+}
+
+export interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  text?: string;
+  primary: CTA;
+  secondary?: CTA;
+  accent?: boolean;
+}
+
+const { id = "contact-cta", eyebrow, title, text, primary, secondary, accent = true } = Astro.props;
+---
+
+<section id={id} class="section band scroll-mt-24" aria-labelledby={`${id}-heading`}>
+  <div data-reveal class="max-w-3xl">
+    {eyebrow && <p class="eyebrow eyebrow-mark mb-5">{eyebrow}</p>}
+    <h2 id={`${id}-heading`} class="h-section">{title}</h2>
+    {text && <p class="lede mt-6">{text}</p>}
+    <slot />
+    <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+      <a href={primary.href} class:list={["btn", accent ? "btn-accent" : "btn-ink"]}>{primary.label}</a>
+      {secondary && <a href={secondary.href} class="btn btn-line">{secondary.label}</a>}
+    </div>
+  </div>
+</section>
