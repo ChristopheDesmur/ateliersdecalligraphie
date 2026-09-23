@@ -1,6 +1,5 @@
 ---
 import Dropdown from "./dropdown.astro";
-import { Astronav, MenuItems } from "astro-navbar";
 
 // Navigation principale par intention. Les pages secondaires (publics
 // spécifiques, tarifs, textes) restent accessibles par liens contextuels
@@ -39,7 +38,7 @@ const isActive = (path: string) =>
 
 <header class="wrap">
   <div class="flex flex-col lg:flex-row lg:items-center justify-between py-4 sm:py-5 border-b border-warm-grey">
-    <Astronav>
+    <nav class="w-full flex flex-col lg:flex-row lg:items-center justify-between" aria-label="Navigation principale">
       <div class="flex w-full lg:w-auto items-center justify-between gap-2">
         <a href="/" class="group inline-flex min-h-11 items-baseline gap-2 shrink-0" aria-label="Calligraphie chinoise Lyon — accueil">
           <span class="font-serif text-[1.3rem] min-[360px]:text-[1.45rem] sm:text-[1.6rem] font-medium leading-none text-ink">Calligraphie</span>
@@ -50,19 +49,24 @@ const isActive = (path: string) =>
             Essayer un cours
           </a>
           <button
-            id="astronav-menu"
-            class="inline-flex h-11 w-11 items-center justify-center text-ink"
+            id="mobile-menu-toggle"
+            type="button"
+            class="inline-flex h-11 w-11 items-center justify-center text-ink cursor-pointer"
             aria-label="Menu"
             aria-controls="site-menu"
             aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+            <svg id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
               <line x1="4" y1="8" x2="20" y2="8"></line>
               <line x1="4" y1="16" x2="20" y2="16"></line>
+            </svg>
+            <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="hidden" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
           </button>
         </div>
       </div>
-      <MenuItems id="site-menu" class="hidden w-full lg:w-auto mt-2 lg:mt-0 lg:flex lg:items-center">
+      <div id="site-menu" class="hidden w-full lg:w-auto mt-2 lg:mt-0 lg:flex lg:items-center">
         <ul class="flex flex-col lg:flex-row lg:items-center lg:gap-2 text-[0.95rem]">
           {
             menuitems.map((item, index) => (
@@ -110,22 +114,114 @@ const isActive = (path: string) =>
             </svg>
           </button>
         </div>
-      </MenuItems>
-    </Astronav>
+      </div>
+    </nav>
   </div>
 </header>
 
 <script>
-  // astro-navbar bascule la classe `hidden` du menu ; on reflète l'état pour les lecteurs d'écran.
-  function syncMenuState() {
-    const button = document.getElementById("astronav-menu");
+  function setupNav() {
+    const menuBtn = document.getElementById("mobile-menu-toggle");
     const menu = document.getElementById("site-menu");
-    if (!button || !menu) return;
-    const update = () => button.setAttribute("aria-expanded", String(!menu.classList.contains("hidden")));
-    new MutationObserver(update).observe(menu, { attributes: true, attributeFilter: ["class"] });
-    update();
+    const hamburgerIcon = document.getElementById("hamburger-icon");
+    const closeIcon = document.getElementById("close-icon");
+
+    if (menuBtn && menu && !menuBtn.dataset.init) {
+      menuBtn.dataset.init = "true";
+      menuBtn.addEventListener("click", () => {
+        const isOpen = !menu.classList.contains("hidden");
+        menu.classList.toggle("hidden", isOpen);
+        menuBtn.setAttribute("aria-expanded", String(!isOpen));
+        hamburgerIcon?.classList.toggle("hidden", !isOpen);
+        closeIcon?.classList.toggle("hidden", isOpen);
+      });
+    }
+
+    const dropdownItems = document.querySelectorAll<HTMLElement>(".dropdown-item");
+    dropdownItems.forEach((item) => {
+      const trigger = item.querySelector<HTMLButtonElement>(".nav-trigger");
+      const dropdownMenu = item.querySelector<HTMLElement>(".dropdown-menu");
+      const arrow = item.querySelector<SVGElement>(".dropdown-arrow");
+      if (!trigger || !dropdownMenu || trigger.dataset.init === "true") return;
+      trigger.dataset.init = "true";
+
+      function openDropdown() {
+        dropdownMenu.classList.remove("hidden");
+        trigger.setAttribute("aria-expanded", "true");
+        arrow?.classList.add("rotate-180");
+      }
+
+      function closeDropdown() {
+        dropdownMenu.classList.add("hidden");
+        trigger.setAttribute("aria-expanded", "false");
+        arrow?.classList.remove("rotate-180");
+      }
+
+      function toggleDropdown() {
+        const isOpen = !dropdownMenu.classList.contains("hidden");
+        if (isOpen) {
+          closeDropdown();
+        } else {
+          dropdownItems.forEach((sibling) => {
+            if (sibling !== item) {
+              sibling.querySelector(".dropdown-menu")?.classList.add("hidden");
+              sibling.querySelector(".nav-trigger")?.setAttribute("aria-expanded", "false");
+              sibling.querySelector(".dropdown-arrow")?.classList.remove("rotate-180");
+            }
+          });
+          openDropdown();
+        }
+      }
+
+      trigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleDropdown();
+      });
+
+      item.addEventListener("mouseenter", () => {
+        if (window.innerWidth >= 1024) openDropdown();
+      });
+      item.addEventListener("mouseleave", () => {
+        if (window.innerWidth >= 1024) closeDropdown();
+      });
+    });
+
+    if (!(window as any).__navGlobalListenersInit) {
+      (window as any).__navGlobalListenersInit = true;
+      document.addEventListener("click", (e) => {
+        const nav = document.querySelector("header.wrap");
+        if (nav && !nav.contains(e.target as Node)) {
+          document.querySelectorAll(".dropdown-item").forEach((item) => {
+            item.querySelector(".dropdown-menu")?.classList.add("hidden");
+            item.querySelector(".nav-trigger")?.setAttribute("aria-expanded", "false");
+            item.querySelector(".dropdown-arrow")?.classList.remove("rotate-180");
+          });
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          document.querySelectorAll(".dropdown-item").forEach((item) => {
+            item.querySelector(".dropdown-menu")?.classList.add("hidden");
+            item.querySelector(".nav-trigger")?.setAttribute("aria-expanded", "false");
+            item.querySelector(".dropdown-arrow")?.classList.remove("rotate-180");
+          });
+          const m = document.getElementById("site-menu");
+          const b = document.getElementById("mobile-menu-toggle");
+          if (m && !m.classList.contains("hidden")) {
+            m.classList.add("hidden");
+            b?.setAttribute("aria-expanded", "false");
+            document.getElementById("hamburger-icon")?.classList.remove("hidden");
+            document.getElementById("close-icon")?.classList.add("hidden");
+            b?.focus();
+          }
+        }
+      });
+    }
   }
-  document.addEventListener("astro:page-load", syncMenuState);
+
+  setupNav();
+  document.addEventListener("astro:page-load", setupNav);
 </script>
 
 <style>
