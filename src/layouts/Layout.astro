@@ -168,10 +168,23 @@ const makeTitle = !title
     <meta name="generator" content={Astro.generator} />
     <script is:inline>
       (function () {
-        const saved = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (saved === 'dark' || (!saved && prefersDark)) {
-          document.documentElement.classList.add('dark');
+        const applyTheme = (root) => {
+          let saved = null;
+          try { saved = localStorage.getItem('theme'); } catch (e) {}
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          root.classList.toggle('dark', saved === 'dark' || (!saved && prefersDark));
+        };
+        applyTheme(document.documentElement);
+
+        // Avec <ClientRouter />, Astro remplace tous les attributs de <html>
+        // par ceux de la page suivante (qui n'a pas la classe `dark`) et ne
+        // réexécute pas ce script déjà exécuté : on réapplique donc le thème
+        // sur le nouveau document avant l'échange, sans flash.
+        if (!window.__themeSwapListener) {
+          window.__themeSwapListener = true;
+          document.addEventListener('astro:before-swap', (event) => {
+            applyTheme(event.newDocument.documentElement);
+          });
         }
       })();
     </script>
