@@ -161,32 +161,31 @@
   technique: "Encre de Chine sur papier d’art"
   medium: "Papier traditionnel marouflé"
   artist: "Christophe Desmur"
-
 - id: elan-du-pinceau-souffle-continu
-  title: "Élan du pinceau & Souffle continu"
-  character: "氣"
-  pinyin: "Qì"
-  frenchMeaning: "Élan cursif · Le Souffle du trait"
-  category: "Geste & Mouvement"
-  style: "Écriture cursive d’un seul jet (Caoshu)"
+  title: Élan du pinceau & Souffle continu
+  character: 心
+  pinyin: xīn
+  frenchMeaning: Esprit, coeur
+  category: Geste & Mouvement
+  style: Écriture cursive d’un seul jet (Caoshu)
   photo:
-    src: "/assets/cours-calligraphie-colleges.webp"
+    src: /assets/cours-calligraphie-colleges.webp
     width: 640
     height: 357
-    alt: "Calligraphie d’un tracé cursif au pinceau exprimant l’élan du souffle et
-      la continuité du mouvement"
-  description: "Tracé cursif dynamique et aérien d’un seul souffle, alliant
-    amplitude du mouvement et délicatesse de la terminaison."
+    alt: Calligraphie d’un tracé cursif au pinceau exprimant l’élan du souffle et la
+      continuité du mouvement
+  description: Tracé cursif dynamique et aérien d’un seul souffle, alliant
+    amplitude du mouvement et délicatesse de la terminaison.
   extendedDescription: "Dans le style cursif 'herbe' (Caoshu), le pinceau ne
     quitte presque plus le papier : les caractères se lient dans une cadence
     ininterrompue régie par le souffle du calligraphe. Cette pièce illustre la
     liberté du geste maîtrisé, où l’énergie cinétique se condense dans la
     trajectoire de l’encre sans rupture d’intention."
   price_ref: galerie.sur_demande
-  availability: "Disponible"
-  technique: "Encre de Chine, style cursif rapide"
-  medium: "Papier de riz absorbant"
-  artist: "Christophe Desmur"
+  availability: Disponible
+  technique: Encre de Chine, style cursif rapide
+  medium: Papier de riz absorbant
+  artist: Christophe Desmur
 
 - id: ping-paix-calme-serenite
   title: "平 — Paix, Calme & Sérénité"
