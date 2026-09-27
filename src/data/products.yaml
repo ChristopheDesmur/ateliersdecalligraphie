@@ -260,28 +260,3 @@
   technique: "Tracé libre à l’encre de Chine, sceaux gravés en cinabre"
   medium: "Papier de riz traditionnel"
   artist: "Christophe Desmur"
-
-- id: harmonie-equilibre-du-vide
-  title: "Harmonie & Équilibre du vide"
-  character: "和"
-  frenchMeaning: "Harmonie · Le Vide et le Plein"
-  category: "Composition"
-  style: "Étude de composition"
-  photo:
-    src: "/assets/equilibre-calligraphie-lyon.webp"
-    width: 392
-    height: 541
-    alt: "Calligraphie à l’encre illustrant l’harmonie des proportions et le
-      dialogue du vide et du plein"
-  description: "Recherche d’harmonie entre force du noir d’encre et respiration du
-    blanc de la feuille."
-  extendedDescription: "Dans l’esthétique chinoise, le blanc non peint (liú bái)
-    possède autant de poids spirituel que l’encre noire la plus dense. Cette
-    composition méditative explore la respiration du vide : les traits noirs ne
-    s’imposent pas, ils délimitent et font vibrer l’espace silencieux de la
-    feuille de riz."
-  price_ref: galerie.sur_demande
-  availability: "Disponible"
-  technique: "Encre de Chine dense et lavis subtil"
-  medium: "Papier d’art traditionnel"
-  artist: "Christophe Desmur"
