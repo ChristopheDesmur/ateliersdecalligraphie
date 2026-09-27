@@ -186,32 +186,6 @@
   technique: Encre de Chine, style cursif rapide
   medium: Papier de riz absorbant
   artist: Christophe Desmur
-
-- id: ping-paix-calme-serenite
-  title: "平 — Paix, Calme & Sérénité"
-  character: "平"
-  pinyin: "Píng"
-  frenchMeaning: "Paix · Égalité & Sérénité"
-  category: "Harmonie & Équilibre"
-  style: "Écriture régulière équilibrée"
-  photo:
-    src: "/assets/cours-calligraphie-comites-entreprise.webp"
-    width: 392
-    height: 541
-    alt: "Calligraphie chinoise du caractère 平 (Píng) signifiant paix, calme et
-      sérénité intérieure"
-  description: "Tracé du caractère de la paix et de la stabilité, équilibrant
-    l’axe vertical central et les traits horizontaux."
-  extendedDescription: "Le sinogramme 平 (píng) incarne l’équanimité, la justice
-    paisible et le nivellement des agitations du monde. Construit autour d’un
-    axe vertical rigoureux flanqué de points symétriques, il exige du
-    calligraphe un sens aigu de la proportion pour que l’harmonie naisse
-    naturellement de la tension entre les forces horizontales et verticales."
-  price_ref: galerie.sur_demande
-  availability: "Disponible"
-  technique: "Encre de Chine dense au pinceau"
-  medium: "Papier de riz traditionnel"
-  artist: "Christophe Desmur"
 - id: ping-equilibre-cohesion
   title: 平 — Équilibre & Cohésion
   character: 平衡
