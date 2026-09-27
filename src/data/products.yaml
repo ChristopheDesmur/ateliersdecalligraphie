@@ -212,31 +212,30 @@
   technique: "Encre de Chine dense au pinceau"
   medium: "Papier de riz traditionnel"
   artist: "Christophe Desmur"
-
 - id: ping-equilibre-cohesion
-  title: "平 — Équilibre & Cohésion"
-  character: "平"
-  pinyin: "Píng"
-  frenchMeaning: "Concorde · Équilibre d’ensemble"
-  category: "Harmonie & Équilibre"
-  style: "Variante expressive"
+  title: 平 — Équilibre & Cohésion
+  character: 平衡
+  pinyin: Pínghéng
+  frenchMeaning: Équilibre
+  category: Harmonie & Équilibre
+  style: Variante expressive
   photo:
-    src: "/assets/entreprises.webp"
+    src: /assets/entreprises.webp
     width: 392
     height: 541
-    alt: "Calligraphie à l’encre du caractère 平 pour l’harmonie des contraires et la
-      cohésion"
-  description: "Œuvre originale à l’encre de Chine symbolisant la concorde,
-    l’apaisement des tensions et l’harmonie d’ensemble."
-  extendedDescription: "Variante expressive de 平 réalisée dans un esprit de
+    alt: Calligraphie à l’encre du caractère 平 pour l’harmonie des contraires et la
+      cohésion
+  description: Œuvre originale à l’encre de Chine symbolisant la concorde,
+    l’apaisement des tensions et l’harmonie d’ensemble.
+  extendedDescription: Variante expressive de 平衡 réalisée dans un esprit de
     conciliation et de cohésion. L’épaisseur modulée des traits horizontaux
     évoque la surface d’une eau calme qui s’estompe doucement, tandis que le
-    trait vertical final ancre la composition dans le présent."
+    trait vertical final ancre la composition dans le présent.
   price_ref: galerie.sur_demande
-  availability: "Vendue"
-  technique: "Encre de Chine sur papier absorbant"
-  medium: "Papier d’art"
-  artist: "Christophe Desmur"
+  availability: Vendue
+  technique: Encre de Chine sur papier absorbant
+  medium: Papier d’art
+  artist: Christophe Desmur
 
 - id: xiang-presence-regard
   title: "相 — Présence & Regard"
