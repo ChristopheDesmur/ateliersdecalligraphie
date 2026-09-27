@@ -110,32 +110,31 @@
   technique: "Encre de Chine dense sur papier de riz"
   medium: "Papier de riz absorbant"
   artist: "Christophe Desmur"
-
 - id: ren-force-d-ame-etude
-  title: "忍 — Force d’âme & Maîtrise"
-  character: "忍"
-  pinyin: "Rěn"
-  frenchMeaning: "Force d’âme · Retenue du geste"
-  category: "Art énergétique"
-  style: "Étude d’atelier"
+  title: 忍 — Force d’âme & Maîtrise
+  character: 息
+  pinyin: xī
+  frenchMeaning: le souffle ou la respiration, évoquant l'idée de retrouver son calme.
+  category: Art énergétique
+  style: Étude d’atelier
   photo:
-    src: "/assets/art-energetique-chinois-1.webp"
+    src: /assets/art-energetique-chinois-1.webp
     width: 467
     height: 541
-    alt: "Étude calligraphique à l’encre de Chine du caractère 忍 illustrant la
-      tension dynamique du geste"
-  description: "Étude du caractère 忍 à l’encre de Chine, illustrant la tension
-    dynamique entre fermeté du trait et retenue du geste."
-  extendedDescription: "Cette étude calligraphique met en relief la vivacité du
+    alt: Étude calligraphique à l’encre de Chine du caractère 忍 illustrant la
+      tension dynamique du geste
+  description: Étude du caractère 忍 à l’encre de Chine, illustrant la tension
+    dynamique entre fermeté du trait et retenue du geste.
+  extendedDescription: Cette étude calligraphique met en relief la vivacité du
     trait oblique et la morsure de l’encre sur la fibre végétale. Réalisée au
     cours d’une session de recherche sur la dynamique interne du sinogramme,
     l’œuvre saisit la tension entre concentration retenue et relâchement du
-    geste final."
+    geste final.
   price_ref: galerie.sur_demande
-  availability: "Vendue"
-  technique: "Encre de Chine sur papier absorbant"
-  medium: "Papier de riz artisanal"
-  artist: "Christophe Desmur"
+  availability: Vendue
+  technique: Encre de Chine sur papier absorbant
+  medium: Papier de riz artisanal
+  artist: Christophe Desmur
 
 - id: zhihui-elevation-esprit
   title: "智慧 — L’Élévation de l’esprit"
