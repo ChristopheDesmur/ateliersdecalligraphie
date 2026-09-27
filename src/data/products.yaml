@@ -135,32 +135,31 @@
   technique: Encre de Chine sur papier absorbant
   medium: Papier de riz artisanal
   artist: Christophe Desmur
-
 - id: zhihui-elevation-esprit
-  title: "智慧 — L’Élévation de l’esprit"
-  character: "智慧"
-  pinyin: "Zhìhuì"
-  frenchMeaning: "Sagesse · Connaissance & Discernement"
-  category: "Sagesse classique"
-  style: "Style classique"
+  title: 智慧 — Wisdom
+  character: 智慧
+  pinyin: Zhìhuì
+  frenchMeaning: Sagesse · Connaissance & Discernement
+  category: Sagesse classique
+  style: Style classique
   photo:
-    src: "/assets/cours-calligraphie-universites-grandes-ecoles.webp"
+    src: /assets/cours-calligraphie-universites-grandes-ecoles.webp
     width: 398
     height: 541
-    alt: "Calligraphie chinoise originale 智慧 (Zhìhuì) signifiant sagesse et
-      discernement à l’encre de Chine"
-  description: "Œuvre originale à l’encre de Chine dédiée à la transmission du
-    savoir, au discernement et à l’élévation de la pensée."
-  extendedDescription: "Composé des sinogrammes 智 (zhì, la sagesse lucide guidée
+    alt: Calligraphie chinoise originale 智慧 (Zhìhuì) signifiant sagesse et
+      discernement à l’encre de Chine
+  description: Œuvre originale à l’encre de Chine dédiée à la transmission du
+    savoir, au discernement et à l’élévation de la pensée.
+  extendedDescription: Composé des sinogrammes 智 (zhì, la sagesse lucide guidée
     par le soleil et la parole) et 慧 (huì, l’intelligence subtile du cœur), 智慧
     exprime le discernement véritable et la claire vision. Les deux caractères
     s’articulent dans une composition verticale harmonieuse, équilibrant la
-    rigueur structurelle et la fluidité des pleins et des déliés."
+    rigueur structurelle et la fluidité des pleins et des déliés.
   price_ref: galerie.sur_demande
-  availability: "Disponible"
-  technique: "Encre de Chine sur papier d’art"
-  medium: "Papier traditionnel marouflé"
-  artist: "Christophe Desmur"
+  availability: Disponible
+  technique: Encre de Chine sur papier d’art
+  medium: Papier traditionnel marouflé
+  artist: Christophe Desmur
 - id: elan-du-pinceau-souffle-continu
   title: Élan du pinceau & Souffle continu
   character: 心
