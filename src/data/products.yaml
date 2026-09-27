@@ -235,28 +235,28 @@
   technique: "Encre de Chine, travail sur les densités"
   medium: "Papier de riz artisanal"
   artist: "Christophe Desmur"
-
 - id: envol-du-trait-onde
-  title: "L’Envol du trait & L’Onde"
-  character: "一"
-  frenchMeaning: "L’Un · L’Onde & le Mouvement libre"
-  category: "Geste & Mouvement"
-  style: "Tracé libre au pinceau"
+  title: Esprit, mind
+  character: 心
+  pinyin: xīn
+  frenchMeaning: Coeur, esprit
+  category: Geste & Mouvement
+  style: Tracé libre au pinceau
   photo:
-    src: "/assets/cours-de-chinois.webp"
+    src: /assets/cours-de-chinois.webp
     width: 636
     height: 451
-    alt: "Calligraphie à l’encre de Chine d’un mouvement libre et ondulant au
-      pinceau avec sceaux en cinabre"
-  description: "Mouvement libre du pinceau traçant une courbe continue dans
-    l’espace, accompagnée des sceaux en cinabre."
+    alt: Calligraphie à l’encre de Chine d’un mouvement libre et ondulant au pinceau
+      avec sceaux en cinabre
+  description: Mouvement libre du pinceau traçant une courbe continue dans
+    l’espace, accompagnée des sceaux en cinabre.
   extendedDescription: "Le tracé d’un seul trait fondamental (héritage de la
     pensée de Shitao et du « trait unique ») condense la genèse de toute
     calligraphie : d’un point naît la ligne, de la ligne naît l’espace.
     L’ondulation souple du pinceau fait dialoguer la plénitude de l’encre avec
     le vide environnant, complétée par les deux sceaux traditionnels."
   price_ref: galerie.sur_demande
-  availability: "Disponible"
-  technique: "Tracé libre à l’encre de Chine, sceaux gravés en cinabre"
-  medium: "Papier de riz traditionnel"
-  artist: "Christophe Desmur"
+  availability: Disponible
+  technique: Tracé libre à l’encre de Chine, sceaux gravés en cinabre
+  medium: Papier de riz traditionnel
+  artist: Christophe Desmur
