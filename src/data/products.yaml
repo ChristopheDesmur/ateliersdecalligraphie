@@ -111,33 +111,6 @@
   medium: "Papier de riz absorbant"
   artist: "Christophe Desmur"
 
-- id: ren-endurance-patience
-  title: "忍 — L’Endurance & la Patience"
-  character: "忍"
-  pinyin: "Rěn"
-  frenchMeaning: "Patience · Maîtrise de soi & Force intérieure"
-  category: "Art énergétique"
-  style: "Écriture régulière (Kaishu)"
-  photo:
-    src: "/assets/art-energetique-chinois.webp"
-    width: 467
-    height: 541
-    alt: "Calligraphie chinoise du caractère 忍 (Rěn), symbole d’endurance, de
-      patience et d’énergie intérieure"
-  description: "Composé du couteau au-dessus du cœur : la maîtrise de soi, la
-    force intérieure et la persévérance dans la pratique."
-  extendedDescription: "Le caractère 忍 (Rěn) superpose la lame tranchante (刃) au
-    cœur (心). Il symbolise la capacité à contenir la douleur ou la colère sans
-    faiblir, la patience persévérante et la force d’âme. Tracée avec une rigueur
-    géométrique et un noir d’encre profond, cette pièce reflète la retenue du
-    souffle et la maîtrise émotionnelle cultivée dans les arts martiaux et
-    énergétiques traditionnels."
-  price_ref: galerie.sur_demande
-  availability: "Disponible"
-  technique: "Encre de Chine traditionnelle au pinceau"
-  medium: "Papier de riz épais"
-  artist: "Christophe Desmur"
-
 - id: ren-force-d-ame-etude
   title: "忍 — Force d’âme & Maîtrise"
   character: "忍"
