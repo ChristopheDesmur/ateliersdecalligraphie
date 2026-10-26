@@ -209,31 +209,6 @@
   technique: Encre de Chine sur papier absorbant
   medium: Papier d’art
   artist: Christophe Desmur
-
-- id: xiang-presence-regard
-  title: "相 — Présence & Regard"
-  character: "相"
-  pinyin: "Xiāng"
-  frenchMeaning: "Présence attentive · Regard intérieur"
-  category: "Composition"
-  style: "Composition libre à l’encre"
-  photo:
-    src: "/assets/atelier-de-groupe-calligraphie-lyon.webp"
-    width: 485
-    height: 514
-    alt: "Composition originale à l’encre de Chine du caractère 相 explorant la
-      structure spatiale"
-  description: "Composition originale explorant les contrastes de densité d’encre
-    et la structure spatiale du sinogramme."
-  extendedDescription: "Dans cette interprétation de 相, le calligraphe met en
-    résonance la texture fibreuse du papier avec les gradations de l’encre, du
-    noir profond au gris lavis. La relation entre les deux moitiés du caractère
-    interroge la perception et la conscience du regardant."
-  price_ref: galerie.sur_demande
-  availability: "Disponible"
-  technique: "Encre de Chine, travail sur les densités"
-  medium: "Papier de riz artisanal"
-  artist: "Christophe Desmur"
 - id: envol-du-trait-onde
   title: Esprit, mind
   character: 心
