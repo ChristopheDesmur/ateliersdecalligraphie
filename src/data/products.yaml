@@ -31,33 +31,6 @@
   medium: "Papier de riz absorbant (xuan zhi)"
   artist: "Christophe Desmur"
 
-- id: xin-coeur-esprit
-  title: "心 — Le Cœur & l’Esprit"
-  character: "心"
-  pinyin: "Xīn"
-  frenchMeaning: "Le Cœur · L’Esprit pensant"
-  category: "Philosophie & Zen"
-  style: "Écriture semi-cursive (Xingshu)"
-  photo:
-    src: "/assets/Shin-1-c2g.webp"
-    width: 971
-    height: 541
-    alt: "Calligraphie chinoise du caractère 心 (xīn), signifiant le cœur et l’esprit
-      pensant, à l’encre de Chine"
-  description: "Le caractère symbolise à la fois l’organe du cœur et l’esprit
-    pensant, notion centrale dans les traditions chinoise et zen."
-  extendedDescription: "Dans la pensée chinoise classique et la tradition zen
-    (chán), le caractère 心 (xīn) désigne à la fois le siège des émotions et
-    celui de la conscience lucide. Les quatre traits évoquent le réceptacle et
-    les battements du souffle intérieur. Tracé avec un geste fluide et ample, le
-    trait d’encre capte l’instant présent sans hésitation ni repentir, alliant
-    force d’ancrage et légèreté aérienne."
-  price_ref: galerie.sur_demande
-  availability: "Disponible"
-  technique: "Encre de Chine au pinceau en poils souples"
-  medium: "Papier de riz traditionnel (xuan zhi)"
-  artist: "Christophe Desmur"
-
 - id: mushotoku-sans-esprit-de-profit
   title: "無所得 — Sans esprit de profit"
   character: "無所得"
