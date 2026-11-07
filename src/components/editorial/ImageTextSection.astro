@@ -1,5 +1,6 @@
 ---
 // ImageTextSection.astro - Composition asymétrique grande image + texte.
+// Slot « after » optionnel : contenu pleine largeur sous la composition.
 export interface ImageProps {
   src: string;
   alt: string;
@@ -52,4 +53,9 @@ const { id, image, caption, reverse = false, aspect = "4 / 5", eager = false, cl
       <slot />
     </div>
   </div>
+  {Astro.slots.has("after") && (
+    <div class="mt-12 md:mt-16">
+      <slot name="after" />
+    </div>
+  )}
 </section>

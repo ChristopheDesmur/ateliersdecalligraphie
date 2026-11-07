@@ -680,6 +680,43 @@
     color: var(--color-soft-ink);
   }
 
+  /* Carte arrondie partagée : fond, bordure, rayon, padding.
+     Survol réservé aux cartes cliquables (.card-interactive). */
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2rem 1.75rem;
+    border: 1px solid color-mix(in srgb, var(--color-warm-grey) 60%, transparent);
+    border-radius: 1rem;
+    background: var(--color-paper-deep);
+    transition:
+      background-color 0.3s var(--ease-ink),
+      border-color 0.3s var(--ease-ink),
+      box-shadow 0.3s var(--ease-ink),
+      transform 0.3s var(--ease-ink);
+  }
+
+  @media (min-width: 640px) {
+    .card {
+      padding: 2.5rem 2.25rem;
+    }
+  }
+
+  .card-interactive:hover {
+    background: color-mix(in srgb, var(--color-paper-deep) 92%, var(--color-ink));
+    border-color: var(--color-warm-grey);
+    box-shadow: 0 10px 28px -18px color-mix(in srgb, var(--color-ink) 45%, transparent);
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-interactive:hover {
+      transform: none;
+    }
+  }
+
   .rule {
     border: 0;
     border-top: 1px solid var(--color-warm-grey);
