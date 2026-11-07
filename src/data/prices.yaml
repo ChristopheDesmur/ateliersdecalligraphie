@@ -7,7 +7,7 @@ cours_collectifs:
   seances: 10
 
 cours_individuel_domicile:
-  ttc_heure: 40
+  ttc_heure: 80
   reduction_impot_pct: 50
 
 interventions:
