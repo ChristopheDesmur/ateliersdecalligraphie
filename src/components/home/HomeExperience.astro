@@ -1,8 +1,8 @@
 ---
-// HomeExperience.astro - Quatre manières de pratiquer, en liste éditoriale numérotée.
+// HomeExperience.astro - Quatre manières de pratiquer, en grille de cartes cliquables.
 import { prices } from "@/data/prices";
 import EditorialSection from "@/components/editorial/EditorialSection.astro";
-import OfferList from "@/components/editorial/OfferList.astro";
+import OfferCards from "@/components/editorial/OfferCards.astro";
 
 const offers = [
   {
@@ -45,5 +45,5 @@ const offers = [
   eyebrow="Formules & pratique"
   title="Choisir votre expérience"
   intro="Quatre manières de découvrir ou d’approfondir la calligraphie chinoise à Lyon, adaptées à votre démarche.">
-  <OfferList items={offers} label="Formules proposées" />
+  <OfferCards items={offers} label="Formules proposées" />
 </EditorialSection>

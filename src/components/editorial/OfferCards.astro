@@ -1,0 +1,109 @@
+---
+// OfferCards.astro - Grille de cartes arrondies, entièrement cliquables (offres, parcours).
+// Le lien du titre s'étend à toute la carte (::after) : un seul lien par carte au clavier.
+export interface OfferItem {
+  title: string;
+  meta?: string;
+  description?: string;
+  detail?: string;
+  href: string;
+  cta: string;
+}
+
+export interface Props {
+  items: OfferItem[];
+  label?: string;
+}
+
+const { items, label } = Astro.props;
+---
+
+<ul class="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6" aria-label={label}>
+  {items.map((item) => (
+    <li data-reveal class="flex">
+      <article class="offer-card">
+        <h3 class="label-caps">
+          <a href={item.href} class="offer-card__link">{item.title}</a>
+        </h3>
+        {item.meta && <p class="font-serif text-xl sm:text-2xl text-soft-ink mt-1.5 leading-snug">{item.meta}</p>}
+        {item.description && <p class="body-copy mt-5">{item.description}</p>}
+        {item.detail && <p class="meta mt-2 italic font-serif text-base">{item.detail}</p>}
+        <p class="offer-card__cta link-arrow" aria-hidden="true">
+          <span>{item.cta}</span>
+          <span class="arrow">→</span>
+        </p>
+      </article>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .offer-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2rem 1.75rem;
+    border: 1px solid color-mix(in srgb, var(--color-warm-grey) 60%, transparent);
+    border-radius: 1rem;
+    background: var(--color-paper-deep);
+    transition:
+      background-color 0.3s var(--ease-ink),
+      border-color 0.3s var(--ease-ink),
+      box-shadow 0.3s var(--ease-ink),
+      transform 0.3s var(--ease-ink);
+  }
+
+  @media (min-width: 640px) {
+    .offer-card {
+      padding: 2.5rem 2.25rem;
+    }
+  }
+
+  /* Le lien du titre couvre toute la carte */
+  .offer-card__link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .offer-card__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  /* Le libellé d'action reste en bas de carte : hauteurs alignées par rangée */
+  .offer-card__cta {
+    margin-top: auto;
+    padding-top: 1.5rem;
+  }
+
+  .offer-card:hover {
+    background: color-mix(in srgb, var(--color-paper-deep) 92%, var(--color-ink));
+    border-color: var(--color-warm-grey);
+    box-shadow: 0 10px 28px -18px color-mix(in srgb, var(--color-ink) 45%, transparent);
+    transform: translateY(-2px);
+  }
+  .offer-card:hover .offer-card__cta {
+    text-decoration-color: currentColor;
+  }
+  .offer-card:hover .offer-card__cta .arrow {
+    transform: translateX(4px);
+  }
+
+  /* Focus clavier : contour sur la carte entière plutôt que sur le seul titre */
+  .offer-card .offer-card__link:focus-visible {
+    outline: none;
+  }
+  .offer-card:has(.offer-card__link:focus-visible) {
+    outline: 2px solid var(--color-vermilion);
+    outline-offset: 3px;
+    border-color: var(--color-warm-grey);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .offer-card:hover {
+      transform: none;
+    }
+  }
+</style>
