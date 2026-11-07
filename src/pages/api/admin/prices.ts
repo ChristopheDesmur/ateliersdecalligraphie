@@ -15,7 +15,7 @@ const PRICES_PATH = "src/data/prices.yaml";
 export const PRICE_FIELDS = [
   { path: ["cours_collectifs", "trimestre"], label: "Tarif par trimestre", type: "number", group: "Cours collectifs", unit: "€" },
   { path: ["cours_collectifs", "seances"], label: "Nombre de séances incluses", type: "number", group: "Cours collectifs" },
-  { path: ["cours_individuel_domicile", "ttc_heure"], label: "Prix réel, TTC / heure", type: "number", group: "Cours individuel à domicile", unit: "€" },
+  { path: ["cours_individuel_domicile", "ttc_heure"], label: "Prix horaire TTC (avant crédit d'impôt)", type: "number", group: "Cours individuel à domicile", unit: "€" },
   { path: ["cours_individuel_domicile", "reduction_impot_pct"], label: "Réduction d'impôt", type: "number", group: "Cours individuel à domicile", unit: "%", readOnly: true },
   { path: ["interventions", "ht_heure_standard"], label: "Écoles, retraites…", type: "number", group: "Interventions", unit: "€ HT / h" },
   { path: ["interventions", "ht_heure_entreprises"], label: "Entreprises / CSE", type: "number", group: "Interventions", unit: "€ HT / h" },

@@ -128,8 +128,8 @@ const { session } = authenticateRequest(Astro.request);
     e.returnValue = "";
   });
 
-  function numberField(nameKey: string, value: unknown, ariaLabel: string, unit?: string, disabled = false) {
-    const disabledAttr = disabled ? "disabled" : "";
+  function numberField(nameKey: string, value: unknown, ariaLabel: string, unit?: string, disabled = false, extraAttrs = "") {
+    const disabledAttr = `${disabled ? "disabled" : ""} ${extraAttrs}`;
     const unitHtml = unit ? `<span class="text-xs text-[#646970] dark:text-[#8c8f94] shrink-0 font-medium" aria-hidden="true">${unit}</span>` : "";
     return `<div class="flex items-center gap-1.5"><input type="number" step="1" inputmode="numeric" class="field-input max-w-[130px]" name="${nameKey}" value="${String(value ?? "")}" aria-label="${ariaLabel}" ${disabledAttr} />${unitHtml}</div>`;
   }
@@ -195,9 +195,11 @@ const { session } = authenticateRequest(Astro.request);
       ? `
       <div class="pt-5 border-t border-gray-100 dark:border-gray-800">
         ${sectionHeader("Cours individuel à domicile")}
-        <div class="max-w-[12rem]">
-          <label class="field-label">${ttcField.label}</label>
-          ${numberField(ttcKey!, values[ttcKey!], ttcField.label, ttcField.unit)}
+        <div>
+          <label class="field-label" for="ttc-heure-input">${ttcField.label}</label>
+          ${numberField(ttcKey!, values[ttcKey!], ttcField.label, ttcField.unit, false, 'id="ttc-heure-input" aria-describedby="ttc-heure-hint ttc-heure-example"')}
+          <p id="ttc-heure-hint" class="field-help max-w-md">Saisissez le montant total facturé au client, avant déduction du crédit d'impôt de ${pctValue}&nbsp;%.</p>
+          <p id="ttc-heure-example" class="field-help max-w-md">Exemple : <strong class="font-semibold">80&nbsp;€ TTC</strong> → 40&nbsp;€ net après crédit d'impôt.</p>
         </div>
         <div class="mt-3 flex items-center justify-between text-sm">
           <span class="text-gray-500 dark:text-gray-400">Réduction d'impôt</span>
